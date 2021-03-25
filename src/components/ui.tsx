@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "@emotion/styled";
+import { Heading, Text } from './_design/typography';
+import * as _colors from './_design/colors';
 
 // Typography
-export const H1 = () => {
-  const H1 = styled.h1`
-  `;
-  return (
-    <H1></H1>
-  )
+export const Typography = {
+  'Heading': Heading,
+  'Text': Text
 }
+
+export const Colors = _colors.Colors;
+export const Gradient = _colors.Gradient;
