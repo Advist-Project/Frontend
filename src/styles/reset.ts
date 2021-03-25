@@ -1,10 +1,11 @@
 import { css } from "@emotion/react";
 
 export const reset = css`
+  @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
   /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
-*/
+  */
 
   html,
   body,
@@ -131,11 +132,14 @@ export const reset = css`
     border-spacing: 0;
   }
   /* Custom */
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif' !important;
+  }
   a {
     color: inherit;
     text-decoration: none;
   }
-  * {
-    box-sizing: border-box;
-  }  
 `;
