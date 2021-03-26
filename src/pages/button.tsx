@@ -5,7 +5,6 @@ import React, {useState} from 'react';
 function ButtonPage() {
     const element = <div>시작하기</div> // 로그인 또는 시작하기 입력(값에 따라 이벤트 달라짐)
 
-
     const loader = <Loader type="TailSpin" color = {element.props.children === "로그인" ? "black" : "white"} height={30} width={30} timeout={0} radius={3}/>
     const [buttonText, setButtonText] = useState(element);
     const [isdisable,setIsDisable] = useState(false);
