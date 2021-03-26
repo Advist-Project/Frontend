@@ -42,7 +42,6 @@ function ButtonPage() {
         background : ${props => props.id === "로그인" ? '#EFF0F6' : '#4A0B82'};
         color: ${props => props.id === "로그인" ? '#14142A' : '#FFFFFF'};
     }
-
 `;
 
     return(
