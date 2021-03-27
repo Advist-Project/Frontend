@@ -18,7 +18,16 @@ export const Colors = {
   error: '#ED2E7E',
   errorDark: '#C30052',
   errorSemiLight: '#FF83B7',
-  errorLight: '#FFF3F8'
+  errorLight: '#FFF3F8',
+  // Grayscale
+  black: '14142A',
+  gray1: '#4E4B66',
+  gray2: '#6E7191',
+  gray3: '#A0A3BD',
+  gray4: '#D9DBE9',
+  gray5: '#EFF0F6',
+  gray6: '#F7F7FC',
+  white: '#FCFCFC'
 }
 
 export const Gradient = {

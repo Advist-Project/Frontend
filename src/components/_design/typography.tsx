@@ -18,7 +18,7 @@ export const Heading: React.FC<IHeadingProps> = ({ children, level, bold }) => {
   const Heading = styled.h5`
     font-size: ${styles[tag].fontSize};
     line-height: ${styles[tag].lineHeight};
-    font-weight: ${bold ? 'bold' : 'normal'};
+    font-weight: ${bold ? '700' : '400'};
   `
   return (
     <Heading as={tag}>{children}</Heading>
@@ -41,8 +41,8 @@ export const Text: React.FC<ITextProps> = ({ children, size, bold, inline }) => 
   }
   const Text = styled.p`
     font-size: ${_size};
-    line-height: ${lineHeight[_size]};
-    font-weight: ${bold ? 'bold' : 'normal'};
+    line-height: ${_size in lineHeight ? lineHeight[_size] : '150%'};
+    font-weight: ${bold ? '500' : '400'};
   `
   return (
     <Text as={tag}>{children}</Text>
