@@ -1,20 +1,20 @@
-import { Heading, Text } from './_design/typography';
-import { Button } from './_design/buttons';
 import * as _colors from './_design/colors';
+import { Heading, Text } from './_design/typography';
+import { Button as _button } from './_design/buttons';
 import { Box as _box } from './_design/box';
 import { Spacing as _spacing } from './_design/spacing';
 
-// Typography
+// Components
 export const Typography = {
   'Heading': Heading,
   'Text': Text
 }
+export const Button = _button;
+export const Box = _box;
 
-export const DesignButton = {
-  'Button' : Button
-}
-
+// Variable
 export const Colors = _colors.Colors;
 export const Gradient = _colors.Gradient;
-export const Box = _box;
+
+// Method
 export const Spacing = _spacing;
