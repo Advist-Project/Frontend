@@ -10,7 +10,7 @@ export const Colors = {
   secondarySemiLight: '#A4FFE3',
   secondaryLight: '#F2FFFB',
   // Tertiary Color
-  tertiary : '#556EF5',
+  tertiary : '#FFD033',
   tertiaryDark : '#9E7C0A',
   tertiarySemiLight : '#FFE281',
   tertiaryLight : '#FFF7DD',
@@ -20,7 +20,7 @@ export const Colors = {
   errorSemiLight: '#FF83B7',
   errorLight: '#FFF3F8',
   // Grayscale
-  black: '14142A',
+  black: '#14142A',
   gray1: '#4E4B66',
   gray2: '#6E7191',
   gray3: '#A0A3BD',

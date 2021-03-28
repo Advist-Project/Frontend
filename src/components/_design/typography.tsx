@@ -9,7 +9,7 @@ interface IHeadingProps {
 export const Heading: React.FC<IHeadingProps> = ({ children, level, bold }) => {
   const tag:React.ElementType = !level ? 'h1' : level === 2 ? 'h2' : level === 3 ? 'h3' : level === 4 ? 'h4' : 'h5';
   const styles = {
-    'h1': { fontSize: '60px', lineHeight: '150%' },
+    'h1': { fontSize: '60px', lineHeight: '120%' },
     'h2': { fontSize: '40px', lineHeight: '125%' },
     'h3': { fontSize: '36px', lineHeight: '128%' },
     'h4': { fontSize: '28px', lineHeight: '136%' },
