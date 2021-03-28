@@ -1,7 +1,9 @@
 import { Layout } from "components/layout";
-import { Typography, Colors, Gradient, Box, Spacing } from "components/ui";
+import { Typography, Colors, Gradient, DesignButton, Box, Spacing } from "components/ui";
 
 const { Heading, Text } = Typography;
+
+const { Button } = DesignButton;
 
 export default function Home() {
   console.log(Colors, Gradient);
@@ -40,6 +42,11 @@ export default function Home() {
       <Text size='20px' bold>Text - 20px</Text>
       <Text size='20px' bold>Text - 20px, bold</Text>
       <Text size='20px' bold inline>Text - 20px, bold, inline</Text>
+      <br/> <br/>
+      <Button type = "login">로그인</Button>
+      <br/> <br/>
+      <Button type = "start">시작하기</Button>
+      <br/> <br/>
     </Layout>
   )
 }

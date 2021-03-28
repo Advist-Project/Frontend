@@ -27,7 +27,11 @@ export const Colors = {
   gray4: '#D9DBE9',
   gray5: '#EFF0F6',
   gray6: '#F7F7FC',
-  white: '#FCFCFC'
+  white: '#FCFCFC',
+  // Login Color
+  loginHover : '#14142A',
+  loginPressed : '#EFF0F6',
+  loginDisabled : '#D9DBE9',
 }
 
 export const Gradient = {
