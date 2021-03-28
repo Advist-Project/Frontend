@@ -1,11 +1,12 @@
 import { Layout } from "components/layout";
-import { Heading, Text, Colors, Gradient, Button, Box, Spacing } from "components/ui";
+import { Heading, Text, Colors, Gradient, Button, Box, Spacing, Tags } from "components/ui";
 
 export default function Home() {
   console.log(Colors, Gradient);
-  
+
   return (
     <Layout>
+      <Tags data={['조직문화','8회강의','3개월내','3개월내','오징어땅콩','베지밀']}/>
       <Box border={1} width="300px"
                       height="300px"
                       style={[
