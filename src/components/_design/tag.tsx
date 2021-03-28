@@ -18,7 +18,7 @@ export const Tag: React.FC<ITagProps> = ({ children, color }) => {
     font-size: 14px;
     line-height: 32px;
     height: 32px;
-    padding: 0 15px;
+    padding: 0 0.89em;
     margin-right: 4px;
     border-radius: 8px;
     color: ${colorStyles[color].color};
