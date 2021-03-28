@@ -1,5 +1,5 @@
 import { Layout } from "components/layout";
-import { Typography, Colors, Gradient } from "components/ui";
+import { Typography, Colors, Gradient, Box, Spacing } from "components/ui";
 
 const { Heading, Text } = Typography;
 
@@ -8,6 +8,19 @@ export default function Home() {
   
   return (
     <Layout>
+      <Box border={1} width="300px"
+                      height="300px"
+                      style={[
+                        Spacing.margin(3),
+                        Spacing.padding(3),
+                        {color:'red', background: 'yellow'}
+                      ]}>하이</Box>
+      <Box shadow={2} width="300px"
+                      height="300px">하이</Box>
+      <Box round border={1} shadow={3}
+                            width="300px"
+                            height="300px">하이</Box>
+
       <Heading>Heading - default</Heading>
       <Heading bold>Heading - default, bold</Heading>
       <Heading level={2}>Heading - level2</Heading>
