@@ -1,7 +1,5 @@
 import { Layout } from "components/layout";
-import { Typography, Colors, Gradient, Button, Box, Spacing } from "components/ui";
-
-const { Heading, Text } = Typography;
+import { Heading, Text, Colors, Gradient, Button, Box, Spacing } from "components/ui";
 
 export default function Home() {
   console.log(Colors, Gradient);
