@@ -35,6 +35,8 @@ export const Button: React.FC<IButtonProps> = ({ children, type }) => {
       left: 289px;
       top: 1626px;
       border-radius: 20px;
+      border-width : 1px;
+      border-color : ${Colors.black};
       background-color: ${styles[tagType].background};
       color : ${styles[tagType].color};
 
