@@ -27,6 +27,7 @@ export const Colors = {
   gray4: '#D9DBE9',
   gray5: '#EFF0F6',
   gray6: '#F7F7FC',
+  gray7: '#EFF0F7',
   white: '#FCFCFC',
   // Login Color
   loginHover : '#14142A',

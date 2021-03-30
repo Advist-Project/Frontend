@@ -3,7 +3,7 @@ import { Colors } from "./colors"
 import Loader from "react-loader-spinner";
 import React, {useState} from 'react';
 
-interface IButtonProps{
+interface IButtonProps{ // type = "login" => 로그인, type = "start" => 시작하기
     type?: string;
 }
 export const Button: React.FC<IButtonProps> = ({ children, type }) => {
@@ -32,8 +32,6 @@ export const Button: React.FC<IButtonProps> = ({ children, type }) => {
       cursor : pointer;
       height: 52px;
       width: 160px;
-      left: 289px;
-      top: 1626px;
       border-radius: 20px;
       border-width : 1px;
       border-color : ${Colors.black};

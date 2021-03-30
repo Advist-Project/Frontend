@@ -1,5 +1,6 @@
 import { Heading, Text } from './_design/typography';
 import { Button } from './_design/buttons';
+import { Input } from './_design/textInputs';
 import * as _colors from './_design/colors';
 import { Box as _box } from './_design/box';
 import { Spacing as _spacing } from './_design/spacing';
@@ -12,6 +13,10 @@ export const Typography = {
 
 export const DesignButton = {
   'Button' : Button
+}
+
+export const TextInputs = {
+  'Input' : Input
 }
 
 export const Colors = _colors.Colors;
