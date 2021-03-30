@@ -3,7 +3,6 @@ import { APP_NAME } from "common/constants";
 import { Header } from "components/header";
 import { Footer } from "components/footer";
 
-
 interface ILayoutProps {
   title?: string;
 }
