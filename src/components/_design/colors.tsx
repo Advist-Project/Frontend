@@ -28,7 +28,11 @@ export const Colors = {
   gray5: '#EFF0F6',
   gray6: '#F7F7FC',
   gray7: '#EFF0F7',
+  gray8: '#6E7191',
   white: '#FCFCFC',
+  pinkLight : '#FFF3F8',
+  pinkDark : '#C30052',
+  pinkdefault : '#ED2E7E',
   // Login Color
   loginHover : '#14142A',
   loginPressed : '#EFF0F6',

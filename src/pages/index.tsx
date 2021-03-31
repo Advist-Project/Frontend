@@ -49,7 +49,7 @@ export default function Home() {
       <br/> <br/>
       <Input/>
       <br/> <br/>
-      <Input/>
+      <Input isDisable = {true}/>
       <br/> <br/>
     </Layout>
   )
