@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { assignCss } from "./assignCss";
 
 // Heading
 interface IHeadingProps {
@@ -19,6 +20,7 @@ export const Heading: React.FC<IHeadingProps> = ({ children, level, bold }) => {
     font-size: ${styles[tag].fontSize};
     line-height: ${styles[tag].lineHeight};
     font-weight: ${bold ? '700' : '400'};
+    word-break: keep-all;
   `
   return (
     <Heading as={tag}>{children}</Heading>
@@ -30,8 +32,9 @@ interface ITextProps {
   size?: string;
   bold?: boolean;
   inline?: boolean;
+  style?: object[] | object;
 }
-export const Text: React.FC<ITextProps> = ({ children, size, bold, inline }) => {
+export const Text: React.FC<ITextProps> = ({ children, size, bold, inline, style }) => {
   const tag:React.ElementType = inline ? 'span' : 'p';
   const _size = size ? size : '14px';  
   const lineHeight: {[key: string]: string | undefined} = {
@@ -45,6 +48,6 @@ export const Text: React.FC<ITextProps> = ({ children, size, bold, inline }) => 
     font-weight: ${bold ? '500' : '400'};
   `
   return (
-    <Text as={tag}>{children}</Text>
+    <Text as={tag} style={assignCss(style)}>{children}</Text>
   )
 }
