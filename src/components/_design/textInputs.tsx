@@ -7,7 +7,7 @@ interface IInputProps{ // phone, serach 구분
     isDisable? : boolean;
 }
 
-export const Input: React.FC<IInputProps> = ({ isDisable}) => {
+export const Input: React.FC<IInputProps> = ({ isDisable }) => {
     const [PhoneNumber, setPhoneNumber] = useState("");
     const [TextMsg, setTextMsg] = useState("");
     const [ShowLabel, setShowLabel] = useState(false);
@@ -117,8 +117,8 @@ export const Input: React.FC<IInputProps> = ({ isDisable}) => {
     `;
 
     return (
-        <div style = {{display : "flex", flexDirection : "column"}}>
-        <Label style = {{position : "relative", top : "24px", left : "28px"}}>{ShowLabel? "전화번호" : null}</Label>
+        <div style = {{position : "relative", display : "flex", flexDirection : "column"}}>
+        <Label style = {{position : "absolute", top : "7px", left : "28px"}}>{ShowLabel? "전화번호" : null}</Label>
         <Input type="text" placeholder = {isDisable? "Phone Number" : "전화번호를 입력하세요"}
         value = {PhoneNumber} onChange = {onPhoneNumberHandler}
         disabled = {isDisable} onBlur = {onBlurListener}

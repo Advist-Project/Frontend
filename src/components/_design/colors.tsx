@@ -20,7 +20,7 @@ export const Colors = {
   errorSemiLight: '#FF83B7',
   errorLight: '#FFF3F8',
   // Grayscale
-  black: '14142A',
+  black: '#14142A',
   gray1: '#4E4B66',
   gray2: '#6E7191',
   gray3: '#A0A3BD',
@@ -34,7 +34,6 @@ export const Colors = {
   pinkDark : '#C30052',
   pinkdefault : '#ED2E7E',
   // Login Color
-  loginHover : '#14142A',
   loginPressed : '#EFF0F6',
   loginDisabled : '#D9DBE9',
 }

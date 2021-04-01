@@ -9,18 +9,20 @@ interface IButtonProps{ // type = "login" => 로그인, type = "start" => 시작
 export const Button: React.FC<IButtonProps> = ({ children, type }) => {
 
     const [buttonText, setButtonText] = useState(children);
+    const [isLoading, setisLoading] = useState(false);
 
     const loader = <Loader type="TailSpin" color = {type === "login" ? Colors.black : Colors.white} 
     height={30} width={30} timeout={0} radius={3}/>
 
     function loading() {
       setButtonText(loader);
+      setisLoading(true);
     }
 
     const tagType = type==='login' ? 'login' : 'start';
     const styles = {
-      'login': { weight : 'bold' , background: Colors.white, color: Colors.loginHover , 
-      hoverBack : Colors.loginHover, hoverColor : Colors.white, disabledBack : Colors.loginDisabled,
+      'login': { weight : 'bold' , background: Colors.white, color: Colors.black , 
+      hoverBack : Colors.black, hoverColor : Colors.white, disabledBack : Colors.loginDisabled,
       pressedBack : Colors.loginPressed },
 
       'start': { weight : 'normal', background: Colors.primary , color: Colors.white,
@@ -35,6 +37,7 @@ export const Button: React.FC<IButtonProps> = ({ children, type }) => {
       border-radius: 20px;
       border-width : 1px;
       border-color : ${Colors.black};
+      border-style : solid;
       background-color: ${styles[tagType].background};
       color : ${styles[tagType].color};
 
@@ -44,11 +47,12 @@ export const Button: React.FC<IButtonProps> = ({ children, type }) => {
       font-weight: ${styles[tagType].weight};
       line-height: 19px;
       letter-spacing: 0em;
-      text-align: center; 
+      text-align: center;
 
-      &:hover{
+      &:${!isLoading}:hover{
         background-color: ${styles[tagType].hoverBack};
         color: ${styles[tagType].hoverColor};
+        border-color : ${styles[tagType].hoverColor};
       }    
 
       &:active{
