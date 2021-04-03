@@ -1,7 +1,5 @@
 import styled from "@emotion/styled";
-import { Typography } from "components/ui";
-
-const { Heading} = Typography;
+import { Heading } from "components/ui";
 
 export default function LoginPage(){
 
