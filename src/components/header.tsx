@@ -13,7 +13,7 @@ export const Header = () => {
           <A href="/all">워크북</A>
           {
             loginState?
-            <button>로그아웃</button>:
+            <button onClick={()=>changeLoginState(false)}>로그아웃</button>:
             <Button type="login">로그인</Button>
           }
         </div>
