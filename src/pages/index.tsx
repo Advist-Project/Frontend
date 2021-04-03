@@ -47,6 +47,36 @@ export default function Home() {
         </ImagesArea>
         <Text size="20px">지금 내가 고민하고 있는 일을 성공적으로 해냈던 업계 선배들의 실제 업무 자료를 활용해보세요.</Text>
       </Section3>
+      {/* 4번 콘텐츠 */}
+      <Section4 className="wrap">
+        <SectionHeader>
+          <img src="/icon_review.svg" />
+          <Heading level={3} bold>구매 후기</Heading>
+          <Text size="16px">워크북, 코칭을 구매하고 업무에 활용한 고객이 작성하신 후기입니다.</Text>
+        </SectionHeader>
+        <Image
+          src="/mainGraphic_section4_review1.png"
+          alt="조직문화 진단은 제가 경험도 없고 큰 프로젝트여서 굉장히 막막했는데, 일할 떄 딱 필요한 실무 양식이랑 작성 사례도 주시고 매주 업무 방향을 같이 고민해주셔서 일을 생각보다 쉽게 해낸 것 같아요. 덕분에 프로젝트도 잘 마무리했고 감사했습니다. 쿠팡페이 HR Leader 홍*영님의 리뷰"
+          width={1300}
+          height={356}
+        />
+        <div style={{marginTop: '58px'}}>
+        <Image
+          src="/mainGraphic_section4_review2.png"
+          alt="기본적인 보고나 메일 커뮤니케이션을 직접 신입사원 분들꼐 알려주자니 시간이 너무 많이 들고, 외부 강의는 효과가 없어서 고민이었는데 코칭을 받은 후 실제로 변화한 분들이 많았습니다. 디지털 마케팅 에이전시 CO-founder 문*호님의 리뷰"
+          width={1300}
+          height={345}
+        />
+        </div>
+      </Section4>
+      {/* 5번 콘텐츠 */}
+      <Section5 className="wrap">
+        <SectionHeader>
+          <img src="/icon_workbook.svg" />
+          <Heading level={3} bold>실무자를 위한 워크북</Heading>
+          <Text size="16px">업계 선배들의 시행착오 경험과 구체적인 업무 사례를 만나보세요.</Text>
+        </SectionHeader>
+      </Section5>
     </Layout>
   )
 }
@@ -114,4 +144,33 @@ const ImagesArea = styled.div`
   margin-bottom: 100px;
   display: flex;
   justify-content: center;
+`;
+
+// Section4
+const Section4 = styled.section`
+  color: ${Colors.black};
+  margin-top: 245px;
+`;
+
+const SectionHeader = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 80px;
+  
+  > img {
+    width: 64px;
+    height: 64px;
+    margin-right: 32px;
+  }
+  > p {
+    width: 100%;
+    margin-top: 31px;
+  }
+`;
+
+// Section5
+const Section5 = styled.section`
+  color: ${Colors.black};
+  margin-top: 245px;
 `;
