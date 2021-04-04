@@ -32,14 +32,19 @@ export const LikeBtn: React.FC<ILikeButtonProps> = ({ state, small, onClick }) =
 }
 
 const SmallBtn = styled.button`
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
+  padding: 1px 0 0;
+  text-align: center;
+  vertical-align: middle;
   border: 0;
   background: transparent;
+  cursor: pointer;
 `;
 const Btn = styled.button`
   width: 60px;
   height: 60px;
   border: 1px solid ${Colors.black};
   background: transparent;
+  cursor: pointer;
 `;

@@ -12,7 +12,7 @@ export const Tags: React.FC<ITagProps> = ({ data }) => {
   return (
     <Tags>
       {data.map((txt, idx) => (
-          <Tag key={idx} color={color[idx % 4]}>{txt}</Tag>
+          <Tag key={idx} color={color[3]}>{txt}</Tag>
       ))}
     </Tags>
   )
