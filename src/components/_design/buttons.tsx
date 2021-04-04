@@ -49,15 +49,15 @@ export const Button: React.FC<IButtonProps> = ({ children, type }) => {
       letter-spacing: 0em;
       text-align: center;
 
-      &:${!isLoading}:hover{
-        background-color: ${styles[tagType].hoverBack};
-        color: ${styles[tagType].hoverColor};
-        border-color : ${styles[tagType].hoverColor};
+      &:hover{
+        background-color: ${!isLoading? styles[tagType].hoverBack : null};
+        color: ${!isLoading? styles[tagType].hoverColor : null};
+        border-color : ${!isLoading? styles[tagType].hoverColor : null};
       }    
 
       &:active{
-          background-color: ${styles[tagType].pressedBack};
-          color: ${styles[tagType].color};
+          background-color: ${!isLoading? styles[tagType].pressedBack : null};
+          color: ${!isLoading? styles[tagType].color : null};
       }
 
       &:disabled{

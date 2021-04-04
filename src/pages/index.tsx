@@ -48,7 +48,7 @@ export default function Home() {
       <Button type = "start">시작하기</Button>
       <br/> <br/>
       <Input/>
-      <br/> <br/>
+      <br/> <br/>    
       <Input isDisable = {true}/>
       <br/> <br/>
     </Layout>
