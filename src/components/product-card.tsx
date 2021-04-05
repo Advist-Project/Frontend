@@ -91,8 +91,10 @@ const ProductInfo = styled.div`
   padding: 24px 20px 20px;
 `;
 const Title = styled.h3`
-  font-size: 20px;
+  font-size: 16px;
+  font-weight: 500;
   line-height: 125%;
+  word-break: keep-all;
   margin-bottom: 16px;
 `;
 
