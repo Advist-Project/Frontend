@@ -9,14 +9,14 @@ export const Header = () => {
     <header>
       <Wrap className="wrap">
         <img src="/logo.png" height="44" />
-        <div>
-          <A href="/all">워크북</A>
+        <RightElements>
+          <a href="/all">워크북</a>
           {
             loginState?
             <button onClick={()=>changeLoginState(false)}>로그아웃</button>:
             <Button type="login">로그인</Button>
           }
-        </div>
+        </RightElements>
       </Wrap>
     </header>
   )
@@ -30,13 +30,18 @@ const Wrap = styled.div`
   align-items: center;
 `;
 
-const A = styled.a`
-  display: inline-block;
-  width: 70px;
-  text-align: center;
-  margin-right: 68px;
+const RightElements = styled.div`
+  display: flex;
+  align-items: center;
 
-  font-weight: 500;
-  font-size: 16px;
-  color: ${Colors.black};
+  a {
+    display: inline-block;
+    width: 70px;
+    text-align: center;
+    margin-right: 68px;
+  
+    font-weight: 500;
+    font-size: 16px;
+    color: ${Colors.black};
+  }
 `;
