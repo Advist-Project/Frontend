@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Heading, Text, Colors as c, Gradient as g, Button, Box, Spacing, Tags } from "components/ui";
+import { Heading, Text, Colors as c, Gradient as g, Button, Box, Spacing, Tags, Inputs } from "components/ui";
 import { useState } from "react";
 
 export default function DesignSystem() {
@@ -12,6 +12,7 @@ export default function DesignSystem() {
     Button: <ContentButton />,
     Box: <ContentBox />,
     Tags: <ContentTags />,
+    Input: <ContentInput />
   }
 
   return (
@@ -36,6 +37,8 @@ export default function DesignSystem() {
                        style={contentView === 'Text' ? {color: c.primary} : {}}>Text</a></li>
                 <li><a onClick={()=>changeContent('Button')}
                        style={contentView === 'Button' ? {color: c.primary} : {}}>Button</a></li>
+                <li><a onClick={()=>changeContent('Input')}
+                       style={contentView === 'Input' ? {color: c.primary} : {}}>Input</a></li>
                 <li><a onClick={()=>changeContent('Box')}
                        style={contentView === 'Box' ? {color: c.primary} : {}}>Box</a></li>
                 <li><a onClick={()=>changeContent('Tags')}
@@ -360,6 +363,19 @@ function ContentTags(){
       <Hr/>
       <Tags data={['감자깡', '양파깡', '고구마깡', '옥수수깡', '꿀꽈배기', '오징어땅콩']} />
       <Code2>{`<Tags data={['감자깡', '양파깡', '고구마깡', '옥수수깡', '꿀꽈배기', '오징어땅콩']} />`}</Code2>
+    </>
+  )
+}
+function ContentInput(){
+  return (
+    <>
+      <Code>{`import { Inputs } from "components/ui";`}</Code>
+      <Heading level={5} bold>속성 (Attribute)</Heading>
+      <Ul>
+      <li></li>
+      </Ul>
+      <Hr/>
+      <Inputs />
     </>
   )
 }
