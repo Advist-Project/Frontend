@@ -74,6 +74,9 @@ const Label = styled.div`
 `;
 const Thumbnail = styled.div`
   position: relative;
+  overflow: hidden;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 `;
 const ProductInfo = styled.div`
   padding: 24px 20px 20px;
