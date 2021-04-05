@@ -276,6 +276,7 @@ const Section6 = styled.section`
 // Section7
 const Section7 = styled.section`
   margin-top: 271px;
+  margin-bottom: 218px;
 `;
 const Headline = styled.div`
   background: ${Colors.primary};
