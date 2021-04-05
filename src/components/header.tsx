@@ -8,7 +8,7 @@ export const Header = () => {
   return (
     <header>
       <Wrap className="wrap">
-        <img src="/logo.png" height="44" />
+        <a href="/"><img src="/logo.png" height="44" /></a>
         <RightElements>
           <a href="/all">워크북</a>
           {
