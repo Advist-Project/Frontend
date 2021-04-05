@@ -39,6 +39,7 @@ const BasePrice = styled.div`
 `;
 const Discount = styled.div`
   display: flex;
+  justify-content: flex-end;
 `;
 const DiscountPercent = styled.div`
   color: ${Colors.primary};
