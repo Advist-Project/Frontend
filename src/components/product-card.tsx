@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Box, Tags, Colors } from "./ui";
 import Image from 'next/image';
 import { LikeBtn } from "./like-button";
-import { priceFormat } from "./formatter";
+import { Price } from "./price";
 
 // Heading
 interface IProductCardProps {
@@ -49,19 +49,7 @@ export const ProductCard: React.FC<IProductCardProps> = ({ label, title, likes, 
               <LikeBtn small state={userLikeState} onClick={chageUserLikeState} />
               <LikesCount>{likesCount}</LikesCount>
             </Likes>
-            {
-              discount && discount > 0 ?
-              <PriceWrap>
-                <OriginalPrice>{priceFormat(price)}원</OriginalPrice>
-                <Discount>
-                  <DiscountPercent>{discount}%</DiscountPercent>
-                  <Price>{priceFormat(price * ((100 - discount) / 100))}원</Price>
-                </Discount>
-              </PriceWrap> :
-              <PriceWrap>
-                <Price>{price}원</Price>
-              </PriceWrap>
-            }
+            <Price discount={discount ? discount : undefined} price={price} />
           </LikesAndPrice>
         </ProductInfo>
       </Box>
@@ -112,27 +100,4 @@ const Likes = styled.div`
 const LikesCount = styled.span`
   color: ${Colors.primary};
   font-size: 14px;
-`;
-const PriceWrap = styled.div`
-  text-align: right;
-`;
-const OriginalPrice = styled.div`
-  text-decoration: line-through;
-  text-decoration-thickness: 1px;
-  color: ${Colors.gray3};
-  font-size: 20px;
-  margin-bottom: 12px;
-`;
-const Discount = styled.div`
-  display: flex;
-`;
-const DiscountPercent = styled.div`
-  color: ${Colors.primary};
-  font-size: 28px;
-  font-weight: 700;
-  margin-right: 16px;
-`;
-const Price = styled.div`
-  font-size: 28px;
-  font-weight: 700;
 `;
