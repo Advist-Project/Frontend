@@ -45,6 +45,7 @@ const Btn = styled.button`
   width: 60px;
   height: 60px;
   border: 1px solid ${Colors.black};
+  border-radius: 20px;
   background: transparent;
   cursor: pointer;
 `;
