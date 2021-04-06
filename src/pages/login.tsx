@@ -6,7 +6,7 @@ export default function LoginPage(){
     return (
         <Box>
             <div style={{marginTop : "62px"}}>
-                <Heading level={3} bold>advist</Heading>
+                <img src="https://frontend-git-develop-advi22.vercel.app/logo.png"/>
             </div>
             <div style={{marginTop : "66px"}}>
                 <Heading level={4} bold >지금 가입하시면 5만원 상당의 자료를 무료로 드려요</Heading>

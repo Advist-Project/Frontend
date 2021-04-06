@@ -5,6 +5,7 @@ import { Box as _box } from './_design/box';
 import { Input as _input } from './_design/textInputs';
 import { Tags as _tags } from './_design/tags';
 import { Spacing as _spacing } from './_design/spacing';
+import { Buying } from './_design/buying';
 
 // Components
 export const Heading = _heading;
@@ -13,6 +14,9 @@ export const Button = _button;
 export const Inputs = _input;
 export const Box = _box;
 export const Tags = _tags;
+export const BuyProduct = {
+  'Buying' : Buying
+}
 
 // Variable
 export const Colors = _colors.Colors;

@@ -35,7 +35,7 @@ export const Button: React.FC<IButtonProps> = ({ children, type }) => {
       height: 52px;
       width: 160px;
       border-radius: 20px;
-      border-width : 1px;
+      border-width : ${type === 'login'? '1px' : '0'};
       border-color : ${Colors.black};
       border-style : solid;
       background-color: ${styles[tagType].background};
@@ -49,22 +49,28 @@ export const Button: React.FC<IButtonProps> = ({ children, type }) => {
       letter-spacing: 0em;
       text-align: center;
 
-      &:${!isLoading}:hover{
-        background-color: ${styles[tagType].hoverBack};
-        color: ${styles[tagType].hoverColor};
-        border-color : ${styles[tagType].hoverColor};
+      &:hover{
+        border-width : ${!isLoading? '1px' : null};
+        background-color: ${!isLoading? styles[tagType].hoverBack : null};
+        color: ${!isLoading? styles[tagType].hoverColor : null};
+        border-color : ${!isLoading? styles[tagType].hoverColor : null};
       }    
 
       &:active{
-          background-color: ${styles[tagType].pressedBack};
-          color: ${styles[tagType].color};
+          border-width : ${!isLoading? type === 'login'? '1px' : '0' : null};
+          background-color: ${!isLoading? styles[tagType].pressedBack : null};
+          color: ${!isLoading? styles[tagType].color : null};
       }
 
       &:disabled{
         cursor : default;
         background-color: ${styles[tagType].disabledBack};
         color: ${Colors.white};
-    }
+      }
+
+      &:focus{
+        outline : none;
+      }
     `;
     return (
       <Button onClick={loading}>{buttonText}</Button>
