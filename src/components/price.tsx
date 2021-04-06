@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import { Colors } from "./ui";
+//import { Colors } from "./ui";
+import { Colors } from "./_design/colors";
 import { priceFormat } from "./formatter";
 
 // Heading
