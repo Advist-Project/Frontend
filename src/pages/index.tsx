@@ -1,9 +1,10 @@
 import { Layout } from "components/layout";
-import { Typography, Colors, Gradient, DesignButton, TextInputs, Box, Spacing } from "components/ui";
+import { Typography, Colors, Gradient, DesignButton, TextInputs, BuyProduct, Box, Spacing } from "components/ui";
 
 const { Heading, Text } = Typography;
 const { Button } = DesignButton;
 const { Input } = TextInputs;
+const { Buying } = BuyProduct;
 
 export default function Home() {
   console.log(Colors, Gradient);
@@ -50,6 +51,8 @@ export default function Home() {
       <Input/>
       <br/> <br/>    
       <Input isDisable = {true}/>
+      <br/> <br/>
+      <Buying/>
       <br/> <br/>
     </Layout>
   )
