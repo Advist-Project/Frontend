@@ -1,5 +1,5 @@
 import { Layout } from "components/layout";
-import { Heading, Text, Colors, Gradient, Button, Box, Spacing, Tags, Input, BuyProduct } from "components/ui";
+import { Heading, Text, Colors, Gradient, Button, Box, Spacing, Tags, Inputㄴ, BuyProduct } from "components/ui";
 
 const { Buying } = BuyProduct;
 
@@ -49,8 +49,6 @@ export default function Test() {
       <Input/>
       <br/> <br/>    
       <Input isDisable = {true}/>
-      <br/> <br/>
-      <Buying/>
       <br/> <br/>
     </Layout>
   )
