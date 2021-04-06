@@ -1,7 +1,7 @@
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import Image from 'next/image';
-import { Heading, Text, Tags, Button, Colors } from "components/ui";
+import { Heading, Tags, Button, Colors } from "components/ui";
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
 
