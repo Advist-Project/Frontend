@@ -2,11 +2,13 @@ import styled from "@emotion/styled";
 import { Colors } from "./colors"
 import Loader from "react-loader-spinner";
 import React, {useState} from 'react';
+import { assignCss } from "./assignCss";
 
 interface IButtonProps{ // type = "login" => 로그인, type = "start" => 시작하기
     type?: string;
+    style?: object[] | object;
 }
-export const Button: React.FC<IButtonProps> = ({ children, type }) => {
+export const Button: React.FC<IButtonProps> = ({ children, type, style }) => {
 
     const [buttonText, setButtonText] = useState(children);
     const [isLoading, setisLoading] = useState(false);
@@ -73,6 +75,6 @@ export const Button: React.FC<IButtonProps> = ({ children, type }) => {
       }
     `;
     return (
-      <Button onClick={loading}>{buttonText}</Button>
+      <Button style={assignCss(style)} onClick={loading}>{buttonText}</Button>
     )
   }
