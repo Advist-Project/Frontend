@@ -10,7 +10,7 @@ export const Colors = {
   secondarySemiLight: '#A4FFE3',
   secondaryLight: '#F2FFFB',
   // Tertiary Color
-  tertiary : '#556EF5',
+  tertiary : '#FFD033',
   tertiaryDark : '#9E7C0A',
   tertiarySemiLight : '#FFE281',
   tertiaryLight : '#FFF7DD',

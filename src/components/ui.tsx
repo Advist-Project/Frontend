@@ -1,30 +1,26 @@
-import { Heading, Text } from './_design/typography';
-import { Button } from './_design/buttons';
-import { Input } from './_design/textInputs';
-import { Buying } from './_design/buying';
 import * as _colors from './_design/colors';
+import { Heading as _heading, Text as _text } from './_design/typography';
+import { Button as _button } from './_design/buttons';
 import { Box as _box } from './_design/box';
+import { Input as _input } from './_design/textInputs';
+import { Tags as _tags } from './_design/tags';
 import { Spacing as _spacing } from './_design/spacing';
+import { Buying } from './_design/buying';
 
-// Typography
-export const Typography = {
-  'Heading': Heading,
-  'Text': Text
-}
-
-export const DesignButton = {
-  'Button' : Button
-}
-
-export const TextInputs = {
-  'Input' : Input
-}
-
+// Components
+export const Heading = _heading;
+export const Text = _text;
+export const Button = _button;
+export const Inputs = _input;
+export const Box = _box;
+export const Tags = _tags;
 export const BuyProduct = {
   'Buying' : Buying
 }
 
+// Variable
 export const Colors = _colors.Colors;
 export const Gradient = _colors.Gradient;
-export const Box = _box;
+
+// Method
 export const Spacing = _spacing;
