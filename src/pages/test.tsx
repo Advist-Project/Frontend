@@ -1,9 +1,6 @@
 import { Layout } from "components/layout";
-import { Heading, Text, Colors, Gradient, Button, Box, Spacing, Tags, TextInputs, BuyProduct } from "components/ui";
+import { Heading, Text, Colors, Gradient, Button, Box, Spacing, Tags, Input, BuyProduct } from "components/ui";
 
-const { Heading, Text } = Typography;
-const { Button } = DesignButton;
-const { Input } = TextInputs;
 const { Buying } = BuyProduct;
 
 export default function Test() {

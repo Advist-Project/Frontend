@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Heading, Text, Colors as c, Gradient as g, Button, Box, Spacing, Tags, Inputs } from "components/ui";
+import { Heading, Text, Colors as c, Gradient as g, Button, Box, Spacing, Tags, Input } from "components/ui";
 import { useState } from "react";
 
 export default function DesignSystem() {
@@ -369,13 +369,13 @@ function ContentTags(){
 function ContentInput(){
   return (
     <>
-      <Code>{`import { Inputs } from "components/ui";`}</Code>
+      <Code>{`import { Input } from "components/ui";`}</Code>
       <Heading level={5} bold>속성 (Attribute)</Heading>
       <Ul>
       <li></li>
       </Ul>
       <Hr/>
-      <Inputs />
+      <Input />
     </>
   )
 }

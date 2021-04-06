@@ -11,7 +11,7 @@ import { Buying } from './_design/buying';
 export const Heading = _heading;
 export const Text = _text;
 export const Button = _button;
-export const Inputs = _input;
+export const Input = _input;
 export const Box = _box;
 export const Tags = _tags;
 export const BuyProduct = {
