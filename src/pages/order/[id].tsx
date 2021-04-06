@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Heading, Button, Colors } from "components/ui";
+import { Heading, Button } from "components/ui";
 import { Price } from "components/price";
 import { buying } from "components/buying";
 
