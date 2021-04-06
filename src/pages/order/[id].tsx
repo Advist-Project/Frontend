@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Heading, Button } from "components/ui";
 import { Price } from "components/price";
-import { buying } from "components/buying";
+import { bootpay } from "components/bootpay";
 
 // virtualData
 // 상품정보 api의 결과값
@@ -20,7 +20,7 @@ export default function Orders() {
     <Container>
       <Heading level={4} bold>{vData.title}</Heading>
       <Price discount={vData.discount} price={vData.price} />
-      <div onClick={()=>buying(vData)}>
+      <div onClick={()=>bootpay(vData)}>
         <Button type="start">결제하기</Button>
       </div>
     </Container>
