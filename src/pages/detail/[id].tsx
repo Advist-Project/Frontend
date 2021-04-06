@@ -4,6 +4,9 @@ import Image from 'next/image';
 import { Heading, Tags, Button, Colors } from "components/ui";
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
+import axios from 'axios';
+import { useRouter } from 'next/router';
+
 
 // virtualData
 // 상품정보 api의 결과값
@@ -17,7 +20,19 @@ const vData = {
 }
 
 export default function Details() {
-  console.log('여기서 구매하기 버튼을 클릭하면, 서버에 데이터 보내고 주문번호 받아옴');
+  console.log('여기서 구매하기 버튼을 클릭하면, 서버에 데이터 보내고 주문번호 받아옴, 주문번호를 포함한 주문정보와 함께 Order 페이지 이동');
+  const router = useRouter();
+  
+  // 상품정보 api의 결과값
+  async function getData(){
+    const res = await axios.get('https://vjsel.herokuapp.com/book/details/2');
+    const data = await res.data;
+    
+    router.push({
+      pathname: '/order',
+      query: data.detail
+    }, '/order');
+  }
 
   return (
     <Layout>
@@ -42,7 +57,8 @@ export default function Details() {
             </div>
             <div className="rightArea">
               <Price discount={vData.discount} price={vData.price} />
-              <a href="/order/0"><Button type="start">구매하기</Button></a>
+              <a onClick={getData}><Button type="start">구매하기</Button></a>
+              {/* 보유중 상태가 필요하겠네요 */}
             </div>
           </FunctionsAndPriceInfo>
         </div>
