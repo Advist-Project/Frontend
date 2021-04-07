@@ -5,7 +5,7 @@ import { Box as _box } from './_design/box';
 import { Input as _input } from './_design/textInputs';
 import { Tags as _tags } from './_design/tags';
 import { Spacing as _spacing } from './_design/spacing';
-import { Buying } from './_design/buying';
+import { Buying } from './_design/buying-card';
 
 // Components
 export const Heading = _heading;

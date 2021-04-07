@@ -5,14 +5,15 @@ import { Price } from 'components/price';
 
 interface IBuyingProps{ // type = "login" => 로그인, type = "start" => 시작하기
     title?: string;
-    discount: number | undefined;
     price: number;
+    discount: number | undefined;
+    desc : string;
 }
-export const Buying: React.FC<IBuyingProps> = ({discount, price}) => {
+export const Buying: React.FC<IBuyingProps> = ({title, discount, price, desc}) => {
     return (
         <Box>
         <HeaderBox>
-            <Heading level={5} bold>새 회사, 직무에 빠르게 적응하는 신입사원의 업무 관리 워크북</Heading>
+            <Heading level={5} bold>{title}</Heading>
         </HeaderBox>
 
         <Products>
@@ -25,7 +26,7 @@ export const Buying: React.FC<IBuyingProps> = ({discount, price}) => {
             <Price price={price} discount={discount} />
         </Products>
         <Line/>
-            <Text style={{width : '372px', height : '40px', marginTop : '24px', color : `#4E4B66`}} size='16px'>상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다</Text>
+            <Text style={{width : '372px', height : '40px', marginTop : '24px', color : `#4E4B66`}} size='16px'>{desc}</Text>
         <div style = {{marginTop : '24px'}}>
             <Button style={{width : '372px', height : '60px'}}>구매하기</Button>
         </div>        
