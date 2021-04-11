@@ -50,7 +50,7 @@ export default function Details() {
   
     router.push({
       pathname: `${process.env.NEXT_PUBLIC_ORDER_PAGE_URL}`,
-      query: queryFormat(vData2)
+      query: queryFormat(vData2),
     }, '/order');
   }
 

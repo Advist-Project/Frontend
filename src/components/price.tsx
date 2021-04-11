@@ -7,7 +7,7 @@ import { priceFormat } from "./formatter";
 interface IProductCardProps {
   // discount: number | undefined;
   price: number;
-  discountPrice: number;
+  discountPrice: number | undefined;
 }
 export const Price: React.FC<IProductCardProps> = ({ price, discountPrice }) => {
   return (

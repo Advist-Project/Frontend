@@ -1,5 +1,3 @@
-import BootPay from "bootpay-js";
-
 export function bootpay(data, extra){
   BootPay.request({
     price: data.discountPrice, //할인 후 가격
