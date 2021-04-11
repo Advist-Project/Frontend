@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import Image from 'next/image';
@@ -7,6 +8,7 @@ import { Price } from "components/price";
 // import axios from 'axios';
 import { useRouter } from 'next/router';
 import { queryFormat } from 'components/formatter';
+import { AnchorTab } from 'components/tab';
 
 
 // virtualData
@@ -54,6 +56,9 @@ export default function Details() {
     }, '/order');
   }
 
+  // Tab Control
+  const [activeTab, setActiveTab] = useState<string>('wrkb');
+
   return (
     <Layout>
       <ProductInfo className="wrap">
@@ -67,9 +72,9 @@ export default function Details() {
         </div>
         <div className="rightArea">
           <DefaultInfo>
-            <Heading level={4} bold>{vData.title}</Heading>
+            <Heading level={4} bold style={{marginBottom: '27px'}}>{vData.title}</Heading>
             <Tags data={vData.tag}/>
-            <p>제공자 : Tim</p>
+            <p style={{marginTop: '36px'}}>제공자 : Tim</p>
           </DefaultInfo>
           <FunctionsAndPriceInfo>
             <div>
@@ -83,6 +88,11 @@ export default function Details() {
           </FunctionsAndPriceInfo>
         </div>
       </ProductInfo>
+      <AnchorTab create={{ workbook: { sectionRef: 'wrkb' },
+                           coaching: { sectionRef: '' },
+                           review: { sectionRef: '' },
+                           qna: { sectionRef: '' } }}
+                  active={activeTab}/>
       <DetailInfo>
         <div className="wrap">
           상세 내용 들어갈 예정
@@ -92,11 +102,13 @@ export default function Details() {
   )
 }
 
+
 const ProductInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-top: 56px;
+  margin-bottom: 93px;
 
   > .leftArea {
     flex-basis: 645px;
@@ -137,7 +149,6 @@ const FunctionsAndPriceInfo = styled.div`
 
 const DetailInfo = styled.div`
   background-color: ${Colors.gray6};
-  margin-top: 93px;
   padding: 68px 0 209px;
 `;
 
