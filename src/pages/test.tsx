@@ -1,5 +1,11 @@
+/*
 import { Layout } from "components/layout";
-import { Heading, Text, Colors, Gradient, Button, Box, Spacing, Tags } from "components/ui";
+import { Heading, Text, Colors, Gradient, Button, Box, Spacing, Tags, TextInputs, BuyProduct } from "components/ui";
+
+const { Heading, Text } = Typography;
+const { Button } = DesignButton;
+const { Input } = TextInputs;
+const { Buying } = BuyProduct;
 
 export default function Test() {
   console.log(Colors, Gradient);
@@ -44,6 +50,14 @@ export default function Test() {
       <br/> <br/>
       <Button type = "start">시작하기</Button>
       <br/> <br/>
+      <Input/>
+      <br/> <br/>    
+      <Input isDisable = {true}/>
+      <br/> <br/>
+      <Buying/>
+      <br/> <br/>
     </Layout>
   )
 }
+*/
+export default function testpage (){}
