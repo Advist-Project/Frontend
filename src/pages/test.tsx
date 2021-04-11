@@ -1,7 +1,5 @@
 import { Layout } from "components/layout";
-import { Heading, Text, Colors, Gradient, Button, Box, Spacing, Tags, Input, BuyProduct } from "components/ui";
-
-const { Buying } = BuyProduct;
+import { Heading, Text, Colors, Gradient, Button, Box, Spacing, Tags, Input } from "components/ui";
 
 export default function Test() {
   console.log(Colors, Gradient);

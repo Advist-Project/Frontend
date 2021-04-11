@@ -5,19 +5,20 @@ import { priceFormat } from "./formatter";
 
 // Heading
 interface IProductCardProps {
-  discount: number | undefined;
+  // discount: number | undefined;
   price: number;
+  discountPrice: number;
 }
-export const Price: React.FC<IProductCardProps> = ({ discount, price }) => {
+export const Price: React.FC<IProductCardProps> = ({ price, discountPrice }) => {
   return (
     <div>
       {
-        discount && discount > 0 ?
+        discountPrice ?
         <Wrap> {/* 할인 정보 있는 경우 */}
           <BasePrice>{priceFormat(price)}원</BasePrice>
           <Discount>
-            <DiscountPercent>{discount}%</DiscountPercent>
-            <FinalPrice>{priceFormat(price * ((100 - discount) / 100))}원</FinalPrice>
+            <DiscountPercent>{100 - discountPrice / price * 100}%</DiscountPercent>
+            <FinalPrice>{priceFormat(discountPrice)}원</FinalPrice>
           </Discount>
         </Wrap> :
         <Wrap> {/* 할인 정보 없는 경우 */}
