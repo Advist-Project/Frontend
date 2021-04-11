@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import Image from 'next/image';
-import { Heading, Tags, Button, Colors } from "components/ui";
+import { Heading, Tags, Button, Colors, Box } from "components/ui";
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
 // import axios from 'axios';
 import { useRouter } from 'next/router';
 import { queryFormat } from 'components/formatter';
-import { AnchorTab } from 'components/tab';
+import AnchorTab from 'components/tab';
 
 
 // virtualData
@@ -58,6 +58,35 @@ export default function Details() {
 
   // Tab Control
   const [activeTab, setActiveTab] = useState<string>('wrkb');
+  const workbookSectionRef = useRef<HTMLDivElement>(null);
+  const coachingSectionRef = useRef<HTMLDivElement>(null);
+  const reviewSectionRef = useRef<HTMLDivElement>(null);
+  const askSectionRef = useRef<HTMLDivElement>(null);
+  const tabHeight:number = 208; //110 + 156/2
+  useEffect(() => {
+    const handleScroll = () => {
+      if(workbookSectionRef.current && coachingSectionRef.current && reviewSectionRef.current && askSectionRef.current) {
+        const onWorkbookSection = window.scrollY+tabHeight < coachingSectionRef.current.offsetTop;
+        const onCoachingSection = window.scrollY+tabHeight >= coachingSectionRef.current.offsetTop && window.scrollY+tabHeight < reviewSectionRef.current.offsetTop;
+        const onReviewSection = window.scrollY+tabHeight >= reviewSectionRef.current.offsetTop && window.scrollY+tabHeight < askSectionRef.current.offsetTop;
+        const onAskSection = window.scrollY+tabHeight >= askSectionRef.current.offsetTop;
+
+        if(onWorkbookSection){
+          setActiveTab('wrkb');
+        }
+        else if(onCoachingSection){
+          setActiveTab('ch');
+        }
+        else if(onReviewSection){
+          setActiveTab('rv');
+        }
+        else if(onAskSection){
+          setActiveTab('ask');
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+  },[]);
 
   return (
     <Layout>
@@ -89,13 +118,24 @@ export default function Details() {
         </div>
       </ProductInfo>
       <AnchorTab create={{ workbook: { sectionRef: 'wrkb' },
-                           coaching: { sectionRef: '' },
-                           review: { sectionRef: '' },
-                           qna: { sectionRef: '' } }}
+                           coaching: { sectionRef: 'ch' },
+                           review: { sectionRef: 'rv' },
+                           ask: { sectionRef: 'ask' } }}
                   active={activeTab}/>
       <DetailInfo>
         <div className="wrap">
-          상세 내용 들어갈 예정
+          <section ref={workbookSectionRef}>
+            <Box shadow={1} style={{height: '700px', background: '#FCFCFC', marginBottom: '156px'}}>워크북 섹션</Box>
+          </section>
+          <section ref={coachingSectionRef}>
+            <Box shadow={1} style={{height: '700px', background: '#FCFCFC', marginBottom: '156px'}}>코칭 섹션</Box>
+          </section>
+          <section ref={reviewSectionRef}>
+            <Box shadow={1} style={{height: '700px', background: '#FCFCFC', marginBottom: '156px'}}>리뷰 섹션</Box>
+          </section>
+          <section ref={askSectionRef}>
+            <Box shadow={1} style={{height: '700px', background: '#FCFCFC'}}>문의 섹션</Box>
+          </section>
         </div>
       </DetailInfo>
     </Layout>
@@ -151,4 +191,3 @@ const DetailInfo = styled.div`
   background-color: ${Colors.gray6};
   padding: 68px 0 209px;
 `;
-

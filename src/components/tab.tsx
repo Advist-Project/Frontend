@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "@emotion/styled";
 import { Colors } from "components/ui";
 
@@ -6,13 +7,14 @@ interface IAnchorTabProps {
   create: any;
   active: string;
 }
-export const AnchorTab: React.FC<IAnchorTabProps> = ({ create, active }) => {
+const AnchorTab: React.FC<IAnchorTabProps> = ({ create, active }) => {
   const AnchorTab = styled.div`
     height: 109px;
     background: ${Colors.white};
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     position: sticky;
     top: 0;
+    left: 0;
     z-index: 1;
 
     ul {
@@ -28,20 +30,23 @@ export const AnchorTab: React.FC<IAnchorTabProps> = ({ create, active }) => {
     img {
       display: block;
       margin: 6px auto 0;
+      opacity: 0.6;
     }
 
     &.active {
       border-bottom: 8px ${Colors.secondary} solid;
+
+      img {
+        opacity: 0.8;
+      }
     }
   `;
   const tab:{[key:string]: any} = {
-    workbook: { value: "워크북", icon: '/Workbook.png', icon_active: '/icon/workbook_64p.svg', sectionRef: '', ...create.workbook },
+    workbook: { value: "워크북", icon: '/icon/workbook_64p.svg', icon_active: '/icon/workbook_64p.svg', sectionRef: '', ...create.workbook },
     coaching: { value: "코칭", icon: '/icon/coach_gray_64p.svg', icon_active: '/icon/coach_64p.svg', sectionRef: '', ...create.coaching },
-    review: { value: "리뷰", icon: '/icon/review_gray_64p.svg', icon_active: '/review_64p.svg', sectionRef: '', ...create.review },
-    qna: { value: "문의", icon: '/icon/ask_gray_64p.svg', icon_active: '/icon/ask_64p.svg', sectionRef: '', ...create.qna }
+    review: { value: "리뷰", icon: '/icon/review_gray_64p.svg', icon_active: '/icon/review_64p.svg', sectionRef: '', ...create.review },
+    ask: { value: "문의", icon: '/icon/ask_gray_64p.svg', icon_active: '/icon/ask_64p.svg', sectionRef: '', ...create.ask }
   }
-
-  console.log(tab);
 
   return (
     <AnchorTab>
@@ -50,7 +55,7 @@ export const AnchorTab: React.FC<IAnchorTabProps> = ({ create, active }) => {
           {
             Object.keys(create).map((type, i) => (
               <Tab key={i} className={active === tab[type].sectionRef ? 'active' : ''}>
-                <img src={active === tab[type].sectionRef ? tab[type].icon_active : tab[type].icon} />
+                <img src={tab[type].icon_active}/>
                 {tab[type].value}
               </Tab>
           ))}
@@ -59,3 +64,5 @@ export const AnchorTab: React.FC<IAnchorTabProps> = ({ create, active }) => {
     </AnchorTab>
   )
 }
+
+export default React.memo(AnchorTab);
