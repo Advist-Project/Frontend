@@ -1,1 +1,5 @@
-export default function testPage() {}
+export default function testPage() {
+    return (
+        <div>testpage</div>
+    )    
+}
