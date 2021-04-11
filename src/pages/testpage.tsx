@@ -1,1 +1,1 @@
-export default function testPage(){}
+export default function testPage() {}
