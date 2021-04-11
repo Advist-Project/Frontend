@@ -1,12 +1,9 @@
 import { Layout } from "components/layout";
-import { Colors, Gradient, Button, Inputs } from "components/ui";
+import { Button, Inputs } from "components/ui";
 // Buying 사용하려면 BuyProduct 선언
-import { BuyingList } from "../components/buying-card-list"
+import { BuyingList, SmallList } from "../components/buying-card-list"
 
 export default function Home() {
-  console.log(Colors, Gradient);
-
-  // const { Buying } = BuyProduct;
   
   return (
     <Layout>
@@ -19,6 +16,8 @@ export default function Home() {
       <Inputs isDisable = {true}/>
       <br/> <br/>
       <BuyingList data={[]} />
+      <br/> <br/>
+      <SmallList data={[]} />
       <br/> <br/>
     </Layout>
   )

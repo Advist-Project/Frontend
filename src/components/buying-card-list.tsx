@@ -1,4 +1,4 @@
-import { Buying } from "./_design/buying-card";
+import { Buying, SmallCard } from "./_design/buying-card";
 
 interface IBuyingListProps {
   data: any[];
@@ -9,7 +9,7 @@ export const BuyingList: React.FC<IBuyingListProps> = ({ data }) => {
   return (
     <>
       {new Array(2).fill(0).map((_, i) => (
-        // <BuyingCard key={data[i]._id}
+        // <BuyingList key={data[i]._id}
         //             title={data[i].title}
         //             price={data[i].options[0].price}
         //             discount={0}
@@ -19,6 +19,29 @@ export const BuyingList: React.FC<IBuyingListProps> = ({ data }) => {
                     price={50000}
                     discount={100}
                     desc="상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다" />
+    ))}
+    </>
+  )
+}
+
+interface ISmallListProps {
+  data: any[];
+}
+export const SmallList: React.FC<ISmallListProps> = ({ data }) => {
+  console.log(data);
+
+  return (
+    <>
+      {new Array(2).fill(0).map((_, i) => (
+        // <SmallList key={data[i]._id}
+        //             title={data[i].title}
+        //             price={data[i].options[0].price}
+        //             discount={0}
+        <SmallCard key={i}
+                    title="워크북 작성 1:1 코칭(1회)"
+                    price={200000}
+                    discount={50}
+        />
     ))}
     </>
   )
