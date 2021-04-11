@@ -1,24 +1,20 @@
-import React from "react";
-import axios from "axios";
+import React, { useContext } from 'react'
+import { myContext } from './login';
+import { User } from '../types/logintypes';
 
-const Users = ({}) => {
+export default function Homepage() {
 
-    return(
-        <>
-        <h1>{Users.name}</h1>
-        </>
+    const userObject = useContext(myContext) as User;
+
+    return (
+        <div>
+            {
+                userObject ? (
+                    <h1>Welcome back {userObject.username}</h1>
+                ) : (
+                        <h1>이제 제발 좀 되라..</h1>
+                    )
+            }
+        </div>
     )
-    };
-  
-  Users.getInitialProps = async () => {
-    const res = await axios.get('https://criel.herokuapp.com/user/getuser');
-    console.log(res);
-    console.log("data loaded");
-
-    return{
-        users : res.data
-    }
-
-  };
-  
-  export default Users;
+}
