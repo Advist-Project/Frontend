@@ -17,7 +17,7 @@ export const BuyingList: React.FC<IBuyingListProps> = ({ data }) => {
         <Buying key={i}
                     title="새 회사, 직무에 빠르게 적응하고 싶은 신입사원을 위한 업무 관리 워크북"
                     price={50000}
-                    discount={100}
+                    discountPrice={0}
                     desc="상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다" />
     ))}
     </>
@@ -40,7 +40,7 @@ export const SmallList: React.FC<ISmallListProps> = ({ data }) => {
         <SmallCard key={i}
                     title="워크북 작성 1:1 코칭(1회)"
                     price={200000}
-                    discount={50}
+                    discountPrice={100000}
         />
     ))}
     </>

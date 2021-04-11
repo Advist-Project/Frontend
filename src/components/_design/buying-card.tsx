@@ -6,10 +6,10 @@ import { Price } from 'components/price';
 interface IBuyingProps{ // type = "login" => 로그인, type = "start" => 시작하기
     title?: string;
     price: number;
-    discount: number | undefined;
+    discountPrice: number | undefined;
     desc?: string;
 }
-export const Buying: React.FC<IBuyingProps> = ({title, discount, price, desc}) => {
+export const Buying: React.FC<IBuyingProps> = ({title, discountPrice, price, desc}) => {
 
     const Box = styled.div`
     height: 376px;
@@ -60,7 +60,7 @@ export const Buying: React.FC<IBuyingProps> = ({title, discount, price, desc}) =
                 <img style = {{marginLeft : '9px', marginTop : `14px`, width : '33.86px', height : '46px', alignSelf : 'center'}} src="/Workbook.png"></img>
                     <Text style = {{width : '85px', height : '20px', marginTop : `14px`, marginLeft : '23.14px', alignSelf : 'center'}} size='14px'>워크북</Text>
             </div>
-            <Price price={price} discount={discount} />
+            <Price price={price} discountPrice={discountPrice} />
         </Products>
         <Line/>
             <Text style={{width : '372px', height : '40px', marginTop : '24px', color : `#4E4B66`}} size='16px'>{desc}</Text>
@@ -75,9 +75,9 @@ export const Buying: React.FC<IBuyingProps> = ({title, discount, price, desc}) =
 interface ISmallProps{ // type = "login" => 로그인, type = "start" => 시작하기
     title?: string;
     price: number;
-    discount: number | undefined;
+    discountPrice: number | undefined;
 }
-export const SmallCard: React.FC<ISmallProps> = ({title, discount, price}) => {
+export const SmallCard: React.FC<ISmallProps> = ({title, discountPrice, price}) => {
 
     const Box = styled.div`
     height: 180px;
@@ -112,7 +112,7 @@ const Products = styled.div`
                 <img style = {{marginLeft : '9px', marginTop : `14px`, width : '33.86px', height : '46px', alignSelf : 'center'}} src="/Workbook.png"></img>
                     <Text style = {{width : '85px', height : '20px', marginTop : `14px`, marginLeft : '23.14px', alignSelf : 'center'}} size='14px'>코칭</Text>
             </div>
-                <Price price={price} discount={discount} />
+                <Price price={price} discountPrice={discountPrice} />
             </Products>
 
         </Box>

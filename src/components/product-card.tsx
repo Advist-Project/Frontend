@@ -13,9 +13,9 @@ interface IProductCardProps {
   img: string;
   tag: string[];
   price: number;
-  discount: number | undefined;
+  discountPrice: number | undefined;
 }
-export const ProductCard: React.FC<IProductCardProps> = ({ label, title, likes, img, tag, price, discount }) => {
+export const ProductCard: React.FC<IProductCardProps> = ({ label, title, likes, img, tag, price, discountPrice }) => {
   const [likesCount, setLikesCount] = useState<number>(likes);
   const [userLikeState, setUserLikeState] = useState<boolean>(true);
 
@@ -49,7 +49,7 @@ export const ProductCard: React.FC<IProductCardProps> = ({ label, title, likes, 
               <LikeBtn small state={userLikeState} onClick={chageUserLikeState} />
               <LikesCount>{likesCount}</LikesCount>
             </Likes>
-            <Price discount={discount ? discount : undefined} price={price} />
+            <Price discountPrice={discountPrice} price={price} />
           </LikesAndPrice>
         </ProductInfo>
       </Box>

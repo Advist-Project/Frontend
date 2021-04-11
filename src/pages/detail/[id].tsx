@@ -4,6 +4,10 @@ import Image from 'next/image';
 import { Heading, Tags, Button, Colors } from "components/ui";
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
+// import axios from 'axios';
+import { useRouter } from 'next/router';
+import { queryFormat } from 'components/formatter';
+
 
 // virtualData
 // 상품정보 api의 결과값
@@ -12,12 +16,43 @@ const vData = {
   img: '/test.jpg',
   title: "새 회사, 직무에 빠르게 적응하고 싶은 신입사원을 위한 업무 관리 워크북",
   tag: ['고구마', '감자', '옥수수'],
-  discount: 60,
-  price: 12300,
+  price: 50000,
+  discountPrice : 20000
+}
+const vData2 = {
+  "_id" : "String",
+  "orderId" : "seq(increase)",
+  "userId" : "kildong",
+  "useremail" : "kildong@naver.com",
+  "itemInfo" : [{
+      "itemId" : "Int",
+      "itemImg" : "String",
+      "itemName" : "새 회사, 직무에 빠르게 적응하고 싶은 신입사원을 위한 업무 관리",
+      "itemOwner" : "String",
+      "option" : [{
+            "optionId" : "Int",
+            "title" : "워크북",
+            "type" : "workbook",
+            "desc" : "String",
+            "price" : 50000,
+            "deleteYN" : "Boolean",
+            "discountPrice" : 20000
+           }]
+  }],
+  "deleteYN" : "Boolean",
 }
 
 export default function Details() {
-  console.log('여기서 구매하기 버튼을 클릭하면, 서버에 데이터 보내고 주문번호 받아옴');
+  const router = useRouter();
+  function getOrderData(){
+    // const res = await axios.get(`${process.env.NEXT_PUBLIC_ORDER_API_URL}/2`);
+    // const data = await res.data;
+  
+    router.push({
+      pathname: `${process.env.NEXT_PUBLIC_ORDER_PAGE_URL}`,
+      query: queryFormat(vData2),
+    }, '/order');
+  }
 
   return (
     <Layout>
@@ -41,8 +76,9 @@ export default function Details() {
               <LikeBtn state={false} />
             </div>
             <div className="rightArea">
-              <Price discount={vData.discount} price={vData.price} />
-              <a href="/order/0"><Button type="start">구매하기</Button></a>
+              <Price discountPrice={vData.discountPrice} price={vData.price} />
+              <a onClick={getOrderData}><Button type="start">구매하기</Button></a>
+              {/* 보유중 상태가 필요하겠네요 */}
             </div>
           </FunctionsAndPriceInfo>
         </div>

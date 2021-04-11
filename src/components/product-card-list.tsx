@@ -24,7 +24,7 @@ export const ProductList: React.FC<IProductListProps> = ({ data }) => {
                     img="/test.jpg"
                     tag={['조직문화','8회강의','3개월내']}
                     price={11100}
-                    discount={20} />
+                    discountPrice={8880} />
     ))}
     </>
   )

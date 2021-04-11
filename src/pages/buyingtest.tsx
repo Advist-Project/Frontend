@@ -1,5 +1,5 @@
 import { Layout } from "components/layout";
-import { Button, Inputs } from "components/ui";
+import { Button, Input } from "components/ui";
 // Buying 사용하려면 BuyProduct 선언
 import { BuyingList, SmallList } from "../components/buying-card-list"
 
@@ -11,9 +11,9 @@ export default function Home() {
       <br/> <br/>
       <Button type = "start">시작하기</Button>
       <br/> <br/>
-      <Inputs/>
+      <Input/>
       <br/> <br/>    
-      <Inputs isDisable = {true}/>
+      <Input isDisable = {true}/>
       <br/> <br/>
       <BuyingList data={[]} />
       <br/> <br/>
