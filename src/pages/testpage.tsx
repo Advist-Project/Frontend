@@ -5,6 +5,8 @@ import { User } from '../types/logintypes';
 export default function Homepage() {
 
     const userObject = useContext(myContext) as User;
+    console.log(userObject);
+    console.log(userObject.username);
 
     return (
         <div>
