@@ -1,26 +1,22 @@
-import React, { useContext } from 'react'
-import { myContext } from './login';
-import { User } from '../types/logintypes';
-import {NextApiRequest, NextApiResponse} from 'next';
+import React, { createContext, useEffect, useState } from 'react'
+import axios from 'axios';
+import { AxiosResponse } from 'axios';
 
 
-export default function Homepage(req : NextApiRequest, res : NextApiResponse) {
+export default function Context(props: any) {
 
-    const userObject = useContext(myContext) as User;
-    console.log(userObject);
-    console.log(userObject.username);
-    console.log(req.body);
-    console.log(res);
+    const [userObject, setUserObject] = useState<any>();
 
-    return (
-        <div>
-            {
-                userObject ? (
-                    <h1>Welcome back {userObject.username}</h1>
-                ) : (
-                        <h1>이제 제발 좀 되라..</h1>
-                    )
+    useEffect(() => {
+        axios.get("https://criel.herokuapp.com/user/getuser", { withCredentials: true }).then((res: AxiosResponse) => {
+            console.log(res);
+            if (res.data) {
+                setUserObject(res.data);
             }
-        </div>
+        })
+    }, [])
+    return (
+        <myContext.Provider value={userObject}>{props.children}</myContext.Provider>
     )
 }
+export const myContext = createContext({});
