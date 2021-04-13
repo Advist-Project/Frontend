@@ -4,12 +4,12 @@ import Loader from "react-loader-spinner";
 import React, {useState} from 'react';
 import { assignCss } from "./assignCss";
 import { useRouter } from 'next/router';
+import axios, { AxiosResponse } from 'axios';
 
 interface IButtonProps{ // type = "login" => 로그인, type = "start" => 시작하기
     type?: string;
     style?: object[] | object;
     url?: string;
-    onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 export const Button: React.FC<IButtonProps> = ({ children, type, style, url }) => {
     const [buttonText, setButtonText] = useState(children);
@@ -20,10 +20,19 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url }) =
     height={30} width={30} timeout={0} radius={3}/>
 
     function loading() {
+      if(children === "로그아웃") {
+        axios.get("https://criel.herokuapp.com/user/auth/logout", {
+            withCredentials: true
+        }).then((res: AxiosResponse) => {
+            if (res.data === "done") {
+              router.push('/');
+            }
+        })}
+      
       setButtonText(loader);
       setisLoading(true);
       if(url !== undefined) router.push(url);
-    }    
+    }
 
     const tagType = type==='login' ? 'login' : 'start';
     const styles = {
