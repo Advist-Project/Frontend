@@ -27,7 +27,7 @@ export const Header = () => {
           {
             userObject?(
             <button onClick = {logout}>로그아웃</button>) : (
-            <Button type="login">로그인</Button>
+            <Button url="/login" type="login">로그인</Button>
             )
           }
         </RightElements>
