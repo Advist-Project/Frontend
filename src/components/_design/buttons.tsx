@@ -9,6 +9,7 @@ interface IButtonProps{ // type = "login" => 로그인, type = "start" => 시작
     type?: string;
     style?: object[] | object;
     url?: string;
+    onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 export const Button: React.FC<IButtonProps> = ({ children, type, style, url }) => {
     const [buttonText, setButtonText] = useState(children);

@@ -25,7 +25,7 @@ export const Header = () => {
           <a href="/all">워크북</a>
           {
             userObject?(
-            <Button type="login">{onclick = logout}로그아웃</Button> ) : (
+            <Button type="login" onClick = {logout}>로그아웃</Button> ) : (
             <Button url="/login" type="login">로그인</Button>
             )
           }
