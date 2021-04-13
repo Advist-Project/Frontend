@@ -4,12 +4,12 @@ import { Colors } from "./_design/colors";
 import { priceFormat } from "./formatter";
 
 // Heading
-interface IProductCardProps {
+interface IPriceProps {
   // discount: number | undefined;
   price: number;
   discountPrice: number | undefined;
 }
-export const Price: React.FC<IProductCardProps> = ({ price, discountPrice }) => {
+export const Price: React.FC<IPriceProps> = ({ price, discountPrice }) => {
   return (
     <div>
       {
