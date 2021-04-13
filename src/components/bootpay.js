@@ -16,7 +16,7 @@ export function bootpay(data, extra){
       }
     ],
     user_info: {
-      username: data.userId,
+      username: '홍길동',
       email: data.useremail,
       addr: '사용자 주소',
       phone: '010-1234-4567'
