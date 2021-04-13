@@ -5,7 +5,6 @@ import { myContext } from "context";
 import { User } from '../types/logintypes';
 
 export const Header = () => {
-//  const [loginState, changeLoginState] = useState<boolean>(false);
   const userObject = useContext(myContext) as User;
 
   return (
@@ -15,11 +14,6 @@ export const Header = () => {
         <RightElements>
           <a href="/all">워크북</a>
           {
-            /*
-            loginState?
-            <button onClick={() => changeLoginState(false)}>로그아웃</button>:
-            <Button type="login">로그인</Button>
-            */
             userObject?(
             <button>로그아웃</button>) : (
             <Button type="login">로그인</Button>

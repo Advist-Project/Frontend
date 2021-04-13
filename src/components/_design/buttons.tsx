@@ -4,6 +4,7 @@ import Loader from "react-loader-spinner";
 import React, {useState} from 'react';
 import { assignCss } from "./assignCss";
 import { useRouter } from 'next/router';
+import axios, { AxiosResponse } from 'axios';
 
 interface IButtonProps{ // type = "login" => 로그인, type = "start" => 시작하기
     type?: string;
@@ -21,8 +22,19 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style }) => {
     function loading() {
       setButtonText(loader);
       setisLoading(true);
-      type === "login"? router.push('/login') : null;
+      children === "로그인"? router.push('/login') : children === "로그아웃"? logout : null;
     }
+
+    const logout = () => {
+      axios.get("https://criel.herokuapp.com/user/auth/logout", {
+          withCredentials: true
+      }).then((res: AxiosResponse) => {
+          if (res.data === "done") {
+              window.location.href = "/"
+          }
+      })
+  }
+    
 
     const tagType = type==='login' ? 'login' : 'start';
     const styles = {
