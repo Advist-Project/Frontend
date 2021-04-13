@@ -24,15 +24,18 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url }) =
               window.location.href = "/"
           }
       })
-  }
+    }
 
     const loader = <Loader type="TailSpin" color = {type === "login" ? Colors.black : Colors.white} 
     height={30} width={30} timeout={0} radius={3}/>
 
     function loading() {
+      if(children === "로그아웃"){
+        logout;
+        return;
+      }
       setButtonText(loader);
       setisLoading(true);
-      if(children === "로그아웃") logout;
       if(url !== undefined) router.push(url);
     }    
 
