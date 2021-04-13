@@ -16,7 +16,7 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url }) =
     const [isLoading, setisLoading] = useState(false);
     const router = useRouter();
 
-    const logout = () => {
+    function logout() {
       axios.get("https://criel.herokuapp.com/user/auth/logout", {
           withCredentials: true
       }).then((res: AxiosResponse) => {
@@ -30,12 +30,9 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url }) =
     height={30} width={30} timeout={0} radius={3}/>
 
     function loading() {
-      if(children === "로그아웃"){
-        logout;
-        return;
-      }
       setButtonText(loader);
       setisLoading(true);
+      if(children === "로그아웃") logout;
       if(url !== undefined) router.push(url);
     }    
 
