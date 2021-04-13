@@ -25,7 +25,7 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url }) =
             withCredentials: true
         }).then((res: AxiosResponse) => {
             if (res.data === "done") {
-              router.push('/');
+              window.location.href = "/"
             }
         })}
       
