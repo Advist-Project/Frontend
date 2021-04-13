@@ -1,18 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
 import { Button, Colors } from "components/ui";
-import { useRouter } from 'next/router';
+import { myContext } from "context";
+import { User } from '../types/logintypes';
 
 export const Header = () => {
-  const [loginState, changeLoginState] = useState<boolean>(false);
-
-  const router = useRouter();
-
-  const onClickListener = (e : any) => {
-    e.preventDefault();
-    changeLoginState(false);
-    router.push('/login');
-  }
+//  const [loginState, changeLoginState] = useState<boolean>(false);
+  const userObject = useContext(myContext) as User;
 
   return (
     <header>
@@ -21,8 +15,13 @@ export const Header = () => {
         <RightElements>
           <a href="/all">워크북</a>
           {
+            /*
             loginState?
-            <button onClick={() => onClickListener}>로그아웃</button>:
+            <button onClick={() => changeLoginState(false)}>로그아웃</button>:
+            <Button type="login">로그인</Button>
+            */
+            userObject?
+            <Button type="login">로그아웃</Button>:
             <Button type="login">로그인</Button>
           }
         </RightElements>

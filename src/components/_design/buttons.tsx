@@ -1,17 +1,22 @@
 import styled from "@emotion/styled";
 import { Colors } from "./colors"
 import Loader from "react-loader-spinner";
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { assignCss } from "./assignCss";
+import { useRouter } from 'next/router';
+import { myContext } from "context";
+import { User } from 'types/logintypes';
 
 interface IButtonProps{ // type = "login" => 로그인, type = "start" => 시작하기
     type?: string;
     style?: object[] | object;
+    url?: string;
 }
 export const Button: React.FC<IButtonProps> = ({ children, type, style }) => {
-
     const [buttonText, setButtonText] = useState(children);
     const [isLoading, setisLoading] = useState(false);
+    const router = useRouter();
+    const userObject = useContext(myContext) as User;
 
     const loader = <Loader type="TailSpin" color = {type === "login" ? Colors.black : Colors.white} 
     height={30} width={30} timeout={0} radius={3}/>
@@ -19,6 +24,7 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style }) => {
     function loading() {
       setButtonText(loader);
       setisLoading(true);
+      type !== "login"? null : userObject? null : router.push('/login');
     }
 
     const tagType = type==='login' ? 'login' : 'start';
