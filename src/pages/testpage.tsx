@@ -1,22 +1,20 @@
-import React, { createContext, useEffect, useState } from 'react'
-import axios from 'axios';
-import { AxiosResponse } from 'axios';
+import React, { useContext } from 'react'
+import { myContext } from '../context';
+import { User } from '../types/logintypes';
 
+export default function Homepage() {
 
-export default function Context(props: any) {
+    const userObject = useContext(myContext) as User;
 
-    const [userObject, setUserObject] = useState<any>();
-
-    useEffect(() => {
-        axios.get("https://criel.herokuapp.com/user/getuser", { withCredentials: true }).then((res: AxiosResponse) => {
-            console.log(res);
-            if (res.data) {
-                setUserObject(res.data);
-            }
-        })
-    }, [])
     return (
-        <myContext.Provider value={userObject}>{props.children}</myContext.Provider>
+        <div>
+            {
+                userObject ? (
+                    <h1>Hello {userObject.username}</h1>
+                ) : (
+                        <h1>비로그인 상태입니다.</h1>
+                    )
+            }
+        </div>
     )
 }
-export const myContext = createContext({});
