@@ -14,10 +14,10 @@ export const Header = () => {
         <RightElements>
           <a href="/all">워크북</a>
           {
-            userObject?(
-            <Button type="login">로그아웃</Button> ) : (
-            <Button url="/login" type="login">로그인</Button>
-            )
+              userObject?(
+                <Button type="login">로그아웃</Button> ) : (
+                <Button url="/login" type="login">로그인</Button>
+              )
           }
         </RightElements>
       </Wrap>
