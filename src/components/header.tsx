@@ -3,9 +3,20 @@ import styled from "@emotion/styled";
 import { Button, Colors } from "components/ui";
 import { myContext } from "context";
 import { User } from '../types/logintypes';
+import axios, { AxiosResponse } from 'axios';
 
 export const Header = () => {
   const userObject = useContext(myContext) as User;
+
+  const logout = () => {
+    axios.get("https://criel.herokuapp.com/user/auth/logout", {
+        withCredentials: true
+    }).then((res: AxiosResponse) => {
+        if (res.data === "done") {
+            window.location.href = "/"
+        }
+    })
+}
 
   return (
     <header>
@@ -15,7 +26,7 @@ export const Header = () => {
           <a href="/all">워크북</a>
           {
             userObject?(
-            <Button type="login">로그아웃</Button> ) : (
+            <button onClick = {logout}>로그아웃</button>) : (
             <Button type="login">로그인</Button>
             )
           }
