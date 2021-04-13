@@ -4,16 +4,27 @@ import Loader from "react-loader-spinner";
 import React, {useState} from 'react';
 import { assignCss } from "./assignCss";
 import { useRouter } from 'next/router';
+import axios, { AxiosResponse } from 'axios';
 
 interface IButtonProps{ // type = "login" => 로그인, type = "start" => 시작하기
     type?: string;
     style?: object[] | object;
     url?: string;
 }
-export const Button: React.FC<IButtonProps> = ({ children, type, style }) => {
+export const Button: React.FC<IButtonProps> = ({ children, type, style, url }) => {
     const [buttonText, setButtonText] = useState(children);
     const [isLoading, setisLoading] = useState(false);
     const router = useRouter();
+
+    const logout = () => {
+      axios.get("https://criel.herokuapp.com/user/auth/logout", {
+          withCredentials: true
+      }).then((res: AxiosResponse) => {
+          if (res.data === "done") {
+              window.location.href = "/"
+          }
+      })
+  }
 
     const loader = <Loader type="TailSpin" color = {type === "login" ? Colors.black : Colors.white} 
     height={30} width={30} timeout={0} radius={3}/>
@@ -21,7 +32,8 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style }) => {
     function loading() {
       setButtonText(loader);
       setisLoading(true);
-      children === "로그인"? router.push('/login') : null;
+      if(children === "로그아웃") logout;
+      if(url !== undefined) router.push(url);
     }    
 
     const tagType = type==='login' ? 'login' : 'start';

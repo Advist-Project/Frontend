@@ -6,9 +6,9 @@ import { useRouter } from 'next/router';
 export default function Homepage() {
     const userObject = useContext(myContext) as User;
     const router = useRouter();
-    
+
     setTimeout(function(){
-        router.push('/login');
+        router.push('/');
     }, 3000);
 
     return (
