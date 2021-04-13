@@ -20,9 +20,10 @@ export const Header = () => {
             <button onClick={() => changeLoginState(false)}>로그아웃</button>:
             <Button type="login">로그인</Button>
             */
-            userObject?
-            <Button type="login">로그아웃</Button>:
+            userObject?(
+            <button>로그아웃</button>) : (
             <Button type="login">로그인</Button>
+            )
           }
         </RightElements>
       </Wrap>
