@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { Button, Colors } from "components/ui";
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 
 export const Header = () => {
   const [loginState, changeLoginState] = useState<boolean>(false);
 
-  function onClickListener(){
+  const router = useRouter();
+
+  const onClickListener = (e : any) => {
+    e.preventDefault();
     changeLoginState(false);
-    Router.push('/login');
+    router.push('/login');
   }
 
   return (
