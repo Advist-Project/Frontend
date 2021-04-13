@@ -6,7 +6,7 @@ import { User } from '../types/logintypes';
 
 export const Header = () => {
   const userObject = useContext(myContext) as User;
-  console.log("userObject : " + userObject);
+  console.log(userObject);
   return (
     <header>
       <Wrap className="wrap">
