@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { Button, Colors } from "components/ui";
+import Router from 'next/router';
 
 export const Header = () => {
   const [loginState, changeLoginState] = useState<boolean>(false);
 
   function onClickListener(){
     changeLoginState(false);
-    location.href = "/login"
+    Router.push('/login');
   }
 
   return (
