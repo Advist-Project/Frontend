@@ -5,6 +5,11 @@ import { Button, Colors } from "components/ui";
 export const Header = () => {
   const [loginState, changeLoginState] = useState<boolean>(false);
 
+  function onClickListener(){
+    changeLoginState(false);
+    location.href = "/login"
+  }
+
   return (
     <header>
       <Wrap className="wrap">
@@ -13,7 +18,7 @@ export const Header = () => {
           <a href="/all">워크북</a>
           {
             loginState?
-            <button onClick={()=>changeLoginState(false)}>로그아웃</button>:
+            <button onClick={() => onClickListener}>로그아웃</button>:
             <Button type="login">로그인</Button>
           }
         </RightElements>
