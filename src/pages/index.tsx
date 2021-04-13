@@ -3,11 +3,9 @@ import styled from "@emotion/styled";
 import { Heading, Text, Button, Colors, Box } from "components/ui";
 import Image from 'next/image';
 import { ProductList } from "components/product-card-list";
-import Context from "./testpage"
 
 export default function Home() {
   return (
-    <Context>
     <Layout>
       {/* 1번 콘텐츠 */}
       <Section1>
@@ -136,7 +134,6 @@ export default function Home() {
         </div>
       </Section7>
     </Layout>
-    </Context>
   )
 }
 
