@@ -4,7 +4,6 @@ import Loader from "react-loader-spinner";
 import React, {useState} from 'react';
 import { assignCss } from "./assignCss";
 import { useRouter } from 'next/router';
-import axios, { AxiosResponse } from 'axios';
 
 interface IButtonProps{ // type = "login" => 로그인, type = "start" => 시작하기
     type?: string;
@@ -16,23 +15,12 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url }) =
     const [isLoading, setisLoading] = useState(false);
     const router = useRouter();
 
-    function logout() {
-      axios.get("https://criel.herokuapp.com/user/auth/logout", {
-          withCredentials: true
-      }).then((res: AxiosResponse) => {
-          if (res.data === "done") {
-              window.location.href = "/"
-          }
-      })
-    }
-
     const loader = <Loader type="TailSpin" color = {type === "login" ? Colors.black : Colors.white} 
     height={30} width={30} timeout={0} radius={3}/>
 
     function loading() {
       setButtonText(loader);
       setisLoading(true);
-      if(children === "로그아웃") logout;
       if(url !== undefined) router.push(url);
     }    
 
