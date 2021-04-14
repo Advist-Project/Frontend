@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { Heading, Text, Button, Colors, Box } from "components/ui";
 import Image from 'next/image';
 import { ProductList } from "components/product-card-list";
-import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -80,13 +79,12 @@ export default function Home() {
 
         <ProductListWrap>
           <ProductList data={[]} /> {/* 데이터 넣어야 함 */}
-          <Link href="/detail/1"> {/* 페이지 생성되면 url 변경 */}
-            <a className="allProductLink">
-              <Box shadow={1} round className="allProductCard">
-                제품 전체보기
-              </Box>
-            </a>
-          </Link>
+          {/* 페이지 생성되면 url 변경 */}
+          <a href="/detail/1" className="allProductLink">
+            <Box shadow={1} round className="allProductCard">
+              제품 전체보기
+            </Box>
+          </a>
         </ProductListWrap>
       </Section5>
       <Section6 className="wrap">
