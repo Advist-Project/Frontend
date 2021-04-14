@@ -7,6 +7,7 @@ import { Price } from "./price";
 
 // Heading
 interface IProductCardProps {
+  id: number;
   label: string | undefined;
   title: string;
   likes: number;
@@ -15,7 +16,7 @@ interface IProductCardProps {
   price: number;
   discountPrice: number | undefined;
 }
-export const ProductCard: React.FC<IProductCardProps> = ({ label, title, likes, img, tag, price, discountPrice }) => {
+export const ProductCard: React.FC<IProductCardProps> = ({ id, label, title, likes, img, tag, price, discountPrice }) => {
   const [likesCount, setLikesCount] = useState<number>(likes);
   const [userLikeState, setUserLikeState] = useState<boolean>(true);
 
@@ -32,6 +33,7 @@ export const ProductCard: React.FC<IProductCardProps> = ({ label, title, likes, 
   return (
     <Container className="productCard">
       <Box shadow={1} round>
+        <a href={`/detail/${id}`}>
         <Thumbnail>
           <Label>{label}</Label>
           <Image
@@ -41,8 +43,9 @@ export const ProductCard: React.FC<IProductCardProps> = ({ label, title, likes, 
             height={232}
           />
         </Thumbnail>
+        </a>
         <ProductInfo>
-          <Title>{title}</Title>
+          <a href={`/detail/${id}`}><Title>{title}</Title></a>
           <Tags data={tag} />
           <LikesAndPrice>
             <Likes>
