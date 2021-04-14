@@ -60,9 +60,7 @@ export const ProductCard: React.FC<IProductCardProps> = ({ id, label, title, lik
   )
 }
 
-const Container = styled.div`
-  cursor: pointer;
-`;
+const Container = styled.div``;
 const Label = styled.div`
   position: absolute;
   z-index: 1;

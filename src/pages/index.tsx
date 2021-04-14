@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Heading, Text, Button, Colors, Box } from "components/ui";
 import Image from 'next/image';
 import { ProductList } from "components/product-card-list";
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -76,9 +77,16 @@ export default function Home() {
           <Heading level={3} bold>실무자를 위한 워크북</Heading>
           <Text size="16px">업계 선배들의 시행착오 경험과 구체적인 업무 사례를 만나보세요.</Text>
         </SectionHeader>
+
         <ProductListWrap>
-          <ProductList data={[]} />
-          <Box shadow={1} round className="allProductCard">제품 전체보기</Box>
+          <ProductList data={[]} /> {/* 데이터 넣어야 함 */}
+          <Link href="/detail/1"> {/* 페이지 생성되면 url 변경 */}
+            <a className="allProductLink">
+              <Box shadow={1} round className="allProductCard">
+                제품 전체보기
+              </Box>
+            </a>
+          </Link>
         </ProductListWrap>
       </Section5>
       <Section6 className="wrap">
@@ -223,18 +231,20 @@ const ProductListWrap = styled.div`
     flex-basis: 32%;
     margin-bottom: 32px; 
   }
-  > .allProductCard {
-    cursor: pointer;
+  .allProductLink {
+    display: block;
     max-width: 412px;
     flex-basis: 32%;
     margin-bottom: 32px;
+  }
+  .allProductCard {
+    height: 100%;
     padding: 36px;
     font-size: 20px;
     font-weight: 700;
     background: url(/forwardArrow.svg) bottom 36px right 28px/48px 48px no-repeat;
     background-color: ${Colors.primary};
     color: ${Colors.white};
-
   }
 `;
 
