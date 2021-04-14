@@ -45,8 +45,12 @@ export default function Home() {
         <Heading level={2} bold><Highlight2 style={{marginRight: '0.3em'}}>How</Highlight2>를 알려면</Heading>
         <Text size="20px" bold style={{marginTop: '26px'}}>실제 업무에 활용했던 구체적인 자료와 시행착오 경험, 노하우가 필요합니다.</Text>
         <ImagesArea>
-          <Box width="400px" height="400px" shadow={2} round style={{margin: '0 16px'}}></Box>
-          <Box width="400px" height="400px" shadow={2} round style={{margin: '0 16px'}}></Box>
+          <Box width="400px" height="400px" shadow={2} round style={{margin: '0 16px', fontSize: '20px', lineHeight: '32px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            &lt;실무 템플릿과 작성사례&gt;<br/>샘플 이미지
+          </Box>
+          <Box width="400px" height="400px" shadow={2} round style={{margin: '0 16px', fontSize: '20px', lineHeight: '32px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            &lt;실무 템플릿과 작성사례&gt;<br/>샘플 이미지
+          </Box>
         </ImagesArea>
         <Text size="20px">지금 내가 고민하고 있는 일을 성공적으로 해냈던 업계 선배들의 실제 업무 자료를 활용해보세요.</Text>
       </Section3>
@@ -98,38 +102,18 @@ export default function Home() {
         </Headline>
         <div className="wrap">
           <CompanyList>
-            <Company>
-              쿠팡페이
-            </Company>
-            <Company>
-              쿠팡페이
-            </Company>
-            <Company>
-              쿠팡페이
-            </Company>
-            <Company>
-              쿠팡페이
-            </Company>
-            <Company>
-              쿠팡페이
-            </Company>
+            <CompanyCard img="/logo/cppay.png" name="쿠팡페이" />
+            <CompanyCard img="/logo/axa.png" name="AXA" />
+            <CompanyCard img="/logo/mrntd.png" name="mrntd" />
+            <CompanyCard img="/logo/fdding.png" name="프딩" />
+            <CompanyCard img="/logo/fdding.png" name="프딩" />
           </CompanyList>
           <CompanyList>
-            <Company>
-              쿠팡페이
-            </Company>
-            <Company>
-              쿠팡페이
-            </Company>
-            <Company>
-              쿠팡페이
-            </Company>
-            <Company>
-              쿠팡페이
-            </Company>
-            <Company>
-              쿠팡페이
-            </Company>
+            <CompanyCard img="/logo/cppay.png" name="쿠팡페이" />
+            <CompanyCard img="/logo/axa.png" name="AXA" />
+            <CompanyCard img="/logo/mrntd.png" name="mrntd" />
+            <CompanyCard img="/logo/fdding.png" name="프딩" />
+            <CompanyCard img="/logo/fdding.png" name="프딩" />
           </CompanyList>
         </div>
       </Section7>
@@ -290,9 +274,27 @@ const Small = styled.span`
 `;
 const CompanyList = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 57px;
 `;
 const Company = styled.div`
-  width: 100px;
+  flex-grow: 1;
+  text-align: center;
+
+  .logo {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    margin: 0 auto 35px;
+  }
 `;
+
+function CompanyCard({ img, name }: any) {
+  return (
+    <Company>
+      <Box shadow={1} round style={{ backgroundImage: `url(${img})` }} className="logo"/>
+      <span>{ name }</span>
+    </Company>
+  )
+}
