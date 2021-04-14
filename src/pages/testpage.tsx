@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
-import { myContext } from '../context';
+import { myContext } from '../Context';
 import { User } from '../types/logintypes';
 import { useRouter } from 'next/router';
+import { Layout } from 'components/layout';
 
 export default function Homepage() {
     const userObject = useContext(myContext) as User;
@@ -12,6 +13,7 @@ export default function Homepage() {
     }, 3000);
 
     return (
+        <Layout>
         <div>
             {
                 userObject ? (
@@ -25,5 +27,6 @@ export default function Homepage() {
                     )
             }
         </div>
+        </Layout>
     )
 }

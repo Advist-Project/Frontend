@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "@emotion/styled";
 import { Button, Colors } from "components/ui";
-import { myContext } from "context";
+import { myContext } from "../Context";
 import { User } from '../types/logintypes';
 
 export const Header = () => {
