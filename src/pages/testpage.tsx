@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { myContext } from '../Context';
+import { myContext } from 'Context';
 import { User } from '../types/logintypes';
 import { useRouter } from 'next/router';
 import { Layout } from 'components/layout';
