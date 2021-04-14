@@ -9,6 +9,8 @@ export default function Home() {
     <Layout>
       <Button type = "login">로그인</Button>
       <br/> <br/>
+      <Button type = "login">로그아웃</Button>
+      <br/> <br/>
       <Button type = "start">시작하기</Button>
       <br/> <br/>
       <Input/>
