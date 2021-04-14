@@ -1,10 +1,10 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 import axios, { AxiosResponse } from 'axios';
 
 export default function Context(props: any) {
 
     const [userObject, setUserObject] = useState<any>();
-/*
+
     useEffect(() => {
         axios.get("https://criel.herokuapp.com/user/getuser", { withCredentials: true }).then((res: AxiosResponse) => {
             console.log(res);
@@ -13,8 +13,8 @@ export default function Context(props: any) {
             }
         })
     }, [])
-*/
 
+/*
         async function fetchData(){
             axios.get("https://criel.herokuapp.com/user/getuser", { withCredentials: true }).then((res: AxiosResponse) => {
                 console.log(res);
@@ -24,7 +24,7 @@ export default function Context(props: any) {
             })
         }
         fetchData();
-
+*/
 
     return (
         <myContext.Provider value={userObject}>{props.children}</myContext.Provider>
