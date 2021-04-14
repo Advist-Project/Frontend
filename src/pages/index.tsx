@@ -2,8 +2,7 @@ import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import { Heading, Text, Button, Colors, Box } from "components/ui";
 import Image from 'next/image';
-import { ProductList } from "components/product-card-list";
-import Link from 'next/link';
+import { ProductList } from "components/product-card-list";ㅊ
 
 export default function Home() {
   return (
