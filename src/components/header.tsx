@@ -10,7 +10,7 @@ export const Header = () => {
     useEffect(() => {
       setTimeout(function(){
         setisLogin(true);
-    }, 300);    
+    }, 500);    
   }, []);
 
   const userObject = useContext(myContext) as User;
