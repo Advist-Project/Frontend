@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Heading, Tags, Button, Colors, Box } from "components/ui";
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
-// import axios from 'axios';
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import { queryFormat } from 'components/formatter';
 import AnchorTab from 'components/tab';
@@ -21,38 +21,26 @@ const vData = {
   price: 50000,
   discountPrice : 20000
 }
-const vData2 = {
-  "_id" : "String",
-  "orderId" : "seq(increase)",
-  "userId" : "kildong",
-  "useremail" : "kildong@naver.com",
-  "itemInfo" : [{
-      "itemId" : "Int",
-      "itemImg" : "String",
-      "itemName" : "새 회사, 직무에 빠르게 적응하고 싶은 신입사원을 위한 업무 관리",
-      "itemOwner" : "String",
-      "option" : [{
-            "optionId" : "Int",
-            "title" : "워크북",
-            "type" : "workbook",
-            "desc" : "String",
-            "price" : 50000,
-            "deleteYN" : "Boolean",
-            "discountPrice" : 20000
-           }]
-  }],
-  "deleteYN" : "Boolean",
-}
 
 export default function Details() {
   const router = useRouter();
-  function getOrderData(){
-    // const res = await axios.get(`${process.env.NEXT_PUBLIC_ORDER_API_URL}/2`);
-    // const data = await res.data;
-  
+  const [OrderIds, setOrderIds] = useState<Number>(); // query로 넘길 orderId
+  const [OrderPage, setOrderPage] = useState(false); // 비동기처리 해결위해 선언
+  const [QueryData, setQueryData] = useState<any>();
+
+  async function getOrderData(){
+    const result = await axios.get(`https://advist.herokuapp.com/pay/checkorder/2?itemId=3&optionId=1`)
+      console.log(result.data);
+      setQueryData(result.data.order_receipts);
+      console.log('orderId :' + (result.data.order_receipts.orderId));
+      setOrderIds(result.data.order_receipts.orderId);
+      setOrderPage(true);
+  }
+  if(OrderPage){
+    console.log(OrderIds);
     router.push({
       pathname: `${process.env.NEXT_PUBLIC_ORDER_PAGE_URL}`,
-      query: queryFormat(vData2),
+      query: queryFormat(QueryData),
     }, '/order');
   }
 
