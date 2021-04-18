@@ -3,22 +3,23 @@ export function priceFormat(price: number){
 }
 
 export function queryFormat(data: any){
+
   return {
     "_id" : data._id,
     "orderId" : data.orderId,
     "userId" : data.userId,
     "useremail" : data.useremail,
-    "itemId" : data.itemInfo[0].itemId,
-    "itemImg" : data.itemInfo[0].itemImg,
-    "itemName" : data.itemInfo[0].itemName,
-    "itemOwner" : data.itemInfo[0].itemOwner,
-    "optionId" : data.itemInfo[0].option[0].optionId,
-    "title" : data.itemInfo[0].option[0].title,
-    "type" : data.itemInfo[0].option[0].type,
-    "desc" : data.itemInfo[0].option[0].desc,
-    "price" : data.itemInfo[0].option[0].price,
-    "deleteYN_option" : data.itemInfo[0].option[0].deleteYN,
-    "discountPrice" : data.itemInfo[0].option[0].discountPrice,
+    "itemId" : data.itemInfo.itemId,
+    "itemImg" : data.itemInfo.itemImg,
+    "itemName" : data.itemInfo.itemName,
+    "itemOwner" : data.itemInfo.itemOwner,
+    "optionId" : data.itemInfo.option.optionId,
+    "title" : data.itemInfo.option.title,
+    "type" : data.itemInfo.option.type,
+    "desc" : data.itemInfo.option.desc,
+    "price" : data.itemInfo.option.price,
+    "deleteYN_option" : data.itemInfo.option.deleteYN,
+    "discountPrice" : data.itemInfo.option.discountPrice,
     "deleteYN" : data.deleteYN,
   }
 }

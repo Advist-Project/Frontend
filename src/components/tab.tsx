@@ -6,14 +6,15 @@ import { Colors } from "components/ui";
 interface IAnchorTabProps {
   create: any;
   active: string;
+  scrollfn: any;
 }
-const AnchorTab: React.FC<IAnchorTabProps> = ({ create, active }) => {
+const AnchorTab: React.FC<IAnchorTabProps> = ({ create, active, scrollfn }) => {
 
   const tab:{[key:string]: any} = {
-    workbook: { value: "워크북", icon: '/icon/workbook_64p.svg', icon_active: '/icon/workbook_64p.svg', sectionRef: '', ...create.workbook },
-    coaching: { value: "코칭", icon: '/icon/coach_gray_64p.svg', icon_active: '/icon/coach_64p.svg', sectionRef: '', ...create.coaching },
-    review: { value: "리뷰", icon: '/icon/review_gray_64p.svg', icon_active: '/icon/review_64p.svg', sectionRef: '', ...create.review },
-    ask: { value: "문의", icon: '/icon/ask_gray_64p.svg', icon_active: '/icon/ask_64p.svg', sectionRef: '', ...create.ask }
+    workbook: { value: "워크북", icon: '/icon/workbook_set_64p.svg', sectionRef: '', ...create.workbook },
+    coaching: { value: "코칭", icon: '/icon/coach_set_64p.svg', sectionRef: '', ...create.coaching },
+    review: { value: "리뷰", icon: '/icon/review_set_64p.svg', sectionRef: '', ...create.review },
+    ask: { value: "문의", icon: '/icon/ask_set_64p.svg', sectionRef: '', ...create.ask }
   }
 
   const AnchorTab = styled.div`
@@ -21,7 +22,7 @@ const AnchorTab: React.FC<IAnchorTabProps> = ({ create, active }) => {
     background: ${Colors.white};
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     position: sticky;
-    top: 0;
+    top: -1px;
     left: 0;
     z-index: 1;
 
@@ -34,12 +35,14 @@ const AnchorTab: React.FC<IAnchorTabProps> = ({ create, active }) => {
     height: 109px;
     text-align: center;
     line-height: 24px;
+    cursor: pointer;
 
     .icon {
       display: block;
       width: 64px;
       height: 64px;
       margin: 6px auto 0;
+      background-position: right center;
     }
 
     &.workbook {
@@ -66,25 +69,9 @@ const AnchorTab: React.FC<IAnchorTabProps> = ({ create, active }) => {
 
     &.active {
       border-bottom: 8px ${Colors.secondary} solid;
-    }
-    &.active.workbook {
+
       .icon {
-        background-image: url(${tab.workbook.icon_active});
-      }
-    }
-    &.active.coaching {
-      .icon {
-        background-image: url(${tab.coaching.icon_active});
-      }
-    }
-    &.active.review {
-      .icon {
-        background-image: url(${tab.review.icon_active});
-      }
-    }
-    &.active.ask {
-      .icon {
-        background-image: url(${tab.ask.icon_active});
+        background-position: left center;
       }
     }
   `;
@@ -95,7 +82,7 @@ const AnchorTab: React.FC<IAnchorTabProps> = ({ create, active }) => {
         <ul>
           {
             Object.keys(create).map((type, i) => (
-              <Tab key={i} className={`${type} ${active === tab[type].sectionRef ? 'active' : ''}`}>
+              <Tab key={i} className={`${type} ${active === tab[type].sectionRef ? 'active' : ''}`} onClick={()=>{scrollfn(type)}}>
                 <div className="icon"/>
                 {tab[type].value}
               </Tab>
