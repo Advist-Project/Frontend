@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import Image from 'next/image';
-import { Heading, Tags, Button, Colors, Box } from "components/ui";
+import { Heading, Tags, Button, Colors, Box, Text } from "components/ui";
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
 import axios from 'axios';
@@ -50,14 +50,14 @@ export default function Details() {
   const coachingSectionRef = useRef<HTMLDivElement>(null);
   const reviewSectionRef = useRef<HTMLDivElement>(null);
   const askSectionRef = useRef<HTMLDivElement>(null);
-  const tabHeight:number = 208; //110 + 156/2
+  const tabHeight:number = 161; //109 + 52
   useEffect(() => {
     const handleScroll = () => {
-      if(workbookSectionRef.current && coachingSectionRef.current && reviewSectionRef.current && askSectionRef.current) {
+      if(workbookSectionRef.current && coachingSectionRef.current && reviewSectionRef.current) { // && askSectionRef.current
         const onWorkbookSection = window.scrollY+tabHeight < coachingSectionRef.current.offsetTop;
         const onCoachingSection = window.scrollY+tabHeight >= coachingSectionRef.current.offsetTop && window.scrollY+tabHeight < reviewSectionRef.current.offsetTop;
-        const onReviewSection = window.scrollY+tabHeight >= reviewSectionRef.current.offsetTop && window.scrollY+tabHeight < askSectionRef.current.offsetTop;
-        const onAskSection = window.scrollY+tabHeight >= askSectionRef.current.offsetTop;
+        const onReviewSection = window.scrollY+tabHeight >= reviewSectionRef.current.offsetTop; //&& window.scrollY+tabHeight < askSectionRef.current.offsetTop
+        // const onAskSection = window.scrollY+tabHeight >= askSectionRef.current.offsetTop;
 
         if(onWorkbookSection){
           setActiveTab('wrkb');
@@ -68,9 +68,9 @@ export default function Details() {
         else if(onReviewSection){
           setActiveTab('rv');
         }
-        else if(onAskSection){
-          setActiveTab('ask');
-        }
+        // else if(onAskSection){
+        //   setActiveTab('ask');
+        // }
       }
     };
     window.addEventListener('scroll', handleScroll);
@@ -94,7 +94,7 @@ export default function Details() {
             <p style={{marginTop: '36px'}}>제공자 : Tim</p>
           </DefaultInfo>
           <FunctionsAndPriceInfo>
-            <div>
+            <div>{/* 로그인 안된 상태ㅐ에서 찜하기 버튼 눌렀을 때 케이스 */}
               <LikeBtn state={false} />
             </div>
             <div className="rightArea">
@@ -108,22 +108,20 @@ export default function Details() {
       <AnchorTab create={{ workbook: { sectionRef: 'wrkb' },
                            coaching: { sectionRef: 'ch' },
                            review: { sectionRef: 'rv' },
-                           ask: { sectionRef: 'ask' } }}
+                          //  ask: { sectionRef: 'ask' }
+                        }}
                   active={activeTab}/>
-      <DetailInfo>
-        <div className="wrap">
-          <section ref={workbookSectionRef}>
-            <Box shadow={1} style={{height: '700px', background: '#FCFCFC', marginBottom: '156px'}}>워크북 섹션</Box>
-          </section>
-          <section ref={coachingSectionRef}>
-            <Box shadow={1} style={{height: '700px', background: '#FCFCFC', marginBottom: '156px'}}>코칭 섹션</Box>
-          </section>
-          <section ref={reviewSectionRef}>
-            <Box shadow={1} style={{height: '700px', background: '#FCFCFC', marginBottom: '156px'}}>리뷰 섹션</Box>
-          </section>
-          <section ref={askSectionRef}>
+      <DetailInfo className="wrap">
+        <DetailContent>
+          <section ref={workbookSectionRef}><ContentTemplate type="workbook" img="/detail/1.png"/></section>
+          <section ref={coachingSectionRef}><ContentTemplate type="coach" img="/detail/2.png"/></section>
+          <section ref={reviewSectionRef}><ContentTemplate type="review" img="/detail/3.png"/></section>
+          {/* <section ref={askSectionRef}>
             <Box shadow={1} style={{height: '700px', background: '#FCFCFC'}}>문의 섹션</Box>
-          </section>
+          </section> */}
+        </DetailContent>
+        <div>
+          옵션들
         </div>
       </DetailInfo>
     </Layout>
@@ -177,5 +175,66 @@ const FunctionsAndPriceInfo = styled.div`
 
 const DetailInfo = styled.div`
   background-color: ${Colors.gray6};
-  padding: 68px 0 209px;
+  padding-top: 68px;
+  padding-bottom: 157px;
+  display: flex;
 `;
+
+const DetailContent = styled.div`
+
+  flex-basis: 832px;
+`;
+
+function SectionTitle({icon, children}: any) {
+  const Wrap = styled.div`
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+  `;
+  return  (
+    <Wrap>
+      <img src={icon} style={{marginRight: '7px'}}/>
+      <Text size="20px" bold>{children}</Text>
+    </Wrap>
+  )
+}
+
+interface IContentTemplateTypes {
+  type: string;
+  img: string;
+};
+const ContentTemplate = React.memo(function WorkbookContent({type, img}: IContentTemplateTypes) {
+  const typeStyles:{[key: string]: any} = {
+    "workbook": {
+      icon: "/icon/workbook_64p.svg",
+      message: "워크북으로 다양한 템플릿을 참고해봐요.",
+      padding: "64px 64px 64px 52px"
+    },
+    "coach": {
+      icon: "/icon/coach_64p.svg",
+      message: "코칭으로 더욱 자세한 가이드라인을 받아보세요.",
+      padding: "64px 64px 64px 52px"
+    },
+    "review": {
+      icon: "/icon/review_64p.svg",
+      message: "교육 후기",
+      padding: "45px 64px 16px 37px"
+    }
+  }
+
+  console.log(type + " 렌더링");
+  return (
+    <>
+      <SectionTitle icon={typeStyles[type].icon}>
+        {typeStyles[type].message}
+      </SectionTitle>
+      <Box shadow={1} round style={{padding: `${typeStyles[type].padding}`, background: '#FCFCFC', marginBottom: '52px'}}>
+        <img
+          src={img}
+          alt=""
+          style={{width: '100%'}}
+        />
+      </Box>
+    </>
+  )
+});
