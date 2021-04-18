@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import Image from 'next/image';
-import { Heading, Tags, Button, Colors, Text } from "components/ui";
+import { Heading, Tags, Button, Colors, Text, Box } from "components/ui";
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
 import axios from 'axios';
@@ -63,28 +63,32 @@ export default function Details() {
   }
 
   // Tab Control
-  const [activeTab, setActiveTab] = useState<string>('wrkb');
+  const [activeTab, setActiveTab] = useState<string>('workbook');
+  const DetailInfoContainerRef = useRef<HTMLDivElement>(null);
   const workbookSectionRef = useRef<HTMLDivElement>(null);
   const coachingSectionRef = useRef<HTMLDivElement>(null);
   const reviewSectionRef = useRef<HTMLDivElement>(null);
   // const askSectionRef = useRef<HTMLDivElement>(null);
+ 
   const tabHeight:number = 161; //109 + 52
   useEffect(() => {
     const handleScroll = () => {
-      if(workbookSectionRef.current && coachingSectionRef.current && reviewSectionRef.current) { // && askSectionRef.current
-        const onWorkbookSection = window.scrollY+tabHeight < coachingSectionRef.current.offsetTop;
-        const onCoachingSection = window.scrollY+tabHeight >= coachingSectionRef.current.offsetTop && window.scrollY+tabHeight < reviewSectionRef.current.offsetTop;
-        const onReviewSection = window.scrollY+tabHeight >= reviewSectionRef.current.offsetTop; //&& window.scrollY+tabHeight < askSectionRef.current.offsetTop
+      if(DetailInfoContainerRef.current && workbookSectionRef.current && coachingSectionRef.current && reviewSectionRef.current) { // && askSectionRef.current
+        const parentOffsetTop = DetailInfoContainerRef.current.offsetTop;
+
+        const onWorkbookSection = window.scrollY+tabHeight < coachingSectionRef.current.offsetTop + parentOffsetTop;
+        const onCoachingSection = window.scrollY+tabHeight >= coachingSectionRef.current.offsetTop + parentOffsetTop && window.scrollY+tabHeight < reviewSectionRef.current.offsetTop + parentOffsetTop;
+        const onReviewSection = window.scrollY+tabHeight >= reviewSectionRef.current.offsetTop + parentOffsetTop; //&& window.scrollY+tabHeight < askSectionRef.current.offsetTop
         // const onAskSection = window.scrollY+tabHeight >= askSectionRef.current.offsetTop;
 
         if(onWorkbookSection){
-          setActiveTab('wrkb');
+          setActiveTab('workbook');
         }
         else if(onCoachingSection){
-          setActiveTab('ch');
+          setActiveTab('coaching');
         }
         else if(onReviewSection){
-          setActiveTab('rv');
+          setActiveTab('review');
         }
         // else if(onAskSection){
         //   setActiveTab('ask');
@@ -93,6 +97,19 @@ export default function Details() {
     };
     window.addEventListener('scroll', handleScroll);
   },[]);
+
+
+  function scrollCotroll(target: string){
+    const ref:{[key: string]: any} = {
+      "workbook": workbookSectionRef,
+      "coaching": coachingSectionRef,
+      "review": reviewSectionRef
+      // "ask": askSectionRef
+    }
+    const y:number = ref[target].current.offsetParent.offsetTop + ref[target].current.offsetTop - tabHeight + 1;
+    window.scrollTo(0, y);
+  }
+  
 
   return (
     <Layout>
@@ -123,14 +140,21 @@ export default function Details() {
           </FunctionsAndPriceInfo>
         </div>
       </ProductInfo>
-      <AnchorTab create={{ workbook: { sectionRef: 'wrkb' },
-                           coaching: { sectionRef: 'ch' },
-                           review: { sectionRef: 'rv' },
+      <div className="wrap">
+        <Box border={1} shadow={1} round style={{padding: '40px 72px', marginBottom: '72px'}}>
+          <img src="/detail/coach_1.png" style={{width: '100%'}}
+               alt="안녕하세요. HR/조직문화 분야에서 실무 코치로 활동하고 있는 Tim입니다. 저는 대기업과 스타트업의 HR 실무자로 근무하면서 크고 작은 직원 행사부터 전사 차원의 조직문화 개선 프로젝트까지 다양한 실무들을 경험했어요. 고객사 조직문화 컨설팅 프로젝트를 수행하면서 생긴 유용한 실무 팁과 노하우들을 바탕으로 현재 재직 중이신 회사의 조직문화 진단 프로젝트를 성공적으로 마무리하실 수 있도록 도와드릴게요. 주요 경력 및 이력: 전 프딩 HR Manager, 전 삼성전자 인재개발 HRD Professional, 전 KT 미래사업팀. 진행 프로젝트: 2019 삼성전자 조직문화행사, HR 컨설팅"/>
+        </Box>
+      </div>
+      <AnchorTab create={{ workbook: { sectionRef: 'workbook' },
+                           coaching: { sectionRef: 'coaching' },
+                           review: { sectionRef: 'review' },
                           //  ask: { sectionRef: 'ask' }
                         }}
-                  active={activeTab}/>
+                  active={activeTab}
+                  scrollfn={scrollCotroll}/>
       <DetailInfo>
-        <DetailInfoContainer className="wrap">
+        <DetailInfoContainer className="wrap" ref={DetailInfoContainerRef}>
           <DetailContent>
             <section ref={workbookSectionRef}><ContentTemplate type="workbook" img="/detail/1.png"/></section>
             <section ref={coachingSectionRef}><ContentTemplate type="coach" img="/detail/2.png"/></section>
