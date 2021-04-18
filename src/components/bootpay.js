@@ -1,4 +1,7 @@
-export function bootpay(data, extra){
+import axios from 'axios';
+
+export function bootpay(data, extra){ 
+
   BootPay.request({
     price: data.discountPrice, //할인 후 가격
     application_id: process.env.NEXT_PUBLIC_BT_KEY,
@@ -53,5 +56,13 @@ export function bootpay(data, extra){
     //결제가 정상적으로 완료되면 수행됩니다
     //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
     console.log(data);
+
+
+//    const url = 'https://advist.herokuapp.com/pay/verify/6076c06c0d681b003ed1c747?orderId='+ order_id;
+    const url = 'https://advist.herokuapp.com/pay/verify/6076c06c0d681b003ed1c747?orderId=1';
+    axios.get(url).then((res) => {
+      console.log("result : " + res.data);
+    });
+//    console.log("result : " + result.data);
   });
 }
