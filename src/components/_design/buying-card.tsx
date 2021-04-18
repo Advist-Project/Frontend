@@ -22,6 +22,7 @@ export const Buying: React.FC<IBuyingProps> = ({title, discountPrice, price, des
     border-color : ${Colors.black};
     box-sizing: border-box;
     border-radius: 20px;
+    margin-bottom: 28px;
     `;
 
     const HeaderBox = styled.div`
@@ -38,6 +39,7 @@ export const Buying: React.FC<IBuyingProps> = ({title, discountPrice, price, des
         display : flex;
         flex-direction : row;
         justify-content : space-between;
+        align-items: flex-end;
     `;
 
     const Line = styled.div`

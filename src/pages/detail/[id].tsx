@@ -2,13 +2,15 @@ import React, { useState, useEffect, useRef } from "react";
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import Image from 'next/image';
-import { Heading, Tags, Button, Colors, Box, Text } from "components/ui";
+import { Heading, Tags, Button, Colors, Text } from "components/ui";
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { queryFormat } from 'components/formatter';
 import AnchorTab from 'components/tab';
+import { ContentTemplate } from "components/detail-content-template";
+import { BuyingList } from "components/buying-card-list";
 
 
 // virtualData
@@ -18,8 +20,24 @@ const vData = {
   img: '/test.jpg',
   title: "새 회사, 직무에 빠르게 적응하고 싶은 신입사원을 위한 업무 관리 워크북",
   tag: ['고구마', '감자', '옥수수'],
-  price: 50000,
-  discountPrice : 20000
+  "options" : [
+    {
+        "optionId" : 1,
+        "title" : "새 회사, 직무에 빠르게 적응하는 신입사원의 업무 관리 워크북",
+        "type" : "workbook",
+        "desc" : "상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다",
+        "price" : 50000, //상품 원가격,
+        "discountPrice" : 20000 //할인된 가격을 계산한 값
+    },
+    {
+      "optionId" : 2,
+      "title" : "워크북 작성 1:1 코칭(1회)",
+      "type" : "coach",
+      "desc" : "상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다",
+      "price" : 50000, //상품 원가격,
+      "discountPrice" : 20000 //할인된 가격을 계산한 값
+  }
+  ]
 }
 
 export default function Details() {
@@ -49,7 +67,7 @@ export default function Details() {
   const workbookSectionRef = useRef<HTMLDivElement>(null);
   const coachingSectionRef = useRef<HTMLDivElement>(null);
   const reviewSectionRef = useRef<HTMLDivElement>(null);
-  const askSectionRef = useRef<HTMLDivElement>(null);
+  // const askSectionRef = useRef<HTMLDivElement>(null);
   const tabHeight:number = 161; //109 + 52
   useEffect(() => {
     const handleScroll = () => {
@@ -98,7 +116,7 @@ export default function Details() {
               <LikeBtn state={false} />
             </div>
             <div className="rightArea">
-              <Price discountPrice={vData.discountPrice} price={vData.price} />
+              <Price discountPrice={vData.options[0].discountPrice} price={vData.options[0].price} />
               <a onClick={getOrderData}><Button type="start">구매하기</Button></a>
               {/* 보유중 상태가 필요하겠네요 */}
             </div>
@@ -111,18 +129,23 @@ export default function Details() {
                           //  ask: { sectionRef: 'ask' }
                         }}
                   active={activeTab}/>
-      <DetailInfo className="wrap">
-        <DetailContent>
-          <section ref={workbookSectionRef}><ContentTemplate type="workbook" img="/detail/1.png"/></section>
-          <section ref={coachingSectionRef}><ContentTemplate type="coach" img="/detail/2.png"/></section>
-          <section ref={reviewSectionRef}><ContentTemplate type="review" img="/detail/3.png"/></section>
-          {/* <section ref={askSectionRef}>
-            <Box shadow={1} style={{height: '700px', background: '#FCFCFC'}}>문의 섹션</Box>
-          </section> */}
-        </DetailContent>
-        <div>
-          옵션들
-        </div>
+      <DetailInfo>
+        <DetailInfoContainer className="wrap">
+          <DetailContent>
+            <section ref={workbookSectionRef}><ContentTemplate type="workbook" img="/detail/1.png"/></section>
+            <section ref={coachingSectionRef}><ContentTemplate type="coach" img="/detail/2.png"/></section>
+            <section ref={reviewSectionRef}><ContentTemplate type="review" img="/detail/3.png"/></section>
+            {/* <section ref={askSectionRef}>
+              <Box shadow={1} style={{height: '700px', background: '#FCFCFC'}}>문의 섹션</Box>
+            </section> */}
+          </DetailContent>
+          <Options>
+            <SectionTitle>
+              <Text size="20px" bold>상품 옵션</Text>
+            </SectionTitle>
+            <BuyingList data={vData.options} />
+          </Options>
+        </DetailInfoContainer>
       </DetailInfo>
     </Layout>
   )
@@ -175,66 +198,25 @@ const FunctionsAndPriceInfo = styled.div`
 
 const DetailInfo = styled.div`
   background-color: ${Colors.gray6};
-  padding-top: 68px;
-  padding-bottom: 157px;
-  display: flex;
+  padding-top: 9px;
+  padding-bottom: 209px;
 `;
-
+const DetailInfoContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+`;
 const DetailContent = styled.div`
-
   flex-basis: 832px;
 `;
 
-function SectionTitle({icon, children}: any) {
-  const Wrap = styled.div`
-    display: flex;
-    align-items: center;
-    margin-bottom: 40px;
-  `;
-  return  (
-    <Wrap>
-      <img src={icon} style={{marginRight: '7px'}}/>
-      <Text size="20px" bold>{children}</Text>
-    </Wrap>
-  )
-}
-
-interface IContentTemplateTypes {
-  type: string;
-  img: string;
-};
-const ContentTemplate = React.memo(function WorkbookContent({type, img}: IContentTemplateTypes) {
-  const typeStyles:{[key: string]: any} = {
-    "workbook": {
-      icon: "/icon/workbook_64p.svg",
-      message: "워크북으로 다양한 템플릿을 참고해봐요.",
-      padding: "64px 64px 64px 52px"
-    },
-    "coach": {
-      icon: "/icon/coach_64p.svg",
-      message: "코칭으로 더욱 자세한 가이드라인을 받아보세요.",
-      padding: "64px 64px 64px 52px"
-    },
-    "review": {
-      icon: "/icon/review_64p.svg",
-      message: "교육 후기",
-      padding: "45px 64px 16px 37px"
-    }
-  }
-
-  console.log(type + " 렌더링");
-  return (
-    <>
-      <SectionTitle icon={typeStyles[type].icon}>
-        {typeStyles[type].message}
-      </SectionTitle>
-      <Box shadow={1} round style={{padding: `${typeStyles[type].padding}`, background: '#FCFCFC', marginBottom: '52px'}}>
-        <img
-          src={img}
-          alt=""
-          style={{width: '100%'}}
-        />
-      </Box>
-    </>
-  )
-});
+const Options = styled.div`
+  position: sticky;
+  top: 0;
+  right: 0;
+  padding-left: 40px;
+`;
+const SectionTitle = styled.div`
+  margin-top: 69px;
+  margin-bottom: 56px;
+`;
