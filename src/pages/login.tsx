@@ -12,7 +12,7 @@ export default function LoginPage(){
                 <Heading level={4} bold >지금 가입하시면 5만원 상당의 자료를 무료로 드려요</Heading>
             </div>
             <div style={{marginTop : "60px"}}>
-            <Google onClick = {() => location.href = process.env.NEXT_PUBLIC_LOGIN_GOOGLE as string}><Icon/><Name>Google로 시작하기</Name></Google>
+            <Google onClick = {() => location.href = "https://advist.herokuapp.com/user/auth/google"}><Icon/><Name>Google로 시작하기</Name></Google>
             <Kakao onClick = {() => location.href = process.env.NEXT_PUBLIC_LOGIN_KAKAO as string}><Icon/><Name>Kakao로 시작하기</Name></Kakao>
             <Naver onClick = {() => location.href = process.env.NEXT_PUBLIC_LOGIN_NAVER as string}><Icon/><Name>Naver로 시작하기</Name></Naver>
             </div>
