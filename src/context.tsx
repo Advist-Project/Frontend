@@ -14,18 +14,6 @@ export default function Context(props: any) {
         })
     }, [])
 
-/*
-        async function fetchData(){
-            axios.get("https://criel.herokuapp.com/user/getuser", { withCredentials: true }).then((res: AxiosResponse) => {
-                console.log(res);
-                if (res.data) {
-                    setUserObject(res.data);
-                }
-            })
-        }
-        fetchData();
-*/
-
     return (
         <myContext.Provider value={userObject}>{props.children}</myContext.Provider>
     )
