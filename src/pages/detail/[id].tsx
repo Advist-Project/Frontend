@@ -1,3 +1,4 @@
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import React, { useState, useEffect, useRef } from "react";
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
@@ -5,62 +6,15 @@ import Image from 'next/image';
 import { Heading, Tags, Button, Colors, Text, Box } from "components/ui";
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import { queryFormat } from 'components/formatter';
 import AnchorTab from 'components/tab';
 import { ContentTemplate } from "components/detail-content-template";
 import { BuyingList } from "components/buying-card-list";
+import { getOrderData } from "components/get-order-data";
 
+export default function Details({itemData}: InferGetServerSidePropsType<typeof getServerSideProps>){
 
-// virtualData
-// 상품정보 api의 결과값
-const vData = { 
-  _id: 'asdf1234',
-  img: '/test.jpg',
-  title: "새 회사, 직무에 빠르게 적응하고 싶은 신입사원을 위한 업무 관리 워크북",
-  tag: ['고구마', '감자', '옥수수'],
-  "options" : [
-    {
-        "optionId" : 1,
-        "title" : "새 회사, 직무에 빠르게 적응하는 신입사원의 업무 관리 워크북",
-        "type" : "workbook",
-        "desc" : "상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다",
-        "price" : 50000, //상품 원가격,
-        "discountPrice" : 20000 //할인된 가격을 계산한 값
-    },
-    {
-      "optionId" : 2,
-      "title" : "워크북 작성 1:1 코칭(1회)",
-      "type" : "coach",
-      "desc" : "상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다",
-      "price" : 50000, //상품 원가격,
-      "discountPrice" : 20000 //할인된 가격을 계산한 값
-  }
-  ]
-}
-
-export default function Details() {
-  const router = useRouter();
-  const [OrderIds, setOrderIds] = useState<Number>(); // query로 넘길 orderId
-  const [OrderPage, setOrderPage] = useState(false); // 비동기처리 해결위해 선언
-  const [QueryData, setQueryData] = useState<any>();
-
-  async function getOrderData(){
-    const result = await axios.get(`https://advist.herokuapp.com/pay/checkorder/2?itemId=3&optionId=1`)
-      console.log(result.data);
-      setQueryData(result.data.order_receipts);
-      console.log('orderId :' + (result.data.order_receipts.orderId));
-      setOrderIds(result.data.order_receipts.orderId);
-      setOrderPage(true);
-  }
-  if(OrderPage){
-    console.log(OrderIds);
-    router.push({
-      pathname: `${process.env.NEXT_PUBLIC_ORDER_PAGE_URL}`,
-      query: queryFormat(QueryData),
-    }, '/order');
-  }
+  // api로 받아온 상품 데이터
+  const { itemId, img, title, tag, options } = itemData;
 
   // Tab Control
   const [activeTab, setActiveTab] = useState<string>('workbook');
@@ -99,7 +53,7 @@ export default function Details() {
   },[]);
 
 
-  function scrollCotroll(target: string){
+  function windowScroll(target: string){
     const ref:{[key: string]: any} = {
       "workbook": workbookSectionRef,
       "coaching": coachingSectionRef,
@@ -116,7 +70,7 @@ export default function Details() {
       <ProductInfo className="wrap">
         <div className="leftArea">
           <Image
-            src={vData.img}
+            src={img}
             alt=""
             width={645}
             height={363}
@@ -124,8 +78,8 @@ export default function Details() {
         </div>
         <div className="rightArea">
           <DefaultInfo>
-            <Heading level={4} bold style={{marginBottom: '27px'}}>{vData.title}</Heading>
-            <Tags data={vData.tag}/>
+            <Heading level={4} bold style={{marginBottom: '27px'}}>{title}</Heading>
+            <Tags data={tag}/>
             <p style={{marginTop: '36px'}}>제공자 : Tim</p>
           </DefaultInfo>
           <FunctionsAndPriceInfo>
@@ -133,8 +87,8 @@ export default function Details() {
               <LikeBtn state={false} />
             </div>
             <div className="rightArea">
-              <Price discountPrice={vData.options[0].discountPrice} price={vData.options[0].price} />
-              <a onClick={getOrderData}><Button type="start">구매하기</Button></a>
+              <Price discountPrice={options[0].discountPrice} price={options[0].price} />
+              <a onClick={()=>getOrderData(1, itemId, 1)}><Button type="start">구매하기</Button></a>
               {/* 보유중 상태가 필요하겠네요 */}
             </div>
           </FunctionsAndPriceInfo>
@@ -152,7 +106,7 @@ export default function Details() {
                           //  ask: { sectionRef: 'ask' }
                         }}
                   active={activeTab}
-                  scrollfn={scrollCotroll}/>
+                  scrollfn={windowScroll}/>
       <DetailInfo>
         <DetailInfoContainer className="wrap" ref={DetailInfoContainerRef}>
           <DetailContent>
@@ -167,7 +121,7 @@ export default function Details() {
             <SectionTitle>
               <Text size="20px" bold>상품 옵션</Text>
             </SectionTitle>
-            <BuyingList data={vData.options} />
+            <BuyingList data={options} />
           </Options>
         </DetailInfoContainer>
       </DetailInfo>
@@ -175,6 +129,39 @@ export default function Details() {
   )
 }
 
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  
+  // virtualData
+  const vData = { 
+    itemId: context.query.id,
+    img: '/test.jpg',
+    title: "새 회사, 직무에 빠르게 적응하고 싶은 신입사원을 위한 업무 관리 워크북",
+    tag: ['고구마', '감자', '옥수수'],
+    "options" : [
+      {
+          "optionId" : 1,
+          "title" : "새 회사, 직무에 빠르게 적응하는 신입사원의 업무 관리 워크북",
+          "type" : "workbook",
+          "desc" : "상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다",
+          "price" : 50000, //상품 원가격,
+          "discountPrice" : 20000 //할인된 가격을 계산한 값
+      },
+      {
+        "optionId" : 2,
+        "title" : "워크북 작성 1:1 코칭(1회)",
+        "type" : "coach",
+        "desc" : "상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다",
+        "price" : 50000, //상품 원가격,
+        "discountPrice" : 20000 //할인된 가격을 계산한 값
+    }
+    ]
+  }
+
+  return {
+    props: { itemData: vData },
+  }
+}
 
 const ProductInfo = styled.div`
   display: flex;
