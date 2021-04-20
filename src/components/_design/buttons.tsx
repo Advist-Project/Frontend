@@ -21,7 +21,7 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url }) =
 
     function loading() {
       if(children === "로그아웃") {
-        axios.get("https://criel-db-test.herokuapp.com/user/auth/logout", {
+        axios.get("https://advist.herokuapp.com/user/auth/logout", {
             withCredentials: true
         }).then((res: AxiosResponse) => {
             if (res.data === "done") {
