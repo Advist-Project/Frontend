@@ -5,9 +5,10 @@ import { Footer } from "components/footer";
 
 interface ILayoutProps {
   title?: string;
+  noFooter?: boolean;
 }
 
-export const Layout: React.FC<ILayoutProps> = ({ children, title }) => {
+export const Layout: React.FC<ILayoutProps> = ({ children, title, noFooter}) => {
   return (
     <>
       <Head>
@@ -17,7 +18,11 @@ export const Layout: React.FC<ILayoutProps> = ({ children, title }) => {
       </Head>
       <Header />
       <>{children}</>
-      <Footer />
+      {
+        noFooter?
+        null :
+        <Footer />
+      }
     </>
   );
 };
