@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { Heading, Text, Button, Colors, Box } from "components/ui";
 import Image from 'next/image';
 import { ProductList } from "components/product-card-list";
-import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -46,8 +45,12 @@ export default function Home() {
         <Heading level={2} bold><Highlight2 style={{marginRight: '0.3em'}}>How</Highlight2>를 알려면</Heading>
         <Text size="20px" bold style={{marginTop: '26px'}}>실제 업무에 활용했던 구체적인 자료와 시행착오 경험, 노하우가 필요합니다.</Text>
         <ImagesArea>
-          <Box width="400px" height="400px" shadow={2} round style={{margin: '0 16px'}}></Box>
-          <Box width="400px" height="400px" shadow={2} round style={{margin: '0 16px'}}></Box>
+          <Box width="400px" height="400px" shadow={2} round style={{margin: '0 16px', fontSize: '20px', lineHeight: '32px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            &lt;실무 템플릿과 작성사례&gt;<br/>샘플 이미지
+          </Box>
+          <Box width="400px" height="400px" shadow={2} round style={{margin: '0 16px', fontSize: '20px', lineHeight: '32px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            &lt;실무 템플릿과 작성사례&gt;<br/>샘플 이미지
+          </Box>
         </ImagesArea>
         <Text size="20px">지금 내가 고민하고 있는 일을 성공적으로 해냈던 업계 선배들의 실제 업무 자료를 활용해보세요.</Text>
       </Section3>
@@ -73,9 +76,15 @@ export default function Home() {
           <Heading level={3} bold>실무자를 위한 워크북</Heading>
           <Text size="16px">업계 선배들의 시행착오 경험과 구체적인 업무 사례를 만나보세요.</Text>
         </SectionHeader>
+
         <ProductListWrap>
-          <ProductList data={[]} />
-          <Box shadow={1} round className="allProductCard"><Link href="/detail/1"><a>제품 전체보기</a></Link></Box>
+          <ProductList data={[]} /> {/* 데이터 넣어야 함 */}
+          {/* 페이지 생성되면 url 변경 */}
+          <a href="/detail/1" className="allProductLink">
+            <Box shadow={1} round className="allProductCard">
+              제품 전체보기
+            </Box>
+          </a>
         </ProductListWrap>
       </Section5>
       <Section6 className="wrap">
@@ -99,38 +108,18 @@ export default function Home() {
         </Headline>
         <div className="wrap">
           <CompanyList>
-            <Company>
-              쿠팡페이
-            </Company>
-            <Company>
-              쿠팡페이
-            </Company>
-            <Company>
-              쿠팡페이
-            </Company>
-            <Company>
-              쿠팡페이
-            </Company>
-            <Company>
-              쿠팡페이
-            </Company>
+            <CompanyCard img="/logo/cppay.png" name="쿠팡페이" />
+            <CompanyCard img="/logo/axa.png" name="AXA" />
+            <CompanyCard img="/logo/mrntd.png" name="mrntd" />
+            <CompanyCard img="/logo/fdding.png" name="프딩" />
+            <CompanyCard img="/logo/fdding.png" name="프딩" />
           </CompanyList>
           <CompanyList>
-            <Company>
-              쿠팡페이
-            </Company>
-            <Company>
-              쿠팡페이
-            </Company>
-            <Company>
-              쿠팡페이
-            </Company>
-            <Company>
-              쿠팡페이
-            </Company>
-            <Company>
-              쿠팡페이
-            </Company>
+            <CompanyCard img="/logo/cppay.png" name="쿠팡페이" />
+            <CompanyCard img="/logo/axa.png" name="AXA" />
+            <CompanyCard img="/logo/mrntd.png" name="mrntd" />
+            <CompanyCard img="/logo/fdding.png" name="프딩" />
+            <CompanyCard img="/logo/fdding.png" name="프딩" />
           </CompanyList>
         </div>
       </Section7>
@@ -240,18 +229,20 @@ const ProductListWrap = styled.div`
     flex-basis: 32%;
     margin-bottom: 32px; 
   }
-  > .allProductCard {
-    cursor: pointer;
+  .allProductLink {
+    display: block;
     max-width: 412px;
     flex-basis: 32%;
     margin-bottom: 32px;
+  }
+  .allProductCard {
+    height: 100%;
     padding: 36px;
     font-size: 20px;
     font-weight: 700;
     background: url(/forwardArrow.svg) bottom 36px right 28px/48px 48px no-repeat;
     background-color: ${Colors.primary};
     color: ${Colors.white};
-
   }
 `;
 
@@ -291,9 +282,27 @@ const Small = styled.span`
 `;
 const CompanyList = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 57px;
 `;
 const Company = styled.div`
-  width: 100px;
+  flex-grow: 1;
+  text-align: center;
+
+  .logo {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    margin: 0 auto 35px;
+  }
 `;
+
+function CompanyCard({ img, name }: any) {
+  return (
+    <Company>
+      <Box shadow={1} round style={{ backgroundImage: `url(${img})` }} className="logo"/>
+      <span>{ name }</span>
+    </Company>
+  )
+}

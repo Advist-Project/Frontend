@@ -137,6 +137,7 @@ export const reset = css`
   }
   html {
     font-family: 'Spoqa Han Sans Neo', 'sans-serif' !important;
+    background-color: #FCFCFC;
   }
   a {
     color: inherit;

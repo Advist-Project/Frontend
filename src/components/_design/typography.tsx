@@ -6,8 +6,10 @@ import { assignCss } from "./assignCss";
 interface IHeadingProps {
   level?: number;
   bold?: boolean;
+  className?: string;
+  style?: object[] | object; 
 }
-export const Heading: React.FC<IHeadingProps> = ({ children, level, bold }) => {
+export const Heading: React.FC<IHeadingProps> = ({ children, level, bold, className, style}) => {
   const tag:React.ElementType = !level ? 'h1' : level === 2 ? 'h2' : level === 3 ? 'h3' : level === 4 ? 'h4' : 'h5';
   const styles = {
     'h1': { fontSize: '60px', lineHeight: '120%' },
@@ -23,7 +25,7 @@ export const Heading: React.FC<IHeadingProps> = ({ children, level, bold }) => {
     word-break: keep-all;
   `
   return (
-    <Heading as={tag}>{children}</Heading>
+    <Heading as={tag} className={className} style={assignCss(style)}>{children}</Heading>
   )
 }
 
@@ -32,9 +34,10 @@ interface ITextProps {
   size?: string;
   bold?: boolean;
   inline?: boolean;
+  className?: string;
   style?: object[] | object;
 }
-export const Text: React.FC<ITextProps> = ({ children, size, bold, inline, style }) => {
+export const Text: React.FC<ITextProps> = ({ children, size, bold, inline, className, style }) => {
   const tag:React.ElementType = inline ? 'span' : 'p';
   const _size = size ? size : '14px';  
   const lineHeight: {[key: string]: string | undefined} = {
@@ -48,6 +51,6 @@ export const Text: React.FC<ITextProps> = ({ children, size, bold, inline, style
     font-weight: ${bold ? '500' : '400'};
   `
   return (
-    <Text as={tag} style={assignCss(style)}>{children}</Text>
+    <Text as={tag} className={className} style={assignCss(style)}>{children}</Text>
   )
 }

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { Box, Tags, Colors } from "./ui";
-import Image from 'next/image';
 import { LikeBtn } from "./like-button";
 import { Price } from "./price";
+import Thumbnail from "./product-card-thumb";
 
 // Heading
 interface IProductCardProps {
@@ -32,19 +32,15 @@ export const ProductCard: React.FC<IProductCardProps> = ({ id, label, title, lik
 
   return (
     <Container className="productCard">
-      <a href={`/detail/${id}`}>
+      <Label>{label}</Label>
       <Box shadow={1} round>
-        <Thumbnail>
-          <Label>{label}</Label>
-          <Image
-            src={img}
-            alt=""
-            width={412}
-            height={232}
-          />
-        </Thumbnail>
+        <a href={`/detail/${id}`}>
+          <Thumbnail url={img}/>
+        </a>
         <ProductInfo>
-          <Title>{title}</Title>
+          <a href={`/detail/${id}`}>
+            <Title>{title}</Title>
+          </a>
           <Tags data={tag} />
           <LikesAndPrice>
             <Likes>
@@ -55,13 +51,12 @@ export const ProductCard: React.FC<IProductCardProps> = ({ id, label, title, lik
           </LikesAndPrice>
         </ProductInfo>
       </Box>
-      </a>
     </Container>
   )
 }
 
 const Container = styled.div`
-  cursor: pointer;
+  position: relative;
 `;
 const Label = styled.div`
   position: absolute;
@@ -74,12 +69,6 @@ const Label = styled.div`
   border-radius: 16px;
   text-align: center;
   background: rgba(255,208,51,0.8);
-`;
-const Thumbnail = styled.div`
-  position: relative;
-  overflow: hidden;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
 `;
 const ProductInfo = styled.div`
   padding: 24px 20px 20px;
