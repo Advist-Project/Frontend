@@ -13,8 +13,8 @@ export default function LoginPage(){
             </div>
             <div style={{marginTop : "60px"}}>
             <Google onClick = {() => location.href = "https://advist.herokuapp.com/user/auth/google"}><Icon/><Name>Google로 시작하기</Name></Google>
-            <Kakao onClick = {() => location.href = process.env.NEXT_PUBLIC_LOGIN_KAKAO as string}><Icon/><Name>Kakao로 시작하기</Name></Kakao>
-            <Naver onClick = {() => location.href = process.env.NEXT_PUBLIC_LOGIN_NAVER as string}><Icon/><Name>Naver로 시작하기</Name></Naver>
+            <Kakao onClick = {() => location.href = "https://advist.herokuapp.com/user/auth/kakao"}><Icon/><Name>Kakao로 시작하기</Name></Kakao>
+            <Naver onClick = {() => location.href = "https://advist.herokuapp.com/user/auth/naver"}><Icon/><Name>Naver로 시작하기</Name></Naver>
             </div>
             <Agree>최초 로그인 시 어드바이스트의&nbsp;
             <a style={{textDecorationLine : "underline", color : "#5F5F5F",
