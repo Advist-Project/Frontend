@@ -8,7 +8,7 @@ import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
 import AnchorTab from 'components/tab';
 import { ContentTemplate } from "components/detail-content-template";
-import { BuyingList } from "components/buying-card-list";
+import { Buying } from "components/_design/buying-card";
 import { getOrderData } from "components/get-order-data";
 import { useRouter } from 'next/router';
 import { queryFormat } from 'components/formatter';
@@ -17,12 +17,13 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
 
   // api로 받아온 상품 데이터
   const { itemId, img, title, tag, options } = itemData;
+  const router = useRouter();
 
-  async function getOrderDataAndRoute(userId: any, itemId: any, optionId: any){
+  async function getOrderDataThenRoute(userId: any, itemId: any, optionId: any){
+    console.log(userId, itemId, optionId);
     const result = await getOrderData(userId, itemId, optionId);
 
     if(result){
-      const router = useRouter();
       router.push({
         pathname: `${process.env.NEXT_PUBLIC_ORDER_PAGE_URL}`,
         query: queryFormat(result),
@@ -102,7 +103,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
             </div>
             <div className="rightArea">
               <Price discountPrice={options[0].discountPrice} price={options[0].price} />
-              <a onClick={()=>getOrderDataAndRoute(1, itemId, 1)}><Button type="start">구매하기</Button></a>
+              <a onClick={()=>getOrderDataThenRoute(1, itemId, 1)}><Button type="start">구매하기</Button></a>
               {/* 보유중 상태가 필요하겠네요 */}
             </div>
           </FunctionsAndPriceInfo>
@@ -135,7 +136,19 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
             <SectionTitle>
               <Text size="20px" bold>상품 옵션</Text>
             </SectionTitle>
-            <BuyingList data={options} />
+            {
+              options.map((item: any) => (
+                <Buying key={item.optionId}
+                        title={item.title}
+                        price={item.price}
+                        discountPrice={item.discountPrice}
+                        desc={item.desc}
+                        optionId={item.optionId}
+                        itemId={itemId}
+                        fn={getOrderDataThenRoute}
+                />
+              ))
+            }
           </Options>
         </DetailInfoContainer>
       </DetailInfo>
