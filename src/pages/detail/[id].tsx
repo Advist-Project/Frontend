@@ -8,14 +8,10 @@ import { Price } from "components/price";
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { queryFormat } from 'components/formatter';
-<<<<<<< HEAD
-import React, { useState } from 'react'
-=======
 import AnchorTab from 'components/tab';
 import { ContentTemplate } from "components/detail-content-template";
 import { BuyingList } from "components/buying-card-list";
 
->>>>>>> origin/develop
 
 // virtualData
 // 상품정보 api의 결과값
@@ -24,10 +20,6 @@ const vData = {
   img: '/test.jpg',
   title: "새 회사, 직무에 빠르게 적응하고 싶은 신입사원을 위한 업무 관리 워크북",
   tag: ['고구마', '감자', '옥수수'],
-<<<<<<< HEAD
-  price: 50000,
-  discountPrice : 20000
-=======
   "options" : [
     {
         "optionId" : 1,
@@ -46,7 +38,6 @@ const vData = {
       "discountPrice" : 20000 //할인된 가격을 계산한 값
   }
   ]
->>>>>>> origin/develop
 }
 
 export default function Details() {
@@ -71,8 +62,6 @@ export default function Details() {
     }, '/order');
   }
 
-<<<<<<< HEAD
-=======
   // Tab Control
   const [activeTab, setActiveTab] = useState<string>('workbook');
   const DetailInfoContainerRef = useRef<HTMLDivElement>(null);
@@ -121,7 +110,6 @@ export default function Details() {
     window.scrollTo(0, y);
   }
   
->>>>>>> origin/develop
 
   return (
     <Layout>
