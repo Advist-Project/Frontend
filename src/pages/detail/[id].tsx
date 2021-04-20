@@ -10,11 +10,25 @@ import AnchorTab from 'components/tab';
 import { ContentTemplate } from "components/detail-content-template";
 import { BuyingList } from "components/buying-card-list";
 import { getOrderData } from "components/get-order-data";
+import { useRouter } from 'next/router';
+import { queryFormat } from 'components/formatter';
 
 export default function Details({itemData}: InferGetServerSidePropsType<typeof getServerSideProps>){
 
   // api로 받아온 상품 데이터
   const { itemId, img, title, tag, options } = itemData;
+
+  async function getOrderDataAndRoute(userId: any, itemId: any, optionId: any){
+    const result = await getOrderData(userId, itemId, optionId);
+
+    if(result){
+      const router = useRouter();
+      router.push({
+        pathname: `${process.env.NEXT_PUBLIC_ORDER_PAGE_URL}`,
+        query: queryFormat(result),
+      }, '/order');
+    }
+  }
 
   // Tab Control
   const [activeTab, setActiveTab] = useState<string>('workbook');
@@ -88,7 +102,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
             </div>
             <div className="rightArea">
               <Price discountPrice={options[0].discountPrice} price={options[0].price} />
-              <a onClick={()=>getOrderData(1, itemId, 1)}><Button type="start">구매하기</Button></a>
+              <a onClick={()=>getOrderDataAndRoute(1, itemId, 1)}><Button type="start">구매하기</Button></a>
               {/* 보유중 상태가 필요하겠네요 */}
             </div>
           </FunctionsAndPriceInfo>
