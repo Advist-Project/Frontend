@@ -1,28 +1,30 @@
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
-export function bootpay(data, extra){ 
+export function bootpay(data, extra){
+  console.log(data.itemInfo.itemId);
 
   BootPay.request({
-    price: data.discountPrice, //할인 후 가격
+    price: data.itemInfo.option.discountPrice, //할인 후 가격
     application_id: process.env.NEXT_PUBLIC_BT_KEY,
-    name: data.title,
+    name: data.itemInfo.option.title,
     pg: extra.pg,
     method: extra.method,
     show_agree_window: 0,
     items: [
       {
-        item_name: data.itemName,
+        item_name: data.itemInfo.itemName,
         qty: 1, //수량
-        unique: data.itemId,
-        price: data.price, //원가격
-        cat1: data.type
+        unique: data._id,
+        price: data.itemInfo.option.price, //원가격
+        cat1: data.itemInfo.option.type
       }
     ],
     user_info: {
-      username: '홍길동',
+      username: extra.userName,
       email: data.useremail,
-      addr: '사용자 주소',
-      phone: '010-1234-4567'
+      addr: '',
+      phone: extra.userPhone
     },
     order_id: data.orderId,
     extra: {
@@ -52,17 +54,12 @@ export function bootpay(data, extra){
   }).close(function (data) {
       // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
       console.log(data);
-  }).done(function (data) {
-    //결제가 정상적으로 완료되면 수행됩니다
-    //비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
-    console.log(data);
-
-
-//    const url = 'https://advist.herokuapp.com/pay/verify/6076c06c0d681b003ed1c747?orderId='+ order_id;
-    const url = 'https://advist.herokuapp.com/pay/verify/6076c06c0d681b003ed1c747?orderId=1';
-    axios.get(url).then((res) => {
-      console.log("result : " + res.data);
-    });
-//    console.log("result : " + result.data);
+  }).done(async function (data) {
+      console.log('done: ', data);
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/pay/verify/${data.receipt_id}?orderId=${data.order_id}`);
+      console.log('verify: ', res);
+      if(res.data.message === "success verify"){
+        location.replace('/order/complete');
+      }
   });
 }

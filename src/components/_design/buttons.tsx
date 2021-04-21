@@ -10,8 +10,10 @@ interface IButtonProps{ // type = "login" => 로그인, type = "start" => 시작
     type?: string;
     style?: object[] | object;
     url?: string;
+    disabled?: any;
 }
-export const Button: React.FC<IButtonProps> = ({ children, type, style, url }) => {
+export const Button: React.FC<IButtonProps> = ({ children, type, style, url, disabled }) => {
+
     const [buttonText, setButtonText] = useState(children);
     const [isLoading, setisLoading] = useState(false);
     const router = useRouter();
@@ -88,6 +90,6 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url }) =
       }
     `;
     return (
-      <Button style={assignCss(style)} onClick={loading}>{buttonText}</Button>
+      <Button style={assignCss(style)} onClick={loading} disabled={disabled}>{buttonText}</Button>
     )
   }

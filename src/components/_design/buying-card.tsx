@@ -8,8 +8,11 @@ interface IBuyingProps{ // type = "login" => 로그인, type = "start" => 시작
     price: number;
     discountPrice: number | undefined;
     desc?: string;
+    optionId?: number;
+    itemId?: any;
+    fn?:  any;
 }
-export const Buying: React.FC<IBuyingProps> = ({title, discountPrice, price, desc}) => {
+export const Buying: React.FC<IBuyingProps> = ({title, discountPrice, price, desc, optionId, itemId, fn}) => {
 
     const Box = styled.div`
     height: 376px;
@@ -66,7 +69,7 @@ export const Buying: React.FC<IBuyingProps> = ({title, discountPrice, price, des
         </Products>
         <Line/>
             <Text style={{width : '372px', height : '40px', marginTop : '24px', color : `#4E4B66`}} size='16px'>{desc}</Text>
-        <div style = {{marginTop : '24px'}}>
+        <div style = {{marginTop : '24px'}} onClick={()=>fn(1, itemId, optionId)}>
             <Button style={{width : '372px', height : '60px'}}>구매하기</Button>
         </div>        
         </Box>

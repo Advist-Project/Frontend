@@ -25,7 +25,6 @@ export const ContentTemplate = React.memo(function WorkbookContent({type, img}: 
     }
   }
 
-  console.log(type + " 렌더링");
   return (
     <>
       <SectionTitle icon={typeStyles[type].icon}>
