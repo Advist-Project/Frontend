@@ -30,6 +30,7 @@ export const Colors = {
   gray7: '#EFF0F7',
   gray8: '#6E7191',
   gray9: '#A0A3BD',
+  gray10: '#898989',
   white: '#FCFCFC',
   pinkLight : '#FFF3F8',
   pinkDark : '#C30052',
