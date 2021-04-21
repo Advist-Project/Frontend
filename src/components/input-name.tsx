@@ -18,6 +18,11 @@ export function InputName({useState, useStateFunction, formStateFunction}: any){
     }     
   }, [useState]);
 
+  //초기회
+  useEffect(() => {
+    setStateCd('');
+  }, []);  
+
   return (
     <div key="bb">
         <Input placeholder="성함을 입력해주세요."

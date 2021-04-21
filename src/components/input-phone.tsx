@@ -53,6 +53,11 @@ export function InputPhone({useState, useStateFunction, formStateFunction}: any)
     }
   }
 
+  //초기회
+  useEffect(() => {
+    setStateCd('');
+  }, []);  
+
   return (
     <div key="aa">
         <Input placeholder="숫자만 입력"

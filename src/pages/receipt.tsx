@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from "@emotion/styled";
 import { Layout } from "components/layout";
 import { Heading, Button, Colors } from "components/ui";
@@ -10,7 +11,7 @@ import { InputPhone } from "components/input-phone";
 import { InputName } from "components/input-name";
 
 function Order(props: any) {
-  const data = JSON.parse(props.router.query.data);
+  // const data = JSON.parse(props.router.query.data);
 
   // 오류 판별 및 리다이렉트
   const error = false;
@@ -20,8 +21,6 @@ function Order(props: any) {
     if(error){
       router.push('/404');
     }
-
-    console.log(data);
   },[]);
 
   // 주문서 추가 정보(입력폼 정보)
@@ -42,6 +41,22 @@ function Order(props: any) {
       setBuyBtnState('disabled');
     }
   },[userNameState, userPhoneState, agree]);
+
+  //구매하기 버튼 클릭 시, 유저 정보 넘기고 부트페이 실행
+  async function tryPay() {
+    try {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pay/userinfo`, {
+        orderId: data.orderId,
+        userId: data.userId,
+        userName: userName,
+        userPhone: userPhone
+      });
+      console.log('save userinfo: ', res);
+      bootpay(data, {method: method, pg: pg, userName: userName, userPhone: userPhone});
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <Layout noFooter>
@@ -110,9 +125,7 @@ function Order(props: any) {
             <input id="ag" type="checkbox" onClick={()=>setAgree(!agree)} />
             <label htmlFor="ag">주문 내용을 확인하였으며, 서비스 취소/환불 정책 및 결제에 동의합니다. (필수)</label>
           </Agree>
-          <div onClick={buyBtnState !== 'disabled' ?
-                          ()=>bootpay(data, {method: method, pg: pg, userName: userName, userPhone: userPhone})
-                        : ()=>console.log('실행불가')}>
+          <div onClick={buyBtnState !== 'disabled' ? tryPay : ()=>console.log('실행불가')}>
             <Button type="start" style={{width:'100%'}} disabled={buyBtnState}>결제하기</Button>
           </div>
         </Section>
