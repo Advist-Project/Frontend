@@ -1,3 +1,4 @@
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from "@emotion/styled";
@@ -10,15 +11,22 @@ import { priceFormat } from "components/formatter";
 import { InputPhone } from "components/input-phone";
 import { InputName } from "components/input-name";
 
-function Order(props: any) {
-  // const data = JSON.parse(props.router.query.data);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { itemId, optionId, userId } = context.query;
+  const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/pay/checkorder/${userId}?itemId=${itemId}&optionId=${optionId}`);
+
+  return {
+    props: { data: result.data.order_receipts },
+  }
+}
+
+function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
 
   // 오류 판별 및 리다이렉트
-  const error = false;
-  // const error = Object.keys(query).length <= 5;
+  const error = window.location.pathname === '/order';
   const router = useRouter();
   useEffect(() => {
-    if(error){
+    if(!error){
       router.push('/404');
     }
   },[]);
@@ -60,8 +68,6 @@ function Order(props: any) {
 
   return (
     <Layout noFooter>
-    {
-      !error ?
       <Bg>
       <Container>
         <Heading level={3}>결제하기</Heading>
@@ -131,8 +137,6 @@ function Order(props: any) {
         </Section>
       </Container>
       </Bg>
-      : null
-    }
     </Layout>
   )
 }

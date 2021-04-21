@@ -9,7 +9,6 @@ import { Price } from "components/price";
 import AnchorTab from 'components/tab';
 import { ContentTemplate } from "components/detail-content-template";
 import { Buying } from "components/_design/buying-card";
-import { getOrderData } from "components/get-order-data";
 import { useRouter } from 'next/router';
 
 export default function Details({itemData}: InferGetServerSidePropsType<typeof getServerSideProps>){
@@ -18,15 +17,11 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
   const { itemId, img, title, tag, options } = itemData;
   const router = useRouter();
 
-  async function getOrderDataThenRoute(userId: any, itemId: any, optionId: any){
-    const rowData = await getOrderData(userId, itemId, optionId);
-
-    if(rowData){
-      router.push({
-        pathname: `${process.env.NEXT_PUBLIC_ORDER_PAGE_URL}`,
-        query: {data: JSON.stringify(rowData)},
-      }, '/order');
-    }
+  function routeToOrder(userId: any, itemId: any, optionId: any){
+    router.push({
+      pathname: `${process.env.NEXT_PUBLIC_ORDER_PAGE_URL}`,
+      query: {userId: userId, itemId: itemId, optionId: optionId},
+    }, '/order');
   }
 
   // Tab Control
@@ -101,7 +96,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
             </div>
             <div className="rightArea">
               <Price discountPrice={options[0].discountPrice} price={options[0].price} />
-              <a onClick={()=>getOrderDataThenRoute(1, itemId, 1)}><Button type="start">구매하기</Button></a>
+              <a onClick={()=>routeToOrder(1, itemId, 1)}><Button type="start">구매하기</Button></a>
               {/* 보유중 상태가 필요하겠네요 */}
             </div>
           </FunctionsAndPriceInfo>
@@ -143,7 +138,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
                         desc={item.desc}
                         optionId={item.optionId}
                         itemId={itemId}
-                        fn={getOrderDataThenRoute}
+                        fn={routeToOrder}
                 />
               ))
             }
