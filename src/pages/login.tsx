@@ -4,7 +4,6 @@ import { Heading, Colors } from "components/ui";
 import Image from 'next/image';
 
 export default function LoginPage(){
-    const loginGoogle = process.env.NEXT_PUBLIC_LOGIN_GOOGLE || "";
     return(
         <Layout>
             <Section1>
@@ -29,7 +28,7 @@ export default function LoginPage(){
                         <ImageBox><img style={{marginTop : '12px', marginBottom : '12px'}} src="/kakao.png"/></ImageBox>
                         <ButtonBox>Kakao로 시작하기</ButtonBox>                        
                     </LoginButton>
-                    <LoginButton onClick = {() => location.href = loginGoogle} style={{marginTop : '13px'}}>
+                    <LoginButton onClick = {() => location.href = process.env.NEXT_PUBLIC_LOGIN_GOOGLE as string} style={{marginTop : '13px'}}>
                         <ImageBox><img style={{marginTop : '12px', marginBottom : '12px'}} src="/google.png"/></ImageBox>
                         <ButtonBox>Google로 시작하기</ButtonBox>                        
                     </LoginButton>
