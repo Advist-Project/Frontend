@@ -7,8 +7,9 @@ import { assignCss } from "./assignCss";
 interface IButtonProps{ // type = "login" => 로그인, type = "start" => 시작하기
     type?: string;
     style?: object[] | object;
+    disabled?: any;
 }
-export const Button: React.FC<IButtonProps> = ({ children, type, style }) => {
+export const Button: React.FC<IButtonProps> = ({ children, type, style, disabled }) => {
 
     const [buttonText, setButtonText] = useState(children);
     const [isLoading, setisLoading] = useState(false);
@@ -75,6 +76,6 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style }) => {
       }
     `;
     return (
-      <Button style={assignCss(style)} onClick={loading}>{buttonText}</Button>
+      <Button style={assignCss(style)} onClick={loading} disabled={disabled}>{buttonText}</Button>
     )
   }

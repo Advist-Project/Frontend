@@ -11,7 +11,6 @@ import { ContentTemplate } from "components/detail-content-template";
 import { Buying } from "components/_design/buying-card";
 import { getOrderData } from "components/get-order-data";
 import { useRouter } from 'next/router';
-import { queryFormat } from 'components/formatter';
 
 export default function Details({itemData}: InferGetServerSidePropsType<typeof getServerSideProps>){
 
@@ -20,13 +19,12 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
   const router = useRouter();
 
   async function getOrderDataThenRoute(userId: any, itemId: any, optionId: any){
-    console.log(userId, itemId, optionId);
-    const result = await getOrderData(userId, itemId, optionId);
+    const rowData = await getOrderData(userId, itemId, optionId);
 
-    if(result){
+    if(rowData){
       router.push({
         pathname: `${process.env.NEXT_PUBLIC_ORDER_PAGE_URL}`,
-        query: queryFormat(result),
+        query: {data: JSON.stringify(rowData)},
       }, '/order');
     }
   }

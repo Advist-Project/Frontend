@@ -1,25 +1,27 @@
 export function bootpay(data, extra){
+  console.log(data.itemInfo.itemId);
+
   BootPay.request({
-    price: data.discountPrice, //할인 후 가격
+    price: data.itemInfo.option.discountPrice, //할인 후 가격
     application_id: process.env.NEXT_PUBLIC_BT_KEY,
-    name: data.title,
+    name: data.itemInfo.option.title,
     pg: extra.pg,
     method: extra.method,
     show_agree_window: 0,
     items: [
       {
-        item_name: data.itemName,
+        item_name: data.itemInfo.itemName,
         qty: 1, //수량
-        unique: data.itemId,
-        price: data.price, //원가격
-        cat1: data.type
+        unique: data._id,
+        price: data.itemInfo.option.price, //원가격
+        cat1: data.itemInfo.option.type
       }
     ],
     user_info: {
-      username: '홍길동',
+      username: extra.userName,
       email: data.useremail,
-      addr: '사용자 주소',
-      phone: '010-1234-4567'
+      addr: '',
+      phone: extra.userPhone
     },
     order_id: data.orderId,
     extra: {
