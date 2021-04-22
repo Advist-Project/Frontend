@@ -1,151 +1,124 @@
+import { Layout } from "components/layout";
 import styled from "@emotion/styled";
-import { Heading } from "components/ui";
+import { Heading, Colors } from "components/ui";
+import Image from 'next/image';
 
 export default function LoginPage(){
+    return(
+        <Layout>
+            <Section1>
+            <div className="wrap">
+                <div className="contentArea">
+            {/* 1번 콘텐츠 */}
+                <Image
+                src="/mainGraphic_section1_human.png"
+                alt=""
+                width={529}
+                height={352}
+                priority
+                />
+                </div>
+                <Container>
+                    <Heading level={5} bold>지금 가입하시면 5만원 상당의 자료를 무료로 드려요</Heading>
+                    <LoginButton onClick = {() => location.href = process.env.NEXT_PUBLIC_LOGIN_NAVER as string} style={{marginTop : '136px'}}>
+                        <ImageBox><img style={{marginTop : '12px', marginBottom : '12px'}} src="/naver.png"/></ImageBox>
+                        <ButtonBox>Naver로 시작하기</ButtonBox>                        
+                    </LoginButton>
+                    <LoginButton onClick = {() => location.href = process.env.NEXT_PUBLIC_LOGIN_KAKAO as string} style={{marginTop : '13px'}}>
+                        <ImageBox><img style={{marginTop : '12px', marginBottom : '12px'}} src="/kakao.png"/></ImageBox>
+                        <ButtonBox>Kakao로 시작하기</ButtonBox>                        
+                    </LoginButton>
+                    <LoginButton onClick = {() => location.href = process.env.NEXT_PUBLIC_LOGIN_GOOGLE as string} style={{marginTop : '13px'}}>
+                        <ImageBox><img style={{marginTop : '12px', marginBottom : '12px'}} src="/google.png"/></ImageBox>
+                        <ButtonBox>Google로 시작하기</ButtonBox>                        
+                    </LoginButton>
 
-    return (
-        <Box>
-            <div style={{marginTop : "62px"}}>
-                <img src="https://frontend-git-develop-advi22.vercel.app/logo.png"/>
+                    <Agree>최초 로그인 시 어드바이스트의&nbsp;
+                    <a style={{color : '#9622FC', fontStyle : "normal"}}
+                    href="http://www.naver.com" target="_blank">이용약관, 개인정보취급방침</a>    
+                    에 동의하는 것으로 간주합니다.</Agree>                                                       
+                </Container>
             </div>
-            <div style={{marginTop : "66px"}}>
-                <Heading level={4} bold >지금 가입하시면 5만원 상당의 자료를 무료로 드려요</Heading>
-            </div>
-            <div style={{marginTop : "60px"}}>
-            <Google onClick = {() => location.href = "https://advist.herokuapp.com/user/auth/google"}><Icon/><Name>Google로 시작하기</Name></Google>
-            <Kakao onClick = {() => location.href = "https://advist.herokuapp.com/user/auth/kakao"}><Icon/><Name>Kakao로 시작하기</Name></Kakao>
-            <Naver onClick = {() => location.href = "https://advist.herokuapp.com/user/auth/naver"}><Icon/><Name>Naver로 시작하기</Name></Naver>
-            </div>
-            <Agree>최초 로그인 시 어드바이스트의&nbsp;
-            <a style={{textDecorationLine : "underline", color : "#5F5F5F",
-            fontWeight : "bold", fontFamily : "Noto Sans KR" , fontStyle : "normal"}}
-            href="http://www.naver.com" target="_blank">이용약관, 개인정보취급방침</a>    
-            에 동의하는 것으로 간주합니다.</Agree>
-        </Box>
+            </Section1>
+        </Layout>
     )
 }
 
-const Box = styled.div`
+const Section1 = styled.section`
+    color: ${Colors.black};
+    margin-top: 162px;
+    margin-bottom: 227px;
+
+    > .wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+    
+      > .contentArea {
+        height: 642px;
+      }    
+`;
+
+const Container = styled.div`
     display : flex;
     flex-direction : column;
-    align-items : center;
+    justify-content : flex-start;
+`;
 
-    width: 768px;
-    height: 813px;
-    margin:0 auto; 
+const LoginButton = styled.button`
+    cursor : pointer;
+    display : flex;
+    flex-direction : row;
 
-    background: #FFFFFF;
-    border: 1px solid #BDBDBD;
+    width: 448px;
+    padding : 0;
+    border : 0;
+    background: ${Colors.white};
+`;
+
+const ImageBox = styled.div`
+    width: 56px;
+    height: 56px;
+    background: ${Colors.white};
+    border: 1px solid ${Colors.gray2};
     box-sizing: border-box;
-
+    border-radius: 10px 0px 0px 10px;
 `;
 
-const Icon  = styled.div`
-    width: 33px;
-    height: 33px;
-    background: #C4C4C4;
-
-    margin : 12px 14px 11px 130px;
-`;
-
-const Name = styled.div`
-    font-family: Roboto;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 21px;
-    letter-spacing: 0em;
-    text-align: center;
-
-    margin-top : 19px;
-    margin-bottom : 16px;
-`;
-
-const Naver = styled.button`
-    display : flex;
-    flex-direction : row;
-
-    cursor : pointer;
+const ButtonBox =styled.div`
+    width: 392px;
     height: 56px;
-    width: 447px;
-    border-radius: 4px;
-    border-width : 0;
+    background: ${Colors.white};
+    border: 1px solid ${Colors.gray2};
+    border-left : 0;
+    box-sizing: border-box;
+    border-radius: 0px 10px 10px 0px;
 
-    margin-top : 14px;
-    box-shadow: 0px 4px 4px 0px #000000 25%;
-    
-    color: #FFFFFF;
-
-    background: #63C33D;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 4px;
-`;
-
-const Kakao = styled.button`
-    display : flex;
-    flex-direction : row;
-
-    cursor : pointer;
-    height: 56px;
-    width: 447px;
-    border-radius: 4px;
-    border-width : 0;
-
-    margin-top : 14px;
-    box-shadow: 0px 4px 4px 0px #000000 25%;
-    
-    font-family: Roboto;
-    font-size: 18px;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 16px;
     font-style: normal;
-    font-weight: 700;
-    line-height: 21px;
-    letter-spacing: 0em;
+    font-weight: 500;
+    line-height: 54px;
+    letter-spacing: 0px;
     text-align: center;
-    color: #FFFFFF;
-
-    background: #FCE84D;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 4px;
-`;
-
-const Google = styled.button`
-    display : flex;
-    flex-direction : row;
-
-    cursor : pointer;
-    height: 56px;
-    width: 447px;
-    border-radius: 4px;
-    border-width : 0;
-
-    box-shadow: 0px 4px 4px 0px #000000 25%;
-    
-    font-family: Roboto;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 21px;
-    letter-spacing: 0em;
-    text-align: center;
-    color: #FFFFFF;
-
-    background: #D0533F;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 4px;
 `;
 
 const Agree = styled.div`
     width: 447px;
-    height: 46px;
+    height: 48px;
 
-    margin-top : 35px;
+    margin-top : 58px;
 
-    font-family: Noto Sans KR;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 14px;
     font-style: normal;
-    font-weight: normal;
-    font-size: 15.7871px;
-    line-height: 23px;
-    letter-spacing :-1px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: left;
+    
 
-    color: #898989;
+    color: ${Colors.gray10};
 `;
