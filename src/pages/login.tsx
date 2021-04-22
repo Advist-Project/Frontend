@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export default function LoginPage(){
     return(
-        <Layout>
+        <Layout noFooter={true}>
             <Section1>
             <div className="wrap">
                 <div className="contentArea">
