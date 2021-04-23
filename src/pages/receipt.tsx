@@ -74,9 +74,9 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
         <hr/>
 
         <Section>
-          <Heading level={4}>주문 정보</Heading>
+          <Heading level={5}>주문 정보</Heading>
           <Flex style={{alignItems: 'flex-end', marginTop: '20px'}}>
-            <Img src="/test.jpg"/>
+            <Img src="/test.png"/>
             <OrderInfoText>
               <Title>{data.itemInfo.itemName}</Title> {/* 문과생 출신 마케터가 알려주는 GTM으로 전자상거래 구축하기 */}
               {
@@ -90,7 +90,7 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
         <hr/>
 
         <Section>
-          <Heading level={4}>결제 금액</Heading>
+          <Heading level={5}>결제 금액</Heading>
           <PriceInfo>
             <dt>상품 금액</dt>
             <dd>{priceFormat(data.itemInfo.option.price)}원</dd>
@@ -103,7 +103,7 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
         <hr/>
 
         <Section>
-          <Heading level={4}>결제 수단</Heading>
+          <Heading level={5}>결제 수단</Heading>
           <Methods>
             <MethodBtn className={method === 'card' ? 'active' : ''}
                       onClick={()=>{setPg('kcp');setMethod('card');}}>카드결제</MethodBtn>
@@ -113,7 +113,7 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
                       onClick={()=>{setPg('kcp');setMethod('npay');}}>네이버페이</MethodBtn>
           </Methods>
 
-          <Heading level={4}>주문하시는 분 정보</Heading>
+          <Heading level={5}>주문하시는 분 정보</Heading>
           <UserInfo>
             <Flex>
               <label>이름</label>
@@ -150,7 +150,8 @@ const Flex = styled.div`
 `;
 const Container = styled.div`
   background: ${Colors.white};
-  width: 804px;
+  width: 100%;
+  max-width: 804px;
   padding: 20px 40px;
   margin: 0 auto;
 `;
@@ -222,7 +223,7 @@ const MethodBtn = styled.div`
 
 
 const UserInfo = styled.div`
-  padding: 20px 0;
+  padding: 20px 0 0;
 
   div {
     margin-bottom: 10px;
@@ -233,7 +234,7 @@ const UserInfo = styled.div`
     display: inline-block;
     width: 100px;
     line-height: 52px;
-    font-size: 20px;
+    font-size: 16px;
   }
   input {
     width: 280px;
@@ -246,7 +247,7 @@ const UserInfo = styled.div`
 
 
 const Agree = styled.div`
-  font-size: 20px;
+  font-size: 16px;
   margin-bottom: 20px;
 
   input {

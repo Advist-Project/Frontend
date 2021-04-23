@@ -155,7 +155,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   // virtualData
   const vData = { 
     itemId: context.query.id,
-    img: '/test.jpg',
+    img: '/test.png',
     title: "새 회사, 직무에 빠르게 적응하고 싶은 신입사원을 위한 업무 관리 워크북",
     tag: ['고구마', '감자', '옥수수'],
     "options" : [
