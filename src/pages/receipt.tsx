@@ -109,8 +109,8 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
                       onClick={()=>{setPg('kcp');setMethod('card');}}>카드결제</MethodBtn>
             <MethodBtn className={pg === 'kakao' ? 'active' : ''}
                       onClick={()=>{setPg('kakao');setMethod('easy');}}>카카오페이</MethodBtn>
-            <MethodBtn className={pg === 'naver' ? 'active' : ''}
-                      onClick={()=>{setPg('naver');setMethod('easy');}}>네이버페이</MethodBtn>
+            <MethodBtn className={method === 'npay' ? 'active' : ''}
+                      onClick={()=>{setPg('kcp');setMethod('npay');}}>네이버페이</MethodBtn>
           </Methods>
 
           <Heading level={4}>주문하시는 분 정보</Heading>
