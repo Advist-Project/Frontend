@@ -82,6 +82,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
             alt=""
             width={645}
             height={363}
+            priority
           />
         </div>
         <div className="rightArea">
