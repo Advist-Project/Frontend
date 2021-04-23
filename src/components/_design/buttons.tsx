@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Colors } from "./colors"
 import Loader from "react-loader-spinner";
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { assignCss } from "./assignCss";
 import { useRouter } from 'next/router';
 import axios, { AxiosResponse } from 'axios';
@@ -9,7 +9,7 @@ import axios, { AxiosResponse } from 'axios';
 interface IButtonProps{ // type = "login" => 로그인, type = "start" => 시작하기
     type?: string;
     style?: object[] | object;
-    url?: string;
+    url?: string; // 로그아웃 상태일 경우 "/login" 로그인 => undefined
     disabled?: any;
 }
 export const Button: React.FC<IButtonProps> = ({ children, type, style, url, disabled }) => {
@@ -21,8 +21,12 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url, dis
     const loader = <Loader type="TailSpin" color = {type === "login" ? Colors.black : Colors.white} 
     height={30} width={30} timeout={0} radius={3}/>
 
+    useEffect(() => {       
+      setButtonText(children);
+    }, [children]);
+
     function loading() {
-      if(children === "로그아웃") {
+      if(url === undefined && type === "login") {
         axios.get("https://advist.herokuapp.com/user/auth/logout", {
             withCredentials: true
         }).then((res: AxiosResponse) => {
@@ -36,7 +40,7 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url, dis
       if(url !== undefined) router.push(url);
     }
 
-    const tagType = type==='login' ? 'login' : 'start';
+    const tagType = type==='login' ? 'login' : 'start'; //기본 타입 start
     const styles = {
       'login': { weight : 'bold' , background: Colors.white, color: Colors.black , 
       hoverBack : Colors.black, hoverColor : Colors.white, disabledBack : Colors.loginDisabled,

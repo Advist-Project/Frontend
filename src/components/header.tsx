@@ -1,33 +1,21 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
 import { Button, Colors } from "components/ui";
 import { myContext } from "../context";
 import { User } from '../types/logintypes';
 
 export const Header = () => {
-  const [isLogin, setisLogin] = useState(false);
-
-    useEffect(() => {
-      setTimeout(function(){
-        setisLogin(true);
-    }, 900);    
-  }, []);
-
   const userObject = useContext(myContext) as User;
-  console.log(userObject);
+
+  //console.log(userObject);
+
   return (
     <header>
       <Wrap className="wrap">
         <a href="/"><img src="/logo.png" height="44" /></a>
         <RightElements>
           <a href="/all">워크북</a>
-          {
-            !isLogin? null :
-              userObject?(
-                <Button type="login">로그아웃</Button> ) : (
-                <Button url="/login" type="login">로그인</Button>
-              )
-          }
+          <Button url={userObject? undefined : "/login"} type="login">{userObject? "로그아웃" : "로그인"}</Button>
         </RightElements>
       </Wrap>
     </header>
