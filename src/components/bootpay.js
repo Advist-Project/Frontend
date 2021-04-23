@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useRouter } from 'next/router';
 
 export function bootpay(data, extra){
   console.log(data.itemInfo.itemId);
@@ -58,8 +57,13 @@ export function bootpay(data, extra){
       console.log('done: ', data);
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/pay/verify/${data.receipt_id}?orderId=${data.order_id}`);
       console.log('verify: ', res);
-      if(res.data.message === "success verify"){
-        location.replace('/order/complete');
-      }
+      switch(res.status){
+        case 200:
+          location.replace(`/order/complete/${data.order_id}`);
+          break;
+        case 500:
+          console.log('결제 실패!');
+          break;
+      } 
   });
 }

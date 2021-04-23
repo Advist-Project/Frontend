@@ -23,7 +23,7 @@ export const ProductList: React.FC<IProductListProps> = ({ data }) => {
                     label="BEST"
                     title="새 회사, 직무에 빠르게 적응하고 싶은 신입사원을 위한 업무 관리 워크북"
                     likes={15}
-                    img="/test.jpg"
+                    img="/test.png"
                     tag={['조직문화','8회강의','3개월내']}
                     price={11100}
                     discountPrice={8880} />
