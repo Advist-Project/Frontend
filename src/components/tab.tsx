@@ -93,4 +93,78 @@ const AnchorTab: React.FC<IAnchorTabProps> = ({ create, active, scrollfn }) => {
   )
 }
 
+// Agree
+interface IAgreeTabProps {
+  create: any;
+  active: string;
+  scrollfn: any;
+}
+export const AgreeTab: React.FC<IAgreeTabProps> = ({ create, active, scrollfn }) => {
+  const tab:{[key:string]: any} = {
+    terms: { value: "이용약관", sectionRef: '', ...create.terms },
+    userinfo: { value: "개인정보 처리방식", sectionRef: '', ...create.userinfo },
+    refund: { value: "환불 정책", sectionRef: '', ...create.refund },
+  }
+
+  const AgreeTab = styled.div`
+    border-radius: 20px 20px 0px 0px;
+    height: 209px;
+    background: ${Colors.white};
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    position: sticky;
+    top: -1px;
+    left: 0;
+    z-index: 1;
+    ul {
+      display: flex;
+      justify-content : center;
+    }
+  `;
+  
+  const OutButton = styled.div`
+    cursor : pointer;
+    width: 24px;
+    height: 24px;
+    margin-left : 1204px;
+    padding-top : 32px;
+  `;
+
+  const Tab = styled.li`
+    margin-top : 68px;
+    flex-basis: 353px;
+    height: 109px;
+    text-align: center;
+    line-height: 109px;
+    cursor: pointer;
+
+    font-family: Spoqa Han Sans Neo;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color : ${Colors.gray2};
+
+    &.active {
+      border-bottom: 8px ${Colors.secondary} solid;
+      color : ${Colors.secondary};
+    }
+  `;
+
+  return (
+    <AgreeTab>
+      <div className="wrap">
+      <OutButton><img src="/out.png"/></OutButton>
+        <ul>
+          {
+            Object.keys(create).map((type, i) => (
+              <Tab key={i} className={`${type} ${active === tab[type].sectionRef ? 'active' : ''}`} onClick={()=>{scrollfn(type)}}>
+                {tab[type].value}
+              </Tab>
+          ))}
+        </ul>
+      </div>
+    </AgreeTab>
+  )
+}
+
 export default React.memo(AnchorTab);
