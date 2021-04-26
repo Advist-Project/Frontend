@@ -53,6 +53,9 @@ export function bootpay(data, extra){
   }).close(function (data) {
       // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
       console.log(data);
+      if(data.action !== "BootpayDone" && data.action !== "BootpayCancel"){ //cancel -100
+        location.replace(`/order/cancel/result`);
+      }
   }).done(async function (data) {
       console.log('done: ', data);
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/pay/verify/${data.receipt_id}?orderId=${data.order_id}`);
