@@ -42,10 +42,12 @@ export function AgreePage(props : any) {
 // top: 14.9%;
 const Container = styled.div`
     position: absolute;
-    width: 1300px;
-    height: 907px;
-    left: 310px;
-    top: 164px;
+    width: calc(100% - 40px);
+    max-width: 1300px;
+    height: calc(100vh - 80px);
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
     background: ${Colors.gray1};
     border-radius: 20px;
 `;
@@ -55,6 +57,8 @@ const DetailInfo = styled.div`
   padding-top: 9px;
   padding-bottom: 209px;
   border-radius: 0px 0px 20px 20px;
+  overflow: auto;
+  height: calc(100% - 209px);
 `;
 const DetailInfoContainer = styled.div`
   margin-top : 72px;
