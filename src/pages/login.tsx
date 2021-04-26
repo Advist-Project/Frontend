@@ -46,7 +46,7 @@ export default function LoginPage(){
             </div>
             </Section1>
             {                
-                AgreeModal ? <AgreePage/> : null
+                AgreeModal ? <AgreePage setAgreeModal={setAgreeModal}/> : null
             }
         </Layout>
         </div>

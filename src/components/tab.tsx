@@ -97,9 +97,10 @@ const AnchorTab: React.FC<IAnchorTabProps> = ({ create, active, scrollfn }) => {
 interface IAgreeTabProps {
   create: any;
   active: string;
-  scrollfn: any;
+  clicktab : any;
+  clickclose : any;
 }
-export const AgreeTab: React.FC<IAgreeTabProps> = ({ create, active, scrollfn }) => {
+export const AgreeTab: React.FC<IAgreeTabProps> = ({ create, active, clicktab, clickclose }) => {
   const tab:{[key:string]: any} = {
     terms: { value: "이용약관", sectionRef: '', ...create.terms },
     userinfo: { value: "개인정보 처리방식", sectionRef: '', ...create.userinfo },
@@ -153,11 +154,11 @@ export const AgreeTab: React.FC<IAgreeTabProps> = ({ create, active, scrollfn })
   return (
     <AgreeTab>
       <div className="wrap">
-      <OutButton><img src="/out.png"/></OutButton>
+      <OutButton onClick = {() => clickclose(true)}><img src="/out.png"/></OutButton>
         <ul>
           {
             Object.keys(create).map((type, i) => (
-              <Tab key={i} className={`${type} ${active === tab[type].sectionRef ? 'active' : ''}`} onClick={()=>{scrollfn(type)}}>
+              <Tab key={i} className={`${type} ${active === tab[type].sectionRef ? 'active' : ''}`} onClick={()=>{clicktab(tab[type].sectionRef)}}>
                 {tab[type].value}
               </Tab>
           ))}
