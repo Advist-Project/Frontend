@@ -41,13 +41,29 @@ export function AgreePage(props : any) {
 // left: 16.3%;
 // top: 14.9%;
 const Container = styled.div`
-    position: absolute;
-    width: 1300px;
-    height: 907px;
-    left: 310px;
-    top: 164px;
+    position: fixed;
+    width: 67%;
+    height: 82.3%;
+    left: 16.3%;
+    top: 14.9%;
     background: ${Colors.gray1};
     border-radius: 20px;
+
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 0;
+      background: rgba(255, 255, 255, 0.4);
+    }
+    &::-webkit-scrollbar-thumb {
+      height: 138px;
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 6px;
+    }
+    &::-webkit-scrollbar-track-piece{
+      width: 0;
+      height: 0;
+    }
 `;
 
 const DetailInfo = styled.div`

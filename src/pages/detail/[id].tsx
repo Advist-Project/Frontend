@@ -122,6 +122,9 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
             <section ref={workbookSectionRef}><ContentTemplate type="workbook" img="/detail/1.png"/></section>
             <section ref={coachingSectionRef}><ContentTemplate type="coach" img="/detail/2.png"/></section>
             <section ref={reviewSectionRef}><ContentTemplate type="review" img="/detail/3.png"/></section>
+            {/* <section ref={askSectionRef}>
+              <Box shadow={1} style={{height: '700px', background: '#FCFCFC'}}>문의 섹션</Box>
+            </section> */}            
           </DetailContent>
           <Options>
             <SectionTitle>
