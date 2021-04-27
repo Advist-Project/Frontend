@@ -39,7 +39,7 @@ export function AgreePage(props : any) {
 // left: 16.3%;
 // top: 14.9%;
 const Container = styled.div`
-    position: absolute;
+    position: fixed;
     width: calc(100% - 40px);
     max-width: 1300px;
     height: calc(100vh - 80px);
@@ -48,6 +48,19 @@ const Container = styled.div`
     transform: translateX(-50%) translateY(-50%);
     background: ${Colors.gray1};
     border-radius: 20px;
+    z-index: 1;
+
+    &::after {
+      content: '';
+      display: block;
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 1000vw;
+      height: 1000vh;
+      background: rgba(20, 20, 42, 0.5);
+      z-index: -1;
+    }
 `;
 const DetailInfo = styled.div`
   background-color: ${Colors.gray6};

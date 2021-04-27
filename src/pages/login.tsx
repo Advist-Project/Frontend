@@ -9,7 +9,7 @@ export default function LoginPage(){
     const [AgreeModal, setAgreeModal] = useState<boolean>(false);
 
     return(
-        <div style = {{background : AgreeModal? 'rgba(20, 20, 42, 0.5)' : undefined}}>
+        <div>
         <Layout noFooter={true}>
             <Section1>
             <div className="wrap">
