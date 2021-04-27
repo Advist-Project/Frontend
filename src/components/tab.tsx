@@ -112,9 +112,7 @@ export const AgreeTab: React.FC<IAgreeTabProps> = ({ create, active, clicktab, c
     height: 209px;
     background: ${Colors.white};
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    position: sticky;
-    top: -1px;
-    left: 0;
+    position: relative;
     z-index: 1;
     ul {
       display: flex;
