@@ -1,9 +1,22 @@
 import styled from "@emotion/styled";
 import { Text, Colors } from "components/ui";
+import { AgreePage } from "components/agree";
+import React, { useState } from 'react';
 
 export const Footer = () => {
+  const [ClickTab, setClickTab] = useState<string>("terms");
+  const [AgreeModal, setAgreeModal] = useState<boolean>(false);
+
+  function onClickListener(){
+    setAgreeModal(true);
+    window.scrollTo(0, 0);
+  }
+
   return (
     <footer>
+          {                
+            AgreeModal ? <AgreePage setActiveTab={ClickTab} setAgreeModal={setAgreeModal}/> : null
+          }
       <div className="wrap">
         <LogoArea>
           <img src="/logo.png" height="44" />
@@ -55,15 +68,15 @@ export const Footer = () => {
             </InfoList>
           </Column2>
           <Column3>
-            <InfoList>
+            <InfoList onClick={onClickListener} style={{cursor : "pointer"}}>
               <li>
-                <a>이용약관</a>
+                <a onClick={() => setClickTab("terms")}>이용약관</a>
               </li>
               <li>
-                <a>개인정보 처리방침</a>
+                <a onClick={() => setClickTab("userinfo")}>개인정보 처리방침</a>
               </li>
               <li>
-                <a>교환/환불 정책</a>
+                <a onClick={() => setClickTab("refund")}>교환/환불 정책</a>
               </li>
             </InfoList>
           </Column3>
