@@ -2061,79 +2061,58 @@ export function UserinfoText(){
 
 export function RefundText() {
     return(
-        <div>
-        <p className="c2">
-            <span className="c3">어드바이스트 서비스 취소/환불 정책</span>
+      <div>
+        <h2>
+            어드바이스트 서비스 취소/환불 정책
+        </h2>
+        <p>
+            회원은 회사에 청약 철회 및 환불을 요청할 수 있고 환불을 적용하는 기준은 다음 각호와 같습니다.
         </p>
-        <p className="c1">
-            <span className="c0"></span>
+        <p>
+            1. 워크북·전자책은 자료 형태이므로 구매 후 교환이나 환불이 불가합니다.
         </p>
-        <p className="c2">
-            <span className="c0">회원은 회사에 청약 철회 및 환불을 요청할 수 있고 환불을 적용하는 기준은 다음 각호와 같습니다.</span>
+        <p>
+            2. 서버 장애로 인해 워크북 전달이 불가능한 경우 고객센터로 연락주시면 메신저/메일을 통해 구매했던 워크북 파일을 보내드립니다.
         </p>
-        <p className="c1">
-            <span className="c0"></span>
+        <p>
+            3. 코칭·컨설팅 서비스는 다음의 각호에 해당하는 경우 최종 결제금액의 100%를 환불합니다.
         </p>
-        <p className="c2">
-            <span className="c0">1. 워크북·전자책은 자료 형태이므로 구매 후 교환이나 환불이 불가합니다.</span>
+        <p>
+            &nbsp; 1) 구매 이후 코치의 개인 사유로 인해 서비스가 제공되지 않은 경우
         </p>
-        <p className="c1">
-            <span className="c0"></span>
+        <p>
+            &nbsp; 2) 서비스 기한 내에 구매자에게 반환 사유가 발생하여 서비스를 제공받지 않고 환불을 요청하는 경우
         </p>
-        <p className="c2">
-            <span className="c0">2. 서버 장애로 인해 워크북 전달이 불가능한 경우 고객센터로 연락주시면 메신저/메일을 통해 구매했던 워크북 파일을 보내드립니다.</span>
+        <p>
+            &nbsp; 3) 코칭·컨설팅 서비스 도중 코치의 폭언, 욕설 등이 있을 경우
         </p>
-        <p className="c1">
-            <span className="c0"></span>
+        <p>
+            4. 코칭·컨설팅 서비스는 평생교육법에 의거하여 환불이 가능하며, 수강기간은 환불 의사를 밝힌 당일까지를 포함시켜 환불금액을 산정합니다.(10원 미만은 절삭)
         </p>
-        <p className="c2">
-            <span className="c0">3. 코칭·컨설팅 서비스는 다음의 각호에 해당하는 경우 최종 결제금액의 100%를 환불합니다.</span>
+        <p>
+            &nbsp; 1) 수강기간 또는 진도율 1/3 경과 전 → 최종 결제금액의 2/3 환불
         </p>
-        <p className="c2">
-            <span className="c0">&nbsp; 1) 구매 이후 코치의 개인 사유로 인해 서비스가 제공되지 않은 경우</span>
+        <p>
+            &nbsp; 2) 수강기간 또는 진도율 1/2 경과 전 → 최종 결제금액의 1/2 환불
         </p>
-        <p className="c2">
-            <span className="c0">&nbsp; 2) 서비스 기한 내에 구매자에게 반환 사유가 발생하여 서비스를 제공받지 않고 환불을 요청하는 경우</span>
+        <p>
+            &nbsp; 3) 수강기간 또는 진도율 1/2 경과 후 → 환불금액 없음
         </p>
-        <p className="c2">
-            <span className="c0">&nbsp; 3) 코칭·컨설팅 서비스 도중 코치의 폭언, 욕설 등이 있을 경우</span>
+        <p>
+            &nbsp; ※ 수강기간 : 구매일시로부터 코칭 회차*1주일 + 1주일
         </p>
-        <p className="c1">
-            <span className="c0"></span>
+        <p>
+            &nbsp; &nbsp; 예) 1회 코칭 : 구매일시로부터 2주일, 2회 코칭: 구매일시로부터 3주일, 8회 코칭 : 구매일시로부터 9주일
         </p>
-        <p className="c2">
-            <span className="c0">4. 코칭·컨설팅 서비스는 평생교육법에 의거하여 환불이 가능하며, 수강기간은 환불 의사를 밝힌 당일까지를 포함시켜 환불금액을 산정합니다.(10원 미만은 절삭)</span>
+        <p>
+            5. 코치가 1회 이상 서비스를 제공한 이후 환불 요청 시 환불금액에서 최종 결제금액의 10%(이하 “취소 수수료”)를 공제합니다.
         </p>
-        <p className="c2">
-            <span className="c0">&nbsp; 1) 수강기간 또는 진도율 1/3 경과 전 → 최종 결제금액의 2/3 환불</span>
+        <p>
+            6. 할인이 적용된 상품의 환불 요청 시 환불금액에서 취소 수수료와 별개로 위약금을 공제합니다.
         </p>
-        <p className="c2">
-            <span className="c0">&nbsp; 2) 수강기간 또는 진도율 1/2 경과 전 → 최종 결제금액의 1/2 환불</span>
-        </p>
-        <p className="c2">
-            <span className="c0">&nbsp; 3) 수강기간 또는 진도율 1/2 경과 후 → 환불금액 없음</span>
-        </p>
-        <p className="c2">
-            <span className="c0">&nbsp; ※ 수강기간 : 구매일시로부터 코칭 회차*1주일 + 1주일</span>
-        </p>
-        <p className="c2">
-            <span className="c0">&nbsp; &nbsp; 예) 1회 코칭 : 구매일시로부터 2주일, 2회 코칭: 구매일시로부터 3주일, 8회 코칭 : 구매일시로부터 9주일</span>
-        </p>
-        <p className="c1">
-            <span className="c0"></span>
-        </p>
-        <p className="c2">
-            <span className="c0">5. 코치가 1회 이상 서비스를 제공한 이후 환불 요청 시 환불금액에서 최종 결제금액의 10%(이하 “취소 수수료”)를 공제합니다.</span>
-        </p>
-        <p className="c1">
-            <span className="c0"></span>
-        </p>
-        <p className="c2">
-            <span className="c0">6. 할인이 적용된 상품의 환불 요청 시 환불금액에서 취소 수수료와 별개로 위약금을 공제합니다.</span>
-        </p>
-        <p className="c2">
-            <span className="c0">&nbsp; 위약금 = (서비스 정가 - 서비스 할인가)*(경과한 수강기간 또는 진도율)/(총 수강기간 또는 진도율)</span>
+        <p>
+            &nbsp; 위약금 = (서비스 정가 - 서비스 할인가)*(경과한 수강기간 또는 진도율)/(총 수강기간 또는 진도율)
         </p>
         </div>
-    )
+    );
 }
