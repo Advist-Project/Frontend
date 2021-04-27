@@ -103,7 +103,7 @@ interface IAgreeTabProps {
 export const AgreeTab: React.FC<IAgreeTabProps> = ({ create, active, clicktab, clickclose }) => {
   const tab:{[key:string]: any} = {
     terms: { value: "이용약관", sectionRef: '', ...create.terms },
-    userinfo: { value: "개인정보 처리방식", sectionRef: '', ...create.userinfo },
+    userinfo: { value: "개인정보 처리방침", sectionRef: '', ...create.userinfo },
     refund: { value: "환불 정책", sectionRef: '', ...create.refund },
   }
 
