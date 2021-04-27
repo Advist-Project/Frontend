@@ -1,12 +1,12 @@
 export function TermsText() {
     return(
-        <body className="c3">
-        <p className="c0">
+        <div>
+        <h2>
             <span className="c1">제1장 총칙</span>
-        </p>
-        <p className="c0">
+        </h2>
+        <h3>
             <span className="c1">제1조 (목적)</span>
-        </p>
+        </h3>
         <p className="c0">
             <span className="c1">이 약관은 어드바이스트(이하 '회사')가 정보통신망을 이용하여 회원에게 온라인 중개 서비스 및 기타 정보서비스를 제공하기 위하여 운영하는 온라인 마켓플레이스(www.advist.kr, 이하 '어드바이스트')의 이용과 관련하여 회사와 이용자 간의 권리와 의무, 책임 사항 및 회원의 서비스 이용 절차 및 기타 필요한 사항을 규정함을 목적으로 합니다.</span>
         </p>
@@ -997,7 +997,7 @@ export function TermsText() {
         <p className="c0 c2">
             <span className="c1"></span>
         </p>
-        </body>
+        </div>
     );
 }
 
@@ -1006,7 +1006,7 @@ export function TermsText() {
 // userinfo
 export function UserinfoText(){
     return(
-        <body className="c26">
+        <div>
         <p className="c3">
             <span className="c1">제1조(총칙)</span>
         </p>
@@ -2089,13 +2089,13 @@ export function UserinfoText(){
         <p className="c0">
             <span className="c1"></span>
         </p>
-        </body>
+        </div>
     );
 }
 
 export function RefundText() {
     return(
-        <body className="c4">
+        <div>
         <p className="c2">
             <span className="c3">어드바이스트 서비스 취소/환불 정책</span>
         </p>
@@ -2168,6 +2168,6 @@ export function RefundText() {
         <p className="c2">
             <span className="c0">&nbsp; 위약금 = (서비스 정가 - 서비스 할인가)*(경과한 수강기간 또는 진도율)/(총 수강기간 또는 진도율)</span>
         </p>
-        </body>
+        </div>
     )
 }

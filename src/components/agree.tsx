@@ -80,4 +80,22 @@ const DetailInfo = styled.div`
 const DetailInfoContainer = styled.div`
   margin-top : 72px;
   display: flex;
+
+  h2 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  h3 {
+    font-weight: 500;
+  }
+  p {
+    margin-bottom: 5px;
+    line-height: 135%;
+  }
+  th, td {
+    border: 1px #000 solid;
+    padding: 10px;
+  }
 `;
+
