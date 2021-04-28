@@ -15,12 +15,13 @@ export const Tag: React.FC<ITagProps> = ({ children, color }) => {
   }
   const Tag = styled.li`
     display: inline-block;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 32px;
     height: 32px;
     padding: 0 0.89em;
-    margin-right: 12px;
     border-radius: 8px;
+    white-space: nowrap;
+    margin-right: 8px;
     color: ${colorStyles[color].color};
     background-color: ${colorStyles[color].bgColor};
 

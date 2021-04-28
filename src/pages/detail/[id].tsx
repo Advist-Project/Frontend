@@ -40,29 +40,30 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
   // Tab Control
   const [activeTab, setActiveTab] = useState<string>('workbook');
   const DetailInfoContainerRef = useRef<HTMLDivElement>(null);
-  const workbookSectionRef = useRef<HTMLDivElement>(null);
+  // const workbookSectionRef = useRef<HTMLDivElement>(null);
   const coachingSectionRef = useRef<HTMLDivElement>(null);
-  const reviewSectionRef = useRef<HTMLDivElement>(null);
+  // const reviewSectionRef = useRef<HTMLDivElement>(null);
   const askSectionRef = useRef<HTMLDivElement>(null);
  
   const tabHeight:number = 161; //109 + 52
   useEffect(() => {
     const handleScroll = () => {
-      if(DetailInfoContainerRef.current && workbookSectionRef.current && coachingSectionRef.current && reviewSectionRef.current && askSectionRef.current) {
+      if(DetailInfoContainerRef.current && coachingSectionRef.current && askSectionRef.current) {
         const parentOffsetTop = DetailInfoContainerRef.current.offsetTop;
 
-        const onWorkbookSection = window.scrollY+tabHeight < coachingSectionRef.current.offsetTop + parentOffsetTop;
-        const onCoachingSection = window.scrollY+tabHeight >= coachingSectionRef.current.offsetTop + parentOffsetTop && window.scrollY+tabHeight < reviewSectionRef.current.offsetTop + parentOffsetTop;
-        const onReviewSection = window.scrollY+tabHeight >= reviewSectionRef.current.offsetTop + parentOffsetTop && window.scrollY+tabHeight < askSectionRef.current.offsetTop
+        // const onWorkbookSection = window.scrollY+tabHeight < coachingSectionRef.current.offsetTop + parentOffsetTop;
+        const onCoachingSection = window.scrollY+tabHeight < askSectionRef.current.offsetTop + parentOffsetTop;
+        // const onCoachingSection = window.scrollY+tabHeight >= coachingSectionRef.current.offsetTop + parentOffsetTop && window.scrollY+tabHeight < askSectionRef.current.offsetTop + parentOffsetTop;
+        // const onReviewSection = window.scrollY+tabHeight >= reviewSectionRef.current.offsetTop + parentOffsetTop && window.scrollY+tabHeight < askSectionRef.current.offsetTop;
         const onAskSection = window.scrollY+tabHeight >= askSectionRef.current.offsetTop;
 
-        if(onWorkbookSection){
+        if(false){
           setActiveTab('workbook');
         }
         else if(onCoachingSection){
           setActiveTab('coaching');
         }
-        else if(onReviewSection){
+        else if(false){
           setActiveTab('review');
         }
         else if(onAskSection){
@@ -76,9 +77,9 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
 
   function windowScroll(target: string){
     const ref:{[key: string]: any} = {
-      "workbook": workbookSectionRef,
+      // "workbook": workbookSectionRef,
       "coaching": coachingSectionRef,
-      "review": reviewSectionRef,
+      // "review": reviewSectionRef,
       "ask": askSectionRef
     }
     const y:number = ref[target].current.offsetParent.offsetTop + ref[target].current.offsetTop - tabHeight + 1;
@@ -91,7 +92,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
       <ProductInfo className="wrap">
         <div className="leftArea">
           <Image
-            src="/test.png"
+            src={`/detail/${itemId}/thumb.png`}
             alt=""
             width={645}
             height={363}
@@ -121,9 +122,10 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
           <img src={`/detail/${itemId}/coach.png`} style={{width: '100%'}}/>
         </Box>
       </div>
-      <AnchorTab create={{ workbook: { sectionRef: 'workbook' },
+      <AnchorTab create={{
+                          //  workbook: { sectionRef: 'workbook' },
                            coaching: { sectionRef: 'coaching' },
-                           review: { sectionRef: 'review' },
+                          //  review: { sectionRef: 'review' },
                            ask: { sectionRef: 'ask' }
                         }}
                   active={activeTab}

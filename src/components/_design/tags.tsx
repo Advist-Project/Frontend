@@ -7,7 +7,10 @@ interface ITagProps {
 }
 export const Tags: React.FC<ITagProps> = ({ data }) => {
   const color:string[] = ['purple', 'green', 'yellow', 'gray'];
-  const Tags = styled.ul``
+  const Tags = styled.ul`
+    white-space: nowrap;
+    overflow: hidden;
+  `
 
   return (
     <Tags>

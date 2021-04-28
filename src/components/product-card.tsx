@@ -33,7 +33,7 @@ export const ProductCard: React.FC<IProductCardProps> = ({ id, label, title, lik
   return (
     <Container className="productCard">
       <Label>{label}</Label>
-      <Box shadow={1} round>
+      <Box shadow={1} round style={{height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
         <a href={`/detail/${id}`}>
           <Thumbnail url={img}/>
         </a>
@@ -71,7 +71,12 @@ const Label = styled.div`
   background: rgba(255,208,51,0.8);
 `;
 const ProductInfo = styled.div`
+  flex-grow: 1;
+  width: 100%;
   padding: 24px 20px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
 `;
 const Title = styled.h3`
   font-size: 16px;
@@ -82,6 +87,8 @@ const Title = styled.h3`
 `;
 
 const LikesAndPrice = styled.div`
+  align-self: flex-end;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;

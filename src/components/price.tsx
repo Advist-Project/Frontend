@@ -10,15 +10,19 @@ interface IPriceProps {
   discountPrice: number | undefined;
 }
 export const Price: React.FC<IPriceProps> = ({ price, discountPrice }) => {
+  const dcPrice = discountPrice ? discountPrice : 0;
+  const discountPercent = Math.floor(100 - dcPrice / price * 100);
+  const isDiscounted = discountPercent > 0;
+
   return (
     <div>
       {
-        discountPrice ?
+        isDiscounted ?
         <Wrap> {/* 할인 정보 있는 경우 */}
           <BasePrice>{priceFormat(price)}원</BasePrice>
           <Discount>
-            <DiscountPercent>{100 - discountPrice / price * 100}%</DiscountPercent>
-            <FinalPrice>{priceFormat(discountPrice)}원</FinalPrice>
+            <DiscountPercent>{discountPercent}%</DiscountPercent>
+            <FinalPrice>{priceFormat(dcPrice)}원</FinalPrice>
           </Discount>
         </Wrap> :
         <Wrap> {/* 할인 정보 없는 경우 */}
