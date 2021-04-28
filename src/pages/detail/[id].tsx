@@ -7,14 +7,28 @@ import { Heading, Tags, Button, Colors, Text, Box } from "components/ui";
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
 import AnchorTab from 'components/tab';
-import { ContentTemplate } from "components/detail-content-template";
+import { ContentTemplate, AskContentTemplate } from "components/detail-content-template";
 import { Buying } from "components/_design/buying-card";
 import { useRouter } from 'next/router';
 
-export default function Details({itemData}: InferGetServerSidePropsType<typeof getServerSideProps>){
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const itemId = context.query.id;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/item/${itemId}`);
+  const data = await res.json();
 
-  // api로 받아온 상품 데이터
-  const { itemId, img, title, tag, options } = itemData;
+  if (!data) {
+    return {
+      notFound: true,
+    }
+  }
+
+  return {
+    props: { itemData: data.item },
+  }
+}
+export default function Details({itemData}: InferGetServerSidePropsType<typeof getServerSideProps>){
+  console.log(itemData);
+  const { itemId, title, owner, tag, options } = itemData;
   const router = useRouter();
 
   function routeToOrder(userId: any, itemId: any, optionId: any){
@@ -30,18 +44,18 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
   const workbookSectionRef = useRef<HTMLDivElement>(null);
   const coachingSectionRef = useRef<HTMLDivElement>(null);
   const reviewSectionRef = useRef<HTMLDivElement>(null);
-  // const askSectionRef = useRef<HTMLDivElement>(null);
+  const askSectionRef = useRef<HTMLDivElement>(null);
  
   const tabHeight:number = 161; //109 + 52
   useEffect(() => {
     const handleScroll = () => {
-      if(DetailInfoContainerRef.current && workbookSectionRef.current && coachingSectionRef.current && reviewSectionRef.current) { // && askSectionRef.current
+      if(DetailInfoContainerRef.current && workbookSectionRef.current && coachingSectionRef.current && reviewSectionRef.current && askSectionRef.current) {
         const parentOffsetTop = DetailInfoContainerRef.current.offsetTop;
 
         const onWorkbookSection = window.scrollY+tabHeight < coachingSectionRef.current.offsetTop + parentOffsetTop;
         const onCoachingSection = window.scrollY+tabHeight >= coachingSectionRef.current.offsetTop + parentOffsetTop && window.scrollY+tabHeight < reviewSectionRef.current.offsetTop + parentOffsetTop;
-        const onReviewSection = window.scrollY+tabHeight >= reviewSectionRef.current.offsetTop + parentOffsetTop; //&& window.scrollY+tabHeight < askSectionRef.current.offsetTop
-        // const onAskSection = window.scrollY+tabHeight >= askSectionRef.current.offsetTop;
+        const onReviewSection = window.scrollY+tabHeight >= reviewSectionRef.current.offsetTop + parentOffsetTop && window.scrollY+tabHeight < askSectionRef.current.offsetTop
+        const onAskSection = window.scrollY+tabHeight >= askSectionRef.current.offsetTop;
 
         if(onWorkbookSection){
           setActiveTab('workbook');
@@ -52,9 +66,9 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
         else if(onReviewSection){
           setActiveTab('review');
         }
-        // else if(onAskSection){
-        //   setActiveTab('ask');
-        // }
+        else if(onAskSection){
+          setActiveTab('ask');
+        }
       }
     };
     window.addEventListener('scroll', handleScroll);
@@ -65,8 +79,8 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
     const ref:{[key: string]: any} = {
       "workbook": workbookSectionRef,
       "coaching": coachingSectionRef,
-      "review": reviewSectionRef
-      // "ask": askSectionRef
+      "review": reviewSectionRef,
+      "ask": askSectionRef
     }
     const y:number = ref[target].current.offsetParent.offsetTop + ref[target].current.offsetTop - tabHeight + 1;
     window.scrollTo(0, y);
@@ -78,7 +92,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
       <ProductInfo className="wrap">
         <div className="leftArea">
           <Image
-            src={img}
+            src="/test.png"
             alt=""
             width={645}
             height={363}
@@ -89,7 +103,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
           <DefaultInfo>
             <Heading level={4} bold style={{marginBottom: '27px'}}>{title}</Heading>
             <Tags data={tag}/>
-            <p style={{marginTop: '36px'}}>제공자 : Tim</p>
+            <p style={{marginTop: '36px'}}>제공자 : {owner}</p>
           </DefaultInfo>
           <FunctionsAndPriceInfo>
             <div>{/* 로그인 안된 상태ㅐ에서 찜하기 버튼 눌렀을 때 케이스 */}
@@ -105,26 +119,25 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
       </ProductInfo>
       <div className="wrap">
         <Box border={1} shadow={1} round style={{padding: '40px 72px', marginBottom: '72px'}}>
-          <img src="/detail/coach_1.png" style={{width: '100%'}}
-               alt="안녕하세요. HR/조직문화 분야에서 실무 코치로 활동하고 있는 Tim입니다. 저는 대기업과 스타트업의 HR 실무자로 근무하면서 크고 작은 직원 행사부터 전사 차원의 조직문화 개선 프로젝트까지 다양한 실무들을 경험했어요. 고객사 조직문화 컨설팅 프로젝트를 수행하면서 생긴 유용한 실무 팁과 노하우들을 바탕으로 현재 재직 중이신 회사의 조직문화 진단 프로젝트를 성공적으로 마무리하실 수 있도록 도와드릴게요. 주요 경력 및 이력: 전 프딩 HR Manager, 전 삼성전자 인재개발 HRD Professional, 전 KT 미래사업팀. 진행 프로젝트: 2019 삼성전자 조직문화행사, HR 컨설팅"/>
+          <img src={`/detail/${itemId}/coach.png`} style={{width: '100%'}}/>
         </Box>
       </div>
       <AnchorTab create={{ workbook: { sectionRef: 'workbook' },
                            coaching: { sectionRef: 'coaching' },
                            review: { sectionRef: 'review' },
-                          //  ask: { sectionRef: 'ask' }
+                           ask: { sectionRef: 'ask' }
                         }}
                   active={activeTab}
                   scrollfn={windowScroll}/>
       <DetailInfo>
         <DetailInfoContainer className="wrap" ref={DetailInfoContainerRef}>
           <DetailContent>
-            <section ref={workbookSectionRef}><ContentTemplate type="workbook" img="/detail/1.png"/></section>
-            <section ref={coachingSectionRef}><ContentTemplate type="coach" img="/detail/2.png"/></section>
-            <section ref={reviewSectionRef}><ContentTemplate type="review" img="/detail/3.png"/></section>
-            {/* <section ref={askSectionRef}>
-              <Box shadow={1} style={{height: '700px', background: '#FCFCFC'}}>문의 섹션</Box>
-            </section> */}
+            <section ref={coachingSectionRef}><ContentTemplate type="coach" img={`/detail/${itemId}/0.png`}/></section>
+            {/* <section ref={workbookSectionRef}><ContentTemplate type="workbook" img="/detail/1.png"/></section> */}
+            {/* <section ref={reviewSectionRef}><ContentTemplate type="review" img="/detail/3.png"/></section> */}
+            <section ref={askSectionRef}>
+              <AskContentTemplate/>
+            </section>
           </DetailContent>
           <Options>
             <SectionTitle>
@@ -148,40 +161,6 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
       </DetailInfo>
     </Layout>
   )
-}
-
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  
-  // virtualData
-  const vData = { 
-    itemId: context.query.id,
-    img: '/test.png',
-    title: "새 회사, 직무에 빠르게 적응하고 싶은 신입사원을 위한 업무 관리 워크북",
-    tag: ['고구마', '감자', '옥수수'],
-    "options" : [
-      {
-          "optionId" : 1,
-          "title" : "새 회사, 직무에 빠르게 적응하는 신입사원의 업무 관리 워크북",
-          "type" : "workbook",
-          "desc" : "상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다",
-          "price" : 50000, //상품 원가격,
-          "discountPrice" : 20000 //할인된 가격을 계산한 값
-      },
-      {
-        "optionId" : 2,
-        "title" : "워크북 작성 1:1 코칭(1회)",
-        "type" : "coach",
-        "desc" : "상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다(최대 60자)상품 설명을 짧게 적습니다",
-        "price" : 50000, //상품 원가격,
-        "discountPrice" : 20000 //할인된 가격을 계산한 값
-    }
-    ]
-  }
-
-  return {
-    props: { itemData: vData },
-  }
 }
 
 const ProductInfo = styled.div`
