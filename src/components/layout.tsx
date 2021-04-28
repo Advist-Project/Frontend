@@ -13,7 +13,10 @@ export const Layout: React.FC<ILayoutProps> = ({ children, title, noFooter}) => 
     <>
       <Head>
         <title>
-          {title} | {APP_NAME}
+        { title ?
+          `${title} | ${APP_NAME}`
+          : APP_NAME
+        }  
         </title>
       </Head>
       <Header />
