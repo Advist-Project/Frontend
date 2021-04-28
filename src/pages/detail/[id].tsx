@@ -16,7 +16,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/item/${itemId}`);
   const data = await res.json();
 
-  if (!data) {
+  if (!data.item) {
     return {
       notFound: true,
     }
@@ -27,7 +27,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 export default function Details({itemData}: InferGetServerSidePropsType<typeof getServerSideProps>){
-  console.log(itemData);
   const { itemId, title, owner, tag, options } = itemData;
   const router = useRouter();
 
@@ -88,7 +87,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
   
 
   return (
-    <Layout>
+    <Layout title={title}>
       <ProductInfo className="wrap">
         <div className="leftArea">
           <Image
