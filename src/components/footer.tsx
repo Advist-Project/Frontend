@@ -12,6 +12,10 @@ export const Footer = () => {
     window.scrollTo(0, 0);
   }
 
+  function popupModal(){
+    const url ="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=2054075437";
+    window.open(url, "bizCommPop", "width=750, height=700,left='+ popupX + ', top='+ popupY ;");
+  }
   return (
     <footer>
           {                
@@ -41,9 +45,9 @@ export const Footer = () => {
                 <label>사업자등록번호</label>
                 205-40-75437
               </li>
-              <li>
+              <li onClick = {popupModal} style={{cursor : "pointer"}}>
                 <label>통신판매업번호</label>
-                2021-서울서초-0571
+                <u>2021-서울서초-0571</u>
               </li>
               <li>
                 <label>호스팅 사업자</label>
