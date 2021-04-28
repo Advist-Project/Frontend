@@ -106,7 +106,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
             <p style={{marginTop: '36px'}}>제공자 : {owner}</p>
           </DefaultInfo>
           <FunctionsAndPriceInfo>
-            <div>{/* 로그인 안된 상태ㅐ에서 찜하기 버튼 눌렀을 때 케이스 */}
+            <div>{/* 로그인 안된 상태에서 찜하기 버튼 눌렀을 때 케이스 */}
               <LikeBtn state={false} />
             </div>
             <div className="rightArea">

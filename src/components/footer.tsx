@@ -1,9 +1,26 @@
 import styled from "@emotion/styled";
 import { Text, Colors } from "components/ui";
+import { AgreePage } from "components/agree";
+import React, { useState } from 'react';
 
 export const Footer = () => {
+  const [ClickTab, setClickTab] = useState<string>("terms");
+  const [AgreeModal, setAgreeModal] = useState<boolean>(false);
+
+  function onClickListener(){
+    setAgreeModal(true);
+    window.scrollTo(0, 0);
+  }
+
+  function popupModal(){
+    const url ="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=2054075437";
+    window.open(url, "bizCommPop", "width=750, height=700,left='+ popupX + ', top='+ popupY ;");
+  }
   return (
     <footer>
+          {                
+            AgreeModal ? <AgreePage setActiveTab={ClickTab} setAgreeModal={setAgreeModal}/> : null
+          }
       <div className="wrap">
         <LogoArea>
           <img src="/logo.png" height="44" />
@@ -28,9 +45,9 @@ export const Footer = () => {
                 <label>사업자등록번호</label>
                 205-40-75437
               </li>
-              <li>
+              <li onClick = {popupModal} style={{cursor : "pointer"}}>
                 <label>통신판매업번호</label>
-                2021-서울서초-0571
+                <u>2021-서울서초-0571</u>
               </li>
               <li>
                 <label>호스팅 사업자</label>
@@ -55,15 +72,15 @@ export const Footer = () => {
             </InfoList>
           </Column2>
           <Column3>
-            <InfoList>
+            <InfoList onClick={onClickListener} style={{cursor : "pointer"}}>
               <li>
-                <a>이용약관</a>
+                <a onClick={() => setClickTab("terms")}>이용약관</a>
               </li>
               <li>
-                <a>개인정보 처리방침</a>
+                <a onClick={() => setClickTab("userinfo")}>개인정보 처리방침</a>
               </li>
               <li>
-                <a>교환/환불 정책</a>
+                <a onClick={() => setClickTab("refund")}>교환/환불 정책</a>
               </li>
             </InfoList>
           </Column3>

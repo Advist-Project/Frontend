@@ -2,9 +2,14 @@ import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import { Heading, Colors } from "components/ui";
 import Image from 'next/image';
+import React, {useState} from "react";
+import { AgreePage } from "components/agree";
 
 export default function LoginPage(){
+    const [AgreeModal, setAgreeModal] = useState<boolean>(false);
+
     return(
+        <div>
         <Layout noFooter={true}>
             <Section1>
             <div className="wrap">
@@ -34,13 +39,17 @@ export default function LoginPage(){
                     </LoginButton>
 
                     <Agree>최초 로그인 시 어드바이스트의&nbsp;
-                    <a style={{color : '#9622FC', fontStyle : "normal"}}
-                    href="http://www.naver.com" target="_blank">이용약관, 개인정보취급방침</a>    
+                    <a onClick = {() => setAgreeModal(true)} style={{color : '#9622FC', fontStyle : "normal", cursor : "pointer"}}
+                    target="_blank">이용약관, 개인정보취급방침</a>    
                     에 동의하는 것으로 간주합니다.</Agree>                                                       
                 </Container>
             </div>
             </Section1>
+            {                
+                AgreeModal ? <AgreePage setAgreeModal={setAgreeModal}/> : null
+            }
         </Layout>
+        </div>
     )
 }
 

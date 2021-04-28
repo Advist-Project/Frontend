@@ -1,6 +1,7 @@
-import React from "react";
-import { Box, Text } from "components/ui";
+import React, { useState } from 'react';
+import { Box, Heading, Text } from "components/ui";
 import styled from "@emotion/styled";
+import { AgreePage } from "components/agree";
 
 
 interface ISectionTitleTypes {
@@ -64,26 +65,41 @@ export const ContentTemplate = React.memo(function WorkbookContent({type, img}: 
 
 
 export const AskContentTemplate = React.memo(function WorkbookContent() {
+  // 약관 동의 모달
+  const [AgreeModal, setAgreeModal] = useState<boolean>(false);
+  function onClickListener(){
+    setAgreeModal(true);
+  }
+
+  const A = styled.a`
+    cursor: pointer;
+    text-decoration: underline;
+  `;
+
   return (
     <>
+      {                
+        AgreeModal ? <AgreePage setActiveTab="refund" setAgreeModal={setAgreeModal}/> : null
+      }
       <SectionTitle icon="/icon/ask_64p.svg">
         자주 묻는 질문
       </SectionTitle>
-      <Box shadow={1} round style={{padding: '56px 53px 28px', background: '#FCFCFC'}}>
-        코칭은 어떻게 진행하나요?<br/>
-        코칭을 구매하시면 어드바이스트 운영팀에서 일정을 조율한 후 온라인(zoom)으로 미팅을 진행합니다.<br/>
-        ※ 어드바이스트의 코칭 서비스는 기본적으로 비대면으로 진행하며,<br/>
-        구매하신 분과 코치님과 조율을 통해 대면 미팅으로도 진행 가능합니다.<br/>
-        왜 코칭을 신청할 때 결제를 먼저 하나요?<br/>
-        일정을 조율해야 하는 코칭 서비스 성격상 원활한 스케줄 관리와 노쇼 방지를 위해 결제를 먼저 진행합니다.<br/>
-        코칭 서비스가 제공되기 전에는 언제든 100% 환불 신청이 가능합니다.<br/>
-        구매 취소/환불 규정<br/>
-        워크북·전자책은 자료 형태이므로 교환이나 환불이 불가능하며,<br/>
-        코칭·컨설팅은 서비스를 제공받기 전이라면 서비스 기간 내 100% 환불이 가능합니다.<br/>
-        취소/환불 규정 전체보기<br/>
-        고객센터<br/>
-        상품 상세 정보나 구매, 취소/환불 등 문의사항은<br/>
-        timkim@advist.kr로 문의주시면 24시간 내로 답변드립니다.
+      <Box shadow={1} round style={{padding: '56px 53px', background: '#FCFCFC'}}>
+        <Heading level={5} bold>코칭은 어떻게 진행하나요?</Heading>
+        <Text size="16px">코칭을 구매하시면 어드바이스트 운영팀에서 일정을 조율한 후 온라인(zoom)으로 미팅을 진행합니다.</Text>
+        <Text size="16px" style={{color: '#888'}}>※ 어드바이스트의 코칭 서비스는 기본적으로 비대면으로 진행하며,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;구매하신 분과 코치님과 조율을 통해 대면 미팅으로도 진행 가능합니다.</Text>
+        <br/><br/>
+        <Heading level={5} bold>코칭을 신청할 때 결제를 먼저 하나요?</Heading>
+        <Text size="16px">일정을 조율해야 하는 코칭 서비스 성격상 원활한 스케줄 관리와 노쇼 방지를 위해 결제를 먼저 진행합니다.</Text>
+        <Text size="16px">코칭 서비스가 제공되기 전에는 언제든 100% 환불 신청이 가능합니다.</Text>
+        <br/><br/>
+        <Heading level={5} bold>구매 취소/환불 규정</Heading>
+        <Text size="16px">워크북·전자책은 자료 형태이므로 교환이나 환불이 불가능하며,<br/>코칭·컨설팅은 서비스를 제공받기 전이라면 서비스 기간 내 100% 환불이 가능합니다.</Text>
+        <Text size="16px"><A onClick={onClickListener}>취소/환불 규정 전체보기</A></Text>
+        <br/><br/>
+        <Heading level={5} bold>고객센터</Heading>
+        <Text size="16px">상품 상세 정보나 구매, 취소/환불 등 문의사항은<br/>
+        <A href="mailto:timkim@advist.kr">timkim@advist.kr</A>로 문의주시면 24시간 내로 답변드립니다.</Text>
       </Box>
     </>
   )

@@ -10,17 +10,24 @@ import { useRouter } from 'next/router';
 import { priceFormat } from "components/formatter";
 import { InputPhone } from "components/input-phone";
 import { InputName } from "components/input-name";
+import { AgreePage } from "components/agree";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { itemId, optionId, userId } = context.query;
   const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/pay/checkorder/${userId}?itemId=${itemId}&optionId=${optionId}`);
-
   return {
     props: { data: result.data.order_receipts },
   }
 }
 
 function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
+  // 약관 동의 모달
+  const [AgreeModal, setAgreeModal] = useState<boolean>(false);
+
+  function onClickListener(){
+    setAgreeModal(true);
+    window.scrollTo(0, 0);
+  }
 
   // 오류 판별 및 리다이렉트
   const error = window.location.pathname === '/order';
@@ -68,6 +75,9 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
 
   return (
     <Layout noFooter>
+      {                
+        AgreeModal ? <AgreePage setActiveTab="refund" setAgreeModal={setAgreeModal}/> : null
+      }
       <Bg>
       <Container>
         <Heading level={3}>결제하기</Heading>
@@ -129,7 +139,7 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
         <Section>
           <Agree>
             <input id="ag" type="checkbox" onClick={()=>setAgree(!agree)} />
-            <label htmlFor="ag">주문 내용을 확인하였으며, 서비스 취소/환불 정책 및 결제에 동의합니다. (필수)</label>
+            <label htmlFor="ag">주문 내용을 확인하였으며, <label onClick={onClickListener}>서비스 취소/환불 정책&nbsp;</label>및 결제에 동의합니다. (필수)</label>
           </Agree>
           <div onClick={buyBtnState !== 'disabled' ? tryPay : ()=>console.log('실행불가')}>
             <Button type="start" style={{width:'100%'}} disabled={buyBtnState}>결제하기</Button>
