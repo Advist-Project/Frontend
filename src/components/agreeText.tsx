@@ -1,6 +1,6 @@
 export function TermsText() {
     return(
-      <div>
+      <>
         <h2>
             제1장 총칙
         </h2>
@@ -977,7 +977,7 @@ export function TermsText() {
         <p>
             본 이용약관은 2021년 5월 1일부터 적용됩니다.
         </p>
-        </div>
+        </>
     );
 }
 
@@ -986,7 +986,7 @@ export function TermsText() {
 // userinfo
 export function UserinfoText(){
     return(
-      <div>
+      <>
       <h3>
           제1조(총칙)
       </h3>
@@ -2055,13 +2055,13 @@ export function UserinfoText(){
             - 개인정보 처리방침 적용일자: 2021.05.01
         </p>
       </div>
-      </div>
+      </>
     );
 }
 
 export function RefundText() {
     return(
-      <div>
+      <>
         <h2>
             어드바이스트 서비스 취소/환불 정책
         </h2>
@@ -2113,6 +2113,6 @@ export function RefundText() {
         <p>
             &nbsp; 위약금 = (서비스 정가 - 서비스 할인가)*(경과한 수강기간 또는 진도율)/(총 수강기간 또는 진도율)
         </p>
-        </div>
+        </>
     );
 }
