@@ -45,7 +45,7 @@ function OrderComplete({data}: InferGetServerSidePropsType<typeof getServerSideP
               <Img src={`/detail/${itemId}/thumb.png`}/>
               <OrderInfoText>
                 <Title>{itemName}</Title>
-                <Type>[{type[option.type]}] {option.title}</Type>
+                <Type>[{type[option.type]}] {option.type === "coaching" ? option.title : "업무에 활용했던 자료들입니다."}</Type>
               </OrderInfoText>
             </Flex>
             {/* <DLBtn>워크북 자료 받기</DLBtn> */}
@@ -111,6 +111,7 @@ const Title = styled.h6`
   font-weight: 500;
   line-height: 32px;
   font-size: 20px;
+  word-break: keep-all;
 `
 const Type = styled.p`
   font-size: 16px;

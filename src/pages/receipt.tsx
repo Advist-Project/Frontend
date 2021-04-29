@@ -72,7 +72,6 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
       console.error(error);
     }
   }
-  console.log(data);
 
   return (
     <Layout noFooter>
