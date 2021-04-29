@@ -3,12 +3,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import Image from 'next/image';
-import { Heading, Tags, Button, Colors, Text, Box } from "components/ui";
+import { Heading, Tags, Button, Colors, Text, Box, Buying } from "components/ui";
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
 import AnchorTab from 'components/tab';
 import { ContentTemplate, AskContentTemplate } from "components/detail-content-template";
-import { Buying } from "components/_design/buying-card";
 import { useRouter } from 'next/router';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -146,7 +145,9 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
             </SectionTitle>
             {
               options.map((item: any) => (
-                <Buying key={item.optionId}
+                <Buying
+                        type="coach"
+                        key={item.optionId}
                         title={item.title}
                         price={item.price}
                         discountPrice={item.discountPrice}
