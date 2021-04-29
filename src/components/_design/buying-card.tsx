@@ -3,7 +3,8 @@ import { Colors } from "./colors";
 import { Heading, Text, Button } from "components/ui";
 import { Price } from 'components/price';
 
-interface IBuyingProps{ // type = "login" => 로그인, type = "start" => 시작하기
+interface IBuyingProps{ // type = "workbook", default  => 워크북, type = "coach" => 코치
+    type?: string;
     title?: string;
     price: number;
     discountPrice: number | undefined;
@@ -12,7 +13,7 @@ interface IBuyingProps{ // type = "login" => 로그인, type = "start" => 시작
     itemId?: any;
     fn?:  any;
 }
-export const Buying: React.FC<IBuyingProps> = ({title, discountPrice, price, desc, optionId, itemId, fn}) => {
+export const Buying: React.FC<IBuyingProps> = ({title, discountPrice, price, desc, optionId, itemId, fn, type}) => {
 
     const Box = styled.div`
     height: 376px;
@@ -62,8 +63,10 @@ export const Buying: React.FC<IBuyingProps> = ({title, discountPrice, price, des
 
         <Products>
             <div style = {{display : 'flex', flexDirection : 'row', height : '60px'}}>
-                <img style = {{marginLeft : '9px', marginTop : `14px`, width : '33.86px', height : '46px', alignSelf : 'center'}} src="/Workbook.png"></img>
-                    <Text style = {{width : '85px', height : '20px', marginTop : `14px`, marginLeft : '23.14px', alignSelf : 'center'}} size='14px'>워크북</Text>
+                {type === "coach"? <img style = {{marginTop : `14px`, alignSelf : 'center'}} src="/Coach.svg"></img>                 
+                : <img style = {{marginLeft : '9px', marginTop : `14px`, width : '33.86px', height : '46px', alignSelf : 'center'}} src="/Workbook.png"></img>
+                }
+                <Text style = {{width : '85px', height : '20px', marginTop : `14px`, marginLeft : '23.14px', alignSelf : 'center'}} size='14px'>{type === "coach"? "코치" : "워크북"}</Text>
             </div>
             <Price price={price} discountPrice={discountPrice} />
         </Products>
@@ -77,12 +80,13 @@ export const Buying: React.FC<IBuyingProps> = ({title, discountPrice, price, des
 }
 
 // Small
-interface ISmallProps{ // type = "login" => 로그인, type = "start" => 시작하기
+interface ISmallProps{ // type = "workbook", default  => 워크북, type = "coach" => 코치
+    type?: string;
     title?: string;
     price: number;
     discountPrice: number | undefined;
 }
-export const SmallCard: React.FC<ISmallProps> = ({title, discountPrice, price}) => {
+export const SmallCard: React.FC<ISmallProps> = ({title, discountPrice, price, type}) => {
 
     const Box = styled.div`
     height: 180px;
@@ -111,11 +115,12 @@ const Products = styled.div`
     return (
         <Box>
             <Heading level={5} bold>{title}</Heading>
-
             <Products>
             <div style = {{display : 'flex', flexDirection : 'row', height : '60px'}}>
-                <img style = {{marginLeft : '9px', marginTop : `14px`, width : '33.86px', height : '46px', alignSelf : 'center'}} src="/Workbook.png"></img>
-                    <Text style = {{width : '85px', height : '20px', marginTop : `14px`, marginLeft : '23.14px', alignSelf : 'center'}} size='14px'>코칭</Text>
+                {type === "coach"? <img style = {{marginTop : `14px`, alignSelf : 'center'}} src="/Coach.svg"></img>                 
+                : <img style = {{marginLeft : '9px', marginTop : `14px`, width : '33.86px', height : '46px', alignSelf : 'center'}} src="/Workbook.png"></img>
+                }
+                    <Text style = {{width : '85px', height : '20px', marginTop : `14px`, marginLeft : '23.14px', alignSelf : 'center'}} size='14px'>{type === "coach"? "코치" : "워크북"}</Text>
             </div>
                 <Price price={price} discountPrice={discountPrice} />
             </Products>
