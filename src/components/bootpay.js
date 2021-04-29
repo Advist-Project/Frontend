@@ -54,7 +54,7 @@ export function bootpay(data, extra){
       // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
       console.log(data);
       if(data.action !== "BootpayDone" && data.action !== "BootpayCancel"){ //cancel -100
-        location.replace(`/order/cancel/result`);
+        // location.replace(`/order/cancel/result`);
       }
   }).done(async function (data) {
       console.log('done: ', data);

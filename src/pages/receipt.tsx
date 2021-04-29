@@ -72,6 +72,7 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
       console.error(error);
     }
   }
+  console.log(data);
 
   return (
     <Layout noFooter>
@@ -86,7 +87,7 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
         <Section>
           <Heading level={5}>주문 정보</Heading>
           <Flex style={{alignItems: 'flex-end', marginTop: '20px'}}>
-            <Img src="/test.png"/>
+            <Img src={`/detail/${data.itemInfo.itemId}/thumb.png`}/>
             <OrderInfoText>
               <Title>{data.itemInfo.itemName}</Title> {/* 문과생 출신 마케터가 알려주는 GTM으로 전자상거래 구축하기 */}
               {
@@ -181,6 +182,7 @@ const Title = styled.h6`
   font-weight: 500;
   line-height: 32px;
   font-size: 20px;
+  word-break: keep-all;
 `
 const Type = styled.p`
   font-size: 16px;
