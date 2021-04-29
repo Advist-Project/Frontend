@@ -232,4 +232,5 @@ const Options = styled.div`
 const SectionTitle = styled.div`
   margin-top: 69px;
   margin-bottom: 56px;
+  
 `;
