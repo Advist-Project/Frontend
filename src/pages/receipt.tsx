@@ -139,7 +139,7 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
         <Section>
           <Agree>
             <input id="ag" type="checkbox" onClick={()=>setAgree(!agree)} />
-            <label htmlFor="ag">주문 내용을 확인하였으며, <label onClick={onClickListener}>서비스 취소/환불 정책&nbsp;</label>및 결제에 동의합니다. (필수)</label>
+            <label htmlFor="ag">주문 내용을 확인하였으며, <label style={{color: Colors.primary, cursor: 'pointer'}} onClick={onClickListener}>서비스 취소/환불 정책&nbsp;</label>및 결제에 동의합니다. (필수)</label>
           </Agree>
           <div onClick={buyBtnState !== 'disabled' ? tryPay : ()=>console.log('실행불가')}>
             <Button type="start" style={{width:'100%'}} disabled={buyBtnState}>결제하기</Button>
