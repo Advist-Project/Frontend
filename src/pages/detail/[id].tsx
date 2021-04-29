@@ -7,11 +7,7 @@ import { Heading, Tags, Button, Colors, Text, Box, Buying } from "components/ui"
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
 import AnchorTab from 'components/tab';
-<<<<<<< HEAD
-import { ContentTemplate } from "components/detail-content-template";
-=======
 import { ContentTemplate, AskContentTemplate } from "components/detail-content-template";
->>>>>>> develop
 import { useRouter } from 'next/router';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -140,6 +136,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
             {/* <section ref={workbookSectionRef}><ContentTemplate type="workbook" img="/detail/1.png"/></section> */}
             {/* <section ref={reviewSectionRef}><ContentTemplate type="review" img="/detail/3.png"/></section> */}
             <section ref={askSectionRef}>
+              <AskContentTemplate />
             </section>
           </DetailContent>
           <Options>
