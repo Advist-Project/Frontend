@@ -3,18 +3,34 @@ import styled from "@emotion/styled";
 import { Layout } from "components/layout";
 import { Heading, Colors } from "components/ui";
 import { withRouter } from 'next/router';
+import { priceFormat } from "components/formatter";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const optionId = context.query.id;
-  // const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/pay/complete/${optionId}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pay/complete/${optionId}`);
+  const data = await res.json();
+
+  if (!data.order_receipts) {
+    return {
+      notFound: true,
+    }
+  }
 
   return {
-    props: { optionId: optionId },
+    props: { data: data.order_receipts },
   }
 }
 
-function OrderComplete({optionId}: InferGetServerSidePropsType<typeof getServerSideProps>){
-  console.log(optionId);
+function OrderComplete({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
+  const { itemInfo, orderId, paymentInfo } = data;
+  const { itemId, itemName, option } = itemInfo;
+  const { method, cardName, purchasedTime } = paymentInfo;
+
+  const type:{[key: string]: string} = {
+    "workbook": "워크북",
+    "coaching": "코칭",
+    "both": "코칭 & 워크북"
+  }
   
   return (
     <Layout noFooter>
@@ -26,13 +42,13 @@ function OrderComplete({optionId}: InferGetServerSidePropsType<typeof getServerS
           <Section>
             <Heading level={5}>주문 정보</Heading>
             <Flex style={{alignItems: 'flex-end', marginTop: '20px'}}>
-              <Img src="/test.png"/>
+              <Img src={`/detail/${itemId}/thumb.png`}/>
               <OrderInfoText>
-                <Title>문과생 출신 마케터가 알려주는 GTM으로 전자상거래</Title>
-                <Type>[워크북] 업무에 활용했던 자료들입니다.</Type>
+                <Title>{itemName}</Title>
+                <Type>[{type[option.type]}] {option.type === "coaching" ? option.title : "업무에 활용했던 자료들입니다."}</Type>
               </OrderInfoText>
             </Flex>
-            <DLBtn>워크북 자료 받기</DLBtn>
+            {/* <DLBtn>워크북 자료 받기</DLBtn> */}
           </Section>
           <hr/>
           <Section>
@@ -41,17 +57,17 @@ function OrderComplete({optionId}: InferGetServerSidePropsType<typeof getServerS
               <label>결제 정보</label>
               <Payresult>
                 <dt>주문번호</dt>
-                <dd>12345678</dd>
+                <dd>{orderId}</dd>
                 <dt>구매상품</dt>
-                <dd>문과생 출신 마케터가 알려주는 GTM으로 전자상거래 구축하기</dd>
+                <dd>{itemName}</dd>
                 <dt>구매옵션</dt>
-                <dd>[워크북] 업무에 활용했던 자료들입니다.</dd>
+                <dd>[{type[option.type]}] {option.title}</dd>
                 <dt>결제수단</dt>
-                <dd>체크/신용카드 - 현대카드</dd>
+                <dd>{method ? method : ""}{method && cardName ? " - " : ""}{cardName ? cardName : ""}</dd>
                 <dt>결제일시</dt>
-                <dd>2021.04.01 15:38</dd>
+                <dd>{purchasedTime}</dd>
                 <dt>결제금액</dt>
-                <dd>50,000원</dd>
+                <dd>{priceFormat(option.discountPrice)}원</dd>
               </Payresult>  
             </Flex>
           </Section>
@@ -95,18 +111,11 @@ const Title = styled.h6`
   font-weight: 500;
   line-height: 32px;
   font-size: 20px;
+  word-break: keep-all;
 `
 const Type = styled.p`
   font-size: 16px;
   line-height: 26px;
-`
-const DLBtn = styled.button`
-  display: block;
-  margin: 40px auto 20px;
-  font-weight: 700;
-  font-size: 20px;
-  padding: 16px 56px;
-  cursor: pointer;
 `
 
 const Payresult = styled.dl`

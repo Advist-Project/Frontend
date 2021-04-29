@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export function bootpay(data, extra){
-  console.log(data.itemInfo.itemId);
+  console.log(data.userEmail);
 
   BootPay.request({
     price: data.itemInfo.option.discountPrice, //할인 후 가격
@@ -21,7 +21,7 @@ export function bootpay(data, extra){
     ],
     user_info: {
       username: extra.userName,
-      email: data.useremail,
+      email: data.userEmail,
       addr: '',
       phone: extra.userPhone
     },
@@ -33,7 +33,9 @@ export function bootpay(data, extra){
     }
   }).error(function (data) {
     //결제 진행시 에러가 발생하면 수행됩니다.
+    console.log("에러");
     console.log(data);
+    location.replace(`/order/cancel/result`);
   }).cancel(function (data) {
     //결제가 취소되면 수행됩니다.
     console.log(data);
@@ -52,20 +54,15 @@ export function bootpay(data, extra){
     }
   }).close(function (data) {
       // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
-      console.log(data);
-      if(data.action !== "BootpayDone" && data.action !== "BootpayCancel"){ //cancel -100
-        location.replace(`/order/cancel/result`);
-      }
   }).done(async function (data) {
-      console.log('done: ', data);
+      console.log('done');
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/pay/verify/${data.receipt_id}?orderId=${data.order_id}`);
-      console.log('verify: ', res);
       switch(res.status){
         case 200:
           location.replace(`/order/complete/${data.order_id}`);
           break;
         case 500:
-          console.log('결제 실패!');
+          location.replace(`/order/cancel/result`);
           break;
       } 
   });

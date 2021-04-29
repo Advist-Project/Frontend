@@ -86,7 +86,7 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
         <Section>
           <Heading level={5}>주문 정보</Heading>
           <Flex style={{alignItems: 'flex-end', marginTop: '20px'}}>
-            <Img src="/test.png"/>
+            <Img src={`/detail/${data.itemInfo.itemId}/thumb.png`}/>
             <OrderInfoText>
               <Title>{data.itemInfo.itemName}</Title> {/* 문과생 출신 마케터가 알려주는 GTM으로 전자상거래 구축하기 */}
               {
@@ -139,7 +139,7 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
         <Section>
           <Agree>
             <input id="ag" type="checkbox" onClick={()=>setAgree(!agree)} />
-            <label htmlFor="ag">주문 내용을 확인하였으며, <label onClick={onClickListener}>서비스 취소/환불 정책&nbsp;</label>및 결제에 동의합니다. (필수)</label>
+            <label htmlFor="ag">주문 내용을 확인하였으며, <label style={{color: Colors.primary, cursor: 'pointer'}} onClick={onClickListener}>서비스 취소/환불 정책&nbsp;</label>및 결제에 동의합니다. (필수)</label>
           </Agree>
           <div onClick={buyBtnState !== 'disabled' ? tryPay : ()=>console.log('실행불가')}>
             <Button type="start" style={{width:'100%'}} disabled={buyBtnState}>결제하기</Button>
@@ -181,6 +181,7 @@ const Title = styled.h6`
   font-weight: 500;
   line-height: 32px;
   font-size: 20px;
+  word-break: keep-all;
 `
 const Type = styled.p`
   font-size: 16px;
