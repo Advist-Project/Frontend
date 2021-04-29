@@ -35,7 +35,9 @@ export function bootpay(data, extra){
     //결제 진행시 에러가 발생하면 수행됩니다.
     console.log("에러");
     console.log(data);
-    location.replace(`/order/cancel/result`);
+    if(!data.code === "3017") {
+      location.replace(`/order/cancel/result`);
+    }
   }).cancel(function (data) {
     //결제가 취소되면 수행됩니다.
     console.log(data);
