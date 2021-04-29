@@ -9,7 +9,6 @@ export const Footer = () => {
 
   function onClickListener(){
     setAgreeModal(true);
-    window.scrollTo(0, 0);
   }
 
   function popupModal(){
