@@ -39,7 +39,7 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
   },[]);
 
   // 주문서 추가 정보(입력폼 정보)
-  const [pg, setPg] = useState<string>('kcp');
+  const [pg, setPg] = useState<string>('welcome');
   const [method, setMethod] = useState<string>('card');
   const [userName, setUserName] = useState<string>('');
   const [userNameState, setUserNameState] = useState<boolean>(false);
@@ -116,11 +116,11 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
           <Heading level={5}>결제 수단</Heading>
           <Methods>
             <MethodBtn className={method === 'card' ? 'active' : ''}
-                      onClick={()=>{setPg('kcp');setMethod('card');}}>카드결제</MethodBtn>
-            <MethodBtn className={method === 'kakao' ? 'active' : ''}
-                      onClick={()=>{setPg('kcp');setMethod('kakao');}}>카카오페이</MethodBtn>
-            <MethodBtn className={method === 'npay' ? 'active' : ''}
-                      onClick={()=>{setPg('kcp');setMethod('npay');}}>네이버페이</MethodBtn>
+                      onClick={()=>{setPg('welcome');setMethod('card');}}>카드결제</MethodBtn>
+            <MethodBtn className={pg === 'kakao' ? 'active' : ''}
+                      onClick={()=>{setPg('kakao');setMethod('easy');}}>카카오페이</MethodBtn>
+            <MethodBtn className={pg === 'npay' ? 'active' : ''}
+                      onClick={()=>{setPg('npay');setMethod('');}}>네이버페이</MethodBtn>
           </Methods>
 
           <Heading level={5}>주문하시는 분 정보</Heading>
