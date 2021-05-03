@@ -14,13 +14,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const itemId = context.query.id;
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/item/${itemId}`);
   const data = await res.json();
-
+/*
   if (!data.item) {
     return {
       notFound: true,
     }
   }
-
+*/
   return {
     props: { itemData: data.item },
   }
