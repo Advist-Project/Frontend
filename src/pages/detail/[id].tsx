@@ -136,7 +136,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
             {/* <section ref={workbookSectionRef}><ContentTemplate type="workbook" img="/detail/1.png"/></section> */}
             {/* <section ref={reviewSectionRef}><ContentTemplate type="review" img="/detail/3.png"/></section> */}
             <section ref={askSectionRef}>
-              <AskContentTemplate/>
+              <AskContentTemplate />
             </section>
           </DetailContent>
           <Options>
