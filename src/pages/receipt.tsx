@@ -39,7 +39,7 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
   },[]);
 
   // 주문서 추가 정보(입력폼 정보)
-  const [pg, setPg] = useState<string>('welcome');
+  const [pg, setPg] = useState<string>('danal');
   const [method, setMethod] = useState<string>('card');
   const [userName, setUserName] = useState<string>('');
   const [userNameState, setUserNameState] = useState<boolean>(false);
@@ -116,7 +116,7 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
           <Heading level={5}>결제 수단</Heading>
           <Methods>
             <MethodBtn className={method === 'card' ? 'active' : ''}
-                      onClick={()=>{setPg('welcome');setMethod('card');}}>카드결제</MethodBtn>
+                      onClick={()=>{setPg('danal');setMethod('card');}}>카드결제</MethodBtn>
             <MethodBtn className={pg === 'kakao' ? 'active' : ''}
                       onClick={()=>{setPg('kakao');setMethod('easy');}}>카카오페이</MethodBtn>
             <MethodBtn className={pg === 'npay' ? 'active' : ''}
