@@ -16,13 +16,13 @@ export function AgreePage(props : any) {
     }
     return(
         <Container>
+            <OutButton onClick = {() => onCloseListener()}><img src="/out.png"/></OutButton>
             <AgreeTab create={{ terms: { sectionRef: 'terms' },
                           userinfo: { sectionRef: 'userinfo' },
                           refund: { sectionRef: 'refund' }
                         }}
                     active={activeTab}
                     clicktab={onClickListener}
-                    clickclose={onCloseListener}
                     />
             <DetailInfo>
               <DetailInfoContainer className="wrap">
@@ -62,6 +62,15 @@ const Container = styled.div`
       z-index: -1;
     }
 `;
+const OutButton = styled.div`
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  cursor : pointer;
+  width: 24px;
+  height: 24px;
+  z-index: 2;
+`;
 const DetailInfo = styled.div`
   background-color: ${Colors.gray6};
   padding : 9px 120px 209px 120px;
@@ -93,11 +102,17 @@ const DetailInfoContainer = styled.div`
   h3 {
     font-size: 20px;
     font-weight: 500;
+    word-break: keep-all;
     width : 31.5%;
+    line-height: 162%;
   }
   p {
-    margin-bottom: 5px;
-    line-height: 135%;
+    margin-bottom: 1.2em;
+    line-height: 162%;
+
+    > ul { margin-top: 16px; }
+    > ul > li { margin-left: 16px; margin-bottom: 10px; color: ${Colors.gray1}}
+    > ul > li > ul > li { list-style-type: '- '; margin-left: 32px; }
   }
   th, td {
     border: 1px #000 solid;
