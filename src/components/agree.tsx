@@ -13,6 +13,7 @@ export function AgreePage(props : any) {
     }
     function onCloseListener(){
       props.setAgreeModal(false);
+      document.body.removeAttribute('style');
     }
     return(
         <Container>

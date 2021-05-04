@@ -9,6 +9,7 @@ export const Footer = () => {
 
   function onClickListener(){
     setAgreeModal(true);
+    document.body.style.overflow = 'hidden';
   }
 
   const bizUrl = "https://www.ftc.go.kr/bizCommPop.do?wrkr_no=2054075437";
