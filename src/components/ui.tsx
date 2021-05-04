@@ -22,5 +22,12 @@ export const SmallCard = _smallcard;
 export const Colors = _colors.Colors;
 export const Gradient = _colors.Gradient;
 
+
+// Media Query Breakpoints
+const breakpoints = [576, 769, 992, 1100]
+export const mq = breakpoints.map(
+  bp => `@media (min-width: ${bp}px)`
+);
+
 // Method
 export const Spacing = _spacing;

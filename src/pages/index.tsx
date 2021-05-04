@@ -1,6 +1,6 @@
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
-import { Heading, Text, Button, Colors, Box } from "components/ui";
+import { mq, Heading, Text, Button, Colors, Box } from "components/ui";
 import Image from 'next/image';
 import { ProductList } from "components/product-card-list";
 
@@ -128,11 +128,7 @@ export default function Home() {
 }
 
 
-// Media Query Breakpoints
-const breakpoints = [576, 768, 992, 1100]
-const mq = breakpoints.map(
-  bp => `@media (min-width: ${bp}px)`
-);
+
 
 const Highlight = styled.span`
   display: inline-block;
