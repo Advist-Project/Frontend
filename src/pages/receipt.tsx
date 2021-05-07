@@ -26,7 +26,7 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
 
   function onClickListener(){
     setAgreeModal(true);
-    window.scrollTo(0, 0);
+    document.body.style.overflow = 'hidden';
   }
 
   // 오류 판별 및 리다이렉트

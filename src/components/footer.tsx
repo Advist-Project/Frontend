@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Text, Colors } from "components/ui";
+import { mq, Text, Colors } from "components/ui";
 import { AgreePage } from "components/agree";
 import React, { useState } from 'react';
 
@@ -9,11 +9,12 @@ export const Footer = () => {
 
   function onClickListener(){
     setAgreeModal(true);
+    document.body.style.overflow = 'hidden';
   }
 
+  const bizUrl = "https://www.ftc.go.kr/bizCommPop.do?wrkr_no=2054075437";
   function popupModal(){
-    const url ="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=2054075437";
-    window.open(url, "bizCommPop", "width=750, height=700,left='+ popupX + ', top='+ popupY ;");
+    window.open(bizUrl, "bizCommPop", "width=750, height=700,left='+ popupX + ', top='+ popupY ;");
   }
   return (
     <footer>
@@ -44,9 +45,15 @@ export const Footer = () => {
                 <label>사업자등록번호</label>
                 205-40-75437
               </li>
-              <li onClick = {popupModal} style={{cursor : "pointer"}}>
+              <li className="bizNum_pc" onClick = {popupModal} style={{cursor : "pointer"}}>
                 <label>통신판매업번호</label>
                 <u>2021-서울서초-0571</u>
+              </li>
+              <li className="bizNum_mo" style={{cursor : "pointer"}}>
+                <a href={bizUrl} target="_blank">
+                  <label>통신판매업번호</label>
+                  <u>2021-서울서초-0571</u>
+                </a>
               </li>
               <li>
                 <label>호스팅 사업자</label>
@@ -126,7 +133,21 @@ const InfoList = styled.ul`
     font-size: 14px;
     line-height: 24px;
     color: ${Colors.gray2};
+
+    &.bizNum_pc { display: none }
+    &.bizNum_mo { display: block }
+
+    ${mq[1]} {
+      &.bizNum_pc { display: block }
+      &.bizNum_mo { display: none }
+    }
+
+    a {
+      color: ${Colors.gray2};
+      font-weight: 400;
+    }
   }
+
   label {
     color: ${Colors.gray3};
     margin-right: 16px;
