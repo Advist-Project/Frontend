@@ -3,6 +3,7 @@ export interface User{
     kakaoId?: string;
     naverId?: string;
     username : string;
+    userId : number;
     __v: number;
     _id: string;
 }
