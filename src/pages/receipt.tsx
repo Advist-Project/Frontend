@@ -14,7 +14,7 @@ import { AgreePage } from "components/agree";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { itemId, optionId, userId } = context.query;
-  const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/pay/checkorder/${userId}?itemId=${itemId}&optionId=${optionId}`);
+  const result = await axios.get(process.env.NEXT_PUBLIC_API_URL as string+`/pay/checkorder/${userId}?itemId=${itemId}&optionId=${optionId}`);
   return {
     props: { data: result.data.order_receipts },
   }
