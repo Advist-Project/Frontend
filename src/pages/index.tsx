@@ -1,6 +1,6 @@
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
-import { Heading, Text, Button, Colors, Box } from "components/ui";
+import { mq, Heading, Text, Button, Colors, Box } from "components/ui";
 import Image from 'next/image';
 import { ProductList } from "components/product-card-list";
 
@@ -127,6 +127,9 @@ export default function Home() {
   )
 }
 
+
+
+
 const Highlight = styled.span`
   display: inline-block;
   background-color: ${Colors.secondary};
@@ -224,16 +227,20 @@ const ProductListWrap = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
 
-  > .productCard {
-    max-width: 412px;
-    flex-basis: 32%;
-    margin-bottom: 32px; 
+  .productCard, .allProductLink {
+    flex-basis: 100%;
+    margin-bottom: 32px;
+
+    ${mq[1]} {
+      flex-basis: calc(50% - 16px);
+    }
+    ${mq[3]} {
+      max-width: 412px;
+      flex-basis: calc((100% / 3) - 16px);
+    }
   }
   .allProductLink {
     display: block;
-    max-width: 412px;
-    flex-basis: 32%;
-    margin-bottom: 32px;
   }
   .allProductCard {
     height: 100%;
@@ -253,15 +260,18 @@ const Section6 = styled.section`
 
   > .box {
     display: flex;
-    align-items: center;
     padding: 35px 36px;
   }
   > .box > .textContents {
     margin-left: 84px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    word-break: keep-all;
+    padding-top: calc(102px - 35px);
+    padding-bottom: calc(68px - 35px);
 
-    h3 {
-      margin-bottom: 118px;
-    }
+    h3 { margin-bottom: 35px; }
   }
 `;
 

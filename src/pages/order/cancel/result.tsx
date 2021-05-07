@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Layout } from "components/layout";
 import { Heading, Text, Colors } from "components/ui";
 
-export default function OrderCancel(){
+export function OrderCancel(){
   useEffect(()=>{
     // router.push({
     //   pathname: `${process.env.NEXT_PUBLIC_ORDER_PAGE_URL}`,
@@ -16,13 +16,13 @@ export default function OrderCancel(){
       <Bg>
         <Container>
         <Heading level={4} style={{marginBottom: '20px'}}>결제가 정상적으로 처리되지 않았습니다.</Heading>
-        <Text size="20px">잠시 후 이전화면으로 이동합니다.</Text>
+        <Text size="20px">잠시 후 상세 화면으로 이동합니다.</Text>
         </Container>
       </Bg>
     </Layout>
   )
 }
-
+export default OrderCancel;
 const Bg = styled.div`
   background: ${Colors.gray7};
 `;

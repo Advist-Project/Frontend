@@ -98,9 +98,8 @@ interface IAgreeTabProps {
   create: any;
   active: string;
   clicktab : any;
-  clickclose : any;
 }
-export const AgreeTab: React.FC<IAgreeTabProps> = ({ create, active, clicktab, clickclose }) => {
+export const AgreeTab: React.FC<IAgreeTabProps> = ({ create, active, clicktab }) => {
   const tab:{[key:string]: any} = {
     terms: { value: "이용약관", sectionRef: '', ...create.terms },
     userinfo: { value: "개인정보 처리방침", sectionRef: '', ...create.userinfo },
@@ -109,6 +108,7 @@ export const AgreeTab: React.FC<IAgreeTabProps> = ({ create, active, clicktab, c
 
   const AgreeTab = styled.div`
     border-radius: 20px 20px 0px 0px;
+    padding-top: 100px;
     height: 209px;
     background: ${Colors.white};
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -119,17 +119,8 @@ export const AgreeTab: React.FC<IAgreeTabProps> = ({ create, active, clicktab, c
       justify-content : center;
     }
   `;
-  
-  const OutButton = styled.div`
-    cursor : pointer;
-    width: 24px;
-    height: 24px;
-    margin-left : 1204px;
-    padding-top : 32px;
-  `;
 
   const Tab = styled.li`
-    margin-top : 68px;
     flex-basis: 353px;
     height: 109px;
     text-align: center;
@@ -152,7 +143,6 @@ export const AgreeTab: React.FC<IAgreeTabProps> = ({ create, active, clicktab, c
   return (
     <AgreeTab>
       <div className="wrap">
-      <OutButton onClick = {() => clickclose(true)}><img src="/out.png"/></OutButton>
         <ul>
           {
             Object.keys(create).map((type, i) => (

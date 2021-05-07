@@ -1,8 +1,9 @@
 import axios from 'axios';
+import Router from "next/router";
 
 export function bootpay(data, extra){
   console.log(data.userEmail);
-
+  const itemId = data.itemInfo.itemId;
   BootPay.request({
     price: data.itemInfo.option.discountPrice, //할인 후 가격
     application_id: process.env.NEXT_PUBLIC_BT_KEY,
@@ -35,8 +36,11 @@ export function bootpay(data, extra){
     //결제 진행시 에러가 발생하면 수행됩니다.
     console.log("에러");
     console.log(data);
-    location.replace(`/order/cancel/result`);
-  }).cancel(function (data) {
+    Router.push(`/order/cancel/result`);
+    setTimeout(function() {
+      window.location.href = `/detail/${itemId}`;
+    }, 2000);
+  }).cancel(function (data) {    
     //결제가 취소되면 수행됩니다.
     console.log(data);
   }).ready(function (data) {

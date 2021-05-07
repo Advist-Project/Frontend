@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const itemId = context.query.id;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/item/${itemId}`);
+  const res = await fetch(process.env.NEXT_PUBLIC_API_URL as string +`/item/${itemId}`);
   const data = await res.json();
 /*
   if (!data.item) {
