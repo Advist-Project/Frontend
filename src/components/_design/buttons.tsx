@@ -97,3 +97,19 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url, dis
       <Button style={assignCss(style)} onClick={loading} disabled={disabled}>{buttonText}</Button>
     )
   }
+
+export const ToggleBtn = styled.button`
+  border-radius: 20px;
+  border: 1px ${Colors.gray3} solid;
+  color: ${Colors.gray3};
+  background-color: ${Colors.white};
+  height: 52px;
+  font-size: 14px;
+  cursor: pointer;
+
+  &.active {
+    border-color: ${Colors.primary};
+    background-color: ${Colors.primary};
+    color : ${Colors.white};
+  }
+`
