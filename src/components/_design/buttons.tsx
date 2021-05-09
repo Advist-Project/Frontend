@@ -130,7 +130,7 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url, dis
       &:hover{
         background-color: ${styles[tagType].hover.background};
         color: ${styles[tagType].hover.color};
-        border-color : ${styles[tagType].hover.borderColor};
+        border-color : ${!isLoading? styles[tagType].hover.borderColor : styles[tagType].borderColor};
       }    
 
       &:active{
