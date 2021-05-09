@@ -156,4 +156,65 @@ export const AgreeTab: React.FC<IAgreeTabProps> = ({ create, active, clicktab })
   )
 }
 
+// myPage
+interface IMypageTabProps {
+  create: any;
+  active: string;
+  clicktab : any;
+}
+export const MypageTab: React.FC<IMypageTabProps> = ({ create, active, clicktab }) => {
+  const tab:{[key:string]: any} = {
+    mybuying: { value: "내 구매내역", sectionRef: '', ...create.mybuying },
+    mypick: { value: "찜한내역", sectionRef: '', ...create.mypick },
+  }
+
+  const MypageTab = styled.div`
+    border-radius: 20px 20px 0px 0px;
+    height: 109px;
+    background: ${Colors.white};
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    position: relative;
+    z-index: 1;
+    ul {
+      display: flex;
+      justify-content : center;
+    }
+  `;
+
+  const Tab = styled.li`
+    flex-basis: 650px;
+    height: 109px;
+    text-align: center;
+    line-height: 109px;
+    cursor: pointer;
+
+    font-family: Spoqa Han Sans Neo;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0px;
+    color : ${Colors.gray2};
+
+    &.active {
+      border-bottom: 8px ${Colors.secondary} solid;
+      color : ${Colors.secondary};
+    }
+  `;
+
+  return (
+    <MypageTab>
+      <div className="wrap">
+        <ul>
+          {
+            Object.keys(create).map((type, i) => (
+              <Tab key={i} className={`${type} ${active === tab[type].sectionRef ? 'active' : ''}`} onClick={()=>{clicktab(tab[type].sectionRef)}}>
+                {tab[type].value}
+              </Tab>
+          ))}
+        </ul>
+      </div>
+    </MypageTab>
+  )
+}
+
 export default React.memo(AnchorTab);
