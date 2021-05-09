@@ -39,8 +39,8 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
   },[]);
 
   // 주문서 추가 정보(입력폼 정보)
-  const [pg, setPg] = useState<string>('danal');
-  const [method, setMethod] = useState<string>('card');
+  const [pg, setPg] = useState<string>('');
+  const [method, setMethod] = useState<string>('');
   const [userName, setUserName] = useState<string>('');
   const [userNameState, setUserNameState] = useState<boolean>(false);
   const [userPhone, setUserPhone] = useState<string>('');
@@ -50,7 +50,7 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
   // 폼 상태 체크해서 구매하기 버튼 활성화
   const [buyBtnState, setBuyBtnState] = useState<string>('disabled');
   useEffect(() => {
-    if(userNameState && userPhoneState && agree){
+    if(pg && method && userNameState && userPhoneState && agree){
       setBuyBtnState('');
     } else {
       setBuyBtnState('disabled');
@@ -174,7 +174,7 @@ const Wrap = styled.div`
   padding: 0 40px;
   margin: 0 auto;
   width: 100%;
-  max-width: 836px;
+  max-width: 916px;
 `;
 
 const Container = styled.div`
@@ -198,8 +198,9 @@ const Title = styled.h2`
   line-height: 32px;
   font-size: 20px;
   word-break: keep-all;
+  white-space: nowrap;
 `
-const Desc = styled.h2`
+const Desc = styled.p`
   line-height: 26px;
   font-size: 16px;
   word-break: keep-all;

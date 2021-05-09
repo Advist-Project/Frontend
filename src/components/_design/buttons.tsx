@@ -11,8 +11,9 @@ interface IButtonProps{ // type = "login" => 로그인, type = "start" => 시작
     style?: object[] | object;
     url?: string; // 로그아웃 상태일 경우 "/login" 로그인 => undefined
     disabled?: any;
+    onClick?: any;
 }
-export const Button: React.FC<IButtonProps> = ({ children, type, style, url, disabled }) => {
+export const Button: React.FC<IButtonProps> = ({ children, type, style, url, disabled, onClick }) => {
 
     const [buttonText, setButtonText] = useState(children);
     const [isLoading, setisLoading] = useState(false);
@@ -42,22 +43,58 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url, dis
 
     const tagType = type==='login' ? 'login' : 'start'; //기본 타입 start
     const styles = {
-      'login': { weight : 'bold' , background: Colors.white, color: Colors.black , 
-      hoverBack : Colors.black, hoverColor : Colors.white, disabledBack : Colors.loginDisabled,
-      pressedBack : Colors.loginPressed },
+      'login': {
+        weight : '500',
+        background: Colors.white,
+        borderColor: Colors.black,
+        color: Colors.black,
+        hover: {
+          background: Colors.white,
+          borderColor: Colors.primary,
+          color: Colors.primary,
+        },
+        pressed: {
+          background: Colors.white,
+          borderColor: Colors.primaryDark,
+          color: Colors.primaryDark,
+        },
+        disabled: {
+          background: Colors.white,
+          borderColor: Colors.gray3,
+          color: Colors.gray3,
+        },
+      },
 
-      'start': { weight : 'normal', background: Colors.primary , color: Colors.white,
-      hoverBack : Colors.white, hoverColor : Colors.primary, disabledBack : Colors.primarySemiLight,
-      pressedBack : Colors.primaryDark}
+      'start': {
+        weight : '500',
+        background: Colors.primary,
+        borderColor: Colors.primary,
+        color: Colors.white,
+        hover: {
+          background: Colors.primaryDark,
+          borderColor: Colors.primaryDark,
+          color: Colors.white,
+        },
+        pressed: {
+          background: Colors.primaryDark,
+          borderColor: Colors.primaryDark,
+          color: Colors.white,
+        },
+        disabled: {
+          background: Colors.primarySemiLight,
+          borderColor: Colors.primarySemiLight,
+          color: Colors.white,
+        },
+      },
     }
 
     const Button = styled.button`
       cursor : pointer;
       height: 52px;
-      width: 160px;
+      min-width: 160px;
       border-radius: 20px;
-      border-width : ${type === 'login'? '1px' : '0'};
-      border-color : ${Colors.black};
+      border-width : 1px;
+      border-color : ${styles[tagType].borderColor};
       border-style : solid;
       background-color: ${styles[tagType].background};
       color : ${styles[tagType].color};
@@ -71,22 +108,22 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url, dis
       text-align: center;
 
       &:hover{
-        border-width : ${!isLoading? '1px' : null};
-        background-color: ${!isLoading? styles[tagType].hoverBack : null};
-        color: ${!isLoading? styles[tagType].hoverColor : null};
-        border-color : ${!isLoading? styles[tagType].hoverColor : null};
+        background-color: ${styles[tagType].hover.background};
+        color: ${styles[tagType].hover.color};
+        border-color : ${styles[tagType].hover.borderColor};
       }    
 
       &:active{
-          border-width : ${!isLoading? type === 'login'? '1px' : '0' : null};
-          background-color: ${!isLoading? styles[tagType].pressedBack : null};
-          color: ${!isLoading? styles[tagType].color : null};
+        background-color: ${styles[tagType].pressed.background};
+        color: ${styles[tagType].pressed.color};
+        border-color : ${styles[tagType].pressed.borderColor};
       }
 
       &:disabled{
         cursor : default;
-        background-color: ${styles[tagType].disabledBack};
-        color: ${Colors.white};
+        background-color: ${styles[tagType].disabled.background};
+        color: ${styles[tagType].disabled.color};
+        border-color : ${styles[tagType].disabled.borderColor};
       }
 
       &:focus{
@@ -94,7 +131,7 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url, dis
       }
     `;
     return (
-      <Button style={assignCss(style)} onClick={loading} disabled={disabled}>{buttonText}</Button>
+      <Button style={assignCss(style)} disabled={disabled} onClick={()=>{loading();onClick();}}>{buttonText}</Button>
     )
   }
 
