@@ -41,8 +41,8 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url, dis
       if(url !== undefined) router.push(url);
     }
 
-    const tagType = type==='login' ? 'login' : 'start'; //기본 타입 start
-    const styles = {
+    const tagType:string = type ? type : 'login'; //기본 타입 start
+    const styles:{[key: string]: any} = {
       'login': {
         weight : '500',
         background: Colors.white,
@@ -64,7 +64,27 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url, dis
           color: Colors.gray3,
         },
       },
-
+      'secondary': {
+        weight : '500',
+        background: Colors.white,
+        borderColor: Colors.black,
+        color: Colors.black,
+        hover: {
+          background: Colors.white,
+          borderColor: Colors.primary,
+          color: Colors.primary,
+        },
+        pressed: {
+          background: Colors.white,
+          borderColor: Colors.primaryDark,
+          color: Colors.primaryDark,
+        },
+        disabled: {
+          background: Colors.white,
+          borderColor: Colors.gray3,
+          color: Colors.gray3,
+        },
+      },
       'start': {
         weight : '500',
         background: Colors.primary,
@@ -131,7 +151,7 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url, dis
       }
     `;
     return (
-      <Button style={assignCss(style)} disabled={disabled} onClick={()=>{loading();onClick();}}>{buttonText}</Button>
+      <Button style={assignCss(style)} disabled={disabled} onClick={()=>{loading(); onClick ? onClick() : null}}>{buttonText}</Button>
     )
   }
 
