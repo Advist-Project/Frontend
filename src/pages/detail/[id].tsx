@@ -29,11 +29,18 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
   const { itemId, title, owner, tag, options } = itemData;
   const router = useRouter();
 
-  function routeToOrder(userId: any, itemId: any, optionId: any){
-    router.push({
-      pathname: `${process.env.NEXT_PUBLIC_ORDER_PAGE_URL}`,
-      query: {userId: userId, itemId: itemId, optionId: optionId},
-    }, '/order');
+  function routeToOrder(userId: any, itemId: any, optionId: any, type: string){
+    if(type === 'workbook'){
+        router.push({
+        pathname: '/receipt',
+        query: {userId: userId, itemId: itemId, optionId: optionId},
+      }, '/order');
+    } else {
+      router.push({
+        pathname: '/order/coaching',
+        query: {userId: userId, itemId: itemId, optionId: optionId},
+      }, '/order');
+    }
   }
 
   // Tab Control
@@ -110,7 +117,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
             </div>
             <div className="rightArea">
               <Price discountPrice={options[0].discountPrice} price={options[0].price} />
-              <a onClick={()=>routeToOrder(1, itemId, 1)}><Button type="start">구매하기</Button></a>
+              <a onClick={()=>routeToOrder(1, itemId, 1, options[0].type)}><Button type="start">구매하기</Button></a>
               {/* 보유중 상태가 필요하겠네요 */}
             </div>
           </FunctionsAndPriceInfo>
