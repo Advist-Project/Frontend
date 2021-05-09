@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from "@emotion/styled";
 import { Layout } from "components/layout";
-import { Heading, Button, ToggleBtn, Colors } from "components/ui";
+import { Button, ToggleBtn, Colors } from "components/ui";
 import { bootpay } from "components/bootpay";
 import { withRouter } from 'next/router';
 import { useRouter } from 'next/router';
@@ -11,6 +11,7 @@ import { priceFormat } from "components/formatter";
 import { InputPhone } from "components/input-phone";
 import { InputName } from "components/input-name";
 import { AgreePage } from "components/agree";
+import { Step } from "components/step";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { itemId, optionId, userId } = context.query;
@@ -79,13 +80,14 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
         AgreeModal ? <AgreePage setActiveTab="refund" setAgreeModal={setAgreeModal}/> : null
       }
       <Wrap>
+      <Step active={1} labels={["결제하기", "결제 완료"]}/>
       <Container>
         <Section>
           <Headline>
             <Title>주문 정보</Title>
             <Desc>주문 정보를 다시 한번 확인해주세요.</Desc>
           </Headline>
-          <Flex style={{alignItems: 'flex-start', marginTop: '39px', marginBottom: '12px'}}>
+          <OrderInfo>
             <ItemImg src={`/detail/${data.itemInfo.itemId}/thumb.png`}/>
             <OrderInfoText>
               <ItemTitle>{data.itemInfo.itemName}</ItemTitle>
@@ -95,7 +97,7 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
                 <Type>[코칭] {data.itemInfo.option.title}</Type>
               }
             </OrderInfoText>
-          </Flex>
+          </OrderInfo>
         </Section>
         <Hr/>
 
@@ -152,18 +154,16 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
           </Agree>
         </Section>
       </Container>
-      <div style={{marginTop: '60px', marginBottom: '86px'}} onClick={buyBtnState !== 'disabled' ? tryPay : ()=>console.log('실행불가')}>
-        <Button type="start" style={{width:'100%'}} disabled={buyBtnState}>결제하기</Button>
-      </div>
+      <Buttons>
+        <Button type="secondary" onClick={()=>window.history.back()}>이전</Button>
+        <Button type="start" style={{width:'100%'}} disabled={buyBtnState} onClick={buyBtnState !== 'disabled' ? tryPay : ()=>console.log('실행불가')}>결제하기</Button>
+      </Buttons>
       </Wrap>
     </Layout>
   )
 }
 export default withRouter(Order);
 
-const Flex = styled.div`
-  display: flex;
-`;
 const Hr = styled.hr`
   border: 0px;
   border-bottom: 1px ${Colors.gray3} solid;
@@ -180,6 +180,7 @@ const Wrap = styled.div`
 const Container = styled.div`
   background: ${Colors.white};
   width: 100%;
+  margin-top: 24px;
   padding: 24px 36px 12px;
   border-radius: 20px;
   box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.06);
@@ -206,7 +207,12 @@ const Desc = styled.p`
   word-break: keep-all;
   margin-left: 20px;
 `
-
+const OrderInfo = styled.div`
+  display: flex;
+  align-items: flex-start;
+  margin-top: 39px;
+  margin-bottom: 12px;
+`;
 const ItemImg = styled.img`
   width: 172px;
   border-radius: 10px;
@@ -319,5 +325,16 @@ const Agree = styled.div`
     color: ${Colors.primary};
     border-bottom: 1px ${Colors.primary} solid;
     cursor: pointer;
+  }
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  margin: 60px -6px 86px;
+
+  button {
+    flex-basis: 50%;
+    flex-grow: 1;
+    margin: 0 6px;
   }
 `;

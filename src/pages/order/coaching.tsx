@@ -81,7 +81,7 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
                 <ScheduleSection />
               </Container>
               <Buttons>
-                <Button type="secondary" disabled>이전</Button>
+                <Button type="secondary" onClick={()=>window.history.back()}>이전</Button>
                 <Button type="start" onClick={()=>changeStep(2)}>다음</Button>
               </Buttons>
             </>

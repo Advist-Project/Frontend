@@ -39,9 +39,9 @@ function OrderComplete({data}: InferGetServerSidePropsType<typeof getServerSideP
     <Layout noFooter>
       <Wrap>
         {
-          option.type === 'workbook'
-          ? <Step active={2} labels={["결제하기", "결제 완료"]}/>
-          : <Step active={4} labels={["스케줄 선택", "개인정보 입력", "결제하기", "결제 완료"]}/>
+          option.type !== 'workbook'
+          ? <Step active={4} labels={["스케줄 선택", "개인정보 입력", "결제하기", "결제 완료"]}/>
+          : <Step active={2} labels={["결제하기", "결제 완료"]}/>
         }
         <Container>
           {
