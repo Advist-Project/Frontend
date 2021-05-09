@@ -19,7 +19,7 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url, dis
     const [isLoading, setisLoading] = useState(false);
     const router = useRouter();
 
-    const loader = <Loader type="TailSpin" color = {type === "login" ? Colors.black : Colors.white} 
+    const loader = <Loader type="TailSpin" color = {type === "start" ? Colors.white : Colors.black} 
     height={30} width={30} timeout={0} radius={3}/>
 
     useEffect(() => {       
