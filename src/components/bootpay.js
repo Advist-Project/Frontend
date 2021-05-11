@@ -40,7 +40,7 @@ export function bootpay(data, extra){
     setTimeout(function() {
       window.location.href = `/detail/${itemId}`;
     }, 2000);
-  }).cancel(function (data) {    
+  }).cancel(function (data) { 
     //결제가 취소되면 수행됩니다.
     console.log(data);
   }).ready(function (data) {

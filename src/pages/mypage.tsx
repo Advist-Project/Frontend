@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Layout } from "components/layout";
 import { MypageTab } from 'components/tab';
-import { MyBuying } from 'components/mybuying';
+import { MypageList } from 'components/mypage-list';
 
 export default function MyPage(){
     // Tab Control
@@ -21,7 +21,7 @@ export default function MyPage(){
                     active={activeTab}
                     clicktab={onClickListener}
                 />
-                {activeTab === 'mybuying'?  <MyBuying/> : <div>찜한내역</div>}
+                {activeTab === 'mybuying'?  <MypageList activeTab = 'mybuying'/> : <MypageList activeTab = 'mypick'/>}
         </Layout>
         </div>
     )
