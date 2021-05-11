@@ -1,6 +1,7 @@
 import * as _colors from './_design/colors';
 import { Heading as _heading, Text as _text } from './_design/typography';
 import { Button as _button } from './_design/buttons';
+import { ToggleBtn as _toggleBtn } from './_design/buttons';
 import { Buying as _buying, SmallCard as _smallcard } from './_design/buying-card';
 import { Box as _box } from './_design/box';
 import { Input as _input } from './_design/textInputs';
@@ -28,6 +29,9 @@ const breakpoints = [576, 769, 992, 1100]
 export const mq = breakpoints.map(
   bp => `@media (min-width: ${bp}px)`
 );
+
+// Styles
+export const ToggleBtn = _toggleBtn;
 
 // Method
 export const Spacing = _spacing;

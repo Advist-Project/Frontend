@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Button, Colors } from "components/ui";
 import { myContext } from "../context";
 import { User } from '../types/logintypes';
+import { LogoutButtons } from 'components/logout-buttons'
 
 export const Header = () => {
   const userObject = useContext(myContext) as User;
@@ -12,7 +13,8 @@ export const Header = () => {
         <a href="/"><img src="/logo.png" height="44" /></a>
         <RightElements>
           <a href="/all">워크북</a>
-          <Button url={userObject? undefined : "/login"} type="login">{userObject? "로그아웃" : "로그인"}</Button>
+          {userObject? <LogoutButtons/> : <Button url="/login" type="login">로그인</Button>}
+          {/*<Button url={userObject? undefined : "/login"} type="login">{userObject? "로그아웃" : "로그인"}</Button> */}
         </RightElements>
       </Wrap>
     </header>

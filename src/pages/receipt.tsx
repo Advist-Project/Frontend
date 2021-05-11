@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from "@emotion/styled";
 import { Layout } from "components/layout";
-import { Heading, Button, Colors } from "components/ui";
+import { Button, ToggleBtn, Colors } from "components/ui";
 import { bootpay } from "components/bootpay";
 import { withRouter } from 'next/router';
 import { useRouter } from 'next/router';
@@ -11,6 +11,7 @@ import { priceFormat } from "components/formatter";
 import { InputPhone } from "components/input-phone";
 import { InputName } from "components/input-name";
 import { AgreePage } from "components/agree";
+import { Step } from "components/step";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { itemId, optionId, userId } = context.query;
@@ -39,8 +40,8 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
   },[]);
 
   // 주문서 추가 정보(입력폼 정보)
-  const [pg, setPg] = useState<string>('danal');
-  const [method, setMethod] = useState<string>('card');
+  const [pg, setPg] = useState<string>('');
+  const [method, setMethod] = useState<string>('');
   const [userName, setUserName] = useState<string>('');
   const [userNameState, setUserNameState] = useState<boolean>(false);
   const [userPhone, setUserPhone] = useState<string>('');
@@ -50,7 +51,7 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
   // 폼 상태 체크해서 구매하기 버튼 활성화
   const [buyBtnState, setBuyBtnState] = useState<string>('disabled');
   useEffect(() => {
-    if(userNameState && userPhoneState && agree){
+    if(pg && method && userNameState && userPhoneState && agree){
       setBuyBtnState('');
     } else {
       setBuyBtnState('disabled');
@@ -78,123 +79,167 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
       {                
         AgreeModal ? <AgreePage setActiveTab="refund" setAgreeModal={setAgreeModal}/> : null
       }
-      <Bg>
+      <Wrap>
+      <Step active={1} labels={["결제하기", "결제 완료"]}/>
       <Container>
-        <Heading level={3}>결제하기</Heading>
-        <hr/>
-
         <Section>
-          <Heading level={5}>주문 정보</Heading>
-          <Flex style={{alignItems: 'flex-end', marginTop: '20px'}}>
-            <Img src={`/detail/${data.itemInfo.itemId}/thumb.png`}/>
+          <Headline>
+            <Title>주문 정보</Title>
+            <Desc>주문 정보를 다시 한번 확인해주세요.</Desc>
+          </Headline>
+          <OrderInfo>
+            <ItemImg src={`/detail/${data.itemInfo.itemId}/thumb.png`}/>
             <OrderInfoText>
-              <Title>{data.itemInfo.itemName}</Title> {/* 문과생 출신 마케터가 알려주는 GTM으로 전자상거래 구축하기 */}
+              <ItemTitle>{data.itemInfo.itemName}</ItemTitle>
               {
                 data.itemInfo.option.type === "workbook" ?
                 <Type>[워크북] 업무에 활용했던 자료들입니다.</Type> :
                 <Type>[코칭] {data.itemInfo.option.title}</Type>
               }
             </OrderInfoText>
-          </Flex>
+          </OrderInfo>
         </Section>
-        <hr/>
+        <Hr/>
 
         <Section>
-          <Heading level={5}>결제 금액</Heading>
+          <Headline>
+            <Title>결제 정보</Title>
+          </Headline>
           <PriceInfo>
             <dt>상품 금액</dt>
             <dd>{priceFormat(data.itemInfo.option.price)}원</dd>
             <dt>할인 금액</dt>
             <dd>{priceFormat(data.itemInfo.option.discountPrice - data.itemInfo.option.price)}원</dd>
-            <dt>최종 결제금액</dt>
+            <dt className="finalPrice">최종 결제금액</dt>
             <dd className="finalPrice">{priceFormat(data.itemInfo.option.discountPrice)}원</dd>
           </PriceInfo>
         </Section>
-        <hr/>
+        <Hr/>
 
         <Section>
-          <Heading level={5}>결제 수단</Heading>
+          <Headline>
+            <Title>결제 수단</Title>
+          </Headline>
           <Methods>
-            <MethodBtn className={method === 'card' ? 'active' : ''}
-                      onClick={()=>{setPg('danal');setMethod('card');}}>카드결제</MethodBtn>
-            <MethodBtn className={pg === 'kakao' ? 'active' : ''}
-                      onClick={()=>{setPg('kakao');setMethod('easy');}}>카카오페이</MethodBtn>
-            <MethodBtn className={pg === 'npay' ? 'active' : ''}
-                      onClick={()=>{setPg('npay');setMethod('');}}>네이버페이</MethodBtn>
+            <ToggleBtn className={method === 'card' ? 'active' : ''}
+                      onClick={()=>{setPg('danal');setMethod('card');}}>카드결제</ToggleBtn>
+            <ToggleBtn className={pg === 'kakao' ? 'active' : ''}
+                      onClick={()=>{setPg('kakao');setMethod('easy');}}>카카오페이</ToggleBtn>
+            <ToggleBtn className={pg === 'npay' ? 'active' : ''}
+                      onClick={()=>{setPg('npay');setMethod('');}}>네이버페이</ToggleBtn>
           </Methods>
+        </Section>
+        <Hr/>
 
-          <Heading level={5}>주문하시는 분 정보</Heading>
+        <Section>
+          <Headline>
+            <Title>주문하시는 분 정보</Title>
+          </Headline>
           <UserInfo>
-            <Flex>
+            <div>
               <label>이름</label>
               <InputName useState={userName} useStateFunction={setUserName} formStateFunction={setUserNameState} />
-            </Flex>
-            <Flex>
+            </div>
+            <div>
               <label>연락처</label>
               <InputPhone useState={userPhone} useStateFunction={setUserPhone} formStateFunction={setUserPhoneState} />
-            </Flex>
+            </div>
           </UserInfo>
         </Section>
 
-        <Section>
+        <Section style={{paddingTop: '14px'}}>
           <Agree>
             <input id="ag" type="checkbox" onClick={()=>setAgree(!agree)} />
-            <label htmlFor="ag">주문 내용을 확인하였으며, <label style={{color: Colors.primary, cursor: 'pointer'}} onClick={onClickListener}>서비스 취소/환불 정책&nbsp;</label>및 결제에 동의합니다. (필수)</label>
+            <label htmlFor="ag">주문 내용을 확인하였으며, <label className="highlight" onClick={onClickListener}>서비스 취소/환불 정책</label> 및 결제에 동의합니다. (필수)</label>
           </Agree>
-          <div onClick={buyBtnState !== 'disabled' ? tryPay : ()=>console.log('실행불가')}>
-            <Button type="start" style={{width:'100%'}} disabled={buyBtnState}>결제하기</Button>
-          </div>
         </Section>
       </Container>
-      </Bg>
+      <Buttons>
+        <Button type="secondary" onClick={()=>window.history.back()}>이전</Button>
+        <Button type="start" style={{width:'100%'}} disabled={buyBtnState} onClick={buyBtnState !== 'disabled' ? tryPay : ()=>console.log('실행불가')}>결제하기</Button>
+      </Buttons>
+      </Wrap>
     </Layout>
   )
 }
 export default withRouter(Order);
 
-const Bg = styled.div`
-  background: ${Colors.gray7};
+const Hr = styled.hr`
+  border: 0px;
+  border-bottom: 1px ${Colors.gray3} solid;
+  margin: 0;
 `;
-const Flex = styled.div`
-  display: flex;
+
+const Wrap = styled.div`
+  padding: 0 40px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 916px;
 `;
+
 const Container = styled.div`
   background: ${Colors.white};
   width: 100%;
-  max-width: 804px;
-  padding: 20px 40px;
-  margin: 0 auto;
+  margin-top: 24px;
+  padding: 24px 36px 12px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.06);
 `;
+
 const Section = styled.section`
-  padding: 20px 0; 
+  padding: 24px 0; 
 `
 
-
-const OrderInfoText = styled.div`
-  margin-left: 20px;
+const Headline = styled.div`
+  display: flex;
+  align-items: baseline;
 `;
-const Img = styled.img`
-  width: 180px;
-  border: 1px ${Colors.gray4} solid;
-`
-const Title = styled.h6`
-  font-weight: 500;
+const Title = styled.h2`
+  font-weight: 700;
   line-height: 32px;
   font-size: 20px;
   word-break: keep-all;
+  white-space: nowrap;
 `
-const Type = styled.p`
-  font-size: 16px;
+const Desc = styled.p`
   line-height: 26px;
+  font-size: 16px;
+  word-break: keep-all;
+  margin-left: 20px;
 `
-
+const OrderInfo = styled.div`
+  display: flex;
+  align-items: flex-start;
+  margin-top: 39px;
+  margin-bottom: 12px;
+`;
+const ItemImg = styled.img`
+  width: 172px;
+  border-radius: 10px;
+`
+const OrderInfoText = styled.div`
+  margin-left: 36px;
+`;
+const ItemTitle = styled.h3`
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 10px;
+`;
+const Type = styled.p`
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: ${Colors.primary};
+`
 
 const PriceInfo = styled.dl`
   display: flex;
   flex-wrap: wrap;
-  font-size: 20px;
-  line-height: 60px;
-  padding: 10px 0 0;
+  font-size: 16px;
+  line-height: 40px;
+  margin-top: 26px;
+  margin-bottom: -10px;
 
   dt {
     width: 200px;
@@ -202,69 +247,94 @@ const PriceInfo = styled.dl`
   dd {
     width: calc(100% - 200px);
     text-align: right;
+    font-weight: 500;
   }
-  dd.finalPrice {
-    font-size: 26px;
+  .finalPrice {
+    color: ${Colors.primary};
+    font-weight: 500;
   }
 `;
-
 
 const Methods = styled.div`
   display: flex;
-  padding: 0 -3px;
+  margin: 0 -5px;
   margin-top: 20px;
-  margin-bottom: 60px;
-`;
-const MethodBtn = styled.div`
-  text-align: center;
-  flex-basis: 0px;
-  flex-grow: 1;
-  height: 60px;
-  line-height: 60px;
-  margin: 0 3px;
-  background: ${Colors.white};
-  border: 1px solid ${Colors.gray3};
-  cursor: pointer;
+  margin-bottom: 12px;
 
-  &.active {
-    background: ${Colors.gray5};
-    border: 1px solid ${Colors.gray1};
+  > button {
+    flex-grow: 1;
+    margin: 0 5px;
   }
 `;
-
 
 const UserInfo = styled.div`
-  padding: 20px 0 0;
-
-  div {
-    margin-bottom: 10px;
-  }
+  padding: 36px 0 12px;
 
   label {
-    align-self: flex-start;
-    display: inline-block;
-    width: 100px;
-    line-height: 52px;
+    display: block;
     font-size: 16px;
+    margin-bottom: 16px;
   }
   input {
-    width: 280px;
+    width: 100%;
     height: 52px;
     font-size: 16px;
-    padding: 12px;
+    padding: 12px 24px;
+    border-radius: 20px;
     border: 1px solid ${Colors.gray3};
+
+    &::placeholder {
+      color: ${Colors.gray3}
+    }
+  }
+
+  div + div {
+    margin-top: 32px;
   }
 `;
 
 
 const Agree = styled.div`
-  font-size: 16px;
-  margin-bottom: 20px;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 3px;
 
-  input {
-    width: 20px;
-    height: 20px;
+  input[type=checkbox] {
+    display: none;
+  }
+  input[type=checkbox] + label::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
     vertical-align: middle;
-    margin-right: 10px;
+    margin-right: 15px;
+    border-radius: 4px;
+    border: 1px solid #6E7191;
+  }
+  input[type=checkbox]:checked + label::before {
+    border-color: ${Colors.primary};
+    background: url('/icon/done_24px.svg') center/17px 13px no-repeat;
+    background-color: ${Colors.primary};
+  }
+  input[type=checkbox] + label {
+    cursor: pointer;
+  }
+
+  .highlight {
+    color: ${Colors.primary};
+    border-bottom: 1px ${Colors.primary} solid;
+    cursor: pointer;
+  }
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  margin: 60px -6px 86px;
+
+  button {
+    flex-basis: 50%;
+    flex-grow: 1;
+    margin: 0 6px;
   }
 `;

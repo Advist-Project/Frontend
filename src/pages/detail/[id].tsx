@@ -1,5 +1,5 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import Image from 'next/image';
@@ -9,20 +9,18 @@ import { Price } from "components/price";
 import AnchorTab from 'components/tab';
 import { ContentTemplate, AskContentTemplate } from "components/detail-content-template";
 import { useRouter } from 'next/router';
-import { myContext } from "context";
-import { User } from 'types/logintypes';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const itemId = context.query.id;
   const res = await fetch(process.env.NEXT_PUBLIC_API_URL as string +`/item/${itemId}`);
   const data = await res.json();
-/*
+
   if (!data.item) {
     return {
       notFound: true,
     }
   }
-*/
+
   return {
     props: { itemData: data.item },
   }
@@ -31,12 +29,20 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
   const { itemId, title, owner, tag, options } = itemData;
   const router = useRouter();
 
-  function routeToOrder(userId: any, itemId: any, optionId: any){
-    router.push({
-      pathname: `${process.env.NEXT_PUBLIC_ORDER_PAGE_URL}`,
-      query: {userId: userId, itemId: itemId, optionId: optionId},
-    }, '/order');
+  function routeToOrder(userId: any, itemId: any, optionId: any, type: string){
+    if(type === 'workbook'){
+        router.push({
+        pathname: '/receipt',
+        query: {userId: userId, itemId: itemId, optionId: optionId},
+      }, '/order');
+    } else {
+      router.push({
+        pathname: '/order/coaching',
+        query: {userId: userId, itemId: itemId, optionId: optionId},
+      }, '/order');
+    }
   }
+
   // Tab Control
   const [activeTab, setActiveTab] = useState<string>('workbook');
   const DetailInfoContainerRef = useRef<HTMLDivElement>(null);
@@ -44,8 +50,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
   const coachingSectionRef = useRef<HTMLDivElement>(null);
   // const reviewSectionRef = useRef<HTMLDivElement>(null);
   const askSectionRef = useRef<HTMLDivElement>(null);
-  const userObject = useContext(myContext) as User;
-
+ 
   const tabHeight:number = 161; //109 + 52
   useEffect(() => {
     const handleScroll = () => {
@@ -75,10 +80,6 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
     window.addEventListener('scroll', handleScroll);
   },[]);
 
-  function onClickListener(){
-    // 비로그인 || 로그인 api 받기 전에 클릭할 경우 경고
-    userObject? routeToOrder(userObject.userId, itemId, 1) : alert('로그인이 필요합니다.\n (로그인 상태라면 버튼을 다시 클릭해주세요.)');
-  }
 
   function windowScroll(target: string){
     const ref:{[key: string]: any} = {
@@ -116,7 +117,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
             </div>
             <div className="rightArea">
               <Price discountPrice={options[0].discountPrice} price={options[0].price} />
-              <a onClick={onClickListener}><Button type="start">구매하기</Button></a>
+              <a onClick={()=>routeToOrder(1, itemId, 1, options[0].type)}><Button type="start">구매하기</Button></a>
               {/* 보유중 상태가 필요하겠네요 */}
             </div>
           </FunctionsAndPriceInfo>
