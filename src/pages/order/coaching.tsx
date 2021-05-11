@@ -234,12 +234,132 @@ const Buttons = styled.div`
 `;
 
 function ScheduleSection(){
+  const [every, onEvery] = useState<boolean>(false);
+  const [day, onDay] = useState<boolean>(false);
+  const [end, onEnd] = useState<boolean>(false);
+  const [mon, onMon] = useState<boolean>(false);
+  const [tue, onTue] = useState<boolean>(false);
+  const [wed, onWed] = useState<boolean>(false);
+  const [thu, onThu] = useState<boolean>(false);
+  const [fri, onFri] = useState<boolean>(false);
+  const [sat, onSat] = useState<boolean>(false);
+  const [sun, onSun] = useState<boolean>(false);
+
+  useEffect(() => {
+    if(mon && tue && wed && thu && fri && sat && sun) {
+      onEvery(true);
+    } else {
+      onEvery(false);
+    }
+
+    if(mon && tue && wed && thu && fri) {
+      onDay(true);
+    } else {
+      onDay(false);
+    }
+    
+    if(sat && sun) {
+      onEnd(true);
+    } else {
+      onEnd(false);
+    }
+    
+  },[mon, tue, wed, thu, fri, sat, sun]);
+
+  function toggleEvery() {
+    if(every){
+      onMon(false);
+      onTue(false);
+      onWed(false);
+      onThu(false);
+      onFri(false);
+      onSat(false);
+      onSun(false);
+    } else  {
+      onMon(true);
+      onTue(true);
+      onWed(true);
+      onThu(true);
+      onFri(true);
+      onSat(true);
+      onSun(true);
+    }
+  }
+  function toggleDay() {
+    if(day){
+      onMon(false);
+      onTue(false);
+      onWed(false);
+      onThu(false);
+      onFri(false);
+    } else  {
+      onMon(true);
+      onTue(true);
+      onWed(true);
+      onThu(true);
+      onFri(true);
+    }
+  }
+  function toggleEnd() {
+    if(end){
+      onSat(false);
+      onSun(false);
+    } else  {
+      onSat(true);
+      onSun(true);
+    }
+  }
+
+  const Btns = styled.ul`
+    display: flex;
+    margin-top: 36px;
+    
+    li {
+      flex-grow: 1;
+      flex-basis: 0px;
+      margin-right: 9px;
+  
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+  `;
+
+  const Btn = styled.button`
+    border: 1px ${Colors.gray3} solid;
+    background: ${Colors.white};
+    cursor: pointer;
+    width: 100%;
+    padding: 3px 4px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 24px;
+    color: ${Colors.gray3};
+
+    &.on {
+      border-color: ${Colors.primary};
+      color: ${Colors.primary};
+    }
+  `;
+
   return (
     <section>
       <Headline>
         <Title>코칭 신청</Title>
         <Desc>2주 내에 코칭받을 수 있는 일정을 모두 선택해주세요. 요일 선택 뒤, 시간 선택이 가능합니다.</Desc>
       </Headline>
+      <Btns>
+        <li><Btn className={mon && tue && wed && thu && fri && sat && sun ? 'on' : ''} onClick={toggleEvery}>매일</Btn></li>
+        <li><Btn className={mon && tue && wed && thu && fri ? 'on' : ''} onClick={toggleDay}>평일</Btn></li>
+        <li><Btn className={sat && sun ? 'on' : ''} onClick={toggleEnd}>주말</Btn></li>
+        <li><Btn className={mon ? 'on' : ''} onClick={()=>onMon(!mon)}>월</Btn></li>
+        <li><Btn className={tue ? 'on' : ''} onClick={()=>onTue(!tue)}>화</Btn></li>
+        <li><Btn className={wed ? 'on' : ''} onClick={()=>onWed(!wed)}>수</Btn></li>
+        <li><Btn className={thu ? 'on' : ''} onClick={()=>onThu(!thu)}>목</Btn></li>
+        <li><Btn className={fri ? 'on' : ''} onClick={()=>onFri(!fri)}>금</Btn></li>
+        <li><Btn className={sat ? 'on' : ''} onClick={()=>onSat(!sat)}>토</Btn></li>
+        <li><Btn className={sun ? 'on' : ''} onClick={()=>onSun(!sun)}>일</Btn></li>
+      </Btns>
     </section>
   )
 }
