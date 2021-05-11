@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 function OrderComplete({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
-  const { itemInfo, orderId, paymentInfo, userEmail } = data;
+  const { itemInfo, customerOrderId, paymentInfo, userEmail, userName, userPhone } = data;
   const { itemId, itemName, option } = itemInfo;
   const { method, cardName, purchasedTime } = paymentInfo;
 
@@ -55,9 +55,9 @@ function OrderComplete({data}: InferGetServerSidePropsType<typeof getServerSideP
 
               <OrdererInfo>
                 <dt>성함</dt>
-                <dd>-</dd>
+                <dd>{userName}</dd>
                 <dt>연락처</dt>
-                <dd>-</dd>
+                <dd>{userPhone}</dd>
                 <dt>메일</dt>
                 <dd>{userEmail}</dd>
               </OrdererInfo>
@@ -80,7 +80,7 @@ function OrderComplete({data}: InferGetServerSidePropsType<typeof getServerSideP
             </OrderInfo>
             <Payresult>
               <dt>주문번호</dt>
-              <dd>{orderId}</dd>
+              <dd>{customerOrderId}</dd>
               <dt>구매상품</dt>
               <dd>{itemName}</dd>
               <dt>구매옵션</dt>
