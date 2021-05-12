@@ -4,86 +4,6 @@ import { Colors } from "components/ui";
 import { Hr, Headline, Title, Desc } from "./common-styles";
 
 export default function ScheduleSection({scheduleList}: any){
-  const Btns = styled.ul`
-    display: flex;
-    margin-top: 36px;
-    margin-bottom: 16px;
-    
-    li {
-      flex-grow: 1;
-      flex-basis: 0px;
-      margin-right: 9px;
-  
-      &:last-of-type {
-        margin-right: 0;
-      }
-    }
-  `;
-
-  const Btn = styled.button`
-    border: 1px ${Colors.gray3} solid;
-    background: ${Colors.white};
-    cursor: pointer;
-    width: 100%;
-    padding: 3px 4px;
-    border-radius: 8px;
-    font-size: 14px;
-    line-height: 24px;
-    color: ${Colors.gray3};
-
-    &.on {
-      border-color: ${Colors.primary};
-      color: ${Colors.primary};
-    }
-  `;
-
-  const Times = styled.ul`
-    visibility: hidden;
-    border: 1px ${Colors.primary} solid;
-    border-radius: 8px;
-    padding: 4px 20px;
-    margin-bottom: 36px;
-
-    &.visible {
-      visibility: visible;
-    }
-
-    li {
-      padding: 16px 0;
-    }
-
-    input[type=checkbox]{
-      display: none;
-    }
-    label {
-      font-size: 16px;
-      cursor: pointer;
-    }
-    input[type=checkbox] + label::before {
-      content: '';
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      vertical-align: middle;
-      margin-right: 15px;
-      border-radius: 4px;
-      border: 1px solid ${Colors.gray3};
-    }
-    input[type=checkbox] + label:hover::before {
-      border-color: ${Colors.primary};
-    }
-    input[type=checkbox]:checked + label::before {
-      border-color: ${Colors.primary};
-      background: url('/icon/done_24px.svg') center/17px 13px no-repeat;
-      background-color: ${Colors.primary};
-    }
-  `;
-
-  const SelectedTimes = styled.div`
-    margin-top: 24px;
-    padding-bottom: 36px;
-  `;
-
   const times = {
     b9: false,
     a9b12: false,
@@ -278,3 +198,83 @@ export default function ScheduleSection({scheduleList}: any){
     </section>
   )
 }
+
+const Btns = styled.ul`
+    display: flex;
+    margin-top: 36px;
+    margin-bottom: 16px;
+    
+    li {
+      flex-grow: 1;
+      flex-basis: 0px;
+      margin-right: 9px;
+  
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+  `;
+
+  const Btn = styled.button`
+    border: 1px ${Colors.gray3} solid;
+    background: ${Colors.white};
+    cursor: pointer;
+    width: 100%;
+    padding: 3px 4px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 24px;
+    color: ${Colors.gray3};
+
+    &.on {
+      border-color: ${Colors.primary};
+      color: ${Colors.primary};
+    }
+  `;
+
+  const Times = styled.ul`
+    visibility: hidden;
+    border: 1px ${Colors.primary} solid;
+    border-radius: 8px;
+    padding: 4px 20px;
+    margin-bottom: 36px;
+
+    &.visible {
+      visibility: visible;
+    }
+
+    li {
+      padding: 16px 0;
+    }
+
+    input[type=checkbox]{
+      display: none;
+    }
+    label {
+      font-size: 16px;
+      cursor: pointer;
+    }
+    input[type=checkbox] + label::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
+      margin-right: 15px;
+      border-radius: 4px;
+      border: 1px solid ${Colors.gray3};
+    }
+    input[type=checkbox] + label:hover::before {
+      border-color: ${Colors.primary};
+    }
+    input[type=checkbox]:checked + label::before {
+      border-color: ${Colors.primary};
+      background: url('/icon/done_24px.svg') center/17px 13px no-repeat;
+      background-color: ${Colors.primary};
+    }
+  `;
+
+  const SelectedTimes = styled.div`
+    margin-top: 24px;
+    padding-bottom: 36px;
+  `;
