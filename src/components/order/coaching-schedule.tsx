@@ -3,55 +3,86 @@ import styled from "@emotion/styled";
 import { Colors } from "components/ui";
 import { Hr, Headline, Title, Desc } from "./common-styles";
 
-export default function ScheduleSection({scheduleList}: any){
-  const times = {
-    b9: false,
-    a9b12: false,
-    a12b15: false,
-    a15b18: false,
-    a19b21: false,
-    a21b24: false,
-    a24: false
+function copyObj(obj:any) {
+  const result:{[key: string]: any} = {};
+  for (let key in obj) {
+    if (typeof obj[key] === 'object') {
+      result[key] = copyObj(obj[key]);
+    } else {
+      result[key] = obj[key];
+    }
   }
+  return result;
+}
+
+export default function ScheduleSection({scheduleList, setScheduleList}: any){
+  const [times, setTimes] = useState<{[key: string]: any}>({
+    b9: {
+      label: '오전 (9시 이전)',
+      active: false,
+    },
+    a9b12: {
+      label: '오전 (9시 - 12시)',
+      active: false,
+    },
+    a12b15: {
+      label: '오후 (12시 - 3시)',
+      active: false,
+    },
+    a15b18: {
+      label: '오후 (3시 - 6시)',
+      active: false,
+    },
+    a19b21: {
+      label: '저녁 (7시 - 9시)',
+      active: false,
+    },
+    a21b24: {
+      label: '밤 (9시 - 12시)',
+      active: false,
+    },
+    a24: {
+      label: '새벽 (12시 - 2시)',
+      active: false,
+    },
+  });
   const [schedule, setSchedule] = useState<{[key: string]: any}>({
     mon: {
       label: '월',
       active: false,
-      time: { ...times },
+      time: copyObj(times),
     },
     tue: {
       label: '화',
       active: false,
-      time: { ...times },
+      time: copyObj(times),
     },
     wed: {
       label: '수',
       active: false,
-      time: { ...times },
+      time: copyObj(times),
     },
     thu: {
       label: '목',
       active: false,
-      time: { ...times },
+      time: copyObj(times),
     },
     fri: {
       label: '금',
       active: false,
-      time: { ...times },
+      time: copyObj(times),
     },
     sat: {
       label: '토',
       active: false,
-      time: { ...times },
+      time: copyObj(times),
     },
     sun: {
       label: '일',
       active: false,
-      time: { ...times },
+      time: copyObj(times),
     },
   });
-
-  console.log(schedule);
 
   const [every, onEvery] = useState<boolean>(false);
   const [day, onDay] = useState<boolean>(false);
@@ -62,34 +93,12 @@ export default function ScheduleSection({scheduleList}: any){
   const isDay = schedule.mon.active && schedule.tue.active && schedule.wed.active && schedule.thu.active && schedule.fri.active;
   const isEnd = schedule.sat.active && schedule.sun.active;
 
+  // 모든 요일, 평일, 주말 on/off
   useEffect(() => {
     isEvery ? onEvery(true) : onEvery(false);
     isDay ? onDay(true) : onDay(false);
     isEnd ? onEnd(true) : onEnd(false);
   },[schedule]);
-
-  function pushSchedule(){
-    // const copy = [...scheduleList];
-    // const daysKo = ["월", "화", "수", "목", "금", "토", "일"];
-    // const days = [mon, tue, wed, thu, fri, sat, sun];
-    // const time = "오후 (3시 - 6시)";
-
-    // for(let i = 0; i < 7; i++){
-    //   if(days[i]){
-    //     let timeStr = daysKo[i] + ' / ' + time;
-    //     if(copy.indexOf(timeStr) < 0){
-    //       copy.push(timeStr);
-    //     }
-    //   }
-    // }
-    // setScheduleList(copy);
-  }
-
-  function removeSchedule(item: string){
-    // const copy = [...schedule];
-    // copy.indexOf('')
-    console.log(item);
-  }
 
   // 버튼 클릭 시 토글 동작
   function toggle(day:string){
@@ -131,6 +140,53 @@ export default function ScheduleSection({scheduleList}: any){
     setSchedule(newObj);
   }
 
+  // 일정 추가
+  function pushSchedule(e: any){
+    const newArr = [...scheduleList];
+    const newObj = {...schedule};
+
+    for(const key in schedule){
+      if(schedule[key].active){
+        if(!schedule[key].time[e.target.value].active){
+          newObj[key].time[e.target.value] = {
+            ...schedule[key].time[e.target.value],
+            active: true
+          }
+          newArr.push(newObj[key].label + ' / ' + newObj[key].time[e.target.value].label);
+        }
+      }
+    }
+    setScheduleList(newArr);
+    console.log(newObj);
+    setSchedule(newObj);
+
+
+
+    const copyTimes = {...times};
+    copyTimes[e.target.value] = {
+      ...times[e.target.value],
+      active: true
+    }
+    setTimes(copyTimes);
+
+    // for(let i = 0; i < 7; i++){
+    //   if(days[i]){
+    //     let timeStr = daysKo[i] + ' / ' + time;
+    //     if(copy.indexOf(timeStr) < 0){
+    //       copy.push(timeStr);
+    //     }
+    //   }
+    // }
+    // setScheduleList(copy);
+  }
+
+  // 일정 삭제
+  function removeSchedule(item: string){
+    // const copy = [...schedule];
+    // copy.indexOf('')
+    console.log(item);
+  }
+
 
   return (
     <section>
@@ -152,48 +208,48 @@ export default function ScheduleSection({scheduleList}: any){
       </Btns>
       <Times className={isActived ? "visible" : ""}>
         <li>
-          <input id="all" type="checkbox" onClick={pushSchedule}/>
+          <input id="all" value="all" type="checkbox" disabled/>
           <label htmlFor="all">모든 시간</label>
         </li>
         <li>
-          <input id="b9" type="checkbox" onClick={pushSchedule}/>
+          <input id="b9" value="b9" type="checkbox" checked={times.b9.active} onChange={pushSchedule}/>
           <label htmlFor="b9">오전 (9시 이전)</label>
           </li>
         <li>
-          <input id="a9b12" type="checkbox" onClick={pushSchedule}/>
+          <input id="a9b12" value="a9b12" type="checkbox" checked={times.b9.active} onChange={pushSchedule}/>
           <label htmlFor="a9b12">오전 (9시 - 12시)</label>
           </li>
         <li>
-          <input id="a12b15" type="checkbox" onClick={pushSchedule}/>
+          <input id="a12b15" value="a12b15" type="checkbox" checked={times.a12b15.active} onChange={pushSchedule}/>
           <label htmlFor="a12b15">오후 (12시 - 3시)</label>
           </li>
         <li>
-          <input id="a15b18" type="checkbox" onClick={pushSchedule}/>
+          <input id="a15b18" value="a15b18" type="checkbox" checked={times.a15b18.active} onChange={pushSchedule}/>
           <label htmlFor="a15b18">오후 (3시 - 6시)</label>
           </li>
         <li>
-          <input id="a19b21" type="checkbox" onClick={pushSchedule}/>
+          <input id="a19b21" value="a19b21" type="checkbox" checked={times.a19b21.active} onChange={pushSchedule}/>
           <label htmlFor="a19b21">저녁 (7시 - 9시)</label>
           </li>
         <li>
-          <input id="a21b24" type="checkbox" onClick={pushSchedule}/>
+          <input id="a21b24" value="a21b24" type="checkbox" checked={times.a21b24.active} onChange={pushSchedule}/>
           <label htmlFor="a21b24">밤 (9시 - 12시)</label>
           </li>
         <li>
-          <input id="a24" type="checkbox" onClick={pushSchedule}/>
+          <input id="a24" value="a24" type="checkbox" checked={times.a24.active} onChange={pushSchedule}/>
           <label htmlFor="a24">새벽 (12시 - 2시)</label>
           </li>
       </Times>
-      {
-        scheduleList.map((time:string, i:any) => (
-          <li key={i} onClick={()=>removeSchedule(time)}>{time}</li>
-        ))
-      }
       <Hr/>
       <SelectedTimes>
         <Headline>
           <Title>선택한 모든 일정</Title>
         </Headline>
+        {
+          scheduleList.map((time:string, i:any) => (
+            <li key={i} onClick={()=>removeSchedule(time)}>{time}</li>
+          ))
+        }
       </SelectedTimes>
     </section>
   )
