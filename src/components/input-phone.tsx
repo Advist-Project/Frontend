@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from "@emotion/styled";
+import { Colors } from "components/ui";
 
 function isPhoneNumber(asValue : string) {
   const regExp = /^[0-9\b -]{0,13}$/;
@@ -64,26 +65,40 @@ export function InputPhone({useState, useStateFunction, formStateFunction}: any)
                 value={useState}
                 onChange={onChangeHandler}
                 onBlur={onBlurListener}
-                className={stateCd === 'success' ? 'blue' : stateCd === 'fail' ? 'red' : ''}
+                className={stateCd === 'success' ? 'success' : stateCd === 'fail' ? 'fail' : ''}
                 />
-        <Msg className={showMsg ? 'visible' : ''}>{ message[stateCd] }</Msg>
+        <Msg className={showMsg ? 'visible msg' : 'msg'}>{ message[stateCd] }</Msg>
     </div>
   )
 }
 
 
 const Input = styled.input`
-  &.blue {
-    border-color: blue;
+  &:focus {
+    outline: none;
   }
-  &.red {
-    border-color: red;
+  &:focus, &.fail {
+    border-color: ${Colors.primary};
+  }
+  &.success {
+    border-color: ${Colors.gray3} !important;
+  }
+
+  &.fail + .msg {
+    display: block !important;
+  }
+  &.success + .msg {
+    display: none !important;
   }
 `;
 
 const Msg = styled.p`
   display: none;
-  margin-top: 5px;
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 157%;
+  color: ${Colors.primary};
+  text-align: right;
 
   &.visible {
     display: block;
