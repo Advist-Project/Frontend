@@ -14,10 +14,34 @@ import { AgreePage } from "components/agree";
 import { Step } from "components/step";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { itemId, optionId, userId } = context.query;
-  const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/pay/checkorder/${userId}?itemId=${itemId}&optionId=${optionId}`);
+  // const { itemId, optionId, userId } = context.query;
+  // const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/pay/checkorder/${userId}?itemId=${itemId}&optionId=${optionId}`);
+  // return {
+  //   props: { data: result.data.order_receipts },
+  // }
+
+  const vDate = {customerOrderId: 484979,
+    itemInfo:{
+    itemId: 1,
+    itemImg: "",
+    itemName: "문과생 출신 마케터가 알려주는 GTM으로 GA 전자상거래 구축하기",
+    itemOwner: "문인호",
+    option:{
+    deleteYN: false,
+    desc: "업무적으로 궁금하신 점이나 막히는 점을 어떻게 해결하면 되는지 방법을 알려드려요",
+    discountPrice: 100000,
+    optionId: 1,
+    price: 100000,
+    title: "실무 Q&A(2시간)",
+    type: "coaching",
+    }},
+    orderId: 49,
+    status: -1,
+    userEmail: "pjhk5797@gmail.com",
+    userId: 1
+  }
   return {
-    props: { data: result.data.order_receipts },
+    props: { data: vDate },
   }
 }
 
@@ -31,22 +55,27 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
   }
 
   //오류 판별 및 리다이렉트
-  const error = window.location.pathname === '/order';
-  const router = useRouter();
-  useEffect(() => {
-    if(!error){
-      router.push('/404');
-    }
-  },[]);
+  // const error = window.location.pathname === '/order';
+  // const router = useRouter();
+  // useEffect(() => {
+  //   if(!error){
+  //     router.push('/404');
+  //   }
+  // },[]);
 
   // 주문서 추가 정보(입력폼 정보)
   const [pg, setPg] = useState<string>('');
   const [method, setMethod] = useState<string>('');
+  const [schedule, setSchedule] = useState<string[]>([]);
   const [userName, setUserName] = useState<string>('');
   const [userNameState, setUserNameState] = useState<boolean>(false);
   const [userPhone, setUserPhone] = useState<string>('');
   const [userPhoneState, setUserPhoneState] = useState<boolean>(false);
   const [agree, setAgree] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log(schedule);
+  },[schedule]);
 
   //구매하기 버튼 클릭 시, 유저 정보 넘기고 부트페이 실행
   async function tryPay() {
@@ -78,7 +107,7 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
           crntStep === 1 ? (
             <>
               <Container>
-                <ScheduleSection />
+                <ScheduleSection scheduleList={schedule} setScheduleList={setSchedule}/>
               </Container>
               <Buttons>
                 <Button type="secondary" onClick={()=>window.history.back()}>이전</Button>
@@ -233,86 +262,11 @@ const Buttons = styled.div`
   }
 `;
 
-function ScheduleSection(){
-  const [every, onEvery] = useState<boolean>(false);
-  const [day, onDay] = useState<boolean>(false);
-  const [end, onEnd] = useState<boolean>(false);
-  const [mon, onMon] = useState<boolean>(false);
-  const [tue, onTue] = useState<boolean>(false);
-  const [wed, onWed] = useState<boolean>(false);
-  const [thu, onThu] = useState<boolean>(false);
-  const [fri, onFri] = useState<boolean>(false);
-  const [sat, onSat] = useState<boolean>(false);
-  const [sun, onSun] = useState<boolean>(false);
-
-  useEffect(() => {
-    if(mon && tue && wed && thu && fri && sat && sun) {
-      onEvery(true);
-    } else {
-      onEvery(false);
-    }
-
-    if(mon && tue && wed && thu && fri) {
-      onDay(true);
-    } else {
-      onDay(false);
-    }
-    
-    if(sat && sun) {
-      onEnd(true);
-    } else {
-      onEnd(false);
-    }
-    
-  },[mon, tue, wed, thu, fri, sat, sun]);
-
-  function toggleEvery() {
-    if(every){
-      onMon(false);
-      onTue(false);
-      onWed(false);
-      onThu(false);
-      onFri(false);
-      onSat(false);
-      onSun(false);
-    } else  {
-      onMon(true);
-      onTue(true);
-      onWed(true);
-      onThu(true);
-      onFri(true);
-      onSat(true);
-      onSun(true);
-    }
-  }
-  function toggleDay() {
-    if(day){
-      onMon(false);
-      onTue(false);
-      onWed(false);
-      onThu(false);
-      onFri(false);
-    } else  {
-      onMon(true);
-      onTue(true);
-      onWed(true);
-      onThu(true);
-      onFri(true);
-    }
-  }
-  function toggleEnd() {
-    if(end){
-      onSat(false);
-      onSun(false);
-    } else  {
-      onSat(true);
-      onSun(true);
-    }
-  }
-
+function ScheduleSection({scheduleList, setScheduleList}: any){
   const Btns = styled.ul`
     display: flex;
     margin-top: 36px;
+    margin-bottom: 16px;
     
     li {
       flex-grow: 1;
@@ -342,6 +296,182 @@ function ScheduleSection(){
     }
   `;
 
+  const Times = styled.ul`
+    visibility: hidden;
+    border: 1px ${Colors.primary} solid;
+    border-radius: 8px;
+    padding: 4px 20px;
+    margin-bottom: 36px;
+
+    &.visible {
+      visibility: visible;
+    }
+
+    li {
+      padding: 16px 0;
+    }
+
+    input[type=checkbox]{
+      display: none;
+    }
+    label {
+      font-size: 16px;
+      cursor: pointer;
+    }
+    input[type=checkbox] + label::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
+      margin-right: 15px;
+      border-radius: 4px;
+      border: 1px solid ${Colors.gray3};
+    }
+    input[type=checkbox] + label:hover::before {
+      border-color: ${Colors.primary};
+    }
+    input[type=checkbox]:checked + label::before {
+      border-color: ${Colors.primary};
+      background: url('/icon/done_24px.svg') center/17px 13px no-repeat;
+      background-color: ${Colors.primary};
+    }
+  `;
+
+  const SelectedTimes = styled.div`
+    margin-top: 24px;
+    padding-top: 36px;
+    padding-bottom: 36px;
+  `;
+
+  const times = {
+    b9: false,
+    a9b12: false,
+    a12b15: false,
+    a15b18: false,
+    a19b21: false,
+    a21b24: false,
+    a24: false
+  }
+  const [schedule, setSchedule] = useState<{[key: string]: any}>({
+    mon: {
+      label: '월',
+      active: false,
+      time: { ...times },
+    },
+    tue: {
+      label: '화',
+      active: false,
+      time: { ...times },
+    },
+    wed: {
+      label: '수',
+      active: false,
+      time: { ...times },
+    },
+    thu: {
+      label: '목',
+      active: false,
+      time: { ...times },
+    },
+    fri: {
+      label: '금',
+      active: false,
+      time: { ...times },
+    },
+    sat: {
+      label: '토',
+      active: false,
+      time: { ...times },
+    },
+    sun: {
+      label: '일',
+      active: false,
+      time: { ...times },
+    },
+  });
+
+  console.log(schedule);
+
+  const [every, onEvery] = useState<boolean>(false);
+  const [day, onDay] = useState<boolean>(false);
+  const [end, onEnd] = useState<boolean>(false);
+
+  const isActived = schedule.mon.active || schedule.tue.active || schedule.wed.active || schedule.thu.active || schedule.fri.active || schedule.sat.active || schedule.sun.active;
+  const isEvery = schedule.mon.active && schedule.tue.active && schedule.wed.active && schedule.thu.active && schedule.fri.active && schedule.sat.active && schedule.sun.active;
+  const isDay = schedule.mon.active && schedule.tue.active && schedule.wed.active && schedule.thu.active && schedule.fri.active;
+  const isEnd = schedule.sat.active && schedule.sun.active;
+
+  useEffect(() => {
+    isEvery ? onEvery(true) : onEvery(false);
+    isDay ? onDay(true) : onDay(false);
+    isEnd ? onEnd(true) : onEnd(false);
+  },[schedule]);
+
+  function pushSchedule(){
+    // const copy = [...scheduleList];
+    // const daysKo = ["월", "화", "수", "목", "금", "토", "일"];
+    // const days = [mon, tue, wed, thu, fri, sat, sun];
+    // const time = "오후 (3시 - 6시)";
+
+    // for(let i = 0; i < 7; i++){
+    //   if(days[i]){
+    //     let timeStr = daysKo[i] + ' / ' + time;
+    //     if(copy.indexOf(timeStr) < 0){
+    //       copy.push(timeStr);
+    //     }
+    //   }
+    // }
+    // setScheduleList(copy);
+  }
+
+  function removeSchedule(item: string){
+    // const copy = [...schedule];
+    // copy.indexOf('')
+    console.log(item);
+  }
+
+  // 버튼 클릭 시 토글 동작
+  function toggle(day:string){
+    if(day in schedule){
+      let dayObj = {...schedule[day]};
+      let newObj = {
+        ...schedule,
+        [day]: {...dayObj, active: !dayObj.active }
+      }
+      setSchedule(newObj);
+    }
+  }
+
+  function toggleEvery() {
+    const status = !every;
+    const newObj = {...schedule};
+    for(const key in newObj){
+      newObj[key].active = status;
+    }
+    setSchedule(newObj);
+  }
+
+  function toggleDay() {
+    const status = !day;
+    const newObj = {...schedule};
+    newObj.mon.active = status;
+    newObj.tue.active = status;
+    newObj.wed.active = status;
+    newObj.thu.active = status;
+    newObj.fri.active = status;
+    setSchedule(newObj);
+  }
+
+  function toggleEnd() {
+    const status = !end;
+    const newObj = {...schedule};
+    newObj.sat.active = status;
+    newObj.sun.active = status;
+    setSchedule(newObj);
+  }
+
+
   return (
     <section>
       <Headline>
@@ -349,17 +479,62 @@ function ScheduleSection(){
         <Desc>2주 내에 코칭받을 수 있는 일정을 모두 선택해주세요. 요일 선택 뒤, 시간 선택이 가능합니다.</Desc>
       </Headline>
       <Btns>
-        <li><Btn className={mon && tue && wed && thu && fri && sat && sun ? 'on' : ''} onClick={toggleEvery}>매일</Btn></li>
-        <li><Btn className={mon && tue && wed && thu && fri ? 'on' : ''} onClick={toggleDay}>평일</Btn></li>
-        <li><Btn className={sat && sun ? 'on' : ''} onClick={toggleEnd}>주말</Btn></li>
-        <li><Btn className={mon ? 'on' : ''} onClick={()=>onMon(!mon)}>월</Btn></li>
-        <li><Btn className={tue ? 'on' : ''} onClick={()=>onTue(!tue)}>화</Btn></li>
-        <li><Btn className={wed ? 'on' : ''} onClick={()=>onWed(!wed)}>수</Btn></li>
-        <li><Btn className={thu ? 'on' : ''} onClick={()=>onThu(!thu)}>목</Btn></li>
-        <li><Btn className={fri ? 'on' : ''} onClick={()=>onFri(!fri)}>금</Btn></li>
-        <li><Btn className={sat ? 'on' : ''} onClick={()=>onSat(!sat)}>토</Btn></li>
-        <li><Btn className={sun ? 'on' : ''} onClick={()=>onSun(!sun)}>일</Btn></li>
+        <li><Btn className={every ? 'on' : ''} onClick={toggleEvery}>모든 요일</Btn></li>
+        <li><Btn className={day ? 'on' : ''} onClick={toggleDay}>평일</Btn></li>
+        <li><Btn className={end ? 'on' : ''} onClick={toggleEnd}>주말</Btn></li>
+        <li><Btn className={schedule.mon.active ? 'on' : ''} onClick={()=>toggle('mon')}>월</Btn></li>
+        <li><Btn className={schedule.tue.active ? 'on' : ''} onClick={()=>toggle('tue')}>화</Btn></li>
+        <li><Btn className={schedule.wed.active ? 'on' : ''} onClick={()=>toggle('wed')}>수</Btn></li>
+        <li><Btn className={schedule.thu.active ? 'on' : ''} onClick={()=>toggle('thu')}>목</Btn></li>
+        <li><Btn className={schedule.fri.active ? 'on' : ''} onClick={()=>toggle('fri')}>금</Btn></li>
+        <li><Btn className={schedule.sat.active ? 'on' : ''} onClick={()=>toggle('sat')}>토</Btn></li>
+        <li><Btn className={schedule.sun.active ? 'on' : ''} onClick={()=>toggle('sun')}>일</Btn></li>
       </Btns>
+      <Times className={isActived ? "visible" : ""}>
+        <li>
+          <input id="all" type="checkbox" onClick={pushSchedule}/>
+          <label htmlFor="all">모든 시간</label>
+        </li>
+        <li>
+          <input id="b9" type="checkbox" onClick={pushSchedule}/>
+          <label htmlFor="b9">오전 (9시 이전)</label>
+          </li>
+        <li>
+          <input id="a9b12" type="checkbox" onClick={pushSchedule}/>
+          <label htmlFor="a9b12">오전 (9시 - 12시)</label>
+          </li>
+        <li>
+          <input id="a12b15" type="checkbox" onClick={pushSchedule}/>
+          <label htmlFor="a12b15">오후 (12시 - 3시)</label>
+          </li>
+        <li>
+          <input id="a15b18" type="checkbox" onClick={pushSchedule}/>
+          <label htmlFor="a15b18">오후 (3시 - 6시)</label>
+          </li>
+        <li>
+          <input id="a19b21" type="checkbox" onClick={pushSchedule}/>
+          <label htmlFor="a19b21">저녁 (7시 - 9시)</label>
+          </li>
+        <li>
+          <input id="a21b24" type="checkbox" onClick={pushSchedule}/>
+          <label htmlFor="a21b24">밤 (9시 - 12시)</label>
+          </li>
+        <li>
+          <input id="a24" type="checkbox" onClick={pushSchedule}/>
+          <label htmlFor="a24">새벽 (12시 - 2시)</label>
+          </li>
+      </Times>
+      {
+        scheduleList.map((time:string, i:any) => (
+          <li key={i} onClick={()=>removeSchedule(time)}>{time}</li>
+        ))
+      }
+      <Hr/>
+      <SelectedTimes>
+        <Headline>
+          <Title>선택한 모든 일정</Title>
+        </Headline>
+      </SelectedTimes>
     </section>
   )
 }
