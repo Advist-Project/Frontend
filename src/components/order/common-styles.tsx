@@ -24,3 +24,34 @@ font-size: 16px;
 word-break: keep-all;
 margin-left: 20px;
 `;
+
+
+// 입력폼
+export const Input = styled.input`
+  &:focus {
+    outline: none;
+  }
+  &:focus, &.fail {
+    border-color: ${Colors.primary};
+  }
+
+  &.fail + .msg,
+  &:focus + .msg {
+    display: block !important;
+  }
+  &.success + .msg {
+    display: none !important;
+  }
+`;
+export const Msg = styled.p`
+  display: none;
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 157%;
+  color: ${Colors.primary};
+  text-align: right;
+
+  &.visible {
+    display: block;
+  }
+`;
