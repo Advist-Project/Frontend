@@ -46,8 +46,9 @@ export const Input = styled.input`
 export const Msg = styled.p`
   display: none;
   margin-top: 8px;
+  margin-bottom: -22px;
   font-size: 14px;
-  line-height: 157%;
+  line-height: 22px;
   color: ${Colors.primary};
   text-align: right;
 

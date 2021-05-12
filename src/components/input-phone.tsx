@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import styled from "@emotion/styled";
-import { Colors } from "components/ui";
+import { Input, Msg } from "components/order/common-styles";
+
 
 function isPhoneNumber(asValue : string) {
   const regExp = /^[0-9\b -]{0,13}$/;
@@ -29,7 +29,7 @@ export function InputPhone({useState, useStateFunction, formStateFunction}: any)
   };
 
   const [stateCd, setStateCd] = React.useState<string>('');
-  const [showMsg, setShowMsg] = React.useState<boolean>(false);
+  const [focusStatus, changeFocusStatus] = React.useState<boolean>(false);
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = getPhoneNumber(useState, e.target.value);
@@ -38,11 +38,9 @@ export function InputPhone({useState, useStateFunction, formStateFunction}: any)
 
   useEffect(() => {
     if(useState.length === 13){
-      setShowMsg(false);
       setStateCd('success');
       formStateFunction(true);
     } else {
-      setShowMsg(false);
       setStateCd('fail');
       formStateFunction(false);
     }     
@@ -50,11 +48,10 @@ export function InputPhone({useState, useStateFunction, formStateFunction}: any)
 
   const onBlurListener = () => {
     if(useState.length !== 0 && useState.length !== 13) {
-      setShowMsg(true);
     }
   }
 
-  //초기회
+  //초기화
   useEffect(() => {
     setStateCd('');
   }, []);  
@@ -64,43 +61,11 @@ export function InputPhone({useState, useStateFunction, formStateFunction}: any)
         <Input placeholder="숫자만 입력"
                 value={useState}
                 onChange={onChangeHandler}
-                onBlur={onBlurListener}
+                onFocus={()=>changeFocusStatus(true)}
+                onBlur={()=>{changeFocusStatus(false);onBlurListener();}}
                 className={stateCd === 'success' ? 'success' : stateCd === 'fail' ? 'fail' : ''}
                 />
-        <Msg className={showMsg ? 'visible msg' : 'msg'}>{ message[stateCd] }</Msg>
+        <Msg className="msg">{ message[stateCd] }</Msg>
     </div>
   )
 }
-
-
-const Input = styled.input`
-  &:focus {
-    outline: none;
-  }
-  &:focus, &.fail {
-    border-color: ${Colors.primary};
-  }
-  &.success {
-    border-color: ${Colors.gray3} !important;
-  }
-
-  &.fail + .msg {
-    display: block !important;
-  }
-  &.success + .msg {
-    display: none !important;
-  }
-`;
-
-const Msg = styled.p`
-  display: none;
-  margin-top: 8px;
-  font-size: 14px;
-  line-height: 157%;
-  color: ${Colors.primary};
-  text-align: right;
-
-  &.visible {
-    display: block;
-  }
-`;

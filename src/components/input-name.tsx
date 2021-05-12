@@ -15,7 +15,7 @@ export function InputName({useState, useStateFunction, formStateFunction}: any){
     useStateFunction(e.target.value);
   };
 
-  //초기화
+  //타이핑 시
   useEffect(() => {
     if(focusStatus){
       setStateCd('fail');
@@ -27,6 +27,7 @@ export function InputName({useState, useStateFunction, formStateFunction}: any){
     }
   }, [useState]);
 
+  //포커스 아웃 시
   useEffect(() => {
     if(!focusStatus){
       if(useState.length > 0){
@@ -34,6 +35,11 @@ export function InputName({useState, useStateFunction, formStateFunction}: any){
       }
     }
   }, [focusStatus]);
+
+  //초기화
+  useEffect(() => {
+    setStateCd('');
+  }, []);
 
   return (
     <div key="bb">

@@ -65,7 +65,8 @@ const Characters = styled.p`
 `;
 
 const UserInfo = styled.div`
-  padding: 36px 0 26px;
+  padding: 36px 0 0;
+  margin-bottom: 26px;
 
   label {
     display: block;
