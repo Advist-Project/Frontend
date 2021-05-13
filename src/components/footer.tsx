@@ -69,11 +69,11 @@ export const Footer = () => {
               </li>
               <li>
                 <label>이메일</label>
-                timkim@advist.kr
+                tmsnvl031@gmail.com
               </li>
               <li>
                 <label>전화번호</label>
-                010-4710-5582
+                070-8064-4534
               </li>
             </InfoList>
           </Column2>
