@@ -4,7 +4,6 @@ import Loader from "react-loader-spinner";
 import React, {useState, useEffect} from 'react';
 import { assignCss } from "./assignCss";
 import { useRouter } from 'next/router';
-import axios, { AxiosResponse } from 'axios';
 
 interface IButtonProps{ // type = "login" => 로그인, type = "start" => 시작하기
     type?: string;
@@ -26,16 +25,7 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url, dis
       setButtonText(children);
     }, [children]);
 
-    function loading() {
-      if(url === undefined && type === "login") {
-        axios.get("https://advist.herokuapp.com/user/auth/logout", {
-            withCredentials: true
-        }).then((res: AxiosResponse) => {
-            if (res.data === "done") {
-              window.location.href = "/"
-            }
-        })}
-      
+    function loading() {      
       setButtonText(loader);
       setisLoading(true);
       if(url !== undefined) router.push(url);

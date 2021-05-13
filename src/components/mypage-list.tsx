@@ -25,6 +25,7 @@ export function MypageList(props : any){
                 <>  
                     <EraseAll>
                         <Text size='20px'>모두 지우기</Text>
+                        {/*모두 지우기 기능 구현 필요(api연동 후) */}
                     </EraseAll>
                     <ProductListWrap>
                         <MypageCardList data={[]} /> {/* 데이터 넣어야 함 */}
