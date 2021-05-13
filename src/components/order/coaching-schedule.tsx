@@ -213,30 +213,30 @@ export default function ScheduleSection({scheduleList, setScheduleList}: any){
     for(const key in schedule){
       if(schedule[key].active){
         if(!schedule[key].time[e.target.value].active){
+          //추가
           newObj[key].time[e.target.value] = {
             ...schedule[key].time[e.target.value],
             active: true
           }
           newArr.push(newObj[key].label + ' / ' + newObj[key].time[e.target.value].label);
+        } else {
+          //삭제
+          newObj[key].time[e.target.value] = {
+            ...schedule[key].time[e.target.value],
+            active: false
+          }
+          let tagTxt = newObj[key].label + ' / ' + newObj[key].time[e.target.value].label;
+          let removeIdx = newArr.indexOf(tagTxt);
+          newArr.splice(removeIdx, 1);
         }
       }
     }
     setScheduleList(newArr);
     setSchedule(newObj);
-
-    // const copyTimes = {...times};
-    // copyTimes[e.target.value] = {
-    //   ...times[e.target.value],
-    //   active: true
-    // }
-    // setTimes(copyTimes);
   }
 
   // 일정 삭제
   function removeSchedule(item: string){
-    // const copy = [...schedule];
-    // copy.indexOf('')
-    console.log(item);
   }
 
 
