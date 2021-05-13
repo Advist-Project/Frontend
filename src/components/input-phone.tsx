@@ -29,7 +29,6 @@ export function InputPhone({useState, useStateFunction, formStateFunction}: any)
   };
 
   const [stateCd, setStateCd] = React.useState<string>('');
-  const [focusStatus, changeFocusStatus] = React.useState<boolean>(false);
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = getPhoneNumber(useState, e.target.value);
@@ -61,8 +60,7 @@ export function InputPhone({useState, useStateFunction, formStateFunction}: any)
         <Input placeholder="숫자만 입력"
                 value={useState}
                 onChange={onChangeHandler}
-                onFocus={()=>changeFocusStatus(true)}
-                onBlur={()=>{changeFocusStatus(false);onBlurListener();}}
+                onBlur={onBlurListener}
                 className={stateCd === 'success' ? 'success' : stateCd === 'fail' ? 'fail' : ''}
                 />
         <Msg className="msg">{ message[stateCd] }</Msg>
