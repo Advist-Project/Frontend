@@ -8,16 +8,40 @@ import { bootpay } from "components/bootpay";
 import { withRouter } from 'next/router';
 import { useRouter } from 'next/router';
 import { priceFormat } from "components/formatter";
-import { InputPhone } from "components/input-phone";
-import { InputName } from "components/input-name";
 import { AgreePage } from "components/agree";
 import { Step } from "components/step";
+import ScheduleSection from "components/order/coaching-schedule";
+import OrdererSection from "components/order/coaching-orderer";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { itemId, optionId, userId } = context.query;
-  const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/pay/checkorder/${userId}?itemId=${itemId}&optionId=${optionId}`);
+  // const { itemId, optionId, userId } = context.query;
+  // const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/pay/checkorder/${userId}?itemId=${itemId}&optionId=${optionId}`);
+  // return {
+  //   props: { data: result.data.order_receipts },
+  // }
+
+  const vDate = {customerOrderId: 484979,
+    itemInfo:{
+    itemId: 1,
+    itemImg: "",
+    itemName: "문과생 출신 마케터가 알려주는 GTM으로 GA 전자상거래 구축하기",
+    itemOwner: "문인호",
+    option:{
+    deleteYN: false,
+    desc: "업무적으로 궁금하신 점이나 막히는 점을 어떻게 해결하면 되는지 방법을 알려드려요",
+    discountPrice: 100000,
+    optionId: 1,
+    price: 100000,
+    title: "실무 Q&A(2시간)",
+    type: "coaching",
+    }},
+    orderId: 49,
+    status: -1,
+    userEmail: "pjhk5797@gmail.com",
+    userId: 1
+  }
   return {
-    props: { data: result.data.order_receipts },
+    props: { data: vDate },
   }
 }
 
@@ -31,22 +55,28 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
   }
 
   //오류 판별 및 리다이렉트
-  const error = window.location.pathname === '/order';
-  const router = useRouter();
-  useEffect(() => {
-    if(!error){
-      router.push('/404');
-    }
-  },[]);
+  // const error = window.location.pathname === '/order';
+  // const router = useRouter();
+  // useEffect(() => {
+  //   if(!error){
+  //     router.push('/404');
+  //   }
+  // },[]);
 
   // 주문서 추가 정보(입력폼 정보)
   const [pg, setPg] = useState<string>('');
   const [method, setMethod] = useState<string>('');
+  const [schedule, setSchedule] = useState<string[]>([]);
   const [userName, setUserName] = useState<string>('');
   const [userNameState, setUserNameState] = useState<boolean>(false);
   const [userPhone, setUserPhone] = useState<string>('');
   const [userPhoneState, setUserPhoneState] = useState<boolean>(false);
+  const [userMessage, setUserMessage] = useState<string>('');
   const [agree, setAgree] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log(schedule);
+  },[schedule]);
 
   //구매하기 버튼 클릭 시, 유저 정보 넘기고 부트페이 실행
   async function tryPay() {
@@ -78,7 +108,7 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
           crntStep === 1 ? (
             <>
               <Container>
-                <ScheduleSection />
+                <ScheduleSection scheduleList={schedule} setScheduleList={setSchedule}/>
               </Container>
               <Buttons>
                 <Button type="secondary" onClick={()=>window.history.back()}>이전</Button>
@@ -91,7 +121,9 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
           crntStep === 2 ? (
             <>
               <Container>
-                <OrdererSection userName={userName}
+                <OrdererSection userMessage={userMessage}
+                                setUserMessage={setUserMessage}
+                                userName={userName}
                                 setUserName={setUserName}
                                 setUserNameState={setUserNameState}
                                 userPhone={userPhone}
@@ -166,56 +198,6 @@ const Desc = styled.p`
   margin-left: 20px;
 `
 
-const Textarea = styled.textarea`
-  width: 100%;
-  height: 183px;
-  padding: 20px;
-  border: 1px ${Colors.gray3} solid;
-  border-radius: 20px;
-  font-size: 14px;
-  line-height: 24px;
-  resize: none;
-  margin-top: 20px;
-
-  &::placeholder {
-    color: ${Colors.gray3}
-  }
-`;
-
-const Characters = styled.p`
-  margin-bottom: 52px;
-  text-align: right;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 24px;
-`;
-
-const UserInfo = styled.div`
-  padding: 36px 0 26px;
-
-  label {
-    display: block;
-    font-size: 16px;
-    margin-bottom: 16px;
-  }
-  input {
-    width: 100%;
-    height: 52px;
-    font-size: 16px;
-    padding: 12px 24px;
-    border-radius: 20px;
-    border: 1px solid ${Colors.gray3};
-
-    &::placeholder {
-      color: ${Colors.gray3}
-    }
-  }
-
-  div + div {
-    margin-top: 32px;
-  }
-`;
-
 const Hr = styled.hr`
   border: 0px;
   border-bottom: 1px ${Colors.gray3} solid;
@@ -232,45 +214,6 @@ const Buttons = styled.div`
     margin: 0 6px;
   }
 `;
-
-function ScheduleSection(){
-  return (
-    <section>
-      <Headline>
-        <Title>코칭 신청</Title>
-        <Desc>2주 내에 코칭받을 수 있는 일정을 모두 선택해주세요. 요일 선택 뒤, 시간 선택이 가능합니다.</Desc>
-      </Headline>
-    </section>
-  )
-}
-
-function OrdererSection({userName, setUserName, setUserNameState, userPhone, setUserPhone, setUserPhoneState}: any){
-  return (
-    <section>
-      <Headline>
-        <Title>상담 내용</Title>
-        <Desc>코치에게 전하는 말을 남겨주세요.</Desc>
-      </Headline>
-      <Textarea placeholder="지금 고민하고 있는 부분이나 코치님에게 어떤 상담/교육을 받고 싶은지 구체적으로 작성해주세요."></Textarea>
-      <Characters>0/200</Characters>
-      <Headline>
-        <Title>신청하시는 분 정보</Title>
-        <Desc>입력하신 연락처로 코칭 진행에 대해 자세히 안내드립니다.</Desc>
-      </Headline>
-      <UserInfo>
-        <div>
-          <label>이름</label>
-          <InputName useState={userName} useStateFunction={setUserName} formStateFunction={setUserNameState} />
-        </div>
-        <div>
-          <label>연락처</label>
-          <InputPhone useState={userPhone} useStateFunction={setUserPhone} formStateFunction={setUserPhoneState} />
-        </div>
-      </UserInfo>
-    </section>
-  )
-}
-
 
 const Section = styled.section`
   padding: 24px 0; 

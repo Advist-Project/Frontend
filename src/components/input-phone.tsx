@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import styled from "@emotion/styled";
+import { Input, Msg } from "components/order/common-styles";
+
 
 function isPhoneNumber(asValue : string) {
   const regExp = /^[0-9\b -]{0,13}$/;
@@ -28,7 +29,7 @@ export function InputPhone({useState, useStateFunction, formStateFunction}: any)
   };
 
   const [stateCd, setStateCd] = React.useState<string>('');
-  const [showMsg, setShowMsg] = React.useState<boolean>(false);
+  const [focusStatus, changeFocusStatus] = React.useState<boolean>(false);
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = getPhoneNumber(useState, e.target.value);
@@ -37,11 +38,9 @@ export function InputPhone({useState, useStateFunction, formStateFunction}: any)
 
   useEffect(() => {
     if(useState.length === 13){
-      setShowMsg(false);
       setStateCd('success');
       formStateFunction(true);
     } else {
-      setShowMsg(false);
       setStateCd('fail');
       formStateFunction(false);
     }     
@@ -49,11 +48,10 @@ export function InputPhone({useState, useStateFunction, formStateFunction}: any)
 
   const onBlurListener = () => {
     if(useState.length !== 0 && useState.length !== 13) {
-      setShowMsg(true);
     }
   }
 
-  //초기회
+  //초기화
   useEffect(() => {
     setStateCd('');
   }, []);  
@@ -63,29 +61,11 @@ export function InputPhone({useState, useStateFunction, formStateFunction}: any)
         <Input placeholder="숫자만 입력"
                 value={useState}
                 onChange={onChangeHandler}
-                onBlur={onBlurListener}
-                className={stateCd === 'success' ? 'blue' : stateCd === 'fail' ? 'red' : ''}
+                onFocus={()=>changeFocusStatus(true)}
+                onBlur={()=>{changeFocusStatus(false);onBlurListener();}}
+                className={stateCd === 'success' ? 'success' : stateCd === 'fail' ? 'fail' : ''}
                 />
-        <Msg className={showMsg ? 'visible' : ''}>{ message[stateCd] }</Msg>
+        <Msg className="msg">{ message[stateCd] }</Msg>
     </div>
   )
 }
-
-
-const Input = styled.input`
-  &.blue {
-    border-color: blue;
-  }
-  &.red {
-    border-color: red;
-  }
-`;
-
-const Msg = styled.p`
-  display: none;
-  margin-top: 5px;
-
-  &.visible {
-    display: block;
-  }
-`;
