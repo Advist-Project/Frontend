@@ -1,10 +1,21 @@
+import React, { useState, useEffect } from 'react'
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import { mq, Heading, Text, Button, Colors, Box } from "components/ui";
 import Image from 'next/image';
 import { ProductList } from "components/product-card-list";
+import axios, { AxiosResponse } from 'axios';
 
 export default function Home() {
+  const [Data, setData] = useState<object>();
+  useEffect(() => {  
+    axios.get(process.env.NEXT_PUBLIC_API_URL as string + '/exhibition/best', { withCredentials: true }).then((res: AxiosResponse) => {
+      if (res.data) {
+        setData(res.data.exhibition.itemInfo);
+      }
+    }) 
+  }, [])
+
   return (
     <Layout>
       {/* 1번 콘텐츠 */}
@@ -78,7 +89,7 @@ export default function Home() {
         </SectionHeader>
 
         <ProductListWrap>
-          <ProductList data={[]} /> {/* 데이터 넣어야 함 */}
+          <ProductList data={[Data]} />
           {/* 페이지 생성되면 url 변경 */}
           <a href="/detail/1" className="allProductLink">
             <Box shadow={1} round className="allProductCard">
