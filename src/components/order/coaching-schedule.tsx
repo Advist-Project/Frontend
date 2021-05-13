@@ -84,6 +84,11 @@ export default function ScheduleSection({scheduleList, setScheduleList}: any){
     },
   });
 
+  // 요일 버튼을 클릭했는지, 시간 체크박스를 클릭했는지 행동을 저장함
+  const [clickAction, setClickAction] = useState<string>('');
+  // 마지막에 클릭된 요일을 저장함
+  const [lastClickedDay, setLastClickedDay] = useState<string>('');
+
   const [every, onEvery] = useState<boolean>(false);
   const [day, onDay] = useState<boolean>(false);
   const [end, onEnd] = useState<boolean>(false);
@@ -95,13 +100,27 @@ export default function ScheduleSection({scheduleList, setScheduleList}: any){
 
   // 모든 요일, 평일, 주말 on/off
   useEffect(() => {
+    if(clickAction === 'times'){
+      offEvery();
+      toggle(lastClickedDay);
+    }
+    setClickAction('days');
+
     isEvery ? onEvery(true) : onEvery(false);
     isDay ? onDay(true) : onDay(false);
     isEnd ? onEnd(true) : onEnd(false);
-  },[schedule]);
+
+  },[schedule.mon.active,
+    schedule.tue.active,
+    schedule.wed.active,
+    schedule.thu.active,
+    schedule.fri.active,
+    schedule.sat.active,
+    schedule.sun.active]);
 
   // 버튼 클릭 시 토글 동작
   function toggle(day:string){
+    setLastClickedDay(day);
     if(day in schedule){
       let dayObj = {...schedule[day]};
       let newObj = {
@@ -119,6 +138,7 @@ export default function ScheduleSection({scheduleList, setScheduleList}: any){
       newObj[key].active = status;
     }
     setSchedule(newObj);
+    setLastClickedDay('sun');
   }
 
   function toggleDay() {
@@ -130,6 +150,7 @@ export default function ScheduleSection({scheduleList, setScheduleList}: any){
     newObj.thu.active = status;
     newObj.fri.active = status;
     setSchedule(newObj);
+    setLastClickedDay('fri');
   }
 
   function toggleEnd() {
@@ -138,10 +159,22 @@ export default function ScheduleSection({scheduleList, setScheduleList}: any){
     newObj.sat.active = status;
     newObj.sun.active = status;
     setSchedule(newObj);
+    setLastClickedDay('sun');
+  }
+
+  // 모든 요일 체크해제
+  function offEvery() {
+    const status = false;
+    const newObj = {...schedule};
+    for(const key in newObj){
+      newObj[key].active = status;
+    }
+    setSchedule(newObj);
   }
 
   // 일정 추가
   function pushSchedule(e: any){
+    setClickAction('times');
     const newArr = [...scheduleList];
     const newObj = {...schedule};
 
