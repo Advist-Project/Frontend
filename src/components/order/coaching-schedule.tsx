@@ -16,6 +16,8 @@ function copyObj(obj:any) {
 }
 
 export default function ScheduleSection({scheduleList, setScheduleList}: any){
+
+
   const times:{[key: string]: any} = {
     b9: {
       label: '오전 (9시 이전)',
@@ -127,23 +129,26 @@ export default function ScheduleSection({scheduleList, setScheduleList}: any){
     isDay ? onDay(true) : onDay(false);
     isEnd ? onEnd(true) : onEnd(false);
 
-    // 체크박스 연동
-    if(selectedDays.length > 0){
-      b9_setStatus(checkTime('b9'));
-      a9b12_setStatus(checkTime('a9b12'));
-      a12b15_setStatus(checkTime('a12b15'));
-      a15b18_setStatus(checkTime('a15b18'));
-      a19b21_setStatus(checkTime('a19b21'));
-      a21b24_setStatus(checkTime('a21b24'));
-      a24_setStatus(checkTime('a24'));
-    }
   },[schedule.mon.active,
     schedule.tue.active,
     schedule.wed.active,
     schedule.thu.active,
     schedule.fri.active,
     schedule.sat.active,
-    schedule.sun.active]);
+    schedule.sun.active
+  ]);
+
+  // 체크박스 연동
+  useEffect(() => {
+    b9_setStatus(checkTime('b9'));
+    a9b12_setStatus(checkTime('a9b12'));
+    a12b15_setStatus(checkTime('a12b15'));
+    a15b18_setStatus(checkTime('a15b18'));
+    a19b21_setStatus(checkTime('a19b21'));
+    a21b24_setStatus(checkTime('a21b24'));
+    a24_setStatus(checkTime('a24'));
+
+  },[schedule]);
 
   // selectedDays 배열에 요일 추가
   function pushDay(day:string){
@@ -213,20 +218,23 @@ export default function ScheduleSection({scheduleList, setScheduleList}: any){
     for(const key in schedule){
       if(schedule[key].active){
         if(!schedule[key].time[e.target.value].active){
-          //추가
+           //추가
           newObj[key].time[e.target.value] = {
             ...schedule[key].time[e.target.value],
             active: true
           }
-          newArr.push(newObj[key].label + ' / ' + newObj[key].time[e.target.value].label);
+          newArr.push({
+            day: key,
+            time: e.target.value,
+            label: newObj[key].label + ' / ' + newObj[key].time[e.target.value].label
+          });
         } else {
-          //삭제
+           //삭제
           newObj[key].time[e.target.value] = {
             ...schedule[key].time[e.target.value],
             active: false
           }
-          let tagTxt = newObj[key].label + ' / ' + newObj[key].time[e.target.value].label;
-          let removeIdx = newArr.indexOf(tagTxt);
+          let removeIdx = newArr.findIndex((schedule) => schedule.day === key && schedule.time === e.target.value);
           newArr.splice(removeIdx, 1);
         }
       }
@@ -236,7 +244,21 @@ export default function ScheduleSection({scheduleList, setScheduleList}: any){
   }
 
   // 일정 삭제
-  function removeSchedule(item: string){
+  function removeSchedule(day: string, time: string){
+    setClickAction('times');
+    // 스케쥴 객체 갱신
+    const newObj = {...schedule};
+    newObj[day].time[time] = {
+      ...schedule[day].time[time],
+      active: false
+    }
+    setSchedule(newObj);
+
+    // 선택된 일정 객체 갱신
+    const newArr = [...scheduleList];
+    let removeIdx = newArr.findIndex((schedule) => schedule.day === day && schedule.time === time);
+    newArr.splice(removeIdx, 1);
+    setScheduleList(newArr);
   }
 
 
@@ -320,10 +342,10 @@ export default function ScheduleSection({scheduleList, setScheduleList}: any){
         </Headline>
         <ul>
         {
-          scheduleList.map((time:string, i:any) => (
-            <TimeTag key={i} onClick={()=>removeSchedule(time)}>
-              {time}
-              <DelBtn/>
+          scheduleList.map((schedule:any, i:any) => (
+            <TimeTag key={i}>
+              {schedule.label}
+              <DelBtn onClick={()=>removeSchedule(schedule.day, schedule.time)}/>
             </TimeTag>
           ))
         }
