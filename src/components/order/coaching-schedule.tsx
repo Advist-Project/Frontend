@@ -278,11 +278,16 @@ export default function ScheduleSection({scheduleList, setScheduleList}: any){
         <Headline>
           <Title>선택한 모든 일정</Title>
         </Headline>
+        <ul>
         {
           scheduleList.map((time:string, i:any) => (
-            <li key={i} onClick={()=>removeSchedule(time)}>{time}</li>
+            <TimeTag key={i} onClick={()=>removeSchedule(time)}>
+              {time}
+              <DelBtn/>
+            </TimeTag>
           ))
         }
+        </ul>
       </SelectedTimes>
     </section>
   )
@@ -363,7 +368,32 @@ const Btns = styled.ul`
     }
   `;
 
+
   const SelectedTimes = styled.div`
     margin-top: 24px;
-    padding-bottom: 36px;
+
+    ul {
+      margin: 22px -6px 18px;
+    }
+  `;
+
+  const TimeTag = styled.li`
+    display: inline-block;
+    list-style: none;
+    padding: 3px 8px;
+    margin: 6px;
+    border: 1px solid ${Colors.primarySemiLight};
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 24px;
+  `;
+
+  const DelBtn = styled.button`
+    width: 20px;
+    height: 20px;
+    border: 0;
+    background: url('/icon/close_24px.svg') center/24px 24px no-repeat;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-left: 4px;
   `;
