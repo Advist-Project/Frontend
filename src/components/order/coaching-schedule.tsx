@@ -216,7 +216,7 @@ export default function ScheduleSection({scheduleList, setScheduleList}: any){
           <label htmlFor="b9">오전 (9시 이전)</label>
           </li>
         <li>
-          <input id="a9b12" value="a9b12" type="checkbox" checked={times.b9.active} onChange={pushSchedule}/>
+          <input id="a9b12" value="a9b12" type="checkbox" checked={times.a9b12.active} onChange={pushSchedule}/>
           <label htmlFor="a9b12">오전 (9시 - 12시)</label>
           </li>
         <li>

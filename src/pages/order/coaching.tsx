@@ -6,14 +6,14 @@ import { Layout } from "components/layout";
 import { Button, ToggleBtn, Colors } from "components/ui";
 import { bootpay } from "components/bootpay";
 import { withRouter } from 'next/router';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import { priceFormat } from "components/formatter";
 import { AgreePage } from "components/agree";
 import { Step } from "components/step";
 import ScheduleSection from "components/order/coaching-schedule";
 import OrdererSection from "components/order/coaching-orderer";
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   // const { itemId, optionId, userId } = context.query;
   // const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/pay/checkorder/${userId}?itemId=${itemId}&optionId=${optionId}`);
   // return {
