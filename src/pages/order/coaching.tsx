@@ -74,10 +74,6 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
   const [userMessage, setUserMessage] = useState<string>('');
   const [agree, setAgree] = useState<boolean>(false);
 
-  useEffect(() => {
-    console.log(schedule);
-  },[schedule]);
-
   //구매하기 버튼 클릭 시, 유저 정보 넘기고 부트페이 실행
   async function tryPay() {
     try {
