@@ -214,20 +214,23 @@ export default function ScheduleSection({scheduleList, setScheduleList}: any){
     setClickAction('times');
     const newArr = [...scheduleList];
     const newObj = {...schedule};
+    console.log();
 
     for(const key in schedule){
       if(schedule[key].active){
-        if(!schedule[key].time[e.target.value].active){
-           //추가
-          newObj[key].time[e.target.value] = {
-            ...schedule[key].time[e.target.value],
-            active: true
+        if(e.target.checked){
+          if(!schedule[key].time[e.target.value].active){
+            //추가
+            newObj[key].time[e.target.value] = {
+              ...schedule[key].time[e.target.value],
+              active: true
+            }
+            newArr.push({
+              day: key,
+              time: e.target.value,
+              label: newObj[key].label + ' / ' + newObj[key].time[e.target.value].label
+            });
           }
-          newArr.push({
-            day: key,
-            time: e.target.value,
-            label: newObj[key].label + ' / ' + newObj[key].time[e.target.value].label
-          });
         } else {
            //삭제
           newObj[key].time[e.target.value] = {
