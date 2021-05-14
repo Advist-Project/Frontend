@@ -53,6 +53,11 @@ const Textarea = styled.textarea`
   &::placeholder {
     color: ${Colors.gray3}
   }
+
+  &:focus {
+    border-color: ${Colors.primary};
+    outline: none;
+  }
 `;
 
 const Characters = styled.p`
