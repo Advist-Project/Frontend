@@ -20,7 +20,8 @@ export const ProductList: React.FC<IProductListProps> = ({ data }) => {
                       label={data[0][num].label}
                       title={data[0][num].title}
                       likes={data[0][num].likes}
-                      img={data[0][num].img}
+                      // img={data[0][num].img}
+                      img={`/detail/${data[0][num].itemId}/thumb.png`}
                       tag={data[0][num].tag}
                       price={data[0][num].price}
                       discountPrice={data[0][num].discountPrice} />
