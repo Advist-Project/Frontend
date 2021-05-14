@@ -19,30 +19,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: { data: result.data.order_receipts },
   }
-
-  // const vDate = {customerOrderId: 484979,
-  //   itemInfo:{
-  //   itemId: 1,
-  //   itemImg: "",
-  //   itemName: "문과생 출신 마케터가 알려주는 GTM으로 GA 전자상거래 구축하기",
-  //   itemOwner: "문인호",
-  //   option:{
-  //   deleteYN: false,
-  //   desc: "업무적으로 궁금하신 점이나 막히는 점을 어떻게 해결하면 되는지 방법을 알려드려요",
-  //   discountPrice: 100000,
-  //   optionId: 1,
-  //   price: 100000,
-  //   title: "실무 Q&A(2시간)",
-  //   type: "coaching",
-  //   }},
-  //   orderId: 49,
-  //   status: -1,
-  //   userEmail: "pjhk5797@gmail.com",
-  //   userId: 1
-  // }
-  // return {
-  //   props: { data: vDate },
-  // }
 }
 
 function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
