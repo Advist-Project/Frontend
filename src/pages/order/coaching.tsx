@@ -6,43 +6,43 @@ import { Layout } from "components/layout";
 import { Button, ToggleBtn, Colors } from "components/ui";
 import { bootpay } from "components/bootpay";
 import { withRouter } from 'next/router';
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { priceFormat } from "components/formatter";
 import { AgreePage } from "components/agree";
 import { Step } from "components/step";
 import ScheduleSection from "components/order/coaching-schedule";
 import OrdererSection from "components/order/coaching-orderer";
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  // const { itemId, optionId, userId } = context.query;
-  // const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/pay/checkorder/${userId}?itemId=${itemId}&optionId=${optionId}`);
-  // return {
-  //   props: { data: result.data.order_receipts },
-  // }
-
-  const vDate = {customerOrderId: 484979,
-    itemInfo:{
-    itemId: 1,
-    itemImg: "",
-    itemName: "문과생 출신 마케터가 알려주는 GTM으로 GA 전자상거래 구축하기",
-    itemOwner: "문인호",
-    option:{
-    deleteYN: false,
-    desc: "업무적으로 궁금하신 점이나 막히는 점을 어떻게 해결하면 되는지 방법을 알려드려요",
-    discountPrice: 100000,
-    optionId: 1,
-    price: 100000,
-    title: "실무 Q&A(2시간)",
-    type: "coaching",
-    }},
-    orderId: 49,
-    status: -1,
-    userEmail: "pjhk5797@gmail.com",
-    userId: 1
-  }
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { itemId, optionId, userId } = context.query;
+  const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/pay/checkorder/${userId}?itemId=${itemId}&optionId=${optionId}`);
   return {
-    props: { data: vDate },
+    props: { data: result.data.order_receipts },
   }
+
+  // const vDate = {customerOrderId: 484979,
+  //   itemInfo:{
+  //   itemId: 1,
+  //   itemImg: "",
+  //   itemName: "문과생 출신 마케터가 알려주는 GTM으로 GA 전자상거래 구축하기",
+  //   itemOwner: "문인호",
+  //   option:{
+  //   deleteYN: false,
+  //   desc: "업무적으로 궁금하신 점이나 막히는 점을 어떻게 해결하면 되는지 방법을 알려드려요",
+  //   discountPrice: 100000,
+  //   optionId: 1,
+  //   price: 100000,
+  //   title: "실무 Q&A(2시간)",
+  //   type: "coaching",
+  //   }},
+  //   orderId: 49,
+  //   status: -1,
+  //   userEmail: "pjhk5797@gmail.com",
+  //   userId: 1
+  // }
+  // return {
+  //   props: { data: vDate },
+  // }
 }
 
 function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
@@ -55,13 +55,13 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
   }
 
   //오류 판별 및 리다이렉트
-  // const error = window.location.pathname === '/order';
-  // const router = useRouter();
-  // useEffect(() => {
-  //   if(!error){
-  //     router.push('/404');
-  //   }
-  // },[]);
+  const error = window.location.pathname === '/order';
+  const router = useRouter();
+  useEffect(() => {
+    if(!error){
+      router.push('/404');
+    }
+  },[]);
 
   // 주문서 추가 정보(입력폼 정보)
   const [pg, setPg] = useState<string>('');
@@ -74,24 +74,48 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
   const [userMessage, setUserMessage] = useState<string>('');
   const [agree, setAgree] = useState<boolean>(false);
 
-  //구매하기 버튼 클릭 시, 유저 정보 넘기고 부트페이 실행
-  async function tryPay() {
+  // Step 활성화 useState
+  const [crntStep, changeStep] = useState<number>(1);
+
+  //코칭 일정 데이터베이스에 보내기
+  async function postCoachingDate() {
     try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pay/userinfo`, {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pay/coachingdate`, {
         orderId: data.orderId,
-        userId: data.userId,
-        userName: userName,
-        userPhone: userPhone
+        dates: schedule.map((item:any)=>item.label)
       });
-      console.log('save userinfo: ', res);
-      bootpay(data, {method: method, pg: pg, userName: userName, userPhone: userPhone});
+      console.log('save coachingDate: ', res);
+      changeStep(2);
     } catch (error) {
       console.error(error);
     }
   }
 
-  // Step 활성화 useState
-  const [crntStep, changeStep] = useState<number>(1);
+  //코치에게 할 말 데이터베이스에 보내기
+  async function postCocachingUserData() {
+    try {
+      const res1 = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pay/coachingcontent`, {
+        orderId: data.orderId,
+        content: userMessage
+      });
+      const res2 = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pay/userinfo`, {
+        orderId: data.orderId,
+        userId: data.userId,
+        userName: userName,
+        userPhone: userPhone
+      });
+      console.log('save coachingComment: ', res1);
+      console.log('save userinfo: ', res2);
+      changeStep(3);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  //구매하기 버튼 클릭 시, 유저 정보 넘기고 부트페이 실행
+  function tryPay() {
+    bootpay(data, {method: method, pg: pg, userName: userName, userPhone: userPhone});
+  }
 
   return (
     <Layout noFooter>
@@ -108,7 +132,7 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
               </Container>
               <Buttons>
                 <Button type="secondary" onClick={()=>window.history.back()}>이전</Button>
-                <Button type="start" onClick={()=>changeStep(2)}>다음</Button>
+                <Button type="start" disabled={schedule ? false : 'disabled'} onClick={postCoachingDate}>다음</Button>
               </Buttons>
             </>
           ) : null
@@ -128,7 +152,7 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
               </Container>
               <Buttons>
                 <Button type="secondary" onClick={()=>changeStep(1)}>이전</Button>
-                <Button type="start" disabled={userNameState && userPhoneState ? false : 'disabled'} onClick={()=>changeStep(3)}>결제하기</Button>
+                <Button type="start" disabled={userNameState && userPhoneState ? false : 'disabled'} onClick={postCocachingUserData}>결제하기</Button>
               </Buttons>
             </>
           ) : null
@@ -369,7 +393,7 @@ const Agree = styled.div`
   return (
     <Section style={{paddingTop: '14px'}}>
       <Agree>
-        <input id="ag" type="checkbox" onClick={()=>setAgree(!agree)} checked={agree} />
+        <input id="ag" type="checkbox" onChange={()=>setAgree(!agree)} checked={agree} />
         <label htmlFor="ag">주문 내용을 확인하였으며, <label className="highlight" onClick={onClickListener}>서비스 취소/환불 정책</label> 및 결제에 동의합니다. (필수)</label>
       </Agree>
     </Section>
