@@ -33,12 +33,12 @@ export const ContentTemplate = React.memo(function WorkbookContent({type, img}: 
     "workbook": {
       icon: "/icon/workbook_64p.svg",
       message: "워크북으로 다양한 템플릿을 참고해봐요.",
-      padding: "64px 64px 64px 52px"
+      padding: "40px 52px 40px 52px"
     },
     "coach": {
       icon: "/icon/coach_64p.svg",
       message: "코칭으로 더욱 자세한 가이드라인을 받아보세요.",
-      padding: "64px 64px 64px 52px"
+      padding: "40px 52px 40px 52px"
     },
     "review": {
       icon: "/icon/review_64p.svg",
