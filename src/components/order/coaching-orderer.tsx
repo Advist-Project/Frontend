@@ -65,8 +65,8 @@ const Characters = styled.p`
 `;
 
 const UserInfo = styled.div`
-  padding: 36px 0 0;
-  margin-bottom: 26px;
+  padding: 36px 0 26px;
+  overflow:hidden;
 
   label {
     display: block;
@@ -80,13 +80,23 @@ const UserInfo = styled.div`
     padding: 12px 24px;
     border-radius: 20px;
     border: 1px solid ${Colors.gray3};
+    margin-bottom: 32px;
 
     &::placeholder {
       color: ${Colors.gray3}
     }
   }
 
-  div + div {
-    margin-top: 32px;
+  div:last-of-type > div input {
+    margin-bottom: 0;
+  }
+
+  input + p {
+    margin-top: -24px;
+    margin-bottom: 2px;
+  }
+  div:last-of-type > div input + p {
+    margin-top: 8px;
+    margin-bottom: 0;
   }
 `;

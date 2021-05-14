@@ -40,8 +40,8 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
   },[]);
 
   // 주문서 추가 정보(입력폼 정보)
-  const [pg, setPg] = useState<string>('');
-  const [method, setMethod] = useState<string>('');
+  const [pg, setPg] = useState<string>('danal');
+  const [method, setMethod] = useState<string>('card');
   const [schedule, setSchedule] = useState<any[]>([]);
   const [userName, setUserName] = useState<string>('');
   const [userNameState, setUserNameState] = useState<boolean>(false);
