@@ -52,6 +52,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
   const coachingSectionRef = useRef<HTMLDivElement>(null);
   // const reviewSectionRef = useRef<HTMLDivElement>(null);
   const askSectionRef = useRef<HTMLDivElement>(null);
+  const tabHeight:number = 161; //109 + 52
 
   const userObject = useContext(myContext) as User;
 
@@ -59,8 +60,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
     // 비로그인 || 로그인 api 받기 전에 클릭할 경우 경고
     userObject? routeToOrder(userObject.userId, itemId, 1, options[0].type) : alert('로그인이 필요합니다.\n (로그인 상태라면 버튼을 다시 클릭해주세요.)');
   }
-
-  const tabHeight:number = 161; //109 + 52
+  
   useEffect(() => {
     const handleScroll = () => {
       if(DetailInfoContainerRef.current && coachingSectionRef.current && askSectionRef.current) {
