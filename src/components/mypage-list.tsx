@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { myContext } from "context";
 import { User } from 'types/logintypes';
 import { MypageCardList } from "components/mypage-card-list";
+import { MybuyingList } from 'components/mybuying-table-list'
 
 export function MypageList(props : any){
     const userObject = useContext(myContext) as User;
@@ -20,6 +21,7 @@ export function MypageList(props : any){
                     <Heading bold level = {2} style={{color : Colors.gray1, marginTop : '99px'}}>
                         {userObject.username + '님이 '} {<span style={{color : Colors.primary}}>구매하신 내역</span>}{'입니다.'}
                     </Heading>
+                    <MybuyingList/>
                 </>) : 
                 ( // 찜한 내역
                 <>  
