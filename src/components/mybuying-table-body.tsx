@@ -1,21 +1,30 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios, { AxiosResponse } from 'axios';
 import styled from "@emotion/styled";
 import Image from 'next/image';
 import { Colors } from "components/ui";
 
-export function MybuyingTableBody(){
-    const [Data, setData] = useState<any>();
-    const [Length, setLength] = useState<number>(0);
+export function MybuyingTableBody(props : any){
+//    const [Data, setData] = useState<any>();
+//    const [Length, setLength] = useState<number>(0);
+    console.log(props.data);
+    const Data = props.data.result; // api 데이터 저장
+    const Length = props.data.result.length; // 배열 요소 개수
+    /*
     useEffect(() => {  
-        axios.get(process.env.NEXT_PUBLIC_API_URL as string + '/mypage/payment/1', { withCredentials: true }).then((res: AxiosResponse) => {
+        axios.get(process.env.NEXT_PUBLIC_API_URL as string + '/mypage/payment/6', { withCredentials: true }).then((res: AxiosResponse) => {
             if (res.data){
-                setData(res.data.result); // api 데이터 저장
-                setLength(res.data.result.length); // 배열 요소 개수
+                if(res.status === 201){
+                    console.log("없음");                
+                }
+                else{
+                    setData(res.data.result); // api 데이터 저장
+                    setLength(res.data.result.length); // 배열 요소 개수
+                }
             }
         }) 
-    }, [])    
-
+    }, [])
+*/
     return(
         <>
         {Data === undefined? 

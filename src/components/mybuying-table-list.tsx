@@ -2,10 +2,11 @@ import styled from "@emotion/styled";
 import { Colors } from "components/ui";
 import { MybuyingTableBody } from 'components/mybuying-table-body';
 
-export function MybuyingList(){
-
+export function MybuyingList(props: any){
+    // console.log(props.data);
     return (
     <>
+    {props.data? // api 데이터 전달받을 경우에만
         <MybuyingTable>
         <colgroup>
             <col width="71.8%"/>
@@ -22,9 +23,11 @@ export function MybuyingList(){
                     <div style={{width : '100px', height : '16px', textAlign : 'center'}}>확인</div>
                 </td>
             </MyBuyingHeader>
-            <MybuyingTableBody/> {/* 테이블 내용 */}
+            <MybuyingTableBody data = {props.data}/> {/* 테이블 내용 */}
         </tbody>
         </MybuyingTable>  
+        : null
+    }
     </>
     )
 }
