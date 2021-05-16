@@ -5,6 +5,7 @@ import { Button, Colors } from "components/ui";
 import { withRouter } from 'next/router';
 import { priceFormat } from "components/formatter";
 import { Step } from "components/step";
+import Router from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const optionId = context.query.id;
@@ -99,7 +100,7 @@ function OrderComplete({data}: InferGetServerSidePropsType<typeof getServerSideP
         </Container>
         <Buttons>
           <Button type="secondary">다른 상품 보기</Button>
-          <Button type="start">내 구매내역 보기</Button>
+          <Button type="start" onClick={()=>Router.push(`/mypage`)}>내 구매내역 보기</Button>
         </Buttons>
       </Wrap>
     </Layout>
