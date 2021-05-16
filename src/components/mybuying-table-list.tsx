@@ -7,12 +7,23 @@ export function MybuyingList(){
     return (
     <>
         <MybuyingTable>
-            <MyBuyingHeader>
-                <th style = {{}}>구매상품</th>
-                <th>상태</th>
-                <th>확인</th>
-            </MyBuyingHeader>            
+        <colgroup>
+            <col width="71.8%"/>
+            <col width="15.8%"/>
+            <col width="13.8%"/>
+        </colgroup>    
+        <tbody>
+            <MyBuyingHeader>            
+                <td><span style={{marginLeft : '24px', width : '100px', height : '16px'}}>구매상품</span></td>
+                <td>
+                    <div style={{width : '91.86px', height : '16px', textAlign : 'center'}}>상태</div>
+                </td>
+                <td>
+                    <div style={{width : '100px', height : '16px', textAlign : 'center'}}>확인</div>
+                </td>
+            </MyBuyingHeader>
             <MybuyingTableBody/> {/* 테이블 내용 */}
+        </tbody>
         </MybuyingTable>  
     </>
     )
@@ -33,6 +44,6 @@ const MyBuyingHeader =styled.tr`
     font-weight: 500;
     font-size: 16px;
     line-height: 60px;
-    text-align: center;  
-
+    text-align: left;
+    border: 1px solid ${Colors.primaryDark};
 `;
