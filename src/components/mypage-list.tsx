@@ -15,8 +15,9 @@ export function MypageList(props : any){
     const [Data, setData] = useState<Object>();
     
     useEffect(() => {  
-        axios.get(process.env.NEXT_PUBLIC_API_URL as string + '/mypage/payment/1', { withCredentials: true }).then((res: AxiosResponse) => {
-            // /mypage/payment/${userObject.userId}
+        if(userObject !== undefined){
+            axios.get(process.env.NEXT_PUBLIC_API_URL as string + `/mypage/payment/:${userObject.userId}`, { withCredentials: true }).then((res: AxiosResponse) => {
+            // /mypage/payment/1
             if (res.data){
                 if(res.status === 201){ // 구매내역 없을때
                     setIsbought(false);        
@@ -26,7 +27,8 @@ export function MypageList(props : any){
                     setData(res.data);
                 }
             }
-        }) 
+            }) 
+        }
     }, [])    
 
     return(
