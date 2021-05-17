@@ -16,7 +16,6 @@ export function MypageList(props : any){
  
         if(userObject !== undefined && RunOnce){
             axios.get(process.env.NEXT_PUBLIC_API_URL as string + `/mypage/payment/${userObject.userId}`, { withCredentials: true }).then((res: AxiosResponse) => {
-            // /mypage/payment/${userObject.userId}
             if (res.data){
                 if(res.status === 201){ // 구매내역 없을때
                     setIsbought(false);
