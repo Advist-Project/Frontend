@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { mq, Text, Colors } from "components/ui";
+import { min, Text, Colors } from "components/ui";
 import { AgreePage } from "components/agree";
 import React, { useState } from 'react';
 
@@ -137,7 +137,7 @@ const InfoList = styled.ul`
     &.bizNum_pc { display: none }
     &.bizNum_mo { display: block }
 
-    ${mq[1]} {
+    ${min[1]} {
       &.bizNum_pc { display: block }
       &.bizNum_mo { display: none }
     }

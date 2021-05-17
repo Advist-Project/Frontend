@@ -1,5 +1,11 @@
 .wrap {
   max-width: 1380px;
-  padding: 0 40px;
+  padding: 0 20px;
   margin: 0 auto;
+}
+
+@media (min-width: 769px){
+  .wrap {
+    padding: 0 40px;
+  }
 }

@@ -26,8 +26,11 @@ export const Gradient = _colors.Gradient;
 
 // Media Query Breakpoints
 const breakpoints = [576, 769, 992, 1100]
-export const mq = breakpoints.map(
+export const min = breakpoints.map(
   bp => `@media (min-width: ${bp}px)`
+);
+export const max = breakpoints.map(
+  bp => `@media (max-width: ${bp}px)`
 );
 
 // Styles

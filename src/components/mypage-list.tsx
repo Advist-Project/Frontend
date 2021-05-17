@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { mq, Heading, Text ,Colors } from "components/ui";
+import { min, Heading, Text ,Colors } from "components/ui";
 import React, { useContext } from "react";
 import Image from 'next/image';
 import { myContext } from "context";
@@ -100,10 +100,10 @@ const ProductListWrap = styled.div`
     flex-basis: 100%;
     margin-bottom: 32px;
 
-    ${mq[1]} {
+    ${min[1]} {
       flex-basis: calc(50% - 16px);
     }
-    ${mq[3]} {
+    ${min[3]} {
       max-width: 412px;
       flex-basis: calc((100% / 3) - 16px);
     }
