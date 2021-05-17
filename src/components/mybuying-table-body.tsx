@@ -1,30 +1,20 @@
-import React, { useState, useEffect, useContext } from 'react'
-import axios, { AxiosResponse } from 'axios';
+import React, {useState} from "react";
 import styled from "@emotion/styled";
 import Image from 'next/image';
 import { Colors } from "components/ui";
+import { OrderDetail } from "components/order/order-detail"
 
 export function MybuyingTableBody(props : any){
-//    const [Data, setData] = useState<any>();
-//    const [Length, setLength] = useState<number>(0);
-    console.log(props.data);
     const Data = props.data.result; // api 데이터 저장
     const Length = props.data.result.length; // 배열 요소 개수
-    /*
-    useEffect(() => {  
-        axios.get(process.env.NEXT_PUBLIC_API_URL as string + '/mypage/payment/6', { withCredentials: true }).then((res: AxiosResponse) => {
-            if (res.data){
-                if(res.status === 201){
-                    console.log("없음");                
-                }
-                else{
-                    setData(res.data.result); // api 데이터 저장
-                    setLength(res.data.result.length); // 배열 요소 개수
-                }
-            }
-        }) 
-    }, [])
-*/
+    const [OrderModal, setOrderModal] = useState<boolean>(false);
+    const [ClickKey, setClickKey] = useState<number>(0)
+
+    function onClickListener(key : number){
+        setClickKey(key);
+        setOrderModal(true);
+        document.body.style.overflow = 'hidden';
+    }
     return(
         <>
         {Data === undefined? 
@@ -67,10 +57,13 @@ export function MybuyingTableBody(props : any){
                         <td style={{verticalAlign : 'middle'}}>
                             <div style = {{height : '80px', display : 'flex', flexDirection : 'column', justifyContent : 'space-between'}}>
                                 <Button>후기 작성</Button>
-                                <Button>주문 상세보기</Button>
+                                <Button onClick = {() => onClickListener(num)}>주문 상세보기</Button>
                             </div>
                         </td>
                     </Template>
+                    {                
+                        OrderModal ? <OrderDetail orderId = {Data[ClickKey].orderId} setOrderDetail={setOrderModal}/> : null
+                    }
                     </>
                 ))}
                 </>   

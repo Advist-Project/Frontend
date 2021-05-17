@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { mq, Heading, Text ,Colors } from "components/ui";
-import React, { useState, useEffect , useContext } from "react";
+import React, { useState, useContext } from "react";
 import Image from 'next/image';
 import { myContext } from "context";
 import { User } from 'types/logintypes';
@@ -10,17 +10,16 @@ import axios, { AxiosResponse } from 'axios';
 
 export function MypageList(props : any){
     const userObject = useContext(myContext) as User;
-
     const [Isbought, setIsbought] = useState<boolean>(false);
     const [Data, setData] = useState<Object>();
-    
-    useEffect(() => {  
-        if(userObject !== undefined){
-            axios.get(process.env.NEXT_PUBLIC_API_URL as string + `/mypage/payment/:${userObject.userId}`, { withCredentials: true }).then((res: AxiosResponse) => {
-            // /mypage/payment/1
+    const [RunOnce, setRunOnce] = useState<boolean>(true);
+ 
+        if(userObject !== undefined && RunOnce){
+            axios.get(process.env.NEXT_PUBLIC_API_URL as string + `/mypage/payment/${userObject.userId}`, { withCredentials: true }).then((res: AxiosResponse) => {
+            // /mypage/payment/${userObject.userId}
             if (res.data){
                 if(res.status === 201){ // 구매내역 없을때
-                    setIsbought(false);        
+                    setIsbought(false);
                 }
                 else{
                     setIsbought(true); // 구매내역 있을때
@@ -28,8 +27,9 @@ export function MypageList(props : any){
                 }
             }
             }) 
+            setRunOnce(false);
         }
-    }, [])    
+ 
 
     return(
         <>     
