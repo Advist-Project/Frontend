@@ -61,11 +61,11 @@ export function MybuyingTableBody(props : any){
                             </div>
                         </td>
                     </Template>
-                    {                
-                        OrderModal ? <OrderDetail orderId = {Data[ClickKey].orderId} setOrderDetail={setOrderModal}/> : null
-                    }
                     </>
                 ))}
+                {                
+                    OrderModal ? <OrderDetail orderId = {Data[ClickKey].orderId} setOrderDetail={setOrderModal}/> : null
+                }
                 </>   
         }    
         </>
