@@ -205,7 +205,7 @@ const InfoList = styled.ul`
 
     a {
       color: ${Colors.gray2};
-      font-weight: 400;
+      font-weight: 500;
     }
   }
 
