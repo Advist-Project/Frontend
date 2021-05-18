@@ -1,25 +1,47 @@
 import styled from "@emotion/styled";
 import { min, Heading, Text ,Colors } from "components/ui";
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import Image from 'next/image';
 import { myContext } from "context";
 import { User } from 'types/logintypes';
 import { MypageCardList } from "components/mypage-card-list";
+import { MybuyingList } from 'components/mybuying-table-list'
+import axios, { AxiosResponse } from 'axios';
 
 export function MypageList(props : any){
     const userObject = useContext(myContext) as User;
-    const isbought = true; // 추후 구매내역 api로 교체 필요 
+    const [Isbought, setIsbought] = useState<boolean>(false);
+    const [Data, setData] = useState<Object>();
+    const [RunOnce, setRunOnce] = useState<boolean>(true);
+ 
+        if(userObject !== undefined && RunOnce){
+            axios.get(process.env.NEXT_PUBLIC_API_URL as string + `/mypage/payment/${userObject.userId}`, { withCredentials: true }).then((res: AxiosResponse) => {
+            if (res.data){
+                if(res.status === 201){ // 구매내역 없을때
+                    setIsbought(false);
+                }
+                else{
+                    setIsbought(true); // 구매내역 있을때
+                    setData(res.data);
+                }
+            }
+            }) 
+            setRunOnce(false);
+        }
+ 
+
     return(
-        <>
+        <>     
         {userObject? ( // 로그인 시
         <>
         <div className="wrap">
-            {isbought ? ( // 내역 있을 경우
+            {Isbought ? ( // 내역 있을 경우
                 (props.activeTab === 'mybuying'? ( // 구매내역
                 <>
                     <Heading bold level = {2} style={{color : Colors.gray1, marginTop : '99px'}}>
                         {userObject.username + '님이 '} {<span style={{color : Colors.primary}}>구매하신 내역</span>}{'입니다.'}
                     </Heading>
+                    <MybuyingList data = {Data}/>
                 </>) : 
                 ( // 찜한 내역
                 <>  

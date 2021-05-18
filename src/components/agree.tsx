@@ -49,7 +49,7 @@ const Container = styled.div`
     transform: translateX(-50%) translateY(-50%);
     background: ${Colors.gray1};
     border-radius: 20px;
-    z-index: 1;
+    z-index: 11;
 
     &::after {
       content: '';
@@ -70,7 +70,7 @@ const OutButton = styled.div`
   cursor : pointer;
   width: 24px;
   height: 24px;
-  z-index: 2;
+  z-index: 12;
 `;
 const DetailInfo = styled.div`
   background-color: ${Colors.gray6};

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { min, Text, Colors } from "components/ui";
+import { min, max, Colors } from "components/ui";
 import { AgreePage } from "components/agree";
 import React, { useState } from 'react';
 
@@ -23,8 +23,8 @@ export const Footer = () => {
           }
       <div className="wrap">
         <LogoArea>
-          <img src="/logo.png" height="44" />
-          <Text>더 많은 사람들이 일에서 성취감을 얻고 성장할 수 있도록 지원합니다.</Text>
+          <img src="/logo.png" />
+          <p>더 많은 사람들이 일에서 성취감을 얻고 성장할 수 있도록 지원합니다.</p>
         </LogoArea>
         <TextInfo>
           <Column1>
@@ -64,14 +64,14 @@ export const Footer = () => {
           <Column2>
             <InfoList>
               <li>
-                <label className="dark">고객센터</label>
+                <label className="dark cs">고객센터</label>
                 평일 오전 10시 - 오후 6시 (공휴일 제외)
               </li>
-              <li>
+              <li className="email">
                 <label>이메일</label>
                 tmsnvl031@gmail.com
               </li>
-              <li>
+              <li className="tel">
                 <label>전화번호</label>
                 070-8064-4534
               </li>
@@ -79,13 +79,13 @@ export const Footer = () => {
           </Column2>
           <Column3>
             <InfoList onClick={onClickListener} style={{cursor : "pointer"}}>
-              <li>
+              <li className="policy">
                 <a onClick={() => setClickTab("terms")}>이용약관</a>
               </li>
-              <li>
+              <li className="policy">
                 <a onClick={() => setClickTab("userinfo")}>개인정보 처리방침</a>
               </li>
-              <li>
+              <li className="policy">
                 <a onClick={() => setClickTab("refund")}>교환/환불 정책</a>
               </li>
             </InfoList>
@@ -103,35 +103,96 @@ export const Footer = () => {
 }
 
 const LogoArea = styled.div`
-  margin: 60px 0;
+  margin: 16px 0 14px;
   display: flex;
   align-items: center;
   color: ${Colors.gray2};
+  
+  img {
+    height: 13px;
+    margin-right: 12px;
+  }
+  p {
+    font-size: 7px;
+    line-height: 150%;
+    word-break: keep-all;
+  }
+  ${max[1]} {
+    padding-bottom: 16px;
+    border-bottom: 1px ${Colors.gray3} solid;
+  }
 
-  > img {
-    margin-right: 68px;
+  ${min[1]} {
+    margin: 60px 0;
+
+    img {
+      height: 44px;
+      margin-right: 68px;
+    }
+    p {
+      font-size: 14px;
+    }
   }
 `;
 
 const TextInfo = styled.div`
   display: flex;
-  margin-bottom: 50px;
+  margin-bottom: 28px;
+  font-size: 7px;
+  flex-wrap: wrap;
+  
+  ${min[1]}{
+    flex-wrap: nowrap;
+    font-size: 14px !important;
+    line-height: 24px;
+    margin-bottom: 50px;
+  }
 `;
 const Column1 = styled.div`
-  flex-basis: 602px;
+  order: 2;
+  flex-basis: 100%;
+
+  ${min[0]}{
+    order: 1;
+    flex-basis: 50%;
+  }
+  ${min[1]}{
+    flex-basis: 602px;
+  }
 `;
 const Column2 = styled.div`
-  flex-basis: 596px;
+  order: 1;
+  flex-basis: 100%;
+  border-bottom: 1px ${Colors.gray5} solid;
+  margin-bottom: 12px;
+
+  ${min[0]}{
+    order: 2;
+    flex-basis: 50%;
+    border-bottom: 0;
+  }
+  ${min[1]}{
+    flex-basis: 596px;
+  }
 `;
 const Column3 = styled.div`
   flex-shrink: 0;
+  order:3;
+
+  ${max[1]} {
+    width: 100%;
+    
+    ul {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 25px;
+    }
+  }
 `;
 
 const InfoList = styled.ul`
   li {
     margin-bottom: 8px;
-    font-size: 14px;
-    line-height: 24px;
     color: ${Colors.gray2};
 
     &.bizNum_pc { display: none }
@@ -150,20 +211,61 @@ const InfoList = styled.ul`
 
   label {
     color: ${Colors.gray3};
-    margin-right: 16px;
+    margin-right: 8px;
   }
   label.dark, a {
     font-weight: 500;
     color: ${Colors.gray1};
+  }
+
+  ${max[1]}{
+    label.cs {
+      display: block;
+      margin-bottom: 8px;
+    }
+    li.email,
+    li.tel {
+      display: inline-block;
+    }
+    li.email {
+      border-right: 1px ${Colors.gray3} solid;
+      margin-right: 8px;
+      padding-right: 8px;
+    }
+    li.email label,
+    li.tel label {
+      display: none;
+    }
+    li.policy {
+      display: inline-block;
+      line-height: 14px;
+      flex-grow: 1;
+      text-align: center;
+      border-right: 1px ${Colors.gray3} solid;
+
+      &:last-of-type {
+        border-right: 0;
+      }
+    }
+  }
+  ${min[1]}{
+    label {
+      margin-right: 16px;
+    }
   }
 `;
 
 const Copylight = styled.div`
   border-top: 1px solid ${Colors.gray4};
   color: ${Colors.gray3};
-  padding: 40px 0 46px;
+  padding: 25px 0 28px;
   text-align: center;
-  font-size: 14px;
-  line-height: 24px;
+  font-size: 7px;
+  line-height: 170%;
   word-break: keep-all;
+
+  ${min[1]} {
+    padding: 40px 0 46px;
+    font-size: 14px;
+  }
 `;
