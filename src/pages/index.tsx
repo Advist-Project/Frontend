@@ -5,6 +5,7 @@ import { min, Heading, Text, Button, Colors, Box } from "components/ui";
 import Image from 'next/image';
 import { ProductList } from "components/product-card-list";
 import axios, { AxiosResponse } from 'axios';
+import { Dunning } from "components/main/dunning";
 
 export default function Home() {
   const [Data, setData] = useState<object>();
@@ -98,21 +99,7 @@ export default function Home() {
           </a>
         </ProductListWrap>
       </Section5>
-      <Section6 className="wrap">
-        <Box shadow={3} round className="box">
-          <Image
-            src="/mainGraphic_section6_graph.svg"
-            alt="더닝 크루거 효과. 지식과 기술에 대해 잘 알지 못하는 시기에는, 실제 아는 건 적지만 잘 알고 있다고 착각. 지식과 기술에 대해 조금 알고나면, 사실 잘 모르고 있음을 스스로 깨달고 좌절. 지식과 기술에 대해 전문가 수준이 될 수록, 경험과 자신감을 갖춘 진짜 전문가가 된다."
-            width={444}
-            height={342}
-            priority
-          />
-          <div className="textContents">
-            <Heading level={3} bold><Highlight2>프로 일잘러</Highlight2>가 될 수 있도록 지원합니다</Heading>
-            <Text size="16px">아는 게 정말 적으면 일에서 어려움을 느끼지 않습니다. <br/>일하면서 좌절도 해보았고 더 잘하기 위해 고민하는 분들이 진짜 전문가로 성장할 것이라고 믿습니다. <br/>현재 겪고 있는 업무의 막막함을 해소하고 성공적으로 해내실 수 있도록 돕겠습니다.</Text>
-          </div>
-        </Box>
-      </Section6>
+      <Dunning />
     </Layout>
   )
 }
@@ -238,28 +225,5 @@ const ProductListWrap = styled.div`
     background: url(/forwardArrow.svg) bottom 36px right 28px/48px 48px no-repeat;
     background-color: ${Colors.primary};
     color: ${Colors.white};
-  }
-`;
-
-// Section6
-const Section6 = styled.section`
-  color: ${Colors.black};
-  margin-top: 242px;
-  margin-bottom: 96px;
-
-  > .box {
-    display: flex;
-    padding: 35px 36px;
-  }
-  > .box > .textContents {
-    margin-left: 84px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    word-break: keep-all;
-    padding-top: calc(102px - 35px);
-    padding-bottom: calc(68px - 35px);
-
-    h3 { margin-bottom: 35px; }
   }
 `;
