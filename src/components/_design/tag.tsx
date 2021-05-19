@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Colors } from "./colors";
+import { min, Colors } from "components/ui";
 
 // Heading
 interface ITagProps {
@@ -15,17 +15,18 @@ export const Tag: React.FC<ITagProps> = ({ children, color }) => {
   }
   const Tag = styled.li`
     display: inline-block;
-    font-size: 13px;
-    line-height: 32px;
-    height: 32px;
-    padding: 0 0.89em;
+    padding: 0.643em 0.89em;
     border-radius: 8px;
     white-space: nowrap;
-    margin-right: 8px;
+    margin-right: 0.6em;
     color: ${colorStyles[color].color};
     background-color: ${colorStyles[color].bgColor};
 
     &:last-child { margin-right: 0; }
+
+    ${min[1]} {
+      font-size: 0.875rem;
+    }
   `
   return (
     <Tag>#{children}</Tag>

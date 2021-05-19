@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { Box, Tags, Colors } from "./ui";
+import { min, Tags, Colors } from "./ui";
 import { LikeBtn } from "./like-button";
 import { Price } from "./price";
 import Thumbnail from "./product-card-thumb";
@@ -18,7 +18,7 @@ interface IProductCardProps {
 }
 export const ProductCard: React.FC<IProductCardProps> = ({ id, label, title, likes, img, tag, price, discountPrice }) => {
   const [likesCount, setLikesCount] = useState<number>(likes);
-  const [userLikeState, setUserLikeState] = useState<boolean>(true);
+  const [userLikeState, setUserLikeState] = useState<boolean>(false);
 
   const chageUserLikeState = () => {
     if(userLikeState){
@@ -31,9 +31,9 @@ export const ProductCard: React.FC<IProductCardProps> = ({ id, label, title, lik
   }
 
   return (
-    <Container className="productCard">
-      <Label>{label}</Label>
-      <Box shadow={1} round style={{height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+    <Product>
+      <DesktopCard>
+        <Label>{label}</Label>
         <a href={`/detail/${id}`}>
           <Thumbnail url={img}/>
         </a>
@@ -50,14 +50,77 @@ export const ProductCard: React.FC<IProductCardProps> = ({ id, label, title, lik
             <Price discountPrice={discountPrice} price={price} />
           </LikesAndPrice>
         </ProductInfo>
-      </Box>
-    </Container>
+      </DesktopCard>
+
+      <MobileCard>
+        <div className="card">
+          <a href={`/detail/${id}`}>
+            <Thumbnail url={img}/>
+          </a>
+          <TitleAndPrice>
+            <a href={`/detail/${id}`}>
+              <Title>{title}</Title>
+            </a>
+            <Price discountPrice={discountPrice} price={price} />
+          </TitleAndPrice>
+        </div>
+        <TagAndLike>
+          <Tags data={tag} />
+          <Likes>
+            <LikeBtn small state={userLikeState} onClick={chageUserLikeState} />
+            <LikesCount>{likesCount}</LikesCount>
+          </Likes>
+        </TagAndLike>
+      </MobileCard>
+    </Product>
   )
 }
 
-const Container = styled.div`
-  position: relative;
+const Product = styled.div`
+  width: 100%;
+  margin-bottom: 10px;
+
+  ${min[1]} {
+    width: calc(50% - 32px);
+    flex-grow: 1;
+    margin-right: 32px;
+    margin-bottom: 32px;
+
+    &:nth-of-type(2n) {
+      margin-right: 0;
+    }
+  }
+  ${min[2]} {
+    max-width: 412px;
+    width: calc(33% - 32px);
+    flex-grow: 1;
+    margin-right: 32px;
+
+    &:nth-of-type(2n) {
+      margin-right: 32px;
+    }
+
+    &:nth-of-type(3n) {
+      margin-right: 0;
+    }
+  }
 `;
+
+const DesktopCard = styled.div`
+  display: none;
+  overflow: hidden;
+  height: 100%;
+
+  ${min[1]} {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    
+    border-radius: 20px;
+    box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.06);
+  }
+`;
+
 const Label = styled.div`
   position: absolute;
   z-index: 1;
@@ -70,6 +133,7 @@ const Label = styled.div`
   text-align: center;
   background: rgba(255,208,51,0.8);
 `;
+
 const ProductInfo = styled.div`
   flex-grow: 1;
   width: 100%;
@@ -77,13 +141,16 @@ const ProductInfo = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+
+  h3 {
+    margin-bottom: 16px;
+  }
 `;
+
 const Title = styled.h3`
-  font-size: 16px;
   font-weight: 500;
   line-height: 125%;
   word-break: keep-all;
-  margin-bottom: 16px;
 `;
 
 const LikesAndPrice = styled.div`
@@ -102,4 +169,43 @@ const Likes = styled.div`
 const LikesCount = styled.span`
   color: ${Colors.primary};
   font-size: 14px;
+`;
+
+
+
+const MobileCard = styled.div`
+  display: block;
+  font-size: 0.875rem;
+  
+  ${min[1]} {
+    display: none;
+  }
+
+  .card {
+    display: flex;
+    height: 7.8em;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.06);
+    margin-bottom: 1em;
+
+    > a {
+      min-width: 194px;
+      max-width: 194px;
+    }
+  }
+`;
+
+const TitleAndPrice = styled.div`
+  padding: 8px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const TagAndLike = styled.div`
+  font-size: 0.5rem;
+  display: flex;
+  justify-content: space-between;
 `;

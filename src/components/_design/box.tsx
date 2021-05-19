@@ -24,7 +24,7 @@ export const Box: React.FC<IHeadingProps> = ({ children, width, height, round, b
     width: ${width ? width : 'auto'};
     height: ${height ? height : 'auto'};
     border-width: ${border ? border+'px' : '0px'};
-    border-color: #${Colors.black};
+    border-color: ${Colors.black};
     border-style: solid;
     border-radius: ${round ? '20px' : '0px'};
     box-shadow: ${shadow && shadow in shadowStyles ? shadowStyles[shadow] : 'none'};

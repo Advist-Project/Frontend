@@ -217,21 +217,21 @@ const ProductListWrap = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
 
-  .productCard, .allProductLink {
-    flex-basis: 100%;
+  .allProductLink {
+    display: block;
+    flex-grow: 1;
     margin-bottom: 32px;
 
     ${min[1]} {
-      flex-basis: calc(50% - 16px);
+      width: calc(50% - 32px);
     }
-    ${min[3]} {
+    ${min[2]} {
       max-width: 412px;
-      flex-basis: calc((100% / 3) - 16px);
+      width: calc(33% - 32px);
+      flex-grow: 1;
     }
   }
-  .allProductLink {
-    display: block;
-  }
+
   .allProductCard {
     height: 100%;
     padding: 36px;
