@@ -219,16 +219,14 @@ const ProductListWrap = styled.div`
 
   .allProductLink {
     display: block;
-    flex-grow: 1;
     margin-bottom: 32px;
 
     ${min[1]} {
-      width: calc(50% - 32px);
+      width: calc(50% - 16px);
     }
     ${min[2]} {
       max-width: 412px;
-      width: calc(33% - 32px);
-      flex-grow: 1;
+      width: calc((100% / 3) - (64px / 3));
     }
   }
 

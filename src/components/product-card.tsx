@@ -78,11 +78,11 @@ export const ProductCard: React.FC<IProductCardProps> = ({ id, label, title, lik
 
 const Product = styled.div`
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
+  position: relative;
 
   ${min[1]} {
-    width: calc(50% - 32px);
-    flex-grow: 1;
+    width: calc(50% - 16px);
     margin-right: 32px;
     margin-bottom: 32px;
 
@@ -92,8 +92,7 @@ const Product = styled.div`
   }
   ${min[2]} {
     max-width: 412px;
-    width: calc(33% - 32px);
-    flex-grow: 1;
+    width: calc((100% / 3) - (64px / 3));
     margin-right: 32px;
 
     &:nth-of-type(2n) {
@@ -187,7 +186,7 @@ const MobileCard = styled.div`
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.06);
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
 
     > a {
       min-width: 194px;
@@ -208,4 +207,5 @@ const TagAndLike = styled.div`
   font-size: 0.5rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
