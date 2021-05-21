@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import Image from 'next/image';
-import { Heading, Tags, Button, Colors, Text, Box, Buying } from "components/ui";
+import { min, Heading, Tags, Button, Colors, Text, Box, Buying } from "components/ui";
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
 import AnchorTab from 'components/tab';
@@ -183,46 +183,64 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
 }
 
 const ProductInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-top: 56px;
-  margin-bottom: 93px;
+  margin-top: 12px;
 
-  > .leftArea {
-    flex-basis: 645px;
+  .leftArea {
+    margin-bottom: 28px;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.06);
+  }
 
-    > div {
-      display: block !important;
+  ${min[1]}{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 56px;
+
+    .leftArea {
+      flex-basis: 645px;
+      margin-bottom: 0;
+      
+      > div {
+        display: block !important;
+      }
+    }
+
+    .rightArea {
+      align-self: normal;
+      margin-left: 100px;
+      flex-grow: 1;
+      max-width: 555px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
   }
-  > .rightArea {
-    align-self: normal;
-    margin-left: 100px;
-    flex-grow: 1;
-    max-width: 555px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+  margin-bottom: 93px;
 `;
 
 const DefaultInfo = styled.div``;
 
 const FunctionsAndPriceInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  position: fixed;
+  let: 0;
+  bottom: 0;
+  z-index: 100;
 
-  > .rightArea {
-    text-align: right;
-  }
+  ${min[1]} {
+    position: static;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
 
-  button {
-    margin-top: 32px;
+    > .rightArea {
+      text-align: right;
+    }
+
+    button {
+      margin-top: 32px;
+    }
   }
 `;
 
@@ -241,10 +259,15 @@ const DetailContent = styled.div`
 `;
 
 const Options = styled.div`
-  position: sticky;
-  top: 0;
-  right: 0;
-  padding-left: 40px;
+  display: none;
+
+  ${min[1]}{
+    display: block;
+    position: sticky;
+    top: 0;
+    right: 0;
+    padding-left: 40px;
+  }
 `;
 const SectionTitle = styled.div`
   margin-top: 69px;

@@ -67,8 +67,8 @@ export const ProductCard: React.FC<IProductCardProps> = ({ id, label, title, lik
         <TagAndLike>
           <Tags data={tag} />
           <Likes>
-            <LikeBtn small state={userLikeState} onClick={chageUserLikeState} />
             <LikesCount>{likesCount}</LikesCount>
+            <LikeBtn small state={userLikeState} onClick={chageUserLikeState} />
           </Likes>
         </TagAndLike>
       </MobileCard>
@@ -167,7 +167,12 @@ const Likes = styled.div`
 `;
 const LikesCount = styled.span`
   color: ${Colors.primary};
-  font-size: 14px;
+  font-size: 0.75rem;
+
+  ${min[1]} {
+    order: 2;
+    font-size: 0.875rem;
+  }
 `;
 
 
