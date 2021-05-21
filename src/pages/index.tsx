@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
-import { min, Heading, Text, Button, Colors, Box } from "components/ui";
+import { min, max, Heading, Text, Button, Colors, Box } from "components/ui";
 import Image from 'next/image';
 import { ProductList } from "components/product-card-list";
 import axios, { AxiosResponse } from 'axios';
@@ -69,33 +69,46 @@ export default function Home() {
       {/* 4번 콘텐츠 */}
       <Section4 className="wrap">
         <SectionHeader style={{marginBottom: '80px'}}>
-          <img src="/icon/review_64p.svg" style={{marginRight: '26px'}} />
-          <Heading level={3} bold>구매 후기</Heading>
-          <Text size="16px">워크북, 코칭을 구매하고 업무에 활용한 고객이 작성하신 후기입니다.</Text>
+          <img src="/icon/review_64p.svg" style={{marginRight: '26px'}} className="icon_pc" />
+          <img src="/icon/review_42p.svg" style={{marginRight: '8px'}} className="icon_mo" />
+          <SectionTitle>구매 <span className="hightlight_mo">후기</span></SectionTitle>
+          <SectionDesc>워크북, 코칭을 구매하고 업무에 <br/>활용한 고객이 작성하신 후기입니다.</SectionDesc>
         </SectionHeader>
-        <Image
-          src="/mainGraphic_section4_review.png"
-          alt="조직문화 진단은 제가 경험도 없고 큰 프로젝트여서 굉장히 막막했는데, 일할 떄 딱 필요한 실무 양식이랑 작성 사례도 주시고 매주 업무 방향을 같이 고민해주셔서 일을 생각보다 쉽게 해낸 것 같아요. 덕분에 프로젝트도 잘 마무리했고 감사했습니다. 쿠팡페이 HR Leader 홍*영님의 리뷰"
-          width={1300}
-          height={759.5}
-          priority
-        />
+        <div className="img_pc">
+          <Image
+            src="/mainGraphic_section4_review.png"
+            alt="조직문화 진단은 제가 경험도 없고 큰 프로젝트여서 굉장히 막막했는데, 일할 떄 딱 필요한 실무 양식이랑 작성 사례도 주시고 매주 업무 방향을 같이 고민해주셔서 일을 생각보다 쉽게 해낸 것 같아요. 덕분에 프로젝트도 잘 마무리했고 감사했습니다. 쿠팡페이 HR Leader 홍*영님의 리뷰"
+            width={1300}
+            height={759.5}
+            priority
+          />
+        </div>
+        <div className="img_mo">
+          <Image
+            src="/mainGraphic_section4_review_mo.png"
+            alt="조직문화 진단은 제가 경험도 없고 큰 프로젝트여서 굉장히 막막했는데, 일할 떄 딱 필요한 실무 양식이랑 작성 사례도 주시고 매주 업무 방향을 같이 고민해주셔서 일을 생각보다 쉽게 해낸 것 같아요. 덕분에 프로젝트도 잘 마무리했고 감사했습니다. 쿠팡페이 HR Leader 홍*영님의 리뷰"
+            width={768}
+            height={856}
+            priority
+          />
+        </div>
       </Section4>
       {/* 5번 콘텐츠 */}
       <Section5 className="wrap">
-        <SectionHeader style={{marginBottom: '60px'}}>
-          <img src="/icon/workbook_64p.svg" style={{marginRight: '5px'}} />
-          <Heading level={3} bold>실무자를 위한 워크북</Heading>
-          <Text size="16px">업계 선배들의 시행착오 경험과 구체적인 업무 사례를 만나보세요.</Text>
+        <SectionHeader>
+          <img src="/icon/workbook_64p.svg" style={{marginRight: '5px'}} className="icon_pc"/>
+          <img src="/icon/workbook_42p.svg" style={{marginRight: '5px'}} className="icon_mo"/>
+          <SectionTitle>신청할 수 있는 <span className="hightlight_mo">코칭 프로그램</span></SectionTitle>
+          <SectionDesc>성공적인 커리어와 이직의 기술, <br/>회사에서 인정받는 프로젝트 노하우를 만나보세요.</SectionDesc>
         </SectionHeader>
 
         <ProductListWrap>
           <ProductList data={[Data]} />
           {/* 페이지 생성되면 url 변경 */}
-          <a href="/detail/1" className="allProductLink">
-            <Box shadow={1} round className="allProductCard">
-              제품 전체보기
-            </Box>
+          <a href="/all" className="allProductLink">
+            <div className="allProductCard">
+              코칭 더보기
+            </div>
           </a>
         </ProductListWrap>
       </Section5>
@@ -103,9 +116,6 @@ export default function Home() {
     </Layout>
   )
 }
-
-
-
 
 const Highlight = styled.span`
   display: inline-block;
@@ -163,9 +173,9 @@ const Em = styled.span`
 const Section3 = styled.section`
   color: ${Colors.black};
   text-align: center;
-
   margin-top: 245px;
 `;
+
 const ImagesArea = styled.div`
   margin-top: 40px;
   margin-bottom: 100px;
@@ -177,20 +187,76 @@ const ImagesArea = styled.div`
 const Section4 = styled.section`
   color: ${Colors.black};
   margin-top: 245px;
+
+  .img_pc {
+    display: none;
+  }
+  ${min[1]}{
+    .img_pc {
+      display: block;
+    }
+    .img_mo {
+      display: none;
+    }
+  }
 `;
 
 const SectionHeader = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  margin-bottom: 40px;
   
-  > img {
+  img.icon_pc {
     width: 64px;
     height: 64px;
+    display: none;
   }
-  > p {
-    width: 100%;
+  img.icon_mo {
+    width: 42px;
+    height: 42px;
+  }
+  ${min[1]}{
+    margin-bottom: 60px;
+
+    img.icon_mo {
+      display: none;
+    }
+    img.icon_pc {
+      display: inline;
+    }
+  }
+`;
+const SectionTitle = styled.h3`
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 125%;
+
+  ${max[1]} {
+    .hightlight_mo {
+      color: ${Colors.secondary};
+    }
+  }
+
+  ${min[1]} {
+    font-size: 2.25rem;
+  }
+`;
+const SectionDesc = styled.p`
+  width: 100%;
+  color: ${Colors.gray1};
+  font-size: 0.875rem;
+  line-height: 150%;
+  margin-top: 12px;
+  word-break: keep-all;
+
+  ${min[1]} {
+    font-size: 1rem;
     margin-top: 31px;
+
+    br {
+      display: none;
+    }
   }
 `;
 
@@ -218,12 +284,25 @@ const ProductListWrap = styled.div`
   }
 
   .allProductCard {
-    height: 100%;
-    padding: 36px;
-    font-size: 20px;
-    font-weight: 700;
-    background: url(/forwardArrow.svg) bottom 36px right 28px/48px 48px no-repeat;
-    background-color: ${Colors.primary};
-    color: ${Colors.white};
+    ${max[1]}{
+      display: inline-block;
+      padding-right: 24px;
+      color: ${Colors.primary};
+      font-weight: 700;
+      margin-top: 32px;
+      background: url(/icon/chevron_right_24px.svg) right center/24px 24px no-repeat;
+    }
+
+    ${min[1]}{
+      height: 100%;
+      padding: 36px;
+      font-size: 20px;
+      font-weight: 700;
+      background: url(/forwardArrow.svg) bottom 36px right 28px/48px 48px no-repeat;
+      background-color: ${Colors.primary};
+      color: ${Colors.white};
+      border-radius: 20px;
+      box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.06);
+    }
   }
 `;

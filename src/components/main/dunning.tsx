@@ -20,7 +20,7 @@ export function Dunning(){
           <DesktopTitle><Highlight>프로 일잘러</Highlight>가 될 수 있도록 지원합니다</DesktopTitle>
           <div>
             <p style={{ color: Colors.gray1 }}>아는 게 정말 적으면 일에서 어려움을 느끼지 않습니다. 일하면서 좌절도 해보았고 더 잘하기 위해 고민하는 분들이 진짜 전문가로 성장할 것이라고 믿습니다.</p>
-            <Strong>현재 겪고 있는 업무의 막막함을 해소하고 성공적으로 해내실 수 있도록 돕겠습니다.</Strong>
+            <Strong>현재 겪고 있는 업무의 막막함을 해소하고 <br/>성공적으로 해내실 수 있도록 돕겠습니다.</Strong>
           </div>
         </Message>
       </Card>
@@ -30,8 +30,13 @@ export function Dunning(){
 
 const Section6 = styled.section`
   color: ${Colors.black};
-  margin-top: 242px;
+  margin-top: 90px;
   margin-bottom: 96px;
+
+  ${min[1]}{
+    margin-top: 242px;
+    margin-bottom: 96px;
+  }
 `;
 
 const Highlight = styled.span`
@@ -39,6 +44,7 @@ const Highlight = styled.span`
 `;
 
 const MobileTitle = styled.h3`
+  font-size: 1.25rem;
   font-weight: 700;
   line-height: 125%;
 
@@ -75,7 +81,7 @@ const ImageBlock = styled.div`
 `;
 
 const Message = styled.div`
-  width: calc(100% - 100px);
+  max-width: 350px;
   margin: 0 auto;
   text-align: center;
   font-size: 0.875rem;
@@ -83,6 +89,7 @@ const Message = styled.div`
   word-break: keep-all;
 
   ${min[1]} {
+    max-width: 100%;
     flex-grow: 1;
     padding-left: 36px;
     font-size: 1rem;

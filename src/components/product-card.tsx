@@ -171,10 +171,11 @@ const LikesCount = styled.span`
 `;
 
 
-
+//font-size: 1rem;
+//font-size: 0.875rem;
 const MobileCard = styled.div`
   display: block;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   
   ${min[1]} {
     display: none;
@@ -189,8 +190,8 @@ const MobileCard = styled.div`
     margin-bottom: 0.5em;
 
     > a {
-      min-width: 194px;
-      max-width: 194px;
+      min-width: 164px;
+      max-width: 164px;
     }
   }
 `;
