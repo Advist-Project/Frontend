@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import Image from 'next/image';
-import { min, Heading, Tags, Button, Colors, Text, Box, Buying } from "components/ui";
+import { min, MobilePrimaryBtn, Heading, Tags, Button, Colors, Text, Box, Buying } from "components/ui";
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
 import AnchorTab from 'components/tab';
@@ -102,6 +102,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
     window.scrollTo(0, y);
   }
   
+  const [optionPanel, setOptionPanel] = useState<boolean>(false);
 
   return (
     <Layout title={title}>
@@ -122,17 +123,26 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
             <p style={{marginTop: '36px'}}>제공자 : {owner}</p>
           </DefaultInfo>
           <FunctionsAndPriceInfo>
-            <div>{/* 로그인 안된 상태에서 찜하기 버튼 눌렀을 때 케이스 */}
+            <div className="likeBtn">{/* 로그인 안된 상태에서 찜하기 버튼 눌렀을 때 케이스 */}
               <LikeBtn state={false} />
             </div>
             <div className="rightArea">
               <Price discountPrice={options[0].discountPrice} price={options[0].price} />
-              <a onClick={onClickListener}><Button type="start">구매하기</Button></a>
+              <a onClick={onClickListener} className="buyBtn"><Button type="start">구매하기</Button></a>
               {/* 보유중 상태가 필요하겠네요 */}
             </div>
           </FunctionsAndPriceInfo>
         </div>
       </ProductInfo>
+      <MobileFloatingBtn>
+        <OptionPanel className={optionPanel ? 'visible' : ''}>
+          옵션
+        </OptionPanel>
+        <div className="btnWrap">
+          <LikeBtn state={false} small border />
+          <MobileBuyBtn onClick={()=>setOptionPanel(true)}>구매하기</MobileBuyBtn>
+        </div>
+      </MobileFloatingBtn>
       <div className="wrap">
         <Box border={1} shadow={1} round style={{padding: '40px 72px', marginBottom: '72px'}}>
           <img src={`/detail/${itemId}/coach.png`} style={{width: '100%'}}/>
@@ -223,13 +233,9 @@ const ProductInfo = styled.div`
 const DefaultInfo = styled.div``;
 
 const FunctionsAndPriceInfo = styled.div`
-  position: fixed;
-  let: 0;
-  bottom: 0;
-  z-index: 100;
+  .likeBtn, .buyBtn { display: none; }
 
   ${min[1]} {
-    position: static;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -241,6 +247,54 @@ const FunctionsAndPriceInfo = styled.div`
     button {
       margin-top: 32px;
     }
+    .likeBtn { display: block; }
+    .buyBtn { display: inline; }
+  }
+`;
+
+const MobileFloatingBtn = styled.div`
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 20;
+  width: 100%;
+
+  .btnWrap {
+    display: flex;
+    padding: 18px 20px;
+    background: ${Colors.white};
+    box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  ${min[1]}{
+    display: none;
+  }
+`;
+
+const MobileBuyBtn = styled.button`
+  ${MobilePrimaryBtn}
+
+  flex-grow: 1;
+  height: 36px;
+  margin-left: 4px;
+`;
+
+const OptionPanel = styled.div`
+  display: none;
+  width: 100%;
+  position: absolute;
+  top: -57px;
+  left: 0;
+  z-index: -1;
+  padding: 20px;
+
+  background: ${Colors.white};
+  border: 1px solid ${Colors.black};
+  border-width: 1px 1px 0px 1px;
+  border-radius: 10px 10px 0px 0px;
+
+  &.visible {
+    display: block;
   }
 `;
 
