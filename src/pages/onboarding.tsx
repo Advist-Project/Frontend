@@ -42,7 +42,7 @@ export default function OnboardingPage(){
                 <Container>
                     <InputBox>
                         <Label>회사명</Label>
-                        <InputCompany value = {CompanyName} onChange = {onNameHandler} placeholder = "재직중인 회사명을 입력하세요"></InputCompany>
+                        <InputCompany value = {CompanyName} onChange = {onNameHandler} placeholder = "재직중인 회사명을 입력하세요"/>
                     </InputBox>
                     <InputBox>
                         <Label>직무</Label>
@@ -76,9 +76,7 @@ const Section1 = styled.section`
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-    }
-    
-
+    }   
 `;
 
 const Container = styled.div`
@@ -142,6 +140,10 @@ const InputCompany = styled.input`
         border-width : 2px;
         border-color : ${Colors.black};  
     }
+    ::-webkit-input-placeholder { color : ${Colors.gray3};} /* Chrome/Opera/Safari */
+    ::-moz-placeholder { color : ${Colors.gray3};} /* Firefox 19+ */
+    :-ms-input-placeholder { color : ${Colors.gray3};} /* IE 10+ */
+    :-moz-placeholder { color : ${Colors.gray3};}  /* Firefox 18- */
 `;
 
 const ButtonBox = styled.div`
