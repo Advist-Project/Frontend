@@ -35,6 +35,16 @@ export const max = breakpoints.map(
 
 // Styles
 export const ToggleBtn = _toggleBtn;
+export const MobilePrimaryBtn = `
+  color: ${Colors.white};
+  background: ${Colors.primary};
+  border-radius: 10px;
+  border-width: 0px;
+
+  &:hover, &:active {
+    background: ${Colors.primaryDark};
+  }
+`;
 
 // Method
 export const Spacing = _spacing;

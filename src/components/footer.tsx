@@ -17,7 +17,7 @@ export const Footer = () => {
     window.open(bizUrl, "bizCommPop", "width=750, height=700,left='+ popupX + ', top='+ popupY ;");
   }
   return (
-    <footer>
+    <Container>
           {                
             AgreeModal ? <AgreePage setActiveTab={ClickTab} setAgreeModal={setAgreeModal}/> : null
           }
@@ -50,8 +50,8 @@ export const Footer = () => {
                 <u>2021-서울서초-0571</u>
               </li>
               <li className="bizNum_mo" style={{cursor : "pointer"}}>
+                <label>통신판매업번호</label>
                 <a href={bizUrl} target="_blank">
-                  <label>통신판매업번호</label>
                   <u>2021-서울서초-0571</u>
                 </a>
               </li>
@@ -63,8 +63,8 @@ export const Footer = () => {
           </Column1>
           <Column2>
             <InfoList>
-              <li>
-                <label className="dark cs">고객센터</label>
+              <li className="cs">
+                <label>고객센터</label>
                 평일 오전 10시 - 오후 6시 (공휴일 제외)
               </li>
               <li className="email">
@@ -98,9 +98,17 @@ export const Footer = () => {
           어드바이스트의 상품/코치/중개 서비스/거래 정보, 콘텐츠, UI등에 대한 무단복제, 전송, 배포, 스크래핑 등의 행위는 저작권법, 콘텐츠산업 진흥법 등  관련 법령에 의하여 엄격히 금지됩니다.
         </div>
       </Copylight>
-    </footer>
+    </Container>
   )
 }
+
+const Container = styled.footer`
+  font-size: 0.75rem;
+
+  ${min[1]} {
+    font-size: 0.875rem;
+  }
+`;
 
 const LogoArea = styled.div`
   margin: 16px 0 14px;
@@ -109,11 +117,10 @@ const LogoArea = styled.div`
   color: ${Colors.gray2};
   
   img {
-    height: 13px;
+    height: 1rem;
     margin-right: 12px;
   }
   p {
-    font-size: 7px;
     line-height: 150%;
     word-break: keep-all;
   }
@@ -129,22 +136,16 @@ const LogoArea = styled.div`
       height: 44px;
       margin-right: 68px;
     }
-    p {
-      font-size: 14px;
-    }
   }
 `;
 
 const TextInfo = styled.div`
   display: flex;
   margin-bottom: 28px;
-  font-size: 7px;
   flex-wrap: wrap;
   
   ${min[1]}{
     flex-wrap: nowrap;
-    font-size: 14px !important;
-    line-height: 24px;
     margin-bottom: 50px;
   }
 `;
@@ -192,13 +193,17 @@ const Column3 = styled.div`
 
 const InfoList = styled.ul`
   li {
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
+    line-height: 100%;
     color: ${Colors.gray2};
 
     &.bizNum_pc { display: none }
     &.bizNum_mo { display: block }
 
     ${min[1]} {
+      line-height: 1.3rem;
+      margin-bottom: 0.75rem;
+
       &.bizNum_pc { display: block }
       &.bizNum_mo { display: none }
     }
@@ -211,17 +216,20 @@ const InfoList = styled.ul`
 
   label {
     color: ${Colors.gray3};
-    margin-right: 8px;
+    margin-right: 7px;
   }
-  label.dark, a {
+  a {
     font-weight: 500;
     color: ${Colors.gray1};
   }
 
   ${max[1]}{
-    label.cs {
+    li.cs {
+      color: ${Colors.gray3};
+    }
+    li.cs label {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 0.5rem;
     }
     li.email,
     li.tel {
@@ -238,7 +246,7 @@ const InfoList = styled.ul`
     }
     li.policy {
       display: inline-block;
-      line-height: 14px;
+      line-height: 0.875rem;
       flex-grow: 1;
       text-align: center;
       border-right: 1px ${Colors.gray3} solid;
@@ -249,6 +257,11 @@ const InfoList = styled.ul`
     }
   }
   ${min[1]}{
+    li.cs label {
+      font-weight: 500;
+      color: ${Colors.gray1};
+    }
+
     label {
       margin-right: 16px;
     }
@@ -260,12 +273,10 @@ const Copylight = styled.div`
   color: ${Colors.gray3};
   padding: 25px 0 28px;
   text-align: center;
-  font-size: 7px;
   line-height: 170%;
   word-break: keep-all;
 
   ${min[1]} {
     padding: 40px 0 46px;
-    font-size: 14px;
   }
 `;

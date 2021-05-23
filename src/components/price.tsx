@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-//import { Colors } from "./ui";
 import { Colors } from "./_design/colors";
 import { priceFormat } from "./formatter";
 
@@ -39,9 +38,14 @@ const Wrap = styled.div`
 const BasePrice = styled.div`
   text-decoration: line-through;
   text-decoration-thickness: 1px;
+  font-size: 0.9em;
   color: ${Colors.gray3};
-  font-size: 20px;
-  margin-bottom: 12px;
+  margin-bottom: 0.5em;
+
+  @media (min-width: 769px) {
+    font-size: 1.25em;
+    margin-bottom: 12px;
+  }
 `;
 const Discount = styled.div`
   display: flex;
@@ -49,11 +53,20 @@ const Discount = styled.div`
 `;
 const DiscountPercent = styled.div`
   color: ${Colors.primary};
-  font-size: 28px;
   font-weight: 700;
-  margin-right: 16px;
+  font-size: 1.2em;
+  margin-right: 0.5em;
+
+  @media (min-width: 769px) {
+    font-size: 1.75em;
+    margin-right: 16px;
+  }
 `;
 const FinalPrice = styled.div`
-  font-size: 28px;
   font-weight: 700;
+  font-size: 1.2em;
+
+  @media (min-width: 769px) {
+    font-size: 1.75em;
+  }
 `;
