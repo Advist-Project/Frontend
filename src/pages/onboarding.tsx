@@ -16,7 +16,7 @@ export default function OnboardingPage(){
     const [Years, setYears] = useState("");
 
     const onNameHandler = (event : any) => {
-        setCompanyName(event.currentTarget.value)
+        setCompanyName(event.currentTarget.value);
     }
     return(
         <>
