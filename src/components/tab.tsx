@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Colors } from "components/ui";
+import { Colors, min } from "components/ui";
 
 // Heading
 interface IAnchorTabProps {
@@ -18,7 +18,6 @@ const AnchorTab: React.FC<IAnchorTabProps> = ({ create, active, scrollfn }) => {
   }
 
   const AnchorTab = styled.div`
-    height: 109px;
     background: ${Colors.white};
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     position: sticky;
@@ -31,18 +30,21 @@ const AnchorTab: React.FC<IAnchorTabProps> = ({ create, active, scrollfn }) => {
     }
   `;
   const Tab = styled.li`
-    flex-basis: 208px;
-    height: 109px;
+    flex-basis: 30%;
+    height: 72px;
     text-align: center;
-    line-height: 24px;
+    font-size: 0.75rem;
+    line-height: 150%;
+    color: ${Colors.gray2};
     cursor: pointer;
 
     .icon {
       display: block;
-      width: 64px;
-      height: 64px;
+      width: 40px;
+      height: 40px;
       margin: 6px auto 0;
       background-position: right center;
+      background-size: auto 100%;
     }
 
     &.workbook {
@@ -68,10 +70,25 @@ const AnchorTab: React.FC<IAnchorTabProps> = ({ create, active, scrollfn }) => {
 
 
     &.active {
-      border-bottom: 8px ${Colors.secondary} solid;
+      color: ${Colors.black};
+      border-bottom: 4px ${Colors.secondary} solid;
 
       .icon {
         background-position: left center;
+      }
+    }
+
+    ${min[1]}{
+      font-size: 1rem;
+      flex-basis: 208px;
+      height: 109px;
+
+      .icon {
+        width: 64px;
+        height: 64px;
+      }
+      &.active {
+        border-bottom: 8px ${Colors.secondary} solid;
       }
     }
   `;

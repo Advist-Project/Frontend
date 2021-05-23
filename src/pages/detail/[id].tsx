@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import Image from 'next/image';
-import { min, MobilePrimaryBtn, Heading, Tags, Button, Colors, Text, Box, Buying } from "components/ui";
+import { min,max, MobilePrimaryBtn, Tags, Button, Colors, Text, Buying } from "components/ui";
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
 import AnchorTab from 'components/tab';
@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 export default function Details({itemData}: InferGetServerSidePropsType<typeof getServerSideProps>){
-  const { itemId, title, owner, tag, options } = itemData;
+  const { itemId, title, tag, options } = itemData;
   const router = useRouter();
 
   function routeToOrder(userId: any, itemId: any, optionId: any, type: string){
@@ -105,6 +105,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
   const [optionPanel, setOptionPanel] = useState<boolean>(false);
 
   return (
+    <MobilePadding>
     <Layout title={title}>
       <ProductInfo className="wrap">
         <div className="leftArea">
@@ -187,8 +188,15 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
         </DetailInfoContainer>
       </DetailInfo>
     </Layout>
+    </MobilePadding>
   )
 }
+
+const MobilePadding = styled.div`
+  ${max[1]}{
+    padding-bottom: 72px;
+  }
+`;
 
 const ProductInfo = styled.div`
   margin-top: 12px;
@@ -199,6 +207,10 @@ const ProductInfo = styled.div`
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.06);
+      
+    > div {
+      display: block !important;
+    }
   }
   
 
@@ -213,10 +225,6 @@ const ProductInfo = styled.div`
       flex-basis: 645px;
       border-radius: 20px;
       margin-bottom: 0;
-      
-      > div {
-        display: block !important;
-      }
     }
 
     .rightArea {
@@ -342,7 +350,11 @@ const CoachProfile = styled.div`
 const DetailInfo = styled.div`
   background-color: ${Colors.gray6};
   padding-top: 9px;
-  padding-bottom: 209px;
+  padding-bottom: 60px;
+
+  ${min[1]}{
+    padding-bottom: 209px;
+  }
 `;
 const DetailInfoContainer = styled.div`
   display: flex;
