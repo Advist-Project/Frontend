@@ -118,9 +118,8 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
         </div>
         <div className="rightArea">
           <DefaultInfo>
-            <Heading level={4} bold style={{marginBottom: '27px'}}>{title}</Heading>
+            <ItemTitle>{title}</ItemTitle>
             <Tags data={tag}/>
-            <p style={{marginTop: '36px'}}>제공자 : {owner}</p>
           </DefaultInfo>
           <FunctionsAndPriceInfo>
             <div className="likeBtn">{/* 로그인 안된 상태에서 찜하기 버튼 눌렀을 때 케이스 */}
@@ -143,11 +142,10 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
           <MobileBuyBtn onClick={()=>setOptionPanel(true)}>구매하기</MobileBuyBtn>
         </div>
       </MobileFloatingBtn>
-      <div className="wrap">
-        <Box border={1} shadow={1} round style={{padding: '40px 72px', marginBottom: '72px'}}>
-          <img src={`/detail/${itemId}/coach.png`} style={{width: '100%'}}/>
-        </Box>
-      </div>
+      <CoachProfile className="wrap">
+          <img src={`/detail/${itemId}/coach.png`} className="img_pc"/>
+          <img src={`/detail/${itemId}/coach_mobile.png`} className="img_mo"/>
+      </CoachProfile>
       <AnchorTab create={{
                           //  workbook: { sectionRef: 'workbook' },
                            coaching: { sectionRef: 'coaching' },
@@ -194,22 +192,26 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
 
 const ProductInfo = styled.div`
   margin-top: 12px;
+  margin-bottom: 16px;
 
   .leftArea {
     margin-bottom: 28px;
-    border-radius: 20px;
+    border-radius: 10px;
     overflow: hidden;
     box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.06);
   }
+  
 
   ${min[1]}{
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin-top: 56px;
+    margin-bottom: 93px;
 
     .leftArea {
       flex-basis: 645px;
+      border-radius: 20px;
       margin-bottom: 0;
       
       > div {
@@ -227,10 +229,22 @@ const ProductInfo = styled.div`
       justify-content: space-between;
     }
   }
-  margin-bottom: 93px;
 `;
 
-const DefaultInfo = styled.div``;
+const DefaultInfo = styled.div`
+  font-size: 0.75rem;
+  margin-bottom: 43px;
+`;
+const ItemTitle = styled.h2`
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 133%;
+  margin-bottom: 21px;
+
+  ${min[1]}{
+    margin-bottom: 27px;
+  }
+`;
 
 const FunctionsAndPriceInfo = styled.div`
   .likeBtn, .buyBtn { display: none; }
@@ -295,6 +309,33 @@ const OptionPanel = styled.div`
 
   &.visible {
     display: block;
+  }
+`;
+
+const CoachProfile = styled.div`
+  border-top: 4px ${Colors.gray4} solid;
+  padding-top: 16px;
+
+  img {
+    width: 100%;
+  }
+  .img_pc {
+    display: none;
+  }
+
+  ${min[1]}{
+    border: 1px ${Colors.black} solid;
+    border-radius: 20px;
+    box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.06);
+    padding: 40px 72px;
+    margin-bottom: 72px;
+
+    .img_mo {
+      display: none;
+    }
+    .img_pc {
+      display: inline;
+    }
   }
 `;
 
