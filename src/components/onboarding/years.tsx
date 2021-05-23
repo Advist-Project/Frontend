@@ -2,10 +2,15 @@ import styled from "@emotion/styled";
 import { Colors } from "components/ui";
 import React, { useState } from "react";
 
-export function YearsInput(){
+export function YearsInput(props : any){
     const [isOpen, setIsOpen] = useState(false);
     const [YearText, setYearText] = useState('');
     const yearLists = ['1년 미만', '1~3년' , '3~5년' , '5~7년', '7~10년', '10년 이상'];
+
+    function OnClickListener(i : number){
+        setYearText(yearLists[i]);
+        props.setYears(yearLists[i]);
+    }
 
     const InputJob = styled.button`
     height: 52px;
@@ -88,7 +93,7 @@ const YearButton = styled.button`
                 <YearList>
                     {new Array(yearLists.length).fill(0).map((_, i) => (
                         <>
-                            <YearButton onClick = {() => setYearText(yearLists[i])}>{yearLists[i]}</YearButton>
+                            <YearButton onClick = {() => OnClickListener(i)}>{yearLists[i]}</YearButton>
                         </>
                     ))}
                 </YearList>

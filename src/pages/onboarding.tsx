@@ -12,6 +12,8 @@ import { YearsInput } from "components/onboarding/years"
 export default function OnboardingPage(){
     const userObject = useContext(myContext) as User;
     const [CompanyName, setCompanyName] = useState("");
+    const [Job, setJob] = useState("");
+    const [Years, setYears] = useState("");
 
     const onNameHandler = (event : any) => {
         setCompanyName(event.currentTarget.value)
@@ -46,15 +48,15 @@ export default function OnboardingPage(){
                     </InputBox>
                     <InputBox>
                         <Label>직무</Label>
-                        <JobInput/>
+                        <JobInput setJob = {setJob}/>
                     </InputBox>
                     <InputBox>
                         <Label>연차</Label>
-                        <YearsInput/>
+                        <YearsInput setYears = {setYears}/>
                     </InputBox>
                     <ButtonBox>
-                        <Button style = {{width : '236px', height : '52px'}}>다음에 하기</Button>
-                        <Button style = {{width : '236px', height : '52px'}} type = "start" disabled = {true}>완료</Button>
+                        <Button onClick = {() => window.location.href = "/"} style = {{width : '236px', height : '52px'}}>다음에 하기</Button>
+                        <Button style = {{width : '236px', height : '52px'}} type = "start" disabled = {CompanyName === '' ||Job === '' || Years === ''? true : false}>완료</Button>
                     </ButtonBox>
                 </Container>
             </div>
@@ -80,7 +82,7 @@ const Section1 = styled.section`
 `;
 
 const Container = styled.div`
-    margin-top : 289px;
+    margin-top : 118px;
     display : flex;
     flex-direction : column;
     justify-content : flex-start;

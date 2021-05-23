@@ -2,11 +2,15 @@ import styled from "@emotion/styled";
 import { Colors } from "components/ui";
 import React, { useState } from "react";
 
-export function JobInput(){
+export function JobInput(props : any){
     const [isOpen, setIsOpen] = useState(false);
     const [JobText, setJobText] = useState('');
     const jobLists = ['기획', '영업/서비스운영' , '개발' , '인사/총무', '디자인', '재무/회계', '마케팅', '기타'];
 
+    function OnClickListener(i : number){
+        setJobText(jobLists[i]);
+        props.setJob(jobLists[i]);
+    }
     const InputJob = styled.button`
     height: 52px;
     width: 480px;
@@ -88,7 +92,7 @@ const JobButton = styled.button`
                 <JobList>
                     {new Array(jobLists.length).fill(0).map((_, i) => (
                         <>
-                            <JobButton onClick = {() => setJobText(jobLists[i])}>{jobLists[i]}</JobButton>
+                            <JobButton onClick = {() => OnClickListener(i)}>{jobLists[i]}</JobButton>
                         </>
                     ))}
                 </JobList>
