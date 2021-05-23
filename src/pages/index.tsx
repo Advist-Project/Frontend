@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import { min, max, Heading, Text, Button, Colors, Box } from "components/ui";
@@ -6,9 +6,12 @@ import Image from 'next/image';
 import { ProductList } from "components/product-card-list";
 import axios, { AxiosResponse } from 'axios';
 import { Dunning } from "components/main/dunning";
+import { myContext } from "../context";
+import { User } from '../types/logintypes';
 
 export default function Home() {
   const [Data, setData] = useState<object>();
+  const userObject = useContext(myContext) as User;
   useEffect(() => {  
     axios.get(process.env.NEXT_PUBLIC_API_URL as string + '/exhibition/best', { withCredentials: true }).then((res: AxiosResponse) => {
       if (res.data) {
@@ -16,6 +19,10 @@ export default function Home() {
       }
     }) 
   }, [])
+
+  function onStartListener(){
+    userObject? window.location.href = "/all" : window.location.href = "/login";
+  }
 
   return (
     <Layout>
@@ -25,7 +32,7 @@ export default function Home() {
           <div className="contentArea">
             <Heading>혼자 일하는 당신을 위한 <br /><Highlight style={{marginTop: '18px'}}>진짜 실무 자료.</Highlight></Heading>
             <Text size="16px" style={{marginTop: '68px', marginBottom: '81px'}}>일 시키는 사람만 있고 알려주는 사람이 없어서 힘든 당신,<br />업계 일잘러들이 직접 만든 업무 자료와 노하우를 업무에 활용해보세요.</Text>
-            <Button type="start">시작하기</Button>
+            <Button onClick = {onStartListener} type="start">시작하기</Button>
           </div>
           <Image
             src="/mainGraphic_section1_human.png"
