@@ -34,6 +34,10 @@ export const Footer = () => {
                 어드바이스트
               </li>
               <li>
+                <label>사업장</label>
+                서울시 서초구 강남대로8길 22, 103호
+              </li>
+              <li>
                 <label>대표</label>
                 김태원
               </li>
