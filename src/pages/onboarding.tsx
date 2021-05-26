@@ -10,6 +10,7 @@ import { JobInput } from "components/onboarding/job"
 import { YearsInput } from "components/onboarding/years"
 import { useRouter } from 'next/router';
 import axios from 'axios';
+
 export default function OnboardingPage(){
     const userObject = useContext(myContext) as User;
     const [CompanyName, setCompanyName] = useState("");
@@ -77,7 +78,7 @@ export default function OnboardingPage(){
                         <YearsInput setYears = {setYears}/>
                     </InputBox>
                     <ButtonBox>
-                        <Button onClick = {() => window.location.href = "/"} style = {{width : '236px', height : '52px'}}>다음에 하기</Button>
+                        <Button onClick = {() => router.back()} style = {{width : '236px', height : '52px'}}>다음에 하기</Button>
                         <Button onClick = {onClickListener} style = {{width : '236px', height : '52px'}} type = "start" disabled = {CompanyName === '' ||Job === '' || Years === ''? true : false}>완료</Button>
                     </ButtonBox>
                 </Container>
