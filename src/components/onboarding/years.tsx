@@ -93,7 +93,7 @@ const YearButton = styled.button`
                 <YearList>
                     {new Array(yearLists.length).fill(0).map((_, i) => (
                         <>
-                            <YearButton onClick = {() => OnClickListener(i)}>{yearLists[i]}</YearButton>
+                            <YearButton key = {i} onClick = {() => OnClickListener(i)}>{yearLists[i]}</YearButton>
                         </>
                     ))}
                 </YearList>

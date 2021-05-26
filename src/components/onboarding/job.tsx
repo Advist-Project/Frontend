@@ -92,7 +92,7 @@ const JobButton = styled.button`
                 <JobList>
                     {new Array(jobLists.length).fill(0).map((_, i) => (
                         <>
-                            <JobButton onClick = {() => OnClickListener(i)}>{jobLists[i]}</JobButton>
+                            <JobButton key={i} onClick = {() => OnClickListener(i)}>{jobLists[i]}</JobButton>
                         </>
                     ))}
                 </JobList>

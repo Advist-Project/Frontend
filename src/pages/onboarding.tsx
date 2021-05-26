@@ -8,7 +8,8 @@ import { User } from 'types/logintypes';
 import { Button } from "components/_design/buttons"
 import { JobInput } from "components/onboarding/job"
 import { YearsInput } from "components/onboarding/years"
-
+import { useRouter } from 'next/router';
+import axios from 'axios';
 export default function OnboardingPage(){
     const userObject = useContext(myContext) as User;
     const [CompanyName, setCompanyName] = useState("");
@@ -17,6 +18,27 @@ export default function OnboardingPage(){
 
     const onNameHandler = (event : any) => {
         setCompanyName(event.currentTarget.value);
+    }
+    const router = useRouter();
+
+    function onClickListener(){
+        // 온보딩 정보 post로 전송
+        axios.post(process.env.NEXT_PUBLIC_API_URL as string +`/userinfo/onboarding`, {
+            userId: userObject.userId,
+            company: CompanyName,
+            jobDepartment: Job,
+            career: Years
+        })
+        .then(function () {
+             // response  
+            // console.log(res.data.result);
+        }).catch(function (err : any) {
+            // 오류발생시 실행
+            console.log(err);
+        }).then(function() {
+            // 항상 실행
+            router.push('/');
+        });        
     }
     return(
         <>
@@ -56,7 +78,7 @@ export default function OnboardingPage(){
                     </InputBox>
                     <ButtonBox>
                         <Button onClick = {() => window.location.href = "/"} style = {{width : '236px', height : '52px'}}>다음에 하기</Button>
-                        <Button style = {{width : '236px', height : '52px'}} type = "start" disabled = {CompanyName === '' ||Job === '' || Years === ''? true : false}>완료</Button>
+                        <Button onClick = {onClickListener} style = {{width : '236px', height : '52px'}} type = "start" disabled = {CompanyName === '' ||Job === '' || Years === ''? true : false}>완료</Button>
                     </ButtonBox>
                 </Container>
             </div>

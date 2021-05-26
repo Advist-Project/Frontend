@@ -9,7 +9,7 @@ export function MybuyingTableBody(props : any){
     const Length = props.data.result.length; // 배열 요소 개수
     const [OrderModal, setOrderModal] = useState<boolean>(false);
     const [ClickKey, setClickKey] = useState<number>(0)
-
+    console.log(Data);
     function onClickListener(key : number){
         setClickKey(key);
         setOrderModal(true);
@@ -29,7 +29,7 @@ export function MybuyingTableBody(props : any){
                             <BuyingProductContainer>
                                 <Image
                                     src="/mainGraphic_section1_human.png"
-                                    /* src = Data[num].img */
+                                    // src = {Data[num].img}
                                     alt=""
                                     width={136}
                                     height={77}

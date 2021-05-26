@@ -2,11 +2,16 @@ import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import { Heading, Colors } from "components/ui";
 import Image from 'next/image';
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import { AgreePage } from "components/agree";
+import axios from 'axios';
 
 export default function LoginPage(){
     const [AgreeModal, setAgreeModal] = useState<boolean>(false);
+
+    useEffect(() => {
+        axios.get(process.env.NEXT_PUBLIC_API_URL as string +`/user/login`, { withCredentials: true })
+    }, [])
 
     function onClickListener(){
       setAgreeModal(true);
