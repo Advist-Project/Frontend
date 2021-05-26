@@ -136,7 +136,27 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
       </ProductInfo>
       <MobileFloatingBtn>
         <OptionPanel className={optionPanel ? 'visible' : ''}>
-          옵션
+          <h5>상품 옵션</h5>
+          <ul>
+          {
+            options.map((item: any) => (
+              <Option>
+                <div>
+                  <input type="checkbox" id={`opt${item.optionId}`}/>
+                  <label htmlFor={`opt${item.optionId}`}>{item.title}</label>
+                </div>
+                <TypeAndPrice>
+                  <div>
+                    <img src={item.type === 'coaching' ? '/icon/coach_64p.svg' : '/icon/workbook_64p.svg'} />
+                    {item.type}
+                  </div>
+                  <Price discountPrice={item.discountPrice} price={item.price} />
+                </TypeAndPrice>
+                <OptionDesc>{item.desc}</OptionDesc>
+              </Option>
+            ))
+          }
+          </ul>
         </OptionPanel>
         <div className="btnWrap">
           <LikeBtn state={false} small border />
@@ -304,10 +324,13 @@ const MobileBuyBtn = styled.button`
 const OptionPanel = styled.div`
   display: none;
   width: 100%;
+  max-height: calc(100vh - 56px);
   position: absolute;
-  top: -57px;
+  top: 0;
   left: 0;
+  transform: translateY(calc(-100% + 1px));
   z-index: -1;
+  overflow: auto;
   padding: 20px;
 
   background: ${Colors.white};
@@ -318,7 +341,40 @@ const OptionPanel = styled.div`
   &.visible {
     display: block;
   }
+
+  h5 {
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
 `;
+
+const Option = styled.li`
+  label {
+    font-weight: 700;
+  }
+
+  border-bottom: 1px ${Colors.black} solid;
+  &:last-of-type { border-bottom: 0; }
+`;
+
+const TypeAndPrice = styled.div`
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  img {
+    width: 28px;
+    height: 28px;
+    vertical-align: middle;
+  }
+`;
+
+const OptionDesc = styled.p`
+  font-size: 0.75rem;
+`;
+
 
 const CoachProfile = styled.div`
   border-top: 4px ${Colors.gray4} solid;

@@ -1,5 +1,5 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React from "react";
 import { Layout } from "components/layout";
 import { Colors } from "components/ui";
 import { ProductList } from "components/product-card-list";
