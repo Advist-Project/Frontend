@@ -15,11 +15,11 @@ export default function OnboardingPage(){
     const [CompanyName, setCompanyName] = useState("");
     const [Job, setJob] = useState("");
     const [Years, setYears] = useState("");
+    const router = useRouter();
 
     const onNameHandler = (event : any) => {
         setCompanyName(event.currentTarget.value);
     }
-    const router = useRouter();
 
     function onClickListener(){
         // 온보딩 정보 post로 전송
