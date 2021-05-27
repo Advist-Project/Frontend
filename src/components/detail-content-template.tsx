@@ -45,9 +45,10 @@ function SectionTitle({icon, children}: ISectionTitleTypes) {
 
 interface IContentTemplateTypes {
   type: string;
-  img: string;
+  imgPc: string;
+  imgMo: string;
 };
-export const ContentTemplate = React.memo(function WorkbookContent({type, img}: IContentTemplateTypes) {
+export const ContentTemplate = React.memo(function WorkbookContent({type, imgPc, imgMo}: IContentTemplateTypes) {
   const typeStyles:{[key: string]: any} = {
     "workbook": {
       icon: "/icon/workbook_64p.svg",
@@ -70,9 +71,14 @@ export const ContentTemplate = React.memo(function WorkbookContent({type, img}: 
       </SectionTitle>
       <Box>
         <img
-          src={img}
+          src={imgPc}
           alt=""
-          style={{width: '100%'}}
+          className="imgPc"
+        />
+        <img
+          src={imgMo}
+          alt=""
+          className="imgMo"
         />
       </Box>
     </>
@@ -119,9 +125,15 @@ const Box = styled.div`
   background: #FCFCFC;
   box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.06);
 
+  img { width: 100%; }
+  .imgPc { display: none; }
+
   ${min[1]}{
     padding: 40px 52px;
     border-radius: 20px;
+
+    .imgMo { display: none }
+    .imgPc { display: inline }
   }
 `;
 const Heading = styled.h4`

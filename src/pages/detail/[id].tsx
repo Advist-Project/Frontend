@@ -191,7 +191,10 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
       <DetailInfo>
         <DetailInfoContainer className="wrap" ref={DetailInfoContainerRef}>
           <DetailContent>
-            <section ref={coachingSectionRef}><ContentTemplate type="coach" img={`/detail/${itemId}/0.png`}/></section>
+            <section ref={coachingSectionRef}>
+              <ContentTemplate type="coach" imgPc={`/detail/${itemId}/0.png`}
+                                            imgMo={`/detail/${itemId}/0_mobile.png`}/>
+            </section>
             {/* <section ref={workbookSectionRef}><ContentTemplate type="workbook" img="/detail/1.png"/></section> */}
             {/* <section ref={reviewSectionRef}><ContentTemplate type="review" img="/detail/3.png"/></section> */}
             <section ref={askSectionRef}>
