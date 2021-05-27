@@ -1,6 +1,6 @@
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
-import { Heading, Colors, Text } from "components/ui";
+import { min, max, Heading, Colors, Text } from "components/ui";
 import Image from 'next/image';
 import React, { useState, useContext } from "react";
 import { myContext } from "context";
@@ -50,19 +50,34 @@ export default function OnboardingPage(){
             <div className="wrap">
                 <div className="contentArea">                    
                 {/* 1번 콘텐츠 */}
-                <Message>
+                <PCMessage>
                     <Heading bold level = {2} style={{color : Colors.black}}>
                         {<span style={{color : Colors.primary}}>{userObject.username}</span>}{'님 반갑습니다!'}
                     </Heading>
                     <Text size='20px'>입력하신 정보에 따라 적합한 워크북과 코칭 프로그램을 추천해드려요.</Text>
-                </Message>
-                <Image
-                src="/onboarding_hello.png"
-                alt=""
-                width={593}
-                height={354}
-                priority
-                />
+                </PCMessage>
+                <MobileHeading>
+                    {<span style={{color : Colors.primary}}>{userObject.username}</span>}{'님 반갑습니다!'}
+                </MobileHeading>
+                <MobileText>입력하신 정보에 따라 적합한 워크북과 코칭 프로그램을<br/>추천해드려요.</MobileText>
+                <PCImages>
+                    <Image
+                    src="/onboarding_hello.png"
+                    alt=""
+                    width={593}
+                    height={354}
+                    priority
+                    />
+                </PCImages>
+                <MobileImages>
+                    <Image
+                        src="/onboarding_hello.png"
+                        alt=""
+                        width={148}
+                        height={88.54}
+                        priority
+                    />                    
+                </MobileImages>
                 </div>
                 <Container>
                     <InputBox>
@@ -77,10 +92,14 @@ export default function OnboardingPage(){
                         <Label>연차</Label>
                         <YearsInput setYears = {setYears}/>
                     </InputBox>
-                    <ButtonBox>
+                    <PCButtonBox>
                         <Button onClick = {() => router.back()} style = {{width : '236px', height : '52px'}}>다음에 하기</Button>
                         <Button onClick = {onClickListener} style = {{width : '236px', height : '52px'}} type = "start" disabled = {CompanyName === '' ||Job === '' || Years === ''? true : false}>완료</Button>
-                    </ButtonBox>
+                    </PCButtonBox>
+                    <MobileButtonBox>
+                        <Button onClick = {() => router.back()} style = {{width : '136px', height : '28px', fontSize : '12px', borderWidth : '0.4px', borderRadius : '10px'}}>다음에 하기</Button>
+                        <Button onClick = {onClickListener} style = {{width : '136px', height : '28px', fontSize : '12px', borderWidth : '0.4px', borderRadius : '10px'}} type = "start" disabled = {CompanyName === '' ||Job === '' || Years === ''? true : false}>완료</Button>
+                    </MobileButtonBox>                    
                 </Container>
             </div>
             </Section1>
@@ -101,6 +120,9 @@ const Section1 = styled.section`
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
+        ${max[1]}{
+            justify-content: center;
+        }        
     }   
 `;
 
@@ -109,23 +131,72 @@ const Container = styled.div`
     display : flex;
     flex-direction : column;
     justify-content : flex-start;
+    ${max[1]}{
+        margin-top : 23.77px;
+    }       
 `;
 
-const Message = styled.div`
+const PCMessage = styled.div`
     display : flex;
     flex-direction : column;
     justify-content : space-between;
-
 
     width: 570px;
     height: 107px;
     margin-top : 64px;
     margin-bottom : 229.22px;
+    ${max[1]}{
+        display : none;
+    }    
+`;
+
+const MobileHeading = styled.div`
+    margin-top : 50px;
+    width: 280px;
+    height: 24px;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: justified;
+    ${min[1]}{
+        display : none;
+    }    
+`;
+
+const MobileText = styled.div`
+    margin-top : 19px;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0px;
+    text-align: left;
+    ${min[1]}{
+        display : none;
+    }       
+`;
+
+const PCImages = styled.div`
+    ${max[1]}{
+        display : none;
+    }
+`;
+
+const MobileImages = styled.div`
+    margin-top : 33px;
+    margin-left : 148px;
+    ${min[1]}{
+        display : none;
+    }
 `;
 
 const InputBox = styled.div`
     display : flex;
-    flex-direction : column;
+    flex-direction : column; 
 `;
 
 const Label = styled.label`
@@ -138,6 +209,15 @@ const Label = styled.label`
     line-height: 30px;
     color : ${Colors.black};
     margin-bottom : 12px;
+    ${max[1]}{
+        width: 34px;
+        height: 12px;
+        font-size: 12px;
+        line-height: 20px;
+        letter-spacing: 0px;
+        text-align: left;   
+        margin-bottom : 8px;     
+    }    
 `;
 
 const InputCompany = styled.input`
@@ -169,12 +249,38 @@ const InputCompany = styled.input`
     ::-moz-placeholder { color : ${Colors.gray3};} /* Firefox 19+ */
     :-ms-input-placeholder { color : ${Colors.gray3};} /* IE 10+ */
     :-moz-placeholder { color : ${Colors.gray3};}  /* Firefox 18- */
+    ${max[1]}{
+        margin-bottom : 18px;
+        height: 24px;
+        width: 280px;  
+        font-size: 10px;
+        line-height: 16px;
+        letter-spacing: 0px;
+        text-align: left; 
+        box-sizing: border-box;
+        border-radius: 8px;    
+        text-indent : 12px;           
+    }     
 `;
 
-const ButtonBox = styled.div`
+const PCButtonBox = styled.div`
     width : 480px;
     margin-top : 24px;
     display : flex;
     flex-direction : row;
     justify-content : space-between;
+    ${max[1]}{
+        display : none;              
+    }       
+`;
+
+const MobileButtonBox = styled.div`
+    width : 280px;
+    margin-top : 20px;
+    display : flex;
+    flex-direction : row;
+    justify-content : space-between;    
+    ${min[1]}{
+        display : none;              
+    }      
 `;

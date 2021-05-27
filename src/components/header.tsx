@@ -3,12 +3,12 @@ import styled from "@emotion/styled";
 import { min, max, Button, Colors } from "components/ui";
 import { myContext } from "../context";
 import { User } from '../types/logintypes';
-import { LogoutButtons } from 'components/logout-buttons'
+import { LogoutButtons } from 'components/logout-buttons';
 
 export const Header = () => {
   const userObject = useContext(myContext) as User;
   const [open, setOpen] = useState<boolean>(false);
-
+  
   function toggleMenu(){
     setOpen(!open);
     if(!open){
