@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Colors } from "components/ui";
+import { max, Colors } from "components/ui";
 import React, { useState } from "react";
 
 export function YearsInput(props : any){
@@ -30,6 +30,16 @@ export function YearsInput(props : any){
     font-weight: normal;
     font-size: 16px;
     line-height: 26px;
+    ${max[1]}{
+        height: 24px;
+        width: 280px;     
+        font-size: 10px;
+        line-height: 22px;
+        letter-spacing: 0px;
+        text-align: left;
+        padding : 0 9px 0 12px;
+        border-radius: 8px;
+    }      
 `;
 
 const ImageBox = styled.div`
@@ -62,6 +72,12 @@ const YearList = styled.div`
     align-items: center;
     flex-wrap: wrap; 
     z-index : 11;
+    ${max[1]}{
+        width: 280px;
+        height : 100px;
+        margin-top : 26px;   
+        padding : 8.74px 46px; 8.74px 46px;        
+    }       
 `;
 
 const YearButton = styled.button`
@@ -77,7 +93,20 @@ const YearButton = styled.button`
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
-    line-height: 26px;     
+    line-height: 26px;   
+    ${max[1]}{
+        width: 71px;
+        height : 17.87px;   
+        font-size: 8px;
+        line-height: 8px;          
+    }        
+`;
+
+const MarginDiv = styled.div`
+    margin-bottom : 40px;
+    ${max[1]}{
+        margin-bottom : 16px;            
+    }     
 `;
 
     return(
@@ -106,7 +135,7 @@ const YearButton = styled.button`
             </CloseBox>
             </InputJob>
         }
-        <div style = {{marginBottom : '40px'}}/>
+        <MarginDiv/>
         </>
     )
 

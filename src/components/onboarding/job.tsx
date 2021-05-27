@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Colors } from "components/ui";
+import { max, Colors } from "components/ui";
 import React, { useState } from "react";
 
 export function JobInput(props : any){
@@ -11,7 +11,7 @@ export function JobInput(props : any){
         setJobText(jobLists[i]);
         props.setJob(jobLists[i]);
     }
-    const InputJob = styled.button`
+const InputJob = styled.button`
     height: 52px;
     width: 480px;
     background: ${Colors.white};     
@@ -29,13 +29,24 @@ export function JobInput(props : any){
     font-weight: normal;
     font-size: 16px;
     line-height: 26px;
+    ${max[1]}{
+        height: 24px;
+        width: 280px;     
+        font-size: 10px;
+        line-height: 22px;
+        letter-spacing: 0px;
+        text-align: left;
+        padding : 0 9px 0 12px;
+        border-radius: 8px;
+    }       
 `;
 
 const ImageBox = styled.div`
     height: 24px;
     width: 24px;
-    border-radius: 0px;
+    border-radius: 0px;  
 `;
+
 
 const CloseBox = styled.div`
     display : flex;
@@ -61,6 +72,12 @@ const JobList = styled.div`
     align-items: center;
     flex-wrap: wrap; 
     z-index : 12;
+    ${max[1]}{
+        width: 280px;
+        height : 100px;
+        margin-top : 26px;   
+        padding : 8.74px 46px; 8.74px 46px;        
+    }    
 `;
 
 const JobButton = styled.button`
@@ -76,7 +93,20 @@ const JobButton = styled.button`
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
-    line-height: 26px;     
+    line-height: 26px;
+    ${max[1]}{
+        width: 71px;
+        height : 17.87px;   
+        font-size: 8px;
+        line-height: 8px;          
+    }            
+`;
+
+const MarginDiv = styled.div`
+    margin-bottom : 40px;
+    ${max[1]}{
+        margin-bottom : 16px;            
+    }     
 `;
 
     return(
@@ -105,7 +135,7 @@ const JobButton = styled.button`
             </CloseBox>
             </InputJob>
         }
-        <div style = {{marginBottom : '40px'}}/>
+        <MarginDiv/>
         </>
     )
 

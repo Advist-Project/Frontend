@@ -101,7 +101,7 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url, dis
     const Button = styled.button`
       cursor : pointer;
       height: 52px;
-      min-width: 160px;
+      min-width: 136px;
       border-radius: 20px;
       border-width : 1px;
       border-color : ${styles[tagType].borderColor};
