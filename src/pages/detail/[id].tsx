@@ -111,12 +111,18 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
   function onClickListenerMobileBuyBtn(){
     if(!optionPanel){
       setOptionPanel(true);
+      document.body.style.overflow = 'hidden';
     }
     else if(selectedOption > 0){
       setButtonText(loader);
       onClickListener(selectedOption);
     }
   }
+  function closeOptionPanel(){
+    setOptionPanel(false);
+    document.body.style.overflow = 'auto';
+  }
+
   return (
     <MobilePadding className={optionPanel ? 'dimmed' : ''}>
     <Layout title={title}>
@@ -149,7 +155,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
       </ProductInfo>
       <MobileFloatingBtn>
         <OptionPanel className={optionPanel ? 'visible' : ''}>
-          <h5 onClick={()=>setOptionPanel(false)}>상품 옵션</h5>
+          <h5 onClick={closeOptionPanel}>상품 옵션</h5>
           <ul>
           {
             options.map((item: any) => (
