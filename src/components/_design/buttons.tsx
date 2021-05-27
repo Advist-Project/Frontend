@@ -143,7 +143,8 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url, dis
     return (
       <Button style={assignCss(style)} disabled={disabled} onClick={()=>{loading(); onClick ? onClick() : null}}>{buttonText}</Button>
     )
-  }
+}
+
 
 export const ToggleBtn = styled.button`
   border-radius: 20px;
@@ -160,3 +161,15 @@ export const ToggleBtn = styled.button`
     color : ${Colors.white};
   }
 `
+
+export const MobilePrimaryBtn = `
+  color: ${Colors.white};
+  background: ${Colors.primary};
+  border-radius: 10px;
+  border-width: 0px;
+  cursor: pointer;
+
+  &:hover, &:active {
+    background: ${Colors.primaryDark};
+  }
+`;

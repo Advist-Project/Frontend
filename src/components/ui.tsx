@@ -2,6 +2,7 @@ import * as _colors from './_design/colors';
 import { Heading as _heading, Text as _text } from './_design/typography';
 import { Button as _button } from './_design/buttons';
 import { ToggleBtn as _toggleBtn } from './_design/buttons';
+import { MobilePrimaryBtn as _mobilePrimaryBtn } from './_design/buttons';
 import { Buying as _buying, SmallCard as _smallcard } from './_design/buying-card';
 import { Box as _box } from './_design/box';
 import { Input as _input } from './_design/textInputs';
@@ -35,16 +36,7 @@ export const max = breakpoints.map(
 
 // Styles
 export const ToggleBtn = _toggleBtn;
-export const MobilePrimaryBtn = `
-  color: ${Colors.white};
-  background: ${Colors.primary};
-  border-radius: 10px;
-  border-width: 0px;
-
-  &:hover, &:active {
-    background: ${Colors.primaryDark};
-  }
-`;
+export const MobilePrimaryBtn = _mobilePrimaryBtn;
 
 // Method
 export const Spacing = _spacing;

@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import Image from 'next/image';
-import { min,max, MobilePrimaryBtn, Tags, Button, Colors, Text, Buying } from "components/ui";
+import { min, max, MobilePrimaryBtn, Tags, Button, Colors, Text, Buying } from "components/ui";
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
 import AnchorTab from 'components/tab';
@@ -11,6 +11,7 @@ import { ContentTemplate, AskContentTemplate } from "components/detail-content-t
 import { useRouter } from 'next/router';
 import { myContext } from "context";
 import { User } from 'types/logintypes';
+import Loader from "react-loader-spinner";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const itemId = context.query.id;
@@ -56,10 +57,10 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
 
   const userObject = useContext(myContext) as User;
 
-  function onClickListener(){
+  function onClickListener(optionId: number){
     // 비로그인 || 로그인 api 받기 전에 클릭할 경우 경고
   //  userObject? routeToOrder(userObject.userId, itemId, 1, options[0].type) : alert('로그인이 필요합니다.\n (로그인 상태라면 버튼을 다시 클릭해주세요.)');
-  userObject? routeToOrder(userObject.userId, itemId, 1, options[0].type) : routeToOrder(1, itemId, 1, options[0].type)
+  userObject? routeToOrder(userObject.userId, itemId, optionId, options[optionId-1].type) : routeToOrder(1, itemId, optionId, options[optionId-1].type)
   }
   
   useEffect(() => {
@@ -103,9 +104,21 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
   }
   
   const [optionPanel, setOptionPanel] = useState<boolean>(false);
+  const [selectedOption, selectOption] = useState<number>(0);
+  const [buttonText, setButtonText] = useState<any>('구매하기');
+  const loader = <Loader type="TailSpin" color={Colors.white} height={20} width={20} timeout={0} radius={3}/>
 
+  function onClickListenerMobileBuyBtn(){
+    if(!optionPanel){
+      setOptionPanel(true);
+    }
+    else if(selectedOption > 0){
+      setButtonText(loader);
+      onClickListener(selectedOption);
+    }
+  }
   return (
-    <MobilePadding>
+    <MobilePadding className={optionPanel ? 'dimmed' : ''}>
     <Layout title={title}>
       <ProductInfo className="wrap">
         <div className="leftArea">
@@ -128,7 +141,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
             </div>
             <div className="rightArea">
               <Price discountPrice={options[0].discountPrice} price={options[0].price} />
-              <a onClick={onClickListener} className="buyBtn"><Button type="start">구매하기</Button></a>
+              <a onClick={()=>onClickListener(0)} className="buyBtn"><Button type="start">구매하기</Button></a>
               {/* 보유중 상태가 필요하겠네요 */}
             </div>
           </FunctionsAndPriceInfo>
@@ -136,13 +149,13 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
       </ProductInfo>
       <MobileFloatingBtn>
         <OptionPanel className={optionPanel ? 'visible' : ''}>
-          <h5>상품 옵션</h5>
+          <h5 onClick={()=>setOptionPanel(false)}>상품 옵션</h5>
           <ul>
           {
             options.map((item: any) => (
-              <Option>
+              <Option key={item.optionId}>
                 <div>
-                  <input type="checkbox" id={`opt${item.optionId}`}/>
+                  <input type="radio" name="option" id={`opt${item.optionId}`} onChange={()=>selectOption(item.optionId)}/>
                   <label htmlFor={`opt${item.optionId}`}>{item.title}</label>
                 </div>
                 <TypeAndPrice>
@@ -160,7 +173,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
         </OptionPanel>
         <div className="btnWrap">
           <LikeBtn state={false} small border />
-          <MobileBuyBtn onClick={()=>setOptionPanel(true)}>구매하기</MobileBuyBtn>
+          <MobileBuyBtn onClick={onClickListenerMobileBuyBtn}>{buttonText}</MobileBuyBtn>
         </div>
       </MobileFloatingBtn>
       <CoachProfile className="wrap">
@@ -215,6 +228,18 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
 const MobilePadding = styled.div`
   ${max[1]}{
     padding-bottom: 72px;
+  }
+
+  &.dimmed::before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 1000vw;
+    height: 1000vh;
+    background: rgba(20, 20, 42, 0.5);
+    z-index: 2;
   }
 `;
 
@@ -324,14 +349,14 @@ const MobileBuyBtn = styled.button`
 const OptionPanel = styled.div`
   display: none;
   width: 100%;
-  max-height: calc(100vh - 56px);
+  height: 322px;
+  max-height: calc(100vh - 122px);
   position: absolute;
   top: 0;
   left: 0;
   transform: translateY(calc(-100% + 1px));
   z-index: -1;
-  overflow: auto;
-  padding: 20px;
+  padding: 0 20px;
 
   background: ${Colors.white};
   border: 1px solid ${Colors.black};
@@ -343,17 +368,44 @@ const OptionPanel = styled.div`
   }
 
   h5 {
+    cursor: pointer;
     text-align: center;
     font-size: 0.875rem;
     font-weight: 500;
+    padding: 20px 0 10px;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    max-height: calc(100% - 37px);
+    overflow: auto;
   }
 `;
 
 const Option = styled.li`
+  input[type=radio] {
+    display: none;
+  }
+  input[type=radio] + label::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url('/icon/checkbox_16p.svg') center/16px 16px no-repeat;
+    vertical-align: middle;
+    margin-right: 8px;
+    margin-bottom: 1px;
+  }
+  input[type=radio]:checked + label::before {
+    background-image: url('/icon/checkbox_filled_16p.svg');
+  }
+
   label {
+    cursor: pointer;
     font-weight: 700;
   }
 
+  margin-bottom: 24px;
   border-bottom: 1px ${Colors.black} solid;
   &:last-of-type { border-bottom: 0; }
 `;
@@ -362,7 +414,10 @@ const TypeAndPrice = styled.div`
   font-size: 0.75rem;
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  align-items: flex-end;
+  margin-top: 20px;
+  margin-left: 40px;
+  padding-bottom: 8px;
 
   img {
     width: 28px;
@@ -373,6 +428,11 @@ const TypeAndPrice = styled.div`
 
 const OptionDesc = styled.p`
   font-size: 0.75rem;
+  border-top: 1px ${Colors.gray3} dashed;
+  margin-left: 40px;
+  padding: 12px 0;
+  word-break: keep-all;
+  line-height: 160%;
 `;
 
 
