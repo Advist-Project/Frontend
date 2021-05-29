@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { min, Heading, Text ,Colors } from "components/ui";
+import { min, max, Heading, Text ,Colors } from "components/ui";
 import React, { useState, useContext } from "react";
 import Image from 'next/image';
 import { myContext } from "context";
@@ -38,9 +38,12 @@ export function MypageList(props : any){
             {Isbought ? ( // 내역 있을 경우
                 (props.activeTab === 'mybuying'? ( // 구매내역
                 <>
-                    <Heading bold level = {2} style={{color : Colors.gray1, marginTop : '99px'}}>
-                        {userObject.username + '님이 '} {<span style={{color : Colors.primary}}>구매하신 내역</span>}{'입니다.'}
-                    </Heading>
+                    <PCHeading>
+                        <Heading bold level = {2} style={{color : Colors.gray1, marginTop : '99px'}}>
+                            {userObject.username + '님이 '} {<span style={{color : Colors.primary}}>구매하신 내역</span>}{'입니다.'}
+                        </Heading>
+                    </PCHeading>
+                    <MobileHeading>{userObject.username + '님이 '} {<span style={{color : Colors.primary}}>구매하신 내역</span>}{'입니다.'}</MobileHeading>
                     <MybuyingList data = {Data}/>
                 </>) : 
                 ( // 찜한 내역
@@ -84,6 +87,29 @@ export function MypageList(props : any){
     )
 }
 export default MypageList;
+
+const PCHeading = styled.div`
+    ${max[1]}{
+        display : none;
+    }
+`;
+
+const MobileHeading = styled.div`
+    width: 280px;
+    height: 24px;
+    margin-top : 40px;
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 24px;
+    text-align: justify;
+    color: ${Colors.black};
+
+    ${min[1]}{
+        display : none;
+    }
+`;
 
 const Message = styled.div`
     display : flex;

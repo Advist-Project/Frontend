@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Colors, min } from "components/ui";
+import { Colors, min, max } from "components/ui";
 
 // Heading
 interface IAnchorTabProps {
@@ -196,6 +196,9 @@ export const MypageTab: React.FC<IMypageTabProps> = ({ create, active, clicktab 
       display: flex;
       justify-content : center;
     }
+    ${max[1]}{
+      height : 44px;
+    }    
   `;
 
   const Tab = styled.li`
@@ -215,7 +218,17 @@ export const MypageTab: React.FC<IMypageTabProps> = ({ create, active, clicktab 
     &.active {
       border-bottom: 8px ${Colors.secondary} solid;
       color : ${Colors.secondary};
+      ${max[1]}{
+        border-bottom: 4px ${Colors.secondary} solid;
+      }        
     }
+    ${max[1]}{
+      height : 44px;
+      font-size: 3vw;
+      line-height: 44px;
+      letter-spacing: 0px;
+      text-align: center;
+    }    
   `;
 
   return (
