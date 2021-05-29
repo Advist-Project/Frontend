@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Colors } from "components/ui";
+import { max, Colors } from "components/ui";
 import { MybuyingTableBody } from 'components/mybuying-table-body';
 
 export function MybuyingList(props: any){
@@ -34,8 +34,14 @@ export function MybuyingList(props: any){
 export default MybuyingList;
 
 const MybuyingTable = styled.table`
-    width: 1300px;
-    margin-top : 80px;
+    max-width: 1300px;
+    min-width : 320px;
+    width: 100%;
+    margin-top : 80px;     
+    ${max[1]}{
+        margin-top : 36px;
+        width : 139%;
+    }       
 `;
 
 const MyBuyingHeader =styled.tr`
@@ -49,4 +55,7 @@ const MyBuyingHeader =styled.tr`
     line-height: 60px;
     text-align: left;
     border: 1px solid ${Colors.primaryDark};
+    ${max[1]}{
+        display : none;
+    }       
 `;
