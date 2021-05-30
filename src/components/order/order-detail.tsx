@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useState, useEffect } from 'react'
-import { Colors } from "components/ui";
+import { max, Colors } from "components/ui";
 import axios, { AxiosResponse } from 'axios';
 
 export function OrderDetail(props : any){ 
@@ -56,6 +56,7 @@ const Container = styled.div`
     width: calc(100% - 40px);
     max-width: 800px;
     max-height : 480px;
+    min-height : 465px;
     height: calc(100vh - 80px);
     left: 50%;
     top: 50%;
@@ -73,7 +74,12 @@ const Container = styled.div`
     width: 1000vw;
     height: 1000vh;
     background: rgba(20, 20, 42, 0.5);
-    z-index: -1;
+    z-index: -1; 
+    }
+    ${max[1]}{
+        width: calc(100% - 20px);
+        transform: translateX(-50%) translateY(-50%);
+        border-radius: 10px;
     }
 `;
 
@@ -82,8 +88,12 @@ const OnContainer = styled.div`
     height: calc(100vh - 80px);
     max-width: 800px;
     max-height : 480px;
+    min-height : 465px;
     background : white;
     border-radius: 20px;
+    ${max[1]}{
+        border-radius: 10px;
+    }
 `;
 
 const OutButton = styled.div`
@@ -94,14 +104,22 @@ const OutButton = styled.div`
     width: 24px;
     height: 24px;
     z-index: 12;
+    ${max[1]}{
+        top: 12px;
+        right: 12px;
+    }       
 `;
-
+// 600px
 const Box = styled.div`
     display : flex;
     flex-direction : column;
-    width: 600px;
+    width: 100%;
     height : 304px;
     padding : 72px 100px 104px 100px;
+    ${max[1]}{
+        border-radius: 10px;
+        padding : 54px 20px 175px 20px;
+    }    
 `;
 
 const BoxHeader = styled.div`
@@ -111,20 +129,35 @@ const BoxHeader = styled.div`
     font-weight: bold;
     font-size: 28px;
     line-height: 34px;
-    color : ${Colors.black};    
+    color : ${Colors.black};   
+    ${max[1]}{
+        height: 20px;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 20px;
+        letter-spacing: 0px;
+        text-align: left;        
+    }       
 `;
-
+// 600px
 const Line = styled.div`
     margin-top : 24px;
-    width: 600px;
+    width: 100%;
     height: 0px;
     border: 1px solid ${Colors.gray3};
+    ${max[1]}{
+        margin-top : 12px;
+    }       
 `;
 
 const PayBox = styled.div`
     display : flex;
     flex-direction : row;
     margin-top : 32px;
+    ${max[1]}{
+        flex-direction : column;
+        margin-top : 12px;
+    }     
 `;
 
 const PayName = styled.div`
@@ -136,25 +169,42 @@ const PayName = styled.div`
     font-size: 20px;
     line-height: 20px; 
     color : ${Colors.black};
+    ${max[1]}{
+        width: 48px;
+        font-size: 12px;
+        letter-spacing: 0px;
+        text-align: left;
+    }     
 `;
 
 const PayInfoBox = styled.div`
     margin-left : 29px;
+    ${max[1]}{
+        margin-left : 0;
+        margin-top : 16px;
+    }       
 `;
 
 const PayInfo = styled.p`
     margin-bottom : 24px;
     width: 280px;
-    left: 809px;
     font-family: Spoqa Han Sans Neo;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
     line-height: 20px; 
     color : ${Colors.gray3};
+    ${max[1]}{
+        font-size: 10px;
+        line-height: 16px;
+        width: 240px;
+    }      
 `;
 
 const InfoStyle = styled.span`
     margin-left : 29px;
     color : ${Colors.gray2};
+    ${max[1]}{
+        margin-left : 12px;
+    }   
 `;

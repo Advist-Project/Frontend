@@ -35,12 +35,12 @@ export default MybuyingList;
 
 const MybuyingTable = styled.table`
     max-width: 1300px;
-    min-width : 320px;
+    min-width : 280px;
     width: 100%;
     margin-top : 80px;     
     ${max[1]}{
         margin-top : 36px;
-        width : 139%;
+        width : 100%;
     }       
 `;
 
