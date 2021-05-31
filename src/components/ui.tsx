@@ -2,7 +2,7 @@ import * as _colors from './_design/colors';
 import { Heading as _heading, Text as _text } from './_design/typography';
 import { Button as _button } from './_design/buttons';
 import { ToggleBtn as _toggleBtn } from './_design/buttons';
-import { MobilePrimaryBtn as _mobilePrimaryBtn } from './_design/buttons';
+import { btnCss as _btnCss } from './_design/button-css';
 import { Buying as _buying, SmallCard as _smallcard } from './_design/buying-card';
 import { Box as _box } from './_design/box';
 import { Input as _input } from './_design/textInputs';
@@ -36,7 +36,7 @@ export const max = breakpoints.map(
 
 // Styles
 export const ToggleBtn = _toggleBtn;
-export const MobilePrimaryBtn = _mobilePrimaryBtn;
+export const BtnCss = _btnCss;
 
 // Method
 export const Spacing = _spacing;

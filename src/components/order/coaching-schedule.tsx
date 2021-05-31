@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { Colors } from "components/ui";
+import { min, Colors } from "components/ui";
 import { Hr, Headline, Title, Desc } from "./common-styles";
 
 function copyObj(obj:any) {
@@ -303,7 +303,7 @@ export default function ScheduleSection({scheduleList, setScheduleList}: any){
   }
 
   return (
-    <section>
+    <Section>
       <Headline>
         <Title>코칭 신청</Title>
         <Desc>2주 내에 코칭받을 수 있는 일정을 모두 선택해주세요. 요일 선택 뒤, 시간 선택이 가능합니다.</Desc>
@@ -394,22 +394,39 @@ export default function ScheduleSection({scheduleList, setScheduleList}: any){
         }
         </ul>
       </SelectedTimes>
-    </section>
+    </Section>
   )
 }
 
+const Section = styled.section``;
+
 const Btns = styled.ul`
-    display: flex;
-    margin-top: 36px;
-    margin-bottom: 16px;
+    width: calc(100% + 40px);
+    overflow: auto;
+    margin: 12px -20px 0;
+    padding: 16px 20px;
+    white-space: nowrap;
     
     li {
-      flex-grow: 1;
-      flex-basis: 0px;
-      margin-right: 9px;
+      display: inline-block;
+      min-width: 48px;
+      margin-right: 4px;
   
       &:last-of-type {
         margin-right: 0;
+      }
+    }
+
+    ${min[1]} {
+      display: flex;
+      width: 100%;
+      margin: 36px 0 16px;
+      padding: 0;
+
+      li {
+        flex-grow: 1;
+        flex-basis: 0px;
+        margin-right: 9px;
       }
     }
   `;
@@ -419,48 +436,55 @@ const Btns = styled.ul`
     background: ${Colors.white};
     cursor: pointer;
     width: 100%;
-    padding: 3px 4px;
+    font-size: 0.75rem;
+    line-height: 16px;
+    padding: 4px 10px 3px;
     border-radius: 8px;
-    font-size: 14px;
-    line-height: 24px;
     color: ${Colors.gray3};
 
     &.on {
       border-color: ${Colors.primary};
       color: ${Colors.primary};
     }
+
+    ${min[1]} {
+      padding: 0;
+      font-size: 14px;
+      line-height: 24px;
+    }
   `;
 
   const Times = styled.ul`
     visibility: hidden;
-    border: 1px ${Colors.primary} solid;
-    border-radius: 8px;
-    padding: 4px 20px;
-    margin-bottom: 36px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
 
     &.visible {
       visibility: visible;
     }
 
     li {
-      padding: 16px 0;
+      flex-basis: 50%;
+      padding: 12px 0;
     }
 
     input[type=checkbox]{
       display: none;
     }
     label {
-      font-size: 16px;
+      font-size: 0.75rem;
+      line-height: 160%;
       cursor: pointer;
     }
     input[type=checkbox] + label::before {
       content: '';
       display: inline-block;
-      width: 24px;
-      height: 24px;
+      width: 14px;
+      height: 14px;
       vertical-align: middle;
-      margin-right: 15px;
-      border-radius: 4px;
+      margin-right: 12px;
+      border-radius: 2px;
       border: 1px solid ${Colors.gray3};
     }
     input[type=checkbox] + label:hover::before {
@@ -468,37 +492,83 @@ const Btns = styled.ul`
     }
     input[type=checkbox]:checked + label::before {
       border-color: ${Colors.primary};
-      background: url('/icon/done_24px.svg') center/17px 13px no-repeat;
+      background: url('/icon/done_24px.svg') center/10px 10px no-repeat;
       background-color: ${Colors.primary};
+    }
+
+    ${min[1]}{
+      display: block;
+      border: 1px ${Colors.primary} solid;
+      border-radius: 8px;
+      padding: 4px 20px;
+      margin-bottom: 36px;
+
+      li {
+        flex-basis: 100%;
+        padding: 16px 0;
+      }
+
+      label {
+        font-size: 16px;
+      }
+      input[type=checkbox] + label::before {
+        width: 24px;
+        height: 24px;
+        margin-right: 15px;
+        border-radius: 4px;
+      }
+      input[type=checkbox]:checked + label::before {
+        background-size: 17px 13px;
+      }
     }
   `;
 
 
   const SelectedTimes = styled.div`
-    margin-top: 24px;
+    margin-top: 20px;
 
     ul {
-      margin: 22px -6px 18px;
+      margin: 12px -6px 18px;
+    }
+    
+    ${min[1]}{
+      margin-top: 24px;
+
+      ul {
+        margin: 22px -6px 18px;
+      }
     }
   `;
 
   const TimeTag = styled.li`
     display: inline-block;
     list-style: none;
-    padding: 3px 8px;
-    margin: 6px;
+    padding: 1px 8px;
+    margin: 4px;
     border: 1px solid ${Colors.primarySemiLight};
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 11px;
     line-height: 24px;
+
+    ${min[1]}{
+      padding: 3px 8px;
+      font-size: 14px;
+      margin: 6px;
+    }
   `;
 
   const DelBtn = styled.button`
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     border: 0;
-    background: url('/icon/close_24px.svg') center/24px 24px no-repeat;
+    background: url('/icon/close_24px.svg') center/20px 20px no-repeat;
     vertical-align: middle;
     cursor: pointer;
     margin-left: 4px;
+
+    ${min[1]}{
+      width: 20px;
+      height: 20px;
+      background-size: 24px 24px;
+    }
   `;

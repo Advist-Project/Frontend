@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Colors } from "components/ui";
+import { min, Colors } from "components/ui";
 import { Headline, Title, Desc } from "./common-styles";
 import { InputPhone } from "components/input-phone";
 import { InputName } from "components/input-name";
@@ -41,12 +41,12 @@ export default function OrdererSection(props: any){
 
 const Textarea = styled.textarea`
   width: 100%;
-  height: 183px;
-  padding: 20px;
+  min-height: 110px;
+  padding: 12px;
   border: 1px ${Colors.gray3} solid;
-  border-radius: 20px;
-  font-size: 14px;
-  line-height: 24px;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 160%;
   resize: none;
   margin-top: 20px;
 
@@ -58,32 +58,45 @@ const Textarea = styled.textarea`
     border-color: ${Colors.primary};
     outline: none;
   }
+
+  ${min[1]} {
+    min-height: 183px;
+    font-size: 14px;
+    border-radius: 20px;
+    padding: 20px;
+  }
 `;
 
 const Characters = styled.p`
-  margin-top: 12px;
-  margin-bottom: 52px;
+  margin-top: 4px;
+  margin-bottom: 32px;
   text-align: right;
   font-weight: 500;
-  font-size: 14px;
-  line-height: 24px;
+  font-size: 12px;
+  line-height: 160%;
+
+  ${min[1]}{
+    margin-top: 12px;
+    margin-bottom: 52px;
+    font-size: 14px;
+  }
 `;
 
 const UserInfo = styled.div`
-  padding: 36px 0 26px;
+  padding: 28px 0 0;
   overflow:hidden;
 
   label {
     display: block;
-    font-size: 16px;
-    margin-bottom: 16px;
+    font-size: 12px;
+    margin-bottom: 12px;
   }
   input {
     width: 100%;
-    height: 52px;
-    font-size: 16px;
-    padding: 12px 24px;
-    border-radius: 20px;
+    height: 24px;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 8px;
     border: 1px solid ${Colors.gray3};
     margin-bottom: 32px;
 
@@ -97,11 +110,30 @@ const UserInfo = styled.div`
   }
 
   input + p {
+    font-size: 12px;
     margin-top: -24px;
     margin-bottom: 2px;
   }
   div:last-of-type > div input + p {
     margin-top: 8px;
     margin-bottom: 0;
+  }
+
+  ${min[1]}{
+    padding: 36px 0 26px;
+
+    label {
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+    input {
+      height: 52px;
+      font-size: 16px;
+      padding: 12px 24px;
+      border-radius: 20px;
+    }
+    input + p {
+      font-size: 16px;
+    }
   }
 `;

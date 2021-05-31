@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import Image from 'next/image';
-import { min, max, MobilePrimaryBtn, Tags, Button, Colors, Text, Buying } from "components/ui";
+import { min, max, BtnCss, Tags, Button, Colors, Text, Buying } from "components/ui";
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
 import AnchorTab from 'components/tab';
@@ -348,7 +348,7 @@ const MobileFloatingBtn = styled.div`
 `;
 
 const MobileBuyBtn = styled.button`
-  ${MobilePrimaryBtn}
+  ${BtnCss.PrimaryMo}
 
   flex-grow: 1;
   height: 36px;

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Colors } from "components/ui";
+import { min, Colors } from "components/ui";
 
 export const Hr = styled.hr`
 border: 0px;
@@ -8,21 +8,33 @@ margin: 0;
 `;
 
 export const Headline = styled.div`
-display: flex;
-align-items: baseline;
+  ${min[1]}{
+    display: flex;
+    align-items: baseline;
+  }
 `;
 export const Title = styled.h2`
-font-weight: 700;
-line-height: 32px;
-font-size: 20px;
-word-break: keep-all;
-white-space: nowrap;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 167%;
+  word-break: keep-all;
+  white-space: nowrap;
+
+  ${min[1]}{
+    font-size: 20px;
+  }
 `
 export const Desc = styled.p`
-line-height: 26px;
-font-size: 16px;
-word-break: keep-all;
-margin-left: 20px;
+  font-size: 0.75rem;
+  line-height: 160%;
+  word-break: keep-all;
+  margin-top: 4px;
+
+  ${min[1]}{
+    font-size: 16px;
+    margin-top: 0;
+    margin-left: 20px;
+  }
 `;
 
 

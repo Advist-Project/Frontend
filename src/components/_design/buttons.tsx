@@ -161,16 +161,4 @@ export const ToggleBtn = styled.button`
     background-color: ${Colors.primary};
     color : ${Colors.white};
   }
-`
-
-export const MobilePrimaryBtn = `
-  color: ${Colors.white};
-  background: ${Colors.primary};
-  border-radius: 10px;
-  border-width: 0px;
-  cursor: pointer;
-
-  &:hover, &:active {
-    background: ${Colors.primaryDark};
-  }
 `;

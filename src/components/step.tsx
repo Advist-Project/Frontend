@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Colors } from "./_design/colors";
+import { Colors, min } from "components/ui";
 
 // Heading
 interface IStepProps {
@@ -15,7 +15,7 @@ export const Step: React.FC<IStepProps> = ({ active, labels }) => {
   `;
   const Li = styled.li`
     position: relative;
-    font-size: 14px;
+    font-size: 0.75rem;
     line-height: 171%;
     padding-bottom: 18px;
     color: ${Colors.gray3};
@@ -23,13 +23,13 @@ export const Step: React.FC<IStepProps> = ({ active, labels }) => {
     &::after {
       content: '';
       display: block;
-      width: 12px;
-      height: 12px;
+      width: 8px;
+      height: 8px;
       border: 1px #fff solid;
       border-radius: 50%;
       background: ${Colors.gray3};
       position: absolute;
-      bottom: -8px;
+      bottom: -6px;
       left: 50%;
       transform: translateX(-50%);
     }
@@ -38,10 +38,25 @@ export const Step: React.FC<IStepProps> = ({ active, labels }) => {
       color: ${Colors.primary};
 
       &::after {
-        width: 16px;
-        height: 16px;
         background: ${Colors.primary};
-        bottom: -10px;
+      }
+    }
+
+    ${min[1]} {
+      font-size: 14px;
+
+      &::after {
+        width: 12px;
+        height: 12px;
+        bottom: -8px;
+      }
+
+      &:nth-of-type(${active}) {
+        &::after {
+          width: 16px;
+          height: 16px;
+          bottom: -10px;
+        }
       }
     }
 

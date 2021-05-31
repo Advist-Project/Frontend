@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from "@emotion/styled";
 import { Layout } from "components/layout";
-import { Button, ToggleBtn, Colors } from "components/ui";
+import { min, max, Button, ToggleBtn, Colors } from "components/ui";
 import { bootpay } from "components/bootpay";
 import { withRouter } from 'next/router';
 import { useRouter } from 'next/router';
@@ -37,6 +37,7 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
     if(!error){
       router.push('/404');
     }
+    document.body.style.overflow = 'auto';
   },[]);
 
   // 주문서 추가 정보(입력폼 정보)
@@ -108,7 +109,7 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
               </Container>
               <Buttons>
                 <Button type="secondary" onClick={()=>window.history.back()}>이전</Button>
-                <Button type="start" disabled={schedule ? false : 'disabled'} onClick={postCoachingDate}>다음</Button>
+                <Button type="start" disabled={schedule.length > 0 ? false : true} onClick={postCoachingDate}>다음</Button>
               </Buttons>
             </>
           ) : null
@@ -161,19 +162,32 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
 export default withRouter(OrderCoaching);
 
 const Wrap = styled.div`
-  padding: 0 40px;
-  margin: 0 auto;
   width: 100%;
-  max-width: 916px;
+  margin-top: 20px;
+  padding: 0 20px;
+
+  ${min[1]} {
+    padding: 0 40px;
+    margin: 0 auto;
+    max-width: 916px;
+  }
 `;
 
 const Container = styled.div`
+  width: calc(100% + 40px);
   background: ${Colors.white};
-  width: 100%;
-  margin-top: 24px;
-  padding: 24px 36px 12px;
-  border-radius: 20px;
-  box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.06);
+  border-top: 4px #EFF0F6 solid;
+  padding: 20px 20px 0;
+  margin: 24px -20px 0;
+
+  ${min[1]} {
+    width: 100%;
+    margin: 24px 0 0;
+    padding: 24px 36px 12px;
+    border-top: 0;
+    border-radius: 20px;
+    box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.06);
+  }
 `;
 
 const Headline = styled.div`
@@ -202,12 +216,23 @@ const Hr = styled.hr`
 
 const Buttons = styled.div`
   display: flex;
-  margin: 60px -6px 86px;
+  margin: 40px -4px 40px;
+
+  ${min[1]}{
+    margin: 60px -6px 86px;
+  }
 
   button {
     flex-basis: 50%;
     flex-grow: 1;
     margin: 0 6px;
+
+    ${max[1]}{
+      font-size: 12px;
+      border-radius: 10px;
+      height: 28px;
+      margin: 0 4px;
+    }
   }
 `;
 
