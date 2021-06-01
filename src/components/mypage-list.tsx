@@ -13,7 +13,7 @@ export function MypageList(props : any){
     const [Isbought, setIsbought] = useState<boolean>(false);
     const [Data, setData] = useState<Object>();
     const [RunOnce, setRunOnce] = useState<boolean>(true);
- 
+    
         if(userObject !== undefined && RunOnce){
             axios.get(process.env.NEXT_PUBLIC_API_URL as string + `/mypage/payment/${userObject.userId}`, { withCredentials: true }).then((res: AxiosResponse) => {
             if (res.data){
@@ -58,14 +58,20 @@ export function MypageList(props : any){
                     </ProductListWrap>                    
                 </>))
             ) : ( // 내역 없을 경우
-            <>
-                <Message>
-                <Heading bold level = {2} style={{color : Colors.gray1}}>
+            <MobileBox>
+            <PCMessage>
+                <Heading bold level = {2} style={{color : Colors.black}}>
                     {userObject.username + '님의'} {<span style={{color : Colors.primary}}>{props.activeTab === 'mybuying'? '구매 내역' : '찜한 내역'}</span>}{'이 없어요 :('}
                 </Heading>
                 <Text size='20px'>입력하신 정보에 따라 적합한 워크북과 코칭 프로그램을 추천해드려요.</Text>
-            </Message>
-            <ImageContent>
+            </PCMessage>
+            <MobileMessage>
+                <MobileHeading>
+                    {userObject.username + '님의'} {<span style={{color : Colors.primary}}>{props.activeTab === 'mybuying'? '구매 내역' : '찜한 내역'}</span>}{'이 없어요 :('}
+                </MobileHeading>
+                <MobileText>입력하신 정보에 따라 적합한 워크북과 코칭 프로그램을<br/>추천해드려요.</MobileText>            
+            </MobileMessage>
+            <PCImages>
                 <Image
                     src="/mainGraphic_section1_human.png"
                     alt=""
@@ -73,8 +79,17 @@ export function MypageList(props : any){
                     height={231.56}
                     priority
                 />
-            </ImageContent>            
-            </>)}
+            </PCImages>       
+            <MobileImages>
+                <Image
+                    src="/mainGraphic_section1_human.png"
+                    alt=""
+                    width={149}
+                    height={99}
+                    priority
+                />                    
+            </MobileImages>                 
+            </MobileBox>)}
         </div>
         </>
         ) :
@@ -88,14 +103,55 @@ export function MypageList(props : any){
 }
 export default MypageList;
 
+const MobileBox = styled.div`
+    ${max[1]}{
+        display : flex;
+        flex-direction : column;
+        align-items : center;
+    }
+`;
+
 const PCHeading = styled.div`
     ${max[1]}{
         display : none;
     }
 `;
 
+const PCMessage = styled.div`
+    display : flex;
+    flex-direction : column;
+    justify-content : space-between;
+    width: 675px;
+    height: 106px;
+    margin-top : 99px;
+    ${max[1]}{
+        display : none;
+    }    
+`;
+
+const MobileMessage = styled.div`
+
+`;
+
+const MobileText = styled.div`
+    margin-top : 19px;
+    width : 100%;
+    min-width : 233px;
+    font-family: Spoqa Han Sans Neo;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0px;
+    text-align: left;
+    ${min[1]}{
+        display : none;
+    }       
+`;
+
 const MobileHeading = styled.div`
-    width: 280px;
+    min-width: 280px;
+    width : 100%;
     height: 24px;
     margin-top : 40px;
     font-family: Spoqa Han Sans Neo;
@@ -111,21 +167,20 @@ const MobileHeading = styled.div`
     }
 `;
 
-const Message = styled.div`
-    display : flex;
-    flex-direction : column;
-    justify-content : space-between;
-
-
-    width: 675px;
-    height: 106px;
-    margin-top : 99px;
+const PCImages = styled.div`
+    margin-left : 63.5%;
+    margin-top : 15%;
+    ${max[1]}{
+        display : none;
+    } 
 `;
 
-const ImageContent = styled.div`
-    margin-left : 827px;
-    margin-top : 195.18px;
-
+const MobileImages = styled.div`
+    margin-top : 228px;
+    margin-left : 65px;
+    ${min[1]}{
+        display : none;
+    }
 `;
 
 const EraseAll = styled.div`
