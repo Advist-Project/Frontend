@@ -210,6 +210,8 @@ const Button = styled.button`
         width : 136px;
         height : 20px;
         font-size: 10px;   
+        border-width : 1px;
+        border-radius: 4px;
     }
 `;
 
@@ -229,7 +231,8 @@ const Template = styled.tr`
     height : 128px;
     border-bottom: 1px solid ${Colors.gray3};
     ${max[1]}{
-        width : 100%;
+        min-width : 280px;
+        width: calc( 100vw - 10% );
         min-height : 138px;
         height : auto;
         display : flex;

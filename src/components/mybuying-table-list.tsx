@@ -35,10 +35,10 @@ export default MybuyingList;
 
 const MybuyingTable = styled.table`
     max-width: 1300px;
-    min-width : 280px;
     width: 100%;
     margin-top : 80px;     
     ${max[1]}{
+        min-width : 280px;
         margin-top : 36px;
         width : 100%;
     }       
