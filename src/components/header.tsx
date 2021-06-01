@@ -25,7 +25,7 @@ export const Header = () => {
         <a href="/"><img src="/logo.png" height="44" /></a>
         <RightElements>
           <a href="/all">워크북</a>
-          {userObject ? <LogoutButtons/> : <Button url="/login" type="login">로그인</Button>}
+          {userObject ? <LogoutButtons/> : <Button onClick = {() =>  window.location.href = "/login"} type="login">로그인</Button>}
           {/*<Button url={userObject? undefined : "/login"} type="login">{userObject? "로그아웃" : "로그인"}</Button> */}
         </RightElements>
       </Desktop>
