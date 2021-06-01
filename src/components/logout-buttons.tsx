@@ -42,6 +42,7 @@ export function LogoutButtons(){
 `;
 
 const ImageBox = styled.div`
+  margin-left : 10px;
   height: 24px;
   width: 24px;
   border-radius: 0px;
@@ -60,20 +61,19 @@ const OpenBox = styled.div`
       {userObject? // 로그인 상태
         isOpen? // open 상태
         <div style={{ width : '160px', height : '156px', display : 'flex', flexDirection : 'column', justifyContent : 'space-around' }}>
-          <div style={{height : '52px', marginLeft : '38px', display : 'flex', flexDirection : 'row' , cursor : 'pointer'}} onClick = {() => setIsOpen(!isOpen)}>
-            <div style={{width : '84px', height : '24px'}}>
-              <Text size = '16px' bold>{<span style={{lineHeight : '52px',color : Colors.primary}}>{userObject.username}</span>} 님</Text>
-            </div>
+          <div style={{height : '52px', marginLeft : '28px', display : 'flex', flexDirection : 'row' , cursor : 'pointer'}} onClick = {() => setIsOpen(!isOpen)}>
+
+            <div style={{marginTop : '14px', width : '70px', height : '24px', lineHeight : '26px', color : Colors.primary, overflow : 'hidden', textOverflow: 'ellipsis', whiteSpace : 'nowrap'}}>{userObject.username}</div>
+            <div style={{marginTop : '14px'}}><Text size = '16px' bold>님</Text></div>
             <ImageBox style = {{alignSelf : 'center'}}><img src="/close.png"/></ImageBox>
           </div>
           <OpenBox onClick = {() => window.location.href = "/mypage"}>마이페이지</OpenBox>
           <OpenBox onClick = {logoutListener}>로그아웃</OpenBox>
         </div> 
         :
-        <div style={{ marginLeft : '38px', display : 'flex', flexDirection : 'row' , cursor : 'pointer'}} onClick = {() => setIsOpen(!isOpen)}>
-          <div style={{width : '84px', height : '24px'}}>
-            <Text size = '16px' bold>{<span style={{color : Colors.primary}}>{userObject.username}</span>} 님</Text>
-          </div>
+        <div style={{ marginLeft : '28px', display : 'flex', flexDirection : 'row' , cursor : 'pointer'}} onClick = {() => setIsOpen(!isOpen)}>
+          <div style={{width : '70px', height : '24px', lineHeight : '26px', color : Colors.primary, overflow : 'hidden', textOverflow: 'ellipsis', whiteSpace : 'nowrap'}}>{userObject.username}</div>
+          <Text size = '16px' bold>님</Text>
           <ImageBox><img src="/open.png"/></ImageBox>
         </div>
       : ''}
