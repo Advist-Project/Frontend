@@ -135,6 +135,10 @@ export const AgreeTab: React.FC<IAgreeTabProps> = ({ create, active, clicktab })
       display: flex;
       justify-content : center;
     }
+    ${max[1]}{
+      padding-top: 40px;
+      height : 149px;
+    } 
   `;
 
   const Tab = styled.li`
@@ -155,6 +159,9 @@ export const AgreeTab: React.FC<IAgreeTabProps> = ({ create, active, clicktab })
       border-bottom: 8px ${Colors.secondary} solid;
       color : ${Colors.secondary};
     }
+    ${max[1]}{
+      font-size: 3vw;
+    }      
   `;
 
   return (

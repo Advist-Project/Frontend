@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { Colors } from "components/ui";
+import { max, Colors } from "components/ui";
 import { AgreeTab } from 'components/tab';
 import { TermsText, UserinfoText, RefundText } from "components/agreeText"
 
@@ -71,10 +71,14 @@ const OutButton = styled.div`
   width: 24px;
   height: 24px;
   z-index: 12;
+  ${max[1]}{
+    top : 16px;   
+    right: 16px;
+  }
 `;
 const DetailInfo = styled.div`
   background-color: ${Colors.gray6};
-  padding : 9px 120px 209px 120px;
+  padding : 9px 9% 209px 9%;
   border-radius: 0px 0px 20px 20px;
   overflow: auto;
   height: calc(100% - 209px);
@@ -85,7 +89,14 @@ const DetailInfo = styled.div`
     height: 139px;
     background-color: ${Colors.gray2};
     border-radius: 6px;
-  }
+    ${max[1]}{
+      height: 69px;
+    } 
+  } 
+  ${max[1]}{
+    height: calc(100% - 149px);
+    padding-bottom : 100px;
+  }    
 `;
 const DetailInfoContainer = styled.div`
   margin-top : 72px;
@@ -99,6 +110,9 @@ const DetailInfoContainer = styled.div`
     font-weight: bold;
     margin-bottom: 30px;
     width : 100%;
+    ${max[1]}{
+      font-size: 3vw;
+    }      
   }
   h3 {
     font-size: 20px;
@@ -106,6 +120,9 @@ const DetailInfoContainer = styled.div`
     word-break: keep-all;
     width : 31.5%;
     line-height: 162%;
+    ${max[1]}{
+      font-size: 3vw;
+    }      
   }
   p {
     margin-bottom: 1.2em;
@@ -114,6 +131,9 @@ const DetailInfoContainer = styled.div`
     > ul { margin-top: 16px; }
     > ul > li { margin-left: 16px; margin-bottom: 10px; color: ${Colors.gray1}}
     > ul > li > ul > li { list-style-type: '- '; margin-left: 32px; }
+    ${max[1]}{
+      font-size: 3vw;
+    } 
   }
   th, td {
     border: 1px #000 solid;
@@ -123,5 +143,8 @@ const DetailInfoContainer = styled.div`
     max-width : 720px;
     width : 68.5%;
   }
+  ${max[1]}{
+    margin-top : 22px;
+  }  
 `;
 
