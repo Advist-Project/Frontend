@@ -3,16 +3,24 @@ import styled from "@emotion/styled";
 import Image from 'next/image';
 import { min, max, Colors } from "components/ui";
 import { OrderDetail } from "components/order/order-detail"
+import { ReviewDetail } from "components/review/review-detail"
 
 export function MybuyingTableBody(props : any){
     const Data = props.data.result; // api 데이터 저장
     const Length = props.data.result.length; // 배열 요소 개수
     const [OrderModal, setOrderModal] = useState<boolean>(false);
+    const [ReviewModal, setReviewModal] = useState<boolean>(false);
     const [ClickKey, setClickKey] = useState<number>(0)
-    console.log(Data);
-    function onClickListener(key : number){
+    //console.log(Data);
+    function onDetailListener(key : number){
         setClickKey(key);
         setOrderModal(true);
+        document.body.style.overflow = 'hidden';
+    }
+
+    function onReviewListener(key : number){
+        setClickKey(key);
+        setReviewModal(true);
         document.body.style.overflow = 'hidden';
     }
     return(
@@ -71,8 +79,8 @@ export function MybuyingTableBody(props : any){
                         </PCStatusBox>
                         <td style={{verticalAlign : 'middle'}}>
                             <ButtonBox>
-                                {Data[num].status === "결제 완료"? (<Button>후기 작성</Button>) : (<></>)}
-                                <Button onClick = {() => onClickListener(num)}>주문 상세보기</Button>
+                                {Data[num].status === "결제 완료"? (<Button onClick = {() => onReviewListener(num)}>후기 작성</Button>) : (<></>)}
+                                <Button onClick = {() => onDetailListener(num)}>주문 상세보기</Button>
                             </ButtonBox>
                         </td>
                     </Template>
@@ -81,6 +89,9 @@ export function MybuyingTableBody(props : any){
                 {                
                     OrderModal ? <OrderDetail orderId = {Data[ClickKey].orderId} setOrderDetail={setOrderModal}/> : null
                 }
+                {                
+                    ReviewModal ? <ReviewDetail orderId = {Data[ClickKey].orderId} setReviewDetail={setReviewModal}/> : null
+                }                
                 </>   
         }    
         </>
@@ -212,19 +223,19 @@ const Button = styled.button`
         font-size: 10px;   
         border-width : 1px;
         border-radius: 4px;
-    }
+    } 
 `;
 
 const ButtonBox = styled.div`
     height : 80px;
     display : flex;
     flex-direction : column;
-    justify-content : space-between;
+    justify-content : space-between;    
     ${max[1]}{
         height : 20px;
         margin-top : 11px;        
         flex-direction : row;
-    }       
+    }
 `;
 
 const Template = styled.tr`
