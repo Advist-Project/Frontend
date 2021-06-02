@@ -71,7 +71,7 @@ export function MybuyingTableBody(props : any){
                         </PCStatusBox>
                         <td style={{verticalAlign : 'middle'}}>
                             <ButtonBox>
-                                <Button>후기 작성</Button>
+                                {Data[num].status === "결제 완료"? (<Button>후기 작성</Button>) : (<></>)}
                                 <Button onClick = {() => onClickListener(num)}>주문 상세보기</Button>
                             </ButtonBox>
                         </td>
