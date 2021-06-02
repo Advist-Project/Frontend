@@ -8,14 +8,33 @@ import axios from 'axios';
 
 export default function LoginPage(){
     const [AgreeModal, setAgreeModal] = useState<boolean>(false);
-
+    let referrer : string = "";
     useEffect(() => {
-        axios.get(process.env.NEXT_PUBLIC_API_URL as string +`/user/login`, { withCredentials: true })
+        referrer = document.referrer; // 이전 경로 저장
+        //console.log(referrer);
     }, [])
 
+    function sendReferrer(){
+        // 이전 페이지 url post로 전송
+            if(referrer !== ""){
+                axios.post(process.env.NEXT_PUBLIC_API_URL as string +`/user/login`, {
+                    backUrl: referrer
+                })
+                .then(function () {
+                    // response  
+                    //console.log(res.data);
+                }).catch(function (err : any) {
+                    // 오류발생시 실행
+                    console.log(err);
+                }).then(function() {
+                    // 항상 실행
+                });
+            }
+    }
+
     function onClickListener(){
-      setAgreeModal(true);
-      document.body.style.overflow = 'hidden';
+        setAgreeModal(true);
+        document.body.style.overflow = 'hidden';
     }
 
     return(
@@ -50,17 +69,17 @@ export default function LoginPage(){
                         <Heading level={5} bold>지금 가입하시면 5만원 상당의 자료를 무료로 드려요</Heading>
                     </HeadingBox>
                     <MarginBox/>
-                    <LoginButton onClick = {() => location.href = process.env.NEXT_PUBLIC_LOGIN_NAVER as string} style={{marginTop : '13px'}}>
+                    <LoginButton onClick = {() => {location.href = process.env.NEXT_PUBLIC_LOGIN_NAVER as string; sendReferrer;}} style={{marginTop : '13px'}}>
                         <ImageBox><img src="/naver.png"/></ImageBox>
                         <MobileImageBox><img style={{width : '16px', height : '16px'}} src="/naver.png"/></MobileImageBox>
                         <ButtonBox>Naver로 시작하기</ButtonBox>                        
                     </LoginButton>
-                    <LoginButton onClick = {() => location.href = process.env.NEXT_PUBLIC_LOGIN_KAKAO as string} style={{marginTop : '13px'}}>
+                    <LoginButton onClick = {() => {location.href = process.env.NEXT_PUBLIC_LOGIN_KAKAO as string; sendReferrer;}} style={{marginTop : '13px'}}>
                         <ImageBox><img src="/kakao.png"/></ImageBox>
                         <MobileImageBox><img style={{width : '16px', height : '16px'}} src="/kakao.png"/></MobileImageBox>
                         <ButtonBox>Kakao로 시작하기</ButtonBox>                        
                     </LoginButton>
-                    <LoginButton onClick = {() => location.href = process.env.NEXT_PUBLIC_LOGIN_GOOGLE as string} style={{marginTop : '13px'}}>
+                    <LoginButton onClick = {() => {location.href = process.env.NEXT_PUBLIC_LOGIN_GOOGLE as string; sendReferrer;}} style={{marginTop : '13px'}}>
                         <ImageBox><img src="/google.png"/></ImageBox>
                         <MobileImageBox><img style={{width : '16px', height : '16px'}} src="/google.png"/></MobileImageBox>
                         <ButtonBox>Google로 시작하기</ButtonBox>                        

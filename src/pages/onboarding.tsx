@@ -24,7 +24,7 @@ export default function OnboardingPage(){
 
     function onClickListener(){
         // 온보딩 정보 post로 전송
-        axios.post(process.env.NEXT_PUBLIC_API_URL as string +`/userinfo/onboarding`, {
+        axios.post(process.env.NEXT_PUBLIC_API_URL as string +`/user/onboarding`, {
             userId: userObject.userId,
             company: CompanyName,
             jobDepartment: Job,

@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 interface IButtonProps{ // type = "login" => 로그인, type = "start" => 시작하기
     type?: string;
     style?: object[] | object;
-    url?: string; // 로그아웃 상태일 경우 "/login"
+    url?: string;
     disabled?: any;
     onClick?: any;
 }
@@ -31,7 +31,7 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url, dis
       if(url !== undefined) router.push(url);
     }
 
-    const tagType:string = type ? type : 'login'; //기본 타입 start
+    const tagType:string = type ? type : 'start'; //기본 타입 start
     const styles:{[key: string]: any} = {
       'login': {
         weight : '500',
