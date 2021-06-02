@@ -38,7 +38,6 @@ export default function OnboardingPage(){
             console.log(err);
         }).then(function() {
             // 항상 실행
-            router.push('/');
         });        
     }
     return(
