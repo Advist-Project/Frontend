@@ -21,19 +21,18 @@ export const Header = (props: any) => {
   return (
     <Container className={props.white && 'white'}>
       {/* Desktop */}
-      <Desktop className="wrap">
+      <Desktop className="desktop wrap">
         <a href="/"><img src={props.white ? '/logo_white.svg' : '/logo.png'} height="44" /></a>
         <RightElements>
-          <a href="/all">워크북</a>
+          <a href="/all">코칭 프로그램</a>
           {userObject ? <LogoutButtons/> : <Button onClick = {() =>  window.location.href = "/login"} type="login">로그인</Button>}
           {/*<Button url={userObject? undefined : "/login"} type="login">{userObject? "로그아웃" : "로그인"}</Button> */}
         </RightElements>
       </Desktop>
       {/* Mobile */}
-      <Mobile className="wrap">
-        <a href="/"><img src="/logo.png" height="22" /></a>
-        <MobileMenuBtn src={open ? '/icon/close_56px.svg' : '/icon/menu_56px.svg'}
-                      className={open ? 'close' : ''}
+      <Mobile className="mobile wrap">
+        <a href="/"><img src={props.white ? '/logo_white.svg' : '/logo.png'}height="22" /></a>
+        <MobileMenuBtn className={open ? 'close' : props.white ? 'white' : ''}
                       onClick={toggleMenu} />
         <MobileMenu className={open ? 'open' : ''}>
           <a href="/"><img src="/logo.png" height="22" /></a>
@@ -42,7 +41,7 @@ export const Header = (props: any) => {
               {userObject ? "로그아웃" : <a href="/login">로그인</a>}
             </li> */}
             <li>
-              <a href="/all">워크북</a>
+              <a href="/all">코칭 프로그렘</a>
             </li>
           </ul>
         </MobileMenu>
@@ -60,8 +59,8 @@ const Container = styled.header`
     top: 0;
     width: 100%;
 
-    a {
-      color: ${Colors.white} !important;
+    .desktop a {
+      color: ${Colors.white};
     }
   }
 `;
@@ -83,7 +82,6 @@ const RightElements = styled.div`
 
   a {
     display: inline-block;
-    width: 70px;
     text-align: center;
     margin-right: 68px;
   
@@ -104,13 +102,22 @@ const Mobile = styled.div`
   }
 `;
 
-const MobileMenuBtn = styled.img`
+const MobileMenuBtn = styled.button`
   width: 56px;
   height: 56px;
+  background: url(/icon/menu_56px.svg) center/56px 56px no-repeat;
+  border: 0px;
   cursor: pointer;
   margin-right: -20px;
+  -webkit-transition: background-image 0.3s, -webkit-transform 0.3s;
+  transition: background-image 0.3s, transform 0.3s;
+
+  &.white {
+    background-image: url(/icon/menu_white_56px.svg);
+  }
 
   &.close {
+    background-image: url(/icon/close_56px.svg);
     position: relative;
     z-index: 3;
   }

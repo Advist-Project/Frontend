@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
-import { min, max, Heading, Text, Colors, Box } from "components/ui";
+import { min, max, Colors } from "components/ui";
 import Image from 'next/image';
 import { ProductList } from "components/product-card-list";
 import axios, { AxiosResponse } from 'axios';
@@ -47,17 +47,7 @@ export default function Home() {
       </Section2>
       {/* 3번 콘텐츠 */}
       <Section3>
-        <Heading level={2} bold><Highlight2 style={{marginRight: '0.3em'}}>How</Highlight2>를 알려면</Heading>
-        <Text size="20px" bold style={{marginTop: '26px'}}>실제 업무에 활용했던 구체적인 자료와 시행착오 경험, 노하우가 필요합니다.</Text>
-        <ImagesArea>
-          <Box width="400px" height="400px" shadow={2} round style={{margin: '0 16px', fontSize: '20px', lineHeight: '32px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            &lt;실무 템플릿과 작성사례&gt;<br/>샘플 이미지
-          </Box>
-          <Box width="400px" height="400px" shadow={2} round style={{margin: '0 16px', fontSize: '20px', lineHeight: '32px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            &lt;실무 템플릿과 작성사례&gt;<br/>샘플 이미지
-          </Box>
-        </ImagesArea>
-        <Text size="20px">지금 내가 고민하고 있는 일을 성공적으로 해냈던 업계 선배들의 실제 업무 자료를 활용해보세요.</Text>
+      나와 똑같은 고민을 과거에 했던 선배들이 나만의 사수가 됩니다.
       </Section3>
       {/* 4번 콘텐츠 */}
       <Section4 className="wrap">
@@ -113,27 +103,49 @@ export default function Home() {
 const Keyvisual = styled.section`
   width: 100%;
   height: 100vh;
-  min-height: 700px;
+  min-height: 320px;
+  max-height: 568px;
   background: url('/main_bg.png') top center/cover no-repeat;
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   color: ${Colors.white};
   text-align: center;
-  padding: 15% 0 5%;
+  padding: 10vh 0 0;
+
+  ${min[1]} {
+    max-height: 100vh;
+  }
 
   h2 {
     font-weight: 700;
-    font-size: 40px;
+    font-size: 18px;
     line-height: 125%;
     margin-bottom: 40px;
+    
+    ${min[1]}{
+      font-size: 40px;
+    }
   }
   p {
     font-weight: 500;
-    font-size: 20px;
+    font-size: 14px;
     line-height: 150%;
+    word-break: keep-all;
+    padding: 0 20px;
+    max-width: 375px;
+
+    ${min[1]}{
+      font-size: 20px;
+      max-width: 100%;
+    }
+  }
+  img {
+    ${max[1]}{
+      height: 56px;
+    }
   }
 `;
 const Highlight2 = styled.span`
@@ -151,13 +163,6 @@ const Section3 = styled.section`
   color: ${Colors.black};
   text-align: center;
   margin-top: 245px;
-`;
-
-const ImagesArea = styled.div`
-  margin-top: 40px;
-  margin-bottom: 100px;
-  display: flex;
-  justify-content: center;
 `;
 
 // Section4
