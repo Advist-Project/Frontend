@@ -6,9 +6,10 @@ import { Footer } from "components/footer";
 interface ILayoutProps {
   title?: string;
   noFooter?: boolean;
+  whiteHeader?: boolean;
 }
 
-export const Layout: React.FC<ILayoutProps> = ({ children, title, noFooter}) => {
+export const Layout: React.FC<ILayoutProps> = ({ children, title, noFooter, whiteHeader}) => {
   return (
     <>
       <Head>
@@ -20,7 +21,7 @@ export const Layout: React.FC<ILayoutProps> = ({ children, title, noFooter}) => 
         </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <Header />
+      <Header white={whiteHeader}/>
       <>{children}</>
       {
         noFooter?

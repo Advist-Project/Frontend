@@ -5,7 +5,7 @@ import { myContext } from "../context";
 import { User } from '../types/logintypes';
 import { LogoutButtons } from 'components/logout-buttons';
 
-export const Header = () => {
+export const Header = (props: any) => {
   const userObject = useContext(myContext) as User;
   const [open, setOpen] = useState<boolean>(false);
   
@@ -19,10 +19,10 @@ export const Header = () => {
   }
 
   return (
-    <header>
+    <Container className={props.white && 'white'}>
       {/* Desktop */}
       <Desktop className="wrap">
-        <a href="/"><img src="/logo.png" height="44" /></a>
+        <a href="/"><img src={props.white ? '/logo_white.svg' : '/logo.png'} height="44" /></a>
         <RightElements>
           <a href="/all">워크북</a>
           {userObject ? <LogoutButtons/> : <Button onClick = {() =>  window.location.href = "/login"} type="login">로그인</Button>}
@@ -50,9 +50,21 @@ export const Header = () => {
       {
         open? <Dimmed/> : null 
       }
-    </header>
+    </Container>
   )
 }
+
+const Container = styled.header`
+  &.white {
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    a {
+      color: ${Colors.white} !important;
+    }
+  }
+`;
 
 const Desktop = styled.div`
   display: flex;

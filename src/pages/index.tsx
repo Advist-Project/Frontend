@@ -1,17 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
-import { min, max, Heading, Text, Button, Colors, Box } from "components/ui";
+import { min, max, Heading, Text, Colors, Box } from "components/ui";
 import Image from 'next/image';
 import { ProductList } from "components/product-card-list";
 import axios, { AxiosResponse } from 'axios';
 import { Dunning } from "components/main/dunning";
-import { myContext } from "../context";
-import { User } from '../types/logintypes';
 
 export default function Home() {
   const [Data, setData] = useState<object>();
-  const userObject = useContext(myContext) as User;
   useEffect(() => {  
     axios.get(process.env.NEXT_PUBLIC_API_URL as string + '/exhibition/best', { withCredentials: true }).then((res: AxiosResponse) => {
       if (res.data) {
@@ -20,43 +17,32 @@ export default function Home() {
     }) 
   }, [])
 
-  function onStartListener(){
-    userObject? window.location.href = "/all" : window.location.href = "/login";
-  }
-
   return (
-    <Layout>
+    <Layout whiteHeader>
       {/* 1번 콘텐츠 */}
-      <Section1>
-        <div className="wrap">
-          <div className="contentArea">
-            <Heading>혼자 일하는 당신을 위한 <br /><Highlight style={{marginTop: '18px'}}>진짜 실무 자료.</Highlight></Heading>
-            <Text size="16px" style={{marginTop: '68px', marginBottom: '81px'}}>일 시키는 사람만 있고 알려주는 사람이 없어서 힘든 당신,<br />업계 일잘러들이 직접 만든 업무 자료와 노하우를 업무에 활용해보세요.</Text>
-            <Button onClick = {onStartListener} type="start">시작하기</Button>
-          </div>
-          <Image
-            src="/mainGraphic_section1_human.png"
-            alt=""
-            width={529}
-            height={378}
-            priority
-          />
+      <Keyvisual>
+        <div>
+          <h2>회사에 일을 시키는 사람만 있고 <br/><Highlight2>어떻게 하는지</Highlight2> 알려줄 사람이 없을 때</h2>
+          <p>지금 나에게 필요한 부분을 알려주고, 조언해줄 업계의 일잘러 선배들을 만나보세요.</p>
         </div>
-      </Section1>
+        <Image
+          src="/main_whiteLogo.svg"
+          alt=""
+          width={91}
+          height={110.16}
+          priority
+        />
+      </Keyvisual>
       {/* 2번 콘텐츠 */}
       <Section2>
         <div className="wrap">
-          <Text size="20px" bold style={{marginBottom: '43px'}}>혼자서 검색하고 책도 찾아보고 교육을 들어봐도</Text>
-          <Heading level={2} bold>모니터 앞에 앉으면 <Em>막</Em><Em>막</Em>한 이유</Heading>
-          <div style={{marginTop: '60px'}}>
-          <Image
-            src="/mainGraphic_section2_research.png"
-            alt="업무의 Why, What, How를 어디서 찾으시나요? 사수 없이 일하는 실무자 158명 대상 설문조사 결과. Why, 왜 해야 하는지는 79 퍼센트가 회사 내 리더나 동료, 14 퍼센트가 검색이나 뉴스 또는 스터디의 도움을 받았습니다. What, 무슨 뜻인지를 알기 위헤서는 24 퍼센트가 회사 내 리더나 동료, 56 퍼센트가 검색 또는 유투브의 도움을 받았으며, 18 퍼센트가 책 또는 강의를 참고했습니다. How, 어떻게 해야 하는지는 15 퍼센트가 회사 내 리더나 동료, 70 퍼센트가 혼자 고민 또는 잘 모르겠다는 응답을 하였습니다."
-            width={856}
-            height={676}
-            priority
-          />
-          </div>
+        지금 나, 잘 하고 있는걸까..?
+        오늘도 주변에 말 못하고 혼자 고민하는 분들이 많습니다.
+
+        <ul>
+          <li>지금 몸담은 분야가 잘 맞긴 한데, 이 분야만으로는 부족하다고 느껴질 때가 있습니다. 혹시 이 분야에서 더 발전시켜야될 기술은 무엇이 있을까요?
+          -2년차 대기업 개발자 조○○님-</li>
+        </ul>
         </div>
       </Section2>
       {/* 3번 콘텐츠 */}
@@ -124,57 +110,41 @@ export default function Home() {
   )
 }
 
-const Highlight = styled.span`
-  display: inline-block;
-  background-color: ${Colors.secondary};
-  color: ${Colors.black};
-  font-weight: 700;
-  padding-top: 8px;
+const Keyvisual = styled.section`
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  background: url('/main_bg.png') top center/cover no-repeat;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: ${Colors.white};
+  text-align: center;
+  padding: 15% 0 5%;
+
+  h2 {
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 125%;
+    margin-bottom: 40px;
+  }
+  p {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 150%;
+  }
 `;
 const Highlight2 = styled.span`
   color: ${Colors.secondary};
 `;
 
-const Section1 = styled.section`
-  color: ${Colors.black};
-  margin-top: 162px;
-  margin-bottom: 227px;
-
-  > .wrap {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
-  }
-
-  > .contentArea {
-    height: 642px;
-  }
-`;
-
-
 
 // Section2
 const Section2 = styled.section`
-  color: ${Colors.black};
-  background: url(/mainGraphic_section2_bg.svg) bottom center/1300px auto no-repeat;
-  text-align: center;
+  
 `;
-const Em = styled.span`
-  position: relative;
-
-  &::before {
-    content: '';
-    display: block;
-    position: absolute;
-    top: -20px;
-    left: 12px;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: ${Colors.black};
-  }
-`
 
 // Section3
 const Section3 = styled.section`

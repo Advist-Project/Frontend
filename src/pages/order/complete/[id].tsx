@@ -29,8 +29,6 @@ function OrderComplete({data}: InferGetServerSidePropsType<typeof getServerSideP
   const { itemId, itemName, option } = itemInfo;
   const { method, cardName, purchasedTime } = paymentInfo;
 
-  console.log(data);
-
   const type:{[key: string]: string} = {
     "workbook": "워크북",
     "coaching": "코칭",
