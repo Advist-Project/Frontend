@@ -79,7 +79,7 @@ export function MybuyingTableBody(props : any){
                         </PCStatusBox>
                         <td style={{verticalAlign : 'middle'}}>
                             <ButtonBox>
-                                {Data[num].status === "결제 완료"? (<Button onClick = {() => onReviewListener(num)}>후기 작성</Button>) : (<></>)}
+                                {Data[num].status === "결제 완료"? (<Button style = {{marginBottom : '16px'}} onClick = {() => onReviewListener(num)}>후기 작성</Button>) : (<></>)}
                                 <Button onClick = {() => onDetailListener(num)}>주문 상세보기</Button>
                             </ButtonBox>
                         </td>
@@ -230,7 +230,7 @@ const ButtonBox = styled.div`
     height : 80px;
     display : flex;
     flex-direction : column;
-    justify-content : space-between;    
+    justify-content : center;    
     ${max[1]}{
         height : 20px;
         margin-top : 11px;        
