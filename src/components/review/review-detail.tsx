@@ -1,11 +1,10 @@
 import styled from "@emotion/styled";
 import { useState, useEffect } from 'react'
-import { max, Colors, Button } from "components/ui";
-import axios, { AxiosResponse } from 'axios';
-import Image from 'next/image';
+import { min, max, Colors, Button } from "components/ui";
+//import axios, { AxiosResponse } from 'axios';
 
 export function ReviewDetail(props : any){
-    const [Data, setData] = useState<any>();
+    //const [Data, setData] = useState<any>();
     useEffect(() => {
         /*
         axios.get(process.env.NEXT_PUBLIC_API_URL as string  + `/mypage/review`, { withCredentials: true }).then((res: AxiosResponse) => {
@@ -15,6 +14,47 @@ export function ReviewDetail(props : any){
         })
         */
     }, [])
+
+    const [ReviewText, setReviewText] = useState("");
+
+    const[Star,setStar] = useState([false, false, false, false, false]);
+
+    const handleStarClick = (e : any, index : number) => {
+        e.preventDefault();
+        let clickStates = [...Star];
+        for (let i = 0; i < 5; i++) {
+            if (i <= index) clickStates[i] = true;
+            else clickStates[i] = false;
+        }
+        setStar(clickStates);
+    };
+    
+    const clickStar = {
+        star_big : "/star_big.png",
+        nostar_big : "/nostar_big.png"
+        // 모바일 처리 필요 window.innerWidth
+    }  
+
+    const[Icon,setIcon] = useState([true, true, true, true, true]);
+
+    const handleIconClick = (e : any, index : number, tf : boolean) => {
+        e.preventDefault();
+        let updateIcon = [...Icon];
+        updateIcon[index] = tf;
+        setIcon(updateIcon);
+    }
+
+    const clickIcon = {
+        good_pc_click : "/good_pc_clicked.png",
+        good_pc_unclick : "/good_pc_unclicked.png",
+        bad_pc_click : "/bad_pc_clicked.png",
+        bad_pc_unclick : "/bad_pc_unclicked.png"
+        // 모바일 처리 필요 window.innerWidth        
+    }  
+
+    const onReviewHandler = (event : any) => {
+        setReviewText(event.currentTarget.value);
+    }
 
     function onCloseListener(){
         props.setReviewDetail(false);
@@ -31,35 +71,37 @@ export function ReviewDetail(props : any){
                     <Line/>
                     <ReviewBox>
                         <FirstQuestions>___님의 코칭에 전반적으로 만족하셨나요?</FirstQuestions>
-                        <StarBox>star</StarBox>
+                        <StarBox>
+                            <Icons type = "image" onClick = {(e) => handleStarClick(e, 0)} src = {clickStar[Star[0]? 'star_big' : 'nostar_big']}/>
+                            <Icons type = "image" onClick = {(e) => handleStarClick(e, 1)} src = {clickStar[Star[1]? 'star_big' : 'nostar_big']}/>
+                            <Icons type = "image" onClick = {(e) => handleStarClick(e, 2)} src = {clickStar[Star[2]? 'star_big' : 'nostar_big']}/>
+                            <Icons type = "image" onClick = {(e) => handleStarClick(e, 3)} src = {clickStar[Star[3]? 'star_big' : 'nostar_big']}/>
+                            <Icons type = "image" onClick = {(e) => handleStarClick(e, 4)} src = {clickStar[Star[4]? 'star_big' : 'nostar_big']}/>
+                        </StarBox>
                         <SecondQuestions>___님의 코칭은 어떠셨나요?</SecondQuestions>
                         <ClickBox>
-                            <Image src="/good_pc_unclicked.png" alt="" width={20} height={20} priority/>
-                            <div style={{marginRight : '21.22px'}}/>
-                            <Image src="/bad_pc_unclicked.png" alt="" width={20} height={20} priority/>
+                            <Icons type = "image" onClick = {(e) => handleIconClick(e, 0, true)} src = {clickIcon[Icon[0]? 'good_pc_click' : 'good_pc_unclick']}/>
+                            <Icons type = "image" onClick = {(e) => handleIconClick(e, 0, false)} src = {clickIcon[!Icon[0]? 'bad_pc_click' : 'bad_pc_unclick']}/>
                             <ClickQuestion>저에게 실질적으로 도움이 되는 피드백을 받았어요.</ClickQuestion>
                         </ClickBox>
                         <ClickBox>
-                            <Image src="/good_pc_unclicked.png" alt="" width={20} height={20} priority/>
-                            <div style={{marginRight : '21.22px'}}/>
-                            <Image src="/bad_pc_unclicked.png" alt="" width={20} height={20} priority/>
+                            <Icons type = "image" onClick = {(e) => handleIconClick(e, 1, true)} src = {clickIcon[Icon[1]? 'good_pc_click' : 'good_pc_unclick']}/>
+                            <Icons type = "image" onClick = {(e) => handleIconClick(e, 1, false)} src = {clickIcon[!Icon[1]? 'bad_pc_click' : 'bad_pc_unclick']}/>
                             <ClickQuestion>지나치게 간섭하지 않고 적당한 선을 지키면서 필요한 조언을 해주었어요.</ClickQuestion>
                         </ClickBox>
                         <ClickBox>
-                            <Image src="/good_pc_unclicked.png" alt="" width={20} height={20} priority/>
-                            <div style={{marginRight : '21.22px'}}/>
-                            <Image src="/bad_pc_unclicked.png" alt="" width={20} height={20} priority/>
+                            <Icons type = "image" onClick = {(e) => handleIconClick(e, 2, true)} src = {clickIcon[Icon[2]? 'good_pc_click' : 'good_pc_unclick']}/>
+                            <Icons type = "image" onClick = {(e) => handleIconClick(e, 2, false)} src = {clickIcon[!Icon[2]? 'bad_pc_click' : 'bad_pc_unclick']}/>
                             <ClickQuestion>제가 고민하고 있던 부분을 실행할 수 있도록 동기 부여를 해주었어요.</ClickQuestion>
                         </ClickBox>
                         <ClickBox>
-                            <Image src="/good_pc_unclicked.png" alt="" width={20} height={20} priority/>
-                            <div style={{marginRight : '21.22px'}}/>
-                            <Image src="/bad_pc_unclicked.png" alt="" width={20} height={20} priority/>
+                            <Icons type = "image" onClick = {(e) => handleIconClick(e, 3, true)} src = {clickIcon[Icon[3]? 'good_pc_click' : 'good_pc_unclick']}/>
+                            <Icons type = "image" onClick = {(e) => handleIconClick(e, 3, false)} src = {clickIcon[!Icon[3]? 'bad_pc_click' : 'bad_pc_unclick']}/>
                             <ClickQuestion>코칭에 필요한 직무 전문성을 가지고 있어요.</ClickQuestion>
                         </ClickBox>                                                      
                         <ThirdQuestions>코칭 후기를 작성해주세요.</ThirdQuestions>
-                        <InputReview placeholder = "이번 코칭이 본인에게 어떤 식으로 도움이 되었는지, 그리고 어떤 분들에게 도움이 될지 적어주세요."/>
-                        <Button type="start" style = {{width : '200px', height : '52px'}}>완료</Button>   
+                        <InputReview value = {ReviewText} onChange = {onReviewHandler} placeholder = "이번 코칭이 본인에게 어떤 식으로 도움이 되었는지, 그리고 어떤 분들에게 도움이 될지 적어주세요."/>
+                        <Button type="start" style = {{marginLeft : '200px', width : '200px', height : '52px'}}>완료</Button>   
                     </ReviewBox>
                 </Box>
             </OnContainer>
@@ -177,6 +219,11 @@ const ReviewBox = styled.div`
     }     
 `;
 
+const StarBox = styled.div`
+    margin-top : 18.62px;
+    margin-bottom : 30.62px;
+`;
+
 const FirstQuestions = styled.span`
     width: 305px;
     height: 16px;
@@ -218,13 +265,6 @@ const SecondQuestions = styled.div`
     } 
 `;
 
-const StarBox = styled.div`
-    margin-top : 18.62px;
-    margin-bottom : 12px;
-    width: 36.75px;
-    height: 36.75px;
-`;
-
 const ClickBox = styled.div`
     margin-top : 16px;
     display : flex;
@@ -233,8 +273,12 @@ const ClickBox = styled.div`
     height : 20px;
 `;
 
+const Icons = styled.input`
+    margin-right : 21.22px;
+`;
+
 const ClickQuestion = styled.div`
-    margin-left : 37.22px;
+    margin-left : 15px;
     width: 454px;
     left: 756px;
 
@@ -269,13 +313,39 @@ const ThirdQuestions = styled.div`
     } 
 `;
 
-const InputReview = styled.input`
+const InputReview = styled.textarea`
     margin-top : 24px;
     margin-bottom : 28px;
     width: 600px;
     height: 110px;
     background: #FFFFFF;
-    border: 1px solid #A0A3BD;
+    border: 1px solid ${Colors.gray3};
     box-sizing: border-box;
-    border-radius: 20px;
+    border-radius: 10px;
+
+    font-family: Spoqa Han Sans Neo;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0px;
+    text-align: left;   
+    font-size: 12px;
+    resize: none;
+    &::placeholder {
+        color: ${Colors.gray3};
+        ${min[1]} {
+            width : 560px;
+        }        
+    }
+
+    &:focus {
+        border-color: ${Colors.primary};
+        outline: none;
+    }
+
+    ${min[1]} {
+        font-size: 14px;
+        line-height: 24px;
+        border-radius: 20px;
+        padding: 20px;
+    }
 `;
