@@ -1,23 +1,14 @@
 import styled from "@emotion/styled";
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { min, max, Colors, Button } from "components/ui";
-//import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
+import { useRouter } from 'next/router'
 
 export function ReviewDetail(props : any){
-    //const [Data, setData] = useState<any>();
-    useEffect(() => {
-        /*
-        axios.get(process.env.NEXT_PUBLIC_API_URL as string  + `/mypage/review`, { withCredentials: true }).then((res: AxiosResponse) => {
-            if (res.data) {
-                setData(res.data.result);
-            }
-        })
-        */
-    }, [])
-
-    const [ReviewText, setReviewText] = useState("");
-
+    const[ReviewText, setReviewText] = useState(""); // 코칭 후기
     const[Star,setStar] = useState([false, false, false, false, false]);
+    const[Icon,setIcon] = useState([true, true, true, true]);
+    const router = useRouter();
 
     const handleStarClick = (e : any, index : number) => {
         e.preventDefault();
@@ -28,14 +19,12 @@ export function ReviewDetail(props : any){
         }
         setStar(clickStates);
     };
-    
+
     const clickStar = {
         star_big : "/star_big.png",
         nostar_big : "/nostar_big.png"
         // 모바일 처리 필요 window.innerWidth
     }  
-
-    const[Icon,setIcon] = useState([true, true, true, true, true]);
 
     const handleIconClick = (e : any, index : number, tf : boolean) => {
         e.preventDefault();
@@ -61,6 +50,43 @@ export function ReviewDetail(props : any){
         document.body.removeAttribute('style');
     }
 
+    const questions = ["저에게 실질적으로 도움이 되는 피드백을 받았어요.", 
+                       "지나치게 간섭하지 않고 적당한 선을 지키면서 필요한 조언을 해주었어요.",
+                       "제가 고민하고 있던 부분을 실행할 수 있도록 동기 부여를 해주었어요.",
+                       "코칭에 필요한 직무 전문성을 가지고 있어요."]
+
+    const goodQuestions : any = [];
+    const badQuestions : any = [];
+
+    function onSubmitListener(){
+        let cntStar = 0;
+        Star.forEach((elem) => {
+            elem === true? cntStar++ : null;
+        })
+
+        Icon.forEach((currentValue, index) => {
+            currentValue === true? goodQuestions.push(questions[index]) : badQuestions.push(questions[index]);
+        });
+
+        axios.post(process.env.NEXT_PUBLIC_API_URL as string  + `/mypage/review`, {
+            orderId: props.orderId,
+            score: cntStar,
+            good: goodQuestions,
+            bad: badQuestions,
+            content : ReviewText
+        })
+        .then(function (res : any) {
+             // response  
+            console.log(res.data.result);
+            router.reload();
+        }).catch(function (err : any) {
+            // 오류발생시 실행
+            console.log(err);
+        }).then(function() {
+            // 항상 실행
+        });               
+    }
+
     return(
         <>
         <Container>
@@ -82,26 +108,26 @@ export function ReviewDetail(props : any){
                         <ClickBox>
                             <Icons type = "image" onClick = {(e) => handleIconClick(e, 0, true)} src = {clickIcon[Icon[0]? 'good_pc_click' : 'good_pc_unclick']}/>
                             <Icons type = "image" onClick = {(e) => handleIconClick(e, 0, false)} src = {clickIcon[!Icon[0]? 'bad_pc_click' : 'bad_pc_unclick']}/>
-                            <ClickQuestion>저에게 실질적으로 도움이 되는 피드백을 받았어요.</ClickQuestion>
+                            <ClickQuestion>{questions[0]}</ClickQuestion>
                         </ClickBox>
                         <ClickBox>
                             <Icons type = "image" onClick = {(e) => handleIconClick(e, 1, true)} src = {clickIcon[Icon[1]? 'good_pc_click' : 'good_pc_unclick']}/>
                             <Icons type = "image" onClick = {(e) => handleIconClick(e, 1, false)} src = {clickIcon[!Icon[1]? 'bad_pc_click' : 'bad_pc_unclick']}/>
-                            <ClickQuestion>지나치게 간섭하지 않고 적당한 선을 지키면서 필요한 조언을 해주었어요.</ClickQuestion>
+                            <ClickQuestion>{questions[1]}</ClickQuestion>
                         </ClickBox>
                         <ClickBox>
                             <Icons type = "image" onClick = {(e) => handleIconClick(e, 2, true)} src = {clickIcon[Icon[2]? 'good_pc_click' : 'good_pc_unclick']}/>
                             <Icons type = "image" onClick = {(e) => handleIconClick(e, 2, false)} src = {clickIcon[!Icon[2]? 'bad_pc_click' : 'bad_pc_unclick']}/>
-                            <ClickQuestion>제가 고민하고 있던 부분을 실행할 수 있도록 동기 부여를 해주었어요.</ClickQuestion>
+                            <ClickQuestion>{questions[2]}</ClickQuestion>
                         </ClickBox>
                         <ClickBox>
                             <Icons type = "image" onClick = {(e) => handleIconClick(e, 3, true)} src = {clickIcon[Icon[3]? 'good_pc_click' : 'good_pc_unclick']}/>
                             <Icons type = "image" onClick = {(e) => handleIconClick(e, 3, false)} src = {clickIcon[!Icon[3]? 'bad_pc_click' : 'bad_pc_unclick']}/>
-                            <ClickQuestion>코칭에 필요한 직무 전문성을 가지고 있어요.</ClickQuestion>
+                            <ClickQuestion>{questions[3]}</ClickQuestion>
                         </ClickBox>                                                      
                         <ThirdQuestions>코칭 후기를 작성해주세요.</ThirdQuestions>
                         <InputReview value = {ReviewText} onChange = {onReviewHandler} placeholder = "이번 코칭이 본인에게 어떤 식으로 도움이 되었는지, 그리고 어떤 분들에게 도움이 될지 적어주세요."/>
-                        <Button type="start" style = {{marginLeft : '200px', width : '200px', height : '52px'}}>완료</Button>   
+                        <Button onClick = {onSubmitListener} type="start" style = {{marginLeft : '200px', width : '200px', height : '52px'}}>완료</Button>   
                     </ReviewBox>
                 </Box>
             </OnContainer>
