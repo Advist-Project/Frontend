@@ -1,11 +1,12 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import styled from "@emotion/styled";
 import { Layout } from "components/layout";
-import { Button, Colors } from "components/ui";
+import { min, max, Button, Colors } from "components/ui";
 import { withRouter } from 'next/router';
 import { priceFormat } from "components/formatter";
 import { Step } from "components/step";
 import Router from "next/router";
+import { Title } from "components/order/common-styles";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const optionId = context.query.id;
@@ -62,12 +63,12 @@ function OrderComplete({data}: InferGetServerSidePropsType<typeof getServerSideP
                 <dt>메일</dt>
                 <dd>{userEmail}</dd>
               </OrdererInfo>
-              <Hr style={{marginBottom: '24px'}}/>
+              <Hr/>
               </>
             ) : null
           }
           
-          <section>
+          <PurchaseDetails>
             <Headline>
               <Title>구매 내역</Title>
             </Headline>
@@ -82,10 +83,6 @@ function OrderComplete({data}: InferGetServerSidePropsType<typeof getServerSideP
             <Payresult>
               <dt>주문번호</dt>
               <dd>{customerOrderId}</dd>
-              <dt>구매상품</dt>
-              <dd>{itemName}</dd>
-              <dt>구매옵션</dt>
-              <dd>[{type[option.type]}] {option.title}</dd>
               <dt>결제수단</dt>
               <dd>{method ? method : ""}{method && cardName ? " - " : ""}{cardName ? cardName : ""}</dd>
               <dt>결제일시</dt>
@@ -93,13 +90,13 @@ function OrderComplete({data}: InferGetServerSidePropsType<typeof getServerSideP
               <dt>결제금액</dt>
               <dd>{priceFormat(option.discountPrice)}원</dd>
             </Payresult>
-          </section>
+          </PurchaseDetails>
           <Noti>
           - 어드바이스트는 통신판매중개업자이며 통신판매의 당사자가 아닙니다. 따라서 어드바이스트는 상품, 거래정보 및 거래에 대하여 책임을 지지 않습니다.<br/>- 구매주문내역 확인과 워크북 다운로드는 사이트 상단의 내 구매내역에서 하실 수 있습니다.<br/>- 워크북은 전자문서 특성상 교환이나 환불이 불가합니다.
           </Noti>
         </Container>
         <Buttons>
-          <Button type="secondary">다른 상품 보기</Button>
+          <Button type="secondary" onClick={()=>Router.push(`/all`)}>다른 상품 보기</Button>
           <Button type="start" onClick={()=>Router.push(`/mypage`)}>내 구매내역 보기</Button>
         </Buttons>
       </Wrap>
@@ -107,21 +104,34 @@ function OrderComplete({data}: InferGetServerSidePropsType<typeof getServerSideP
   )
 }
 export default withRouter(OrderComplete);
-
 const Wrap = styled.div`
-  padding: 0 40px;
-  margin: 0 auto;
   width: 100%;
-  max-width: 916px;
+  margin-top: 20px;
+  padding: 0 20px;
+
+  ${min[1]} {
+    padding: 0 40px;
+    margin: 0 auto;
+    max-width: 916px;
+  }
 `;
 const Container = styled.div`
+  width: calc(100% + 40px);
   background: ${Colors.white};
-  width: 100%;
-  margin-top: 24px;
-  padding: 24px 36px 12px;
-  border-radius: 20px;
-  box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.06);
+  border-top: 4px #EFF0F6 solid;
+  padding: 20px 20px 0;
+  margin: 24px -20px 0;
+
+  ${min[1]} {
+    width: 100%;
+    margin: 24px 0 0;
+    padding: 24px 36px 12px;
+    border-top: 0;
+    border-radius: 20px;
+    box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.06);
+  }
 `;
+
 const Hr = styled.hr`
   border: 0px;
   border-bottom: 1px ${Colors.gray3} solid;
@@ -129,86 +139,152 @@ const Hr = styled.hr`
 `;
 
 const Headline = styled.div``;
-const Title = styled.h2`
-  font-weight: 700;
-  line-height: 32px;
-  font-size: 20px;
-  word-break: keep-all;
-  white-space: nowrap;
-`
 const Desc = styled.p`
-  line-height: 26px;
+font-size: 0.75rem;
+line-height: 160%;
+word-break: keep-all;
+margin-top: 4px;
+font-weight: 500;
+color: ${Colors.primary};
+
+${min[1]}{
   font-size: 16px;
-  font-weight: 500;
-  word-break: keep-all;
-  color: ${Colors.primary};
+  margin-top: 0;
   margin-top: 14px;
-`
+}
+`;
 
 const OrdererInfo = styled.dl`
   display: flex;
   flex-wrap: wrap;
-  margin-top: 46px;
+  margin-top: 32px;
+  margin-bottom: 8px;
 
   dt, dd {
-    margin-bottom: 24px;
-    font-size: 16px;
+    margin-bottom: 8px;
+    font-size: 0.875rem;
     font-weight: 500;
+    line-height: 160%;
   }
 
   dt {
-    width: 60px;
+    width: 52px;
     color: ${Colors.gray3};
   }
   dd {
-    width: calc(100% - 60px);
+    width: calc(100% - 52px);
     color: ${Colors.gray2};
+  }
+
+  ${min[1]}{
+    margin-top: 46px;
+
+    dt, dd {
+      font-size: 16px;
+      margin-bottom: 24px;
+      line-height: 100%;
+    }
+    dt {
+      width: 60px;
+    }
+    dd {
+      width: calc(100% - 60px);
+    }
+  }
+`;
+
+const PurchaseDetails = styled.section`
+  padding: 16px 0 0;
+
+  ${min[1]}{
+    padding: 24px 0 0; 
   }
 `;
 
 const OrderInfo = styled.div`
-  display: flex;
-  align-items: flex-start;
-  margin-top: 24px;
+  margin-top: 16px;
+
+  ${min[1]}{
+    display: flex;
+    align-items: flex-start;
+    margin-top: 24px;
+  }
 `;
 const ItemImg = styled.img`
-  width: 172px;
+  width: 100%;
+  height: auto;
   border-radius: 10px;
-`
+
+  ${min[1]}{
+    width: 172px;
+    height: 96px;
+  }
+`;
 const OrderInfoText = styled.div`
-  margin-left: 36px;
+  margin: 12px 0 16px 0;
+
+  ${min[1]}{
+    margin: 0 0 0 36px;
+  }
 `;
 const ItemTitle = styled.h3`
+  font-size: 0.875rem;
   font-weight: 500;
-  font-size: 16px;
-  line-height: 20px;
-  margin-bottom: 10px;
+  line-height: 160%;
+  margin-bottom: 4px;
+
+  ${min[1]}{
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
 `;
 const Type = styled.p`
+  font-size: 0.75rem;
   font-weight: 500;
-  font-size: 14px;
-  line-height: 24px;
+  line-height: 160%;
   color: ${Colors.primary};
-`
+
+  ${min[1]}{
+    font-size: 14px;
+  }
+`;
 
 const Payresult = styled.dl`
   display: flex;
   flex-wrap: wrap;
-  margin-top: 36px;
+  margin-top: 24px;
+  margin-bottom: 20px;
 
   dt, dd {
-    margin-bottom: 24px;
-    font-size: 16px;
+    margin-bottom: 8px;
+    font-size: 0.875rem;
     font-weight: 500;
+    line-height: 160%;
   }
 
   dt {
-    width: 80px;
+    width: 70px;
     color: ${Colors.gray3};
   }
   dd {
-    width: calc(100% - 80px);
+    width: calc(100% - 70px);
     color: ${Colors.gray2};
+  }
+  
+  ${min[1]}{
+    margin-top: 36px;
+
+    dt, dd {
+      font-size: 16px;
+      margin-bottom: 24px;
+      line-height: 100%;
+    }
+    dt {
+      width: 80px;
+    }
+    dd {
+      width: calc(100% - 80px);
+    }
   }
 `;
 
@@ -218,16 +294,31 @@ const Noti = styled.p`
   letter-spacing: -0.02em;
   color: ${Colors.gray2};
   margin-top: 4px;
-  margin-bottom: 24px;
+  margin-bottom: 40px;
+
+  ${min[1]}{
+    margin-bottom: 24px;
+  }
 `;
 
 const Buttons = styled.div`
   display: flex;
-  margin: 60px -6px 86px;
+  margin: 40px -4px 40px;
+
+  ${min[1]}{
+    margin: 60px -6px 86px;
+  }
 
   button {
     flex-basis: 50%;
     flex-grow: 1;
     margin: 0 6px;
+
+    ${max[1]}{
+      font-size: 12px;
+      border-radius: 10px;
+      height: 28px;
+      margin: 0 4px;
+    }
   }
 `;

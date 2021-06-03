@@ -3,15 +3,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from "@emotion/styled";
 import { Layout } from "components/layout";
-import { min, max, Button, ToggleBtn, Colors } from "components/ui";
+import { min, max, Button, Colors } from "components/ui";
 import { bootpay } from "components/bootpay";
 import { withRouter } from 'next/router';
 import { useRouter } from 'next/router';
-import { priceFormat } from "components/formatter";
 import { AgreePage } from "components/agree";
 import { Step } from "components/step";
 import ScheduleSection from "components/order/coaching-schedule";
 import OrdererSection from "components/order/coaching-orderer";
+import { PaymentSection, PaymentSectionMethod, PaymentSectionAgree } from "components/order/coaching-receipt";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { itemId, optionId, userId } = context.query;
@@ -190,24 +190,6 @@ const Container = styled.div`
   }
 `;
 
-const Headline = styled.div`
-  display: flex;
-  align-items: baseline;
-`;
-const Title = styled.h2`
-  font-weight: 700;
-  line-height: 32px;
-  font-size: 20px;
-  word-break: keep-all;
-  white-space: nowrap;
-`
-const Desc = styled.p`
-  line-height: 26px;
-  font-size: 16px;
-  word-break: keep-all;
-  margin-left: 20px;
-`
-
 const Hr = styled.hr`
   border: 0px;
   border-bottom: 1px ${Colors.gray3} solid;
@@ -235,168 +217,3 @@ const Buttons = styled.div`
     }
   }
 `;
-
-const Section = styled.section`
-  padding: 24px 0; 
-`
-
-function PaymentSection({itemInfo}: any){
-  const OrderInfo = styled.div`
-    display: flex;
-    align-items: flex-start;
-    margin-top: 39px;
-  `;
-  const ItemImg = styled.img`
-  width: 172px;
-  height: 96px;
-  border-radius: 10px;
-`
-const OrderInfoText = styled.div`
-  margin-left: 36px;
-`;
-const ItemTitle = styled.h3`
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 20px;
-  margin-bottom: 10px;
-`;
-const Type = styled.p`
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 24px;
-  color: ${Colors.primary};
-`
-
-const PriceInfo = styled.dl`
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 16px;
-  line-height: 40px;
-  margin-top: 26px;
-  margin-bottom: -10px;
-
-  dt {
-    width: 200px;
-  }
-  dd {
-    width: calc(100% - 200px);
-    text-align: right;
-    font-weight: 500;
-  }
-  .finalPrice {
-    color: ${Colors.primary};
-    font-weight: 500;
-  }
-`;
-
-  return (
-    <>
-    <Section>
-      <Headline>
-        <Title>주문 정보</Title>
-        <Desc>주문 정보를 다시 한번 확인해주세요.</Desc>
-      </Headline>
-      <OrderInfo>
-        <ItemImg src={`/detail/${itemInfo.itemId}/thumb.png`}/>
-        <OrderInfoText>
-          <ItemTitle>{itemInfo.itemName}</ItemTitle>
-          {
-            itemInfo.option.type === "workbook" ?
-            <Type>[워크북] 업무에 활용했던 자료들입니다.</Type> :
-            <Type>[코칭] {itemInfo.option.title}</Type>
-          }
-        </OrderInfoText>
-      </OrderInfo>
-    </Section>
-    <Hr/>
-    <Section>
-      <Headline>
-        <Title>결제 정보</Title>
-      </Headline>
-      <PriceInfo>
-        <dt>상품 금액</dt>
-        <dd>{priceFormat(itemInfo.option.price)}원</dd>
-        <dt>할인 금액</dt>
-        <dd>{priceFormat(itemInfo.option.discountPrice - itemInfo.option.price)}원</dd>
-        <dt className="finalPrice">최종 결제금액</dt>
-        <dd className="finalPrice">{priceFormat(itemInfo.option.discountPrice)}원</dd>
-      </PriceInfo>
-    </Section>
-    </>
-  )
-}
-
-function PaymentSectionMethod({method, setMethod, pg, setPg}: any){
-const Methods = styled.div`
-  display: flex;
-  margin: 0 -5px;
-  margin-top: 20px;
-  margin-bottom: 12px;
-
-  > button {
-    flex-grow: 1;
-    margin: 0 5px;
-  }
-`;
-
-  return (
-    <Section>
-      <Headline>
-        <Title>결제 수단</Title>
-      </Headline>
-      <Methods>
-        <ToggleBtn className={method === 'card' ? 'active' : ''}
-                  onClick={()=>{setPg('danal');setMethod('card');}}>카드결제</ToggleBtn>
-        <ToggleBtn className={pg === 'kakao' ? 'active' : ''}
-                  onClick={()=>{setPg('kakao');setMethod('easy');}}>카카오페이</ToggleBtn>
-        <ToggleBtn className={pg === 'npay' ? 'active' : ''}
-                  onClick={()=>{setPg('npay');setMethod('');}}>네이버페이</ToggleBtn>
-      </Methods>
-    </Section>
-  )
-}
-
-function PaymentSectionAgree({agree, setAgree, onClickListener}: any){
-const Agree = styled.div`
-  font-size: 14px;
-  text-align: center;
-  margin-bottom: 3px;
-
-  input[type=checkbox] {
-    display: none;
-  }
-  input[type=checkbox] + label::before {
-    content: '';
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    vertical-align: middle;
-    margin-right: 15px;
-    border-radius: 4px;
-    border: 1px solid #6E7191;
-  }
-  input[type=checkbox]:checked + label::before {
-    border-color: ${Colors.primary};
-    background: url('/icon/done_24px.svg') center/17px 13px no-repeat;
-    background-color: ${Colors.primary};
-  }
-  input[type=checkbox] + label {
-    cursor: pointer;
-  }
-
-  .highlight {
-    color: ${Colors.primary};
-    border-bottom: 1px ${Colors.primary} solid;
-    cursor: pointer;
-  }
-`;
-
-  return (
-    <Section style={{paddingTop: '14px'}}>
-      <Agree>
-        <input id="ag" type="checkbox" onChange={()=>setAgree(!agree)} checked={agree} />
-        <label htmlFor="ag">주문 내용을 확인하였으며, <label className="highlight" onClick={onClickListener}>서비스 취소/환불 정책</label> 및 결제에 동의합니다. (필수)</label>
-      </Agree>
-    </Section>
-  )
-}
