@@ -8,6 +8,7 @@ export function ReviewDetail(props : any){
     const[ReviewText, setReviewText] = useState(""); // 코칭 후기
     const[Star,setStar] = useState([false, false, false, false, false]);
     const[Icon,setIcon] = useState([true, true, true, true]);
+    const[IsMobile,setIsMobile] = useState(true);
     const router = useRouter();
 
     const handleStarClick = (e : any, index : number) => {
@@ -20,11 +21,20 @@ export function ReviewDetail(props : any){
         setStar(clickStates);
     };
 
-    const clickStar = {
-        star_big : "/star_big.png",
-        nostar_big : "/nostar_big.png"
-        // 모바일 처리 필요 window.innerWidth
-    }  
+    window.addEventListener("resize", handleResize);
+    function handleResize() {
+        var wlength = window.innerWidth;
+            if(wlength<=769){
+                setIsMobile(true);
+            }else{
+                setIsMobile(false);
+            }
+    }
+
+    let clickStar = {
+        star : IsMobile? "/star_small.png" : "/star_big.png",
+        nostar : IsMobile? "/nostar_small.png" : "/nostar_big.png"
+    }
 
     const handleIconClick = (e : any, index : number, tf : boolean) => {
         e.preventDefault();
@@ -34,11 +44,10 @@ export function ReviewDetail(props : any){
     }
 
     const clickIcon = {
-        good_pc_click : "/good_pc_clicked.png",
-        good_pc_unclick : "/good_pc_unclicked.png",
-        bad_pc_click : "/bad_pc_clicked.png",
-        bad_pc_unclick : "/bad_pc_unclicked.png"
-        // 모바일 처리 필요 window.innerWidth        
+        good_click : IsMobile? "/good_mobile_clicked.png" : "/good_pc_clicked.png",
+        good_unclick : IsMobile? "/good_mobile_unclicked.png" : "/good_pc_unclicked.png",
+        bad_click : IsMobile? "/bad_mobile_clicked.png" : "/bad_pc_clicked.png",
+        bad_unclick : IsMobile? "/bad_mobile_unclicked.png" : "/bad_pc_unclicked.png",    
     }  
 
     const onReviewHandler = (event : any) => {
@@ -75,9 +84,9 @@ export function ReviewDetail(props : any){
             bad: badQuestions,
             content : ReviewText
         })
-        .then(function (res : any) {
-             // response  
-            console.log(res.data.result);
+        .then(function () {
+            // response  
+            // console.log(res.data.result);
             router.reload();
         }).catch(function (err : any) {
             // 오류발생시 실행
@@ -98,31 +107,35 @@ export function ReviewDetail(props : any){
                     <ReviewBox>
                         <FirstQuestions>___님의 코칭에 전반적으로 만족하셨나요?</FirstQuestions>
                         <StarBox>
-                            <Icons type = "image" onClick = {(e) => handleStarClick(e, 0)} src = {clickStar[Star[0]? 'star_big' : 'nostar_big']}/>
-                            <Icons type = "image" onClick = {(e) => handleStarClick(e, 1)} src = {clickStar[Star[1]? 'star_big' : 'nostar_big']}/>
-                            <Icons type = "image" onClick = {(e) => handleStarClick(e, 2)} src = {clickStar[Star[2]? 'star_big' : 'nostar_big']}/>
-                            <Icons type = "image" onClick = {(e) => handleStarClick(e, 3)} src = {clickStar[Star[3]? 'star_big' : 'nostar_big']}/>
-                            <Icons type = "image" onClick = {(e) => handleStarClick(e, 4)} src = {clickStar[Star[4]? 'star_big' : 'nostar_big']}/>
+                            <StarIcons type = "image" onClick = {(e) => handleStarClick(e, 0)} src = {clickStar[Star[0]? 'star' : 'nostar']}/>
+                            <StarIcons type = "image" onClick = {(e) => handleStarClick(e, 1)} src = {clickStar[Star[1]? 'star' : 'nostar']}/>
+                            <StarIcons type = "image" onClick = {(e) => handleStarClick(e, 2)} src = {clickStar[Star[2]? 'star' : 'nostar']}/>
+                            <StarIcons type = "image" onClick = {(e) => handleStarClick(e, 3)} src = {clickStar[Star[3]? 'star' : 'nostar']}/>
+                            <StarIcons type = "image" onClick = {(e) => handleStarClick(e, 4)} src = {clickStar[Star[4]? 'star' : 'nostar']}/>
                         </StarBox>
                         <SecondQuestions>___님의 코칭은 어떠셨나요?</SecondQuestions>
                         <ClickBox>
-                            <Icons type = "image" onClick = {(e) => handleIconClick(e, 0, true)} src = {clickIcon[Icon[0]? 'good_pc_click' : 'good_pc_unclick']}/>
-                            <Icons type = "image" onClick = {(e) => handleIconClick(e, 0, false)} src = {clickIcon[!Icon[0]? 'bad_pc_click' : 'bad_pc_unclick']}/>
+                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 0, true)} src = {clickIcon[Icon[0]? 'good_click' : 'good_unclick']}/>
+                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 0, false)} src = {clickIcon[!Icon[0]? 'bad_click' : 'bad_unclick']}/>
                             <ClickQuestion>{questions[0]}</ClickQuestion>
+                            <MobileBox>
+                                <MobileButton onClick = {(e) => handleIconClick(e, 0, true)}><MobileIcons type = "image" src = {clickIcon[Icon[0]? 'good_click' : 'good_unclick']}/></MobileButton>
+                                <MobileButton onClick = {(e) => handleIconClick(e, 0, false)}><MobileIcons type = "image" src = {clickIcon[!Icon[0]? 'bad_click' : 'bad_unclick']}/></MobileButton>
+                            </MobileBox>
                         </ClickBox>
                         <ClickBox>
-                            <Icons type = "image" onClick = {(e) => handleIconClick(e, 1, true)} src = {clickIcon[Icon[1]? 'good_pc_click' : 'good_pc_unclick']}/>
-                            <Icons type = "image" onClick = {(e) => handleIconClick(e, 1, false)} src = {clickIcon[!Icon[1]? 'bad_pc_click' : 'bad_pc_unclick']}/>
+                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 1, true)} src = {clickIcon[Icon[1]? 'good_click' : 'good_unclick']}/>
+                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 1, false)} src = {clickIcon[!Icon[1]? 'bad_click' : 'bad_unclick']}/>
                             <ClickQuestion>{questions[1]}</ClickQuestion>
                         </ClickBox>
                         <ClickBox>
-                            <Icons type = "image" onClick = {(e) => handleIconClick(e, 2, true)} src = {clickIcon[Icon[2]? 'good_pc_click' : 'good_pc_unclick']}/>
-                            <Icons type = "image" onClick = {(e) => handleIconClick(e, 2, false)} src = {clickIcon[!Icon[2]? 'bad_pc_click' : 'bad_pc_unclick']}/>
+                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 2, true)} src = {clickIcon[Icon[2]? 'good_click' : 'good_unclick']}/>
+                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 2, false)} src = {clickIcon[!Icon[2]? 'bad_click' : 'bad_unclick']}/>
                             <ClickQuestion>{questions[2]}</ClickQuestion>
                         </ClickBox>
                         <ClickBox>
-                            <Icons type = "image" onClick = {(e) => handleIconClick(e, 3, true)} src = {clickIcon[Icon[3]? 'good_pc_click' : 'good_pc_unclick']}/>
-                            <Icons type = "image" onClick = {(e) => handleIconClick(e, 3, false)} src = {clickIcon[!Icon[3]? 'bad_pc_click' : 'bad_pc_unclick']}/>
+                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 3, true)} src = {clickIcon[Icon[3]? 'good_click' : 'good_unclick']}/>
+                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 3, false)} src = {clickIcon[!Icon[3]? 'bad_click' : 'bad_unclick']}/>
                             <ClickQuestion>{questions[3]}</ClickQuestion>
                         </ClickBox>                                                      
                         <ThirdQuestions>코칭 후기를 작성해주세요.</ThirdQuestions>
@@ -142,6 +155,7 @@ const Container = styled.div`
     position: fixed;
     width: calc(100% - 40px);
     max-width: 800px;
+    min-width: 280px;
     max-height : 696px;
     min-height : 465px;
     height: calc(100vh - 80px);
@@ -164,7 +178,7 @@ const Container = styled.div`
     z-index: -1; 
     }
     ${max[1]}{
-        width: calc(100% - 20px);
+        width: calc(100% - 40px);
         transform: translateX(-50%) translateY(-50%);
         border-radius: 10px;
     }
@@ -201,11 +215,11 @@ const Box = styled.div`
     display : flex;
     flex-direction : column;
     width: 100%;
-    height : 304px;
+
     padding : 72px 100px 104px 100px;
     ${max[1]}{
         border-radius: 10px;
-        padding : 54px 20px 175px 20px;
+        padding : 54px 20px 16px 20px;
     }    
 `;
 
@@ -234,6 +248,7 @@ const Line = styled.div`
     border: 1px solid ${Colors.gray3};
     ${max[1]}{
         margin-top : 12px;
+        border-width : 0.8px;
     }       
 `;
 
@@ -248,9 +263,13 @@ const ReviewBox = styled.div`
 const StarBox = styled.div`
     margin-top : 18.62px;
     margin-bottom : 30.62px;
+    ${max[1]}{
+        margin-top : 9.75px;
+        margin-bottom : 21.75px;
+    }        
 `;
 
-const FirstQuestions = styled.span`
+const FirstQuestions = styled.div`
     width: 305px;
     height: 16px;
 
@@ -263,7 +282,8 @@ const FirstQuestions = styled.span`
     text-align: left;
     color : ${Colors.gray2};
     ${max[1]}{
-        width: 240px;
+        width : 100%;
+        min-width: 240px;
         font-weight: 500;
         font-size: 12px;
         line-height: 20px;
@@ -284,29 +304,70 @@ const SecondQuestions = styled.div`
     text-align: left;
     color : ${Colors.gray2};
     ${max[1]}{
-        width: 240px;
+        width : 100%;
+        min-width: 240px;
         font-weight: 500;
         font-size: 12px;
         line-height: 20px;
+        margin-bottom : 14px;
     } 
 `;
 
 const ClickBox = styled.div`
-    margin-top : 16px;
-    display : flex;
-    flex-direction : row;
-    width : 550px;
-    height : 20px;
+    margin-bottom : 12px;
+    ${min[1]}{
+        margin-top : 16px;
+        width : 550px;
+        height : 20px;
+        display : flex;
+        flex-direction : row;
+    }     
 `;
 
-const Icons = styled.input`
-    margin-right : 21.22px;
+const StarIcons = styled.input`
+    margin-right : 5.25px;
+    ${max[1]}{
+        margin-right : 3.5px;
+    } 
+`;
+
+const PCIcons = styled.input`
+    margin-right : 22.44px;
+    ${max[1]}{
+        display : none;
+    } 
+`;
+
+const MobileBox = styled.div`
+    display : flex;
+    flex-direction : row;
+    justify-content : space-between;
+    height : 20px;
+    ${min[1]}{
+        display : none;
+    } 
+`;
+
+const MobileIcons = styled.input`
+    margin-top : 2px;
+`;
+
+const MobileButton = styled.button`
+    min-width : 12px;
+    width : 47%;
+    border: 1px solid ${Colors.gray3};
+    background : ${Colors.white};
+    box-sizing: border-box;
+    border-radius: 4px; 
+
+    &:focus {
+        border-color: ${Colors.primary};
+    }    
 `;
 
 const ClickQuestion = styled.div`
     margin-left : 15px;
     width: 454px;
-    left: 756px;
 
     font-family: Spoqa Han Sans Neo;
     font-size: 14px;
@@ -316,6 +377,13 @@ const ClickQuestion = styled.div`
     letter-spacing: 0px;
     text-align: left;
     color : ${Colors.gray1};
+    ${max[1]}{
+        margin : 0;
+        width : 100%;
+        font-size: 10px;
+        font-weight: 500;
+        line-height: 16px;        
+    }     
 `;
 
 const ThirdQuestions = styled.div`
