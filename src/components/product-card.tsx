@@ -41,7 +41,7 @@ export const ProductCard: React.FC<IProductCardProps> = ({ id, label, title, lik
           <a href={`/detail/${id}`}>
             <Title>{title}</Title>
           </a>
-          <Tags data={tag} />
+          <Tags data={tag} gray />
           <LikesAndPrice>
             <Likes>
               <LikeBtn small state={userLikeState} onClick={chageUserLikeState} />
@@ -65,7 +65,7 @@ export const ProductCard: React.FC<IProductCardProps> = ({ id, label, title, lik
           </TitleAndPrice>
         </div>
         <TagAndLike>
-          <Tags data={tag} />
+          <Tags data={tag} gray />
           <Likes>
             <LikesCount>{likesCount}</LikesCount>
             <LikeBtn small state={userLikeState} onClick={chageUserLikeState} />

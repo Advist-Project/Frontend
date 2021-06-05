@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { min, Colors } from "components/ui";
+import { min, max, Colors } from "components/ui";
 import Image from 'next/image';
 
 export function Dunning(){
@@ -19,7 +19,7 @@ export function Dunning(){
         <Message>
           <DesktopTitle><Highlight>프로 일잘러</Highlight>가 될 수 있도록 지원합니다</DesktopTitle>
           <div>
-            <p style={{ color: Colors.gray1 }}>아는 게 정말 적으면 일에서 어려움을 느끼지 않습니다. 일하면서 좌절도 해보았고 더 잘하기 위해 고민하는 분들이 진짜 전문가로 성장할 것이라고 믿습니다.</p>
+            <p>아는 게 정말 적으면 일에서 어려움을 느끼지 않습니다. <br/>일하면서 좌절도 해보았고 더 잘하기 위해 고민하는 분들이 진짜 전문가로 성장할 것이라고 믿습니다.</p>
             <Strong>현재 겪고 있는 업무의 막막함을 해소하고 <br/>성공적으로 해내실 수 있도록 돕겠습니다.</Strong>
           </div>
         </Message>
@@ -88,6 +88,11 @@ const Message = styled.div`
   line-height: 160%;
   word-break: keep-all;
 
+  ${max[1]} {
+    br {
+      display: none;
+    }
+  }
   ${min[1]} {
     max-width: 100%;
     flex-grow: 1;
@@ -98,12 +103,21 @@ const Message = styled.div`
     flex-direction: column;
     justify-content: space-around;
     text-align: left;
+
+    p {
+      color: ${Colors.gray1}
+    }
   }
 `;
 
 const Strong = styled.p`
-  margin-top: 32px;
-  font-size: 1.1em;
-  font-weight: 500;
-  color: ${Colors.black}
+  ${max[1]}{
+    margin-top: 32px;
+    font-size: 1.1em;
+    font-weight: 500;
+    color: ${Colors.black}
+  }
+  ${min[1]}{
+    br {display: none}
+  }
 `;
