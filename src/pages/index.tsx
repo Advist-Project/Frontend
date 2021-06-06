@@ -460,9 +460,12 @@ const ProductListWrap = styled.div`
     }
 
     ${min[1]}{
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      padding-right: 91px;
+      padding-bottom: 44px;
       height: 100%;
-      padding: 367px 91px 0 0;
-      text-align: right;
       font-size: 28px;
       font-weight: 700;
       background: url(/icon/forwardArrow.svg) bottom 36px right 28px/48px 48px no-repeat;

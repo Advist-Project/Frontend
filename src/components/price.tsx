@@ -46,6 +46,9 @@ const BasePrice = styled.div`
     font-size: 1.25em;
     margin-bottom: 12px;
   }
+  @media (min-width: 992px) and (max-width: 1100px) {
+    font-size: 1em;
+  }
 `;
 const Discount = styled.div`
   display: flex;
@@ -61,6 +64,10 @@ const DiscountPercent = styled.div`
     font-size: 1.75em;
     margin-right: 16px;
   }
+  @media (min-width: 992px) and (max-width: 1100px) {
+    font-size: 1.45em;
+    margin-right: 12px;
+  }
 `;
 const FinalPrice = styled.div`
   font-weight: 700;
@@ -68,5 +75,8 @@ const FinalPrice = styled.div`
 
   @media (min-width: 769px) {
     font-size: 1.75em;
+  }
+  @media (min-width: 992px) and (max-width: 1100px) {
+    font-size: 1.45em;
   }
 `;

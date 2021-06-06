@@ -167,6 +167,12 @@ const Likes = styled.div`
     width: 14px;
     height: 14px;
   }
+  ${min[1]}{
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
 `;
 const LikesCount = styled.span`
   color: ${Colors.primary};
