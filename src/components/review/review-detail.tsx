@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { min, max, Colors, Button } from "components/ui";
 import axios from 'axios';
 import { useRouter } from 'next/router'
@@ -7,9 +7,17 @@ import { useRouter } from 'next/router'
 export function ReviewDetail(props : any){
     const[ReviewText, setReviewText] = useState(""); // 코칭 후기
     const[Star,setStar] = useState([false, false, false, false, false]);
-    const[Icon,setIcon] = useState([true, true, true, true]);
-    const[IsMobile,setIsMobile] = useState(true);
+    const[Icon,setIcon] = useState([2, 2, 2, 2]); // 0 : unclick, 1 : click , 2 : default
+    const[IsMobile,setIsMobile] = useState(false);
     const router = useRouter();
+
+    useEffect(() => {
+        // pc, 모바일 따라 표시할 아이콘
+        function testMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+        testMobile()? setIsMobile(true) : setIsMobile(false);
+      }, [])
 
     const handleStarClick = (e : any, index : number) => {
         e.preventDefault();
@@ -36,10 +44,10 @@ export function ReviewDetail(props : any){
         nostar : IsMobile? "/nostar_small.png" : "/nostar_big.png"
     }
 
-    const handleIconClick = (e : any, index : number, tf : boolean) => {
+    const handleIconClick = (e : any, index : number, status : number) => {
         e.preventDefault();
         let updateIcon = [...Icon];
-        updateIcon[index] = tf;
+        updateIcon[index] = status;
         setIcon(updateIcon);
     }
 
@@ -47,7 +55,7 @@ export function ReviewDetail(props : any){
         good_click : IsMobile? "/good_mobile_clicked.png" : "/good_pc_clicked.png",
         good_unclick : IsMobile? "/good_mobile_unclicked.png" : "/good_pc_unclicked.png",
         bad_click : IsMobile? "/bad_mobile_clicked.png" : "/bad_pc_clicked.png",
-        bad_unclick : IsMobile? "/bad_mobile_unclicked.png" : "/bad_pc_unclicked.png",    
+        bad_unclick : IsMobile? "/bad_mobile_unclicked.png" : "/bad_pc_unclicked.png"
     }  
 
     const onReviewHandler = (event : any) => {
@@ -74,7 +82,7 @@ export function ReviewDetail(props : any){
         })
 
         Icon.forEach((currentValue, index) => {
-            currentValue === true? goodQuestions.push(questions[index]) : badQuestions.push(questions[index]);
+            currentValue === 1? goodQuestions.push(questions[index]) : badQuestions.push(questions[index]);
         });
 
         axios.post(process.env.NEXT_PUBLIC_API_URL as string  + `/mypage/review`, {
@@ -96,6 +104,86 @@ export function ReviewDetail(props : any){
         });               
     }
 
+    const MobileButton = styled.button`
+        min-width : 12px;
+        width : 47%;
+        border: 1px solid;
+        border-color : ${Icon[0] == 1?  Colors.primary : Colors.gray3};
+        background : ${Colors.white};
+        box-sizing: border-box;
+        border-radius: 4px; 
+    `;
+
+    const MobileButton3 = styled.button`
+    min-width : 12px;
+    width : 47%;
+    border: 1px solid;
+    border-color : ${Icon[1] == 1?  Colors.primary : Colors.gray3};
+    background : ${Colors.white};
+    box-sizing: border-box;
+    border-radius: 4px; 
+    `;
+
+    const MobileButton5 = styled.button`
+    min-width : 12px;
+    width : 47%;
+    border: 1px solid;
+    border-color : ${Icon[2] == 1?  Colors.primary : Colors.gray3};
+    background : ${Colors.white};
+    box-sizing: border-box;
+    border-radius: 4px; 
+    `;
+
+    const MobileButton7 = styled.button`
+    min-width : 12px;
+    width : 47%;
+    border: 1px solid;
+    border-color : ${Icon[3] == 1?  Colors.primary : Colors.gray3};
+    background : ${Colors.white};
+    box-sizing: border-box;
+    border-radius: 4px; 
+    `;
+
+    const MobileButton2 = styled.button`
+        min-width : 12px;
+        width : 47%;
+        border: 1px solid;
+        border-color : ${Icon[0] == 0?  Colors.primary : Colors.gray3};
+        background : ${Colors.white};
+        box-sizing: border-box;
+        border-radius: 4px; 
+    `;
+
+    const MobileButton4 = styled.button`
+        min-width : 12px;
+        width : 47%;
+        border: 1px solid;
+        border-color : ${Icon[1] == 0?  Colors.primary : Colors.gray3};
+        background : ${Colors.white};
+        box-sizing: border-box;
+        border-radius: 4px; 
+    `;
+    
+    const MobileButton6 = styled.button`
+        min-width : 12px;
+        width : 47%;
+        border: 1px solid;
+        border-color : ${Icon[2] == 0?  Colors.primary : Colors.gray3};
+        background : ${Colors.white};
+        box-sizing: border-box;
+        border-radius: 4px; 
+    `;
+    
+    const MobileButton8 = styled.button`
+        min-width : 12px;
+        width : 47%;
+        border: 1px solid;
+        border-color : ${Icon[3] == 0?  Colors.primary : Colors.gray3};
+        background : ${Colors.white};
+        box-sizing: border-box;
+        border-radius: 4px; 
+    `;    
+
     return(
         <>
         <Container>
@@ -114,33 +202,55 @@ export function ReviewDetail(props : any){
                             <StarIcons type = "image" onClick = {(e) => handleStarClick(e, 4)} src = {clickStar[Star[4]? 'star' : 'nostar']}/>
                         </StarBox>
                         <SecondQuestions>___님의 코칭은 어떠셨나요?</SecondQuestions>
+                        
                         <ClickBox>
-                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 0, true)} src = {clickIcon[Icon[0]? 'good_click' : 'good_unclick']}/>
-                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 0, false)} src = {clickIcon[!Icon[0]? 'bad_click' : 'bad_unclick']}/>
+                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 0, 1)} src = {clickIcon[Icon[0] == 1? 'good_click' : 'good_unclick']}/>
+                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 0, 0)} src = {clickIcon[Icon[0] == 0? 'bad_click' : 'bad_unclick']}/>
                             <ClickQuestion>{questions[0]}</ClickQuestion>
                             <MobileBox>
-                                <MobileButton onClick = {(e) => handleIconClick(e, 0, true)}><MobileIcons type = "image" src = {clickIcon[Icon[0]? 'good_click' : 'good_unclick']}/></MobileButton>
-                                <MobileButton onClick = {(e) => handleIconClick(e, 0, false)}><MobileIcons type = "image" src = {clickIcon[!Icon[0]? 'bad_click' : 'bad_unclick']}/></MobileButton>
+                                <MobileButton onClick = {(e) => handleIconClick(e, 0, 1)}><MobileIcons src = {clickIcon[Icon[0] == 1? 'good_click' : 'good_unclick']}/></MobileButton>
+                                <MobileButton2 onClick = {(e) => handleIconClick(e, 0, 0)}><MobileIcons src = {clickIcon[Icon[0] == 0? 'bad_click' : 'bad_unclick']}/></MobileButton2>
                             </MobileBox>
                         </ClickBox>
+                        
                         <ClickBox>
-                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 1, true)} src = {clickIcon[Icon[1]? 'good_click' : 'good_unclick']}/>
-                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 1, false)} src = {clickIcon[!Icon[1]? 'bad_click' : 'bad_unclick']}/>
+                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 1, 1)} src = {clickIcon[Icon[1] == 1? 'good_click' : 'good_unclick']}/>
+                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 1, 0)} src = {clickIcon[Icon[1] == 0? 'bad_click' : 'bad_unclick']}/>
                             <ClickQuestion>{questions[1]}</ClickQuestion>
+                            <MobileBox>
+                                <MobileButton3 onClick = {(e) => handleIconClick(e, 1, 1)}><MobileIcons src = {clickIcon[Icon[1] == 1? 'good_click' : 'good_unclick']}/></MobileButton3>
+                                <MobileButton4 onClick = {(e) => handleIconClick(e, 1, 0)}><MobileIcons src = {clickIcon[Icon[1] == 0? 'bad_click' : 'bad_unclick']}/></MobileButton4>
+                            </MobileBox>                            
                         </ClickBox>
+
                         <ClickBox>
-                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 2, true)} src = {clickIcon[Icon[2]? 'good_click' : 'good_unclick']}/>
-                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 2, false)} src = {clickIcon[!Icon[2]? 'bad_click' : 'bad_unclick']}/>
+                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 2, 1)} src = {clickIcon[Icon[2] == 1? 'good_click' : 'good_unclick']}/>
+                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 2, 0)} src = {clickIcon[Icon[2] == 0? 'bad_click' : 'bad_unclick']}/>
                             <ClickQuestion>{questions[2]}</ClickQuestion>
+                            <MobileBox>
+                                <MobileButton5 onClick = {(e) => handleIconClick(e, 2, 1)}><MobileIcons src = {clickIcon[Icon[2] == 1? 'good_click' : 'good_unclick']}/></MobileButton5>
+                                <MobileButton6 onClick = {(e) => handleIconClick(e, 2, 0)}><MobileIcons src = {clickIcon[Icon[2] == 0? 'bad_click' : 'bad_unclick']}/></MobileButton6>
+                            </MobileBox>                            
                         </ClickBox>
+
                         <ClickBox>
-                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 3, true)} src = {clickIcon[Icon[3]? 'good_click' : 'good_unclick']}/>
-                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 3, false)} src = {clickIcon[!Icon[3]? 'bad_click' : 'bad_unclick']}/>
+                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 3, 1)} src = {clickIcon[Icon[3] == 1? 'good_click' : 'good_unclick']}/>
+                            <PCIcons type = "image" onClick = {(e) => handleIconClick(e, 3, 0)} src = {clickIcon[Icon[3] == 0? 'bad_click' : 'bad_unclick']}/>
                             <ClickQuestion>{questions[3]}</ClickQuestion>
-                        </ClickBox>                                                      
+                            <MobileBox>
+                                <MobileButton7 onClick = {(e) => handleIconClick(e, 3, 1)}><MobileIcons src = {clickIcon[Icon[3] == 1? 'good_click' : 'good_unclick']}/></MobileButton7>
+                                <MobileButton8 onClick = {(e) => handleIconClick(e, 3, 0)}><MobileIcons src = {clickIcon[Icon[3] == 0? 'bad_click' : 'bad_unclick']}/></MobileButton8>
+                            </MobileBox>                            
+                        </ClickBox>                                                     
+                        
                         <ThirdQuestions>코칭 후기를 작성해주세요.</ThirdQuestions>
                         <InputReview value = {ReviewText} onChange = {onReviewHandler} placeholder = "이번 코칭이 본인에게 어떤 식으로 도움이 되었는지, 그리고 어떤 분들에게 도움이 될지 적어주세요."/>
-                        <Button onClick = {onSubmitListener} type="start" style = {{marginLeft : '200px', width : '200px', height : '52px'}}>완료</Button>   
+                        <MobileSubmitButton>
+                            <Button onClick = {onSubmitListener} disabled = {ReviewText === ''? true : false} type="start" style = {{minWidth : '136px', width : '50%', height : '28px', fontSize : '12px'}}>완료</Button>   
+                        </MobileSubmitButton>
+                        <PCSubmitButton>
+                            <Button onClick = {onSubmitListener} disabled = {ReviewText === ''? true : false} type="start" style = {{width : '200px', height : '52px'}}>완료</Button>   
+                        </PCSubmitButton>
                     </ReviewBox>
                 </Box>
             </OnContainer>
@@ -254,10 +364,21 @@ const Line = styled.div`
 
 const ReviewBox = styled.div`
     margin-top : 28px;
+
     ${max[1]}{
         flex-direction : column;
         margin-top : 12px;
-    }     
+        height: calc(100vh - 80px - 98px - 16px);
+        overflow-y: scroll;
+        overflow-x: hidden;
+        &::-webkit-scrollbar {
+            width: 7px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: ${Colors.gray2};
+            border-radius: 6px;         
+        }         
+    }
 `;
 
 const StarBox = styled.div`
@@ -339,6 +460,7 @@ const PCIcons = styled.input`
 `;
 
 const MobileBox = styled.div`
+    margin-top : 8px;
     display : flex;
     flex-direction : row;
     justify-content : space-between;
@@ -348,21 +470,8 @@ const MobileBox = styled.div`
     } 
 `;
 
-const MobileIcons = styled.input`
+const MobileIcons = styled.img`
     margin-top : 2px;
-`;
-
-const MobileButton = styled.button`
-    min-width : 12px;
-    width : 47%;
-    border: 1px solid ${Colors.gray3};
-    background : ${Colors.white};
-    box-sizing: border-box;
-    border-radius: 4px; 
-
-    &:focus {
-        border-color: ${Colors.primary};
-    }    
 `;
 
 const ClickQuestion = styled.div`
@@ -400,18 +509,21 @@ const ThirdQuestions = styled.div`
     text-align: left;
     color : ${Colors.gray2};
     ${max[1]}{
-        width: 240px;
+        width : 100%;
+        min-width: 240px;
         font-weight: 500;
         font-size: 12px;
         line-height: 20px;
+        margin-top : 20px;
     } 
 `;
 
 const InputReview = styled.textarea`
-    margin-top : 24px;
+    margin-top : 12px;
     margin-bottom : 28px;
-    width: 600px;
-    height: 110px;
+    padding: 12px;
+    width: 100%;
+    min-height: 110px;
     background: #FFFFFF;
     border: 1px solid ${Colors.gray3};
     box-sizing: border-box;
@@ -422,7 +534,8 @@ const InputReview = styled.textarea`
     font-weight: 400;
     letter-spacing: 0px;
     text-align: left;   
-    font-size: 12px;
+    font-size: 10px;
+    line-height: 16px;
     resize: none;
     &::placeholder {
         color: ${Colors.gray3};
@@ -437,9 +550,28 @@ const InputReview = styled.textarea`
     }
 
     ${min[1]} {
+        width: 600px;
+        height: 110px;
+        margin-top : 24px;
         font-size: 14px;
         line-height: 24px;
         border-radius: 20px;
         padding: 20px;
+    }
+`;
+
+const MobileSubmitButton = styled.div`
+    width : 100%;
+    text-align : center;
+    ${min[1]}{
+        display : none;
+    }
+`;
+
+const PCSubmitButton = styled.div`
+    width : 100%;
+    text-align : center;
+    ${max[1]}{
+        display : none;
     }
 `;
