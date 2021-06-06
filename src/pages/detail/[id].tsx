@@ -147,7 +147,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
             </div>
             <div className="rightArea">
               <Price discountPrice={options[0].discountPrice} price={options[0].price} />
-              <a onClick={()=>onClickListener(0)} className="buyBtn"><Button type="start">구매하기</Button></a>
+              <a onClick={()=>onClickListener(1)} className="buyBtn"><Button type="start">구매하기</Button></a>
               {/* 보유중 상태가 필요하겠네요 */}
             </div>
           </FunctionsAndPriceInfo>
