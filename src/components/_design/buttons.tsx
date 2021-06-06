@@ -54,6 +54,27 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url, dis
           color: Colors.gray3,
         },
       },
+      'loginWhite': {
+        weight : '500',
+        background: 'transparent',
+        borderColor: Colors.white,
+        color: Colors.white,
+        hover: {
+          background: 'transparent',
+          borderColor: Colors.secondary,
+          color: Colors.secondary,
+        },
+        pressed: {
+          background: 'transparent',
+          borderColor: Colors.secondaryDark,
+          color: Colors.secondaryDark,
+        },
+        disabled: {
+          background: 'transparent',
+          borderColor: Colors.gray3,
+          color: Colors.gray3,
+        },
+      },
       'secondary': {
         weight : '500',
         background: Colors.white,
@@ -99,6 +120,8 @@ export const Button: React.FC<IButtonProps> = ({ children, type, style, url, dis
     }
 
     const Button = styled.button`
+      -webkit-transition: background 0.3s, color 0.3s, border 0.3s, -webkit-transform 0.3s;
+      transition: background 0.3s, color 0.3s, border 0.3s, transform 0.3s;
       cursor : pointer;
       height : 52px;
       width : 160px;
