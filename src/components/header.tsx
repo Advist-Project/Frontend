@@ -25,7 +25,7 @@ export const Header = (props: any) => {
         <a href="/"><img src={props.white ? '/logo_white.svg' : '/logo.png'} height="44" /></a>
         <RightElements>
           <a href="/all">코칭 프로그램</a>
-          {userObject ? <LogoutButtons/> : <Button onClick = {() =>  window.location.href = "/login"} type={props.white ? 'loginWhite' : 'login'}>로그인</Button>}
+          {userObject ? <LogoutButtons white={props.white ? true : false} /> : <Button onClick = {() =>  window.location.href = "/login"} type={props.white ? 'loginWhite' : 'login'}>로그인</Button>}
           {/*<Button url={userObject? undefined : "/login"} type="login">{userObject? "로그아웃" : "로그인"}</Button> */}
         </RightElements>
       </Desktop>

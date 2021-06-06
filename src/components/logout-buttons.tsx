@@ -5,7 +5,7 @@ import { myContext } from "../context";
 import { User } from '../types/logintypes';
 import axios, { AxiosResponse } from 'axios';
 
-export function LogoutButtons(){
+export function LogoutButtons({white}: any){
   const userObject = useContext(myContext) as User;
   const [isOpen, setIsOpen] = useState(false);
 
@@ -26,10 +26,10 @@ export function LogoutButtons(){
   margin-top : ${isOpen? '104px' : ''};
   border-radius: 20px;
   border-width : 1px;
-  border-color : ${Colors.black};
+  border-color : ${white ? Colors.white : Colors.black};
   border-style : solid;
-  background-color: ${Colors.white};
-  color : ${Colors.black};
+  background-color: ${white ? 'transparent' : Colors.white};
+  color : ${white ? Colors.white : Colors.black};
 
   font-family: Spoqa Han Sans Neo;
   font-size: 16px;
@@ -46,6 +46,11 @@ const ImageBox = styled.div`
   height: 24px;
   width: 24px;
   border-radius: 0px;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const OpenBox = styled.div`
@@ -63,9 +68,9 @@ const OpenBox = styled.div`
         <div style={{ width : '160px', height : '156px', display : 'flex', flexDirection : 'column', justifyContent : 'space-around' }}>
           <div style={{height : '52px', marginLeft : '28px', display : 'flex', flexDirection : 'row' , cursor : 'pointer'}} onClick = {() => setIsOpen(!isOpen)}>
 
-            <div style={{marginTop : '14px', width : '70px', height : '24px', lineHeight : '26px', color : Colors.primary, overflow : 'hidden', textOverflow: 'ellipsis', whiteSpace : 'nowrap'}}>{userObject.username}</div>
-            <div style={{marginTop : '14px'}}><Text size = '16px' bold>님</Text></div>
-            <ImageBox style = {{alignSelf : 'center'}}><img src="/close.png"/></ImageBox>
+            <div style={{marginTop : '16px', width : '70px', color : Colors.primary, overflow : 'hidden', textOverflow: 'ellipsis', whiteSpace : 'nowrap'}}>{userObject.username}</div>
+            <div style={{marginTop : '13px'}}><Text size = '16px' bold>님</Text></div>
+            <ImageBox style = {{alignSelf : 'center'}}><img src={white ? '/icon/chevron_up_white_24px.png' : "/close.png"}/></ImageBox>
           </div>
           <OpenBox onClick = {() => window.location.href = "/mypage"}>마이페이지</OpenBox>
           <OpenBox onClick = {logoutListener}>로그아웃</OpenBox>
@@ -74,7 +79,7 @@ const OpenBox = styled.div`
         <div style={{ marginLeft : '28px', display : 'flex', flexDirection : 'row' , cursor : 'pointer'}} onClick = {() => setIsOpen(!isOpen)}>
           <div style={{width : '70px', height : '24px', lineHeight : '26px', color : Colors.primary, overflow : 'hidden', textOverflow: 'ellipsis', whiteSpace : 'nowrap'}}>{userObject.username}</div>
           <Text size = '16px' bold>님</Text>
-          <ImageBox><img src="/open.png"/></ImageBox>
+          <ImageBox><img src={white ? '/icon/chevron_down_white_24px.png' : "/open.png"}/></ImageBox>
         </div>
       : ''}
     </Button>
