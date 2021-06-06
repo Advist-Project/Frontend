@@ -7,6 +7,7 @@ import { priceFormat } from "components/formatter";
 import { Step } from "components/step";
 import Router from "next/router";
 import { Title } from "components/order/common-styles";
+import axios, { AxiosResponse } from 'axios';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const optionId = context.query.id;
@@ -18,6 +19,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       notFound: true,
     }
   }
+  
+  if(data.order_receipts.status !== 1){
+    return {
+      notFound: true,
+    }
+  }
 
   return {
     props: { data: data.order_receipts },
@@ -25,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 function OrderComplete({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
-  const { itemInfo, customerOrderId, paymentInfo, userEmail, userName, userPhone } = data;
+  const { orderId, itemInfo, customerOrderId, paymentInfo, userEmail, userName, userPhone } = data;
   const { itemId, itemName, option } = itemInfo;
   const { method, cardName, purchasedTime } = paymentInfo;
 
@@ -34,7 +41,16 @@ function OrderComplete({data}: InferGetServerSidePropsType<typeof getServerSideP
     "coaching": "코칭",
     "both": "코칭 & 워크북"
   }
-  
+
+  // 결제최종완료 처리 API
+  axios.get(process.env.NEXT_PUBLIC_API_URL as string +`/pay/aftercomplete/${orderId}`)
+        .then((res: AxiosResponse) => {
+          console.log(res);
+        })
+        .catch((err : any) => {
+          console.log(err);
+        });
+
   return (
     <Layout noFooter>
       <Wrap>
