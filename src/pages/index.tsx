@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import { min, max, Colors } from "components/ui";
+import { breakpoints as bp } from "components/ui";
 import Image from 'next/image';
 import { ProductList } from "components/product-card-list";
 import axios, { AxiosResponse } from 'axios';
@@ -31,6 +32,14 @@ export default function Home() {
     speed: 10000, //슬라이드 속도
     autoplaySpeed: 0, //한 슬라이드에 머무르는 시간
     cssEase: 'ease',
+    responsive: [
+      {
+        breakpoint: 576,
+        settings: {
+          speed: 7000, //슬라이드 속도
+        }
+      },
+    ]
   };
 
   return (
@@ -99,11 +108,11 @@ export default function Home() {
       </Section3>
 
       {/* 코칭 프로그램 */}
-      <Section5 className="wrap">
+      <ProgramSection className="wrap">
         <SectionHeader>
           <img src="/icon/coach_64p.svg" style={{marginRight: '5px'}} className="icon_pc"/>
-          <img src="/icon/coaching_42p.svg" style={{marginRight: '5px'}} className="icon_mo"/>
-          <SectionTitle>신청할 수 있는 <span className="hightlight_mo">코칭 프로그램</span></SectionTitle>
+          <img src="/icon/coach_42p.svg" style={{marginRight: '5px'}} className="icon_mo"/>
+          <SectionTitle>신청할 수 있는 코칭 프로그램</SectionTitle>
           <SectionDesc>성공적인 커리어와 이직의 기술, 회사에서 인정받은 중요 프로젝트의 노하우를 만나보세요.</SectionDesc>
         </SectionHeader>
 
@@ -116,19 +125,19 @@ export default function Home() {
             </div>
           </a>
         </ProductListWrap>
-      </Section5>
+      </ProgramSection>
       {/* 리뷰 */}
-      <Section4 className="wrap">
+      <ReviewSection className="wrap">
         <SectionHeader style={{marginBottom: '80px'}}>
           <img src="/icon/review_64p.svg" style={{marginRight: '26px'}} className="icon_pc" />
           <img src="/icon/review_42p.svg" style={{marginRight: '8px'}} className="icon_mo" />
-          <SectionTitle>구매 <span className="hightlight_mo">후기</span></SectionTitle>
-          <SectionDesc>코칭을 신청하고 업무에 <br/>활용한 고객이 작성하신 후기입니다.</SectionDesc>
+          <SectionTitle>구매 후기</SectionTitle>
+          <SectionDesc>코칭을 신청하고 업무에 활용한 고객이 작성하신 후기입니다.</SectionDesc>
         </SectionHeader>
         <div className="img_pc">
           <Image
             src="/mainGraphic_section4_review.png"
-            alt="조직문화 진단은 제가 경험도 없고 큰 프로젝트여서 굉장히 막막했는데, 일할 떄 딱 필요한 실무 양식이랑 작성 사례도 주시고 매주 업무 방향을 같이 고민해주셔서 일을 생각보다 쉽게 해낸 것 같아요. 덕분에 프로젝트도 잘 마무리했고 감사했습니다. 쿠팡페이 HR Leader 홍*영님의 리뷰"
+            alt="조직문화 진단은 제가 경험도 없고 큰 프로젝트여서 굉장히 막막했었는데, 일할 떄 딱 필요한 실무 양식이랑 작성 사례도 주시고 매주 업무 방향을 같이 고민해주셔서 일을 생각보다 쉽게 해낸 것 같아요. 덕분에 프로젝트도 잘 마무리했고 감사했습니다. 쿠팡페이 HR Leader 홍*영님의 리뷰, 기본적인 보고나 메일 커뮤니케이션을 직접 신입사원 분들께 알려주자니 시간이 너무 많이 들고, 외부 강의는 효과가 없어요 고민이었는데 코칭을 받은 후 실제로 변화한 분들이 많았습니다. 디지털 마케팅 에이전시 Co-founder 문*호님"
             width={1300}
             height={759.5}
             priority
@@ -137,13 +146,13 @@ export default function Home() {
         <div className="img_mo">
           <Image
             src="/mainGraphic_section4_review_mo.png"
-            alt="조직문화 진단은 제가 경험도 없고 큰 프로젝트여서 굉장히 막막했는데, 일할 떄 딱 필요한 실무 양식이랑 작성 사례도 주시고 매주 업무 방향을 같이 고민해주셔서 일을 생각보다 쉽게 해낸 것 같아요. 덕분에 프로젝트도 잘 마무리했고 감사했습니다. 쿠팡페이 HR Leader 홍*영님의 리뷰"
+            alt="조직문화 진단은 제가 경험도 없고 큰 프로젝트여서 굉장히 막막했었는데, 일할 떄 딱 필요한 실무 양식이랑 작성 사례도 주시고 매주 업무 방향을 같이 고민해주셔서 일을 생각보다 쉽게 해낸 것 같아요. 덕분에 프로젝트도 잘 마무리했고 감사했습니다. 쿠팡페이 HR Leader 홍*영님의 리뷰, 기본적인 보고나 메일 커뮤니케이션을 직접 신입사원 분들께 알려주자니 시간이 너무 많이 들고, 외부 강의는 효과가 없어요 고민이었는데 코칭을 받은 후 실제로 변화한 분들이 많았습니다. 디지털 마케팅 에이전시 Co-founder 문*호님"
             width={768}
             height={856}
             priority
           />
         </div>
-      </Section4>
+      </ReviewSection>
       {/* 더닝크루거 */}
       <Dunning />
     </Layout>
@@ -188,7 +197,7 @@ const Keyvisual = styled.section`
     max-width: 375px;
 
     ${min[1]}{
-      font-size: 20px;
+      font-size: 1.25rem;
       max-width: 100%;
     }
   }
@@ -207,72 +216,148 @@ const Highlight2 = styled.span`
 `;
 
 const Headline = styled.h3`
-  font-size: 1.75rem;
+  font-size: 1.25rem;
   font-weight: 700;
+  line-height: 125%;
+  word-break: keep-all;
+  
+  ${min[1]}{
+    font-size: 1.75rem;
+  }
 `;
 
 // Section2
 const Section2 = styled.section`
-  margin-top: 120px;
+  margin-top: 40px;
 
   h3 {
     margin-bottom: 1.5em;
   }
   p {
-    font-size: 20px;
-    line-height: 30px;
+    font-size: 0.875rem;
+    line-height: 150%;
+  }
+
+  ${min[1]}{
+    margin-top: 120px;
+  
+    p {
+      font-size: 1.25rem;
+    }
   }
 `;
 
 const Comments = styled.ul`
-  margin-top: 65px;
+  margin-top: 40px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   
   li {
-    width: 33.3%;
-    max-width: 320px;
-    margin: 30px 20px;
+    width: 100%;
+    max-width: 280px;
+    margin: 16px auto;
     text-align: center;
     color: ${Colors.gray2};
-    font-size: 14px;
+    font-size: 0.72rem;
     line-height: 171%;
   }
-  li:nth-of-type(3n-2){
-    margin-left: 0;
+  ${max[0]}{
+    li:nth-of-type(2){
+      opacity: 0.7;
+    }
+    li:nth-of-type(3){
+      opacity: 0.4;
+    }
+    li:nth-of-type(4){
+      opacity: 0.2;
+    }
+    li:nth-of-type(n+5){
+      display: none;
+    }
   }
-  li:nth-of-type(3n){
-    margin-right: 0;
+
+  ${min[0]}{
+    margin-top: 65px;
+
+    li {
+      width: calc(50% - 40px);
+      max-width: 100%;
+      margin: 30px 20px;
+    }
   }
-  li:nth-of-type(n+4){
-    opacity: 0.65;
+
+  @media (max-width: ${bp[2]}px) and (min-width: ${bp[0]}px) {
+    li:nth-of-type(2n-1){
+      margin-left: 0;
+    }
+    li:nth-of-type(2n){
+      margin-right: 0;
+    }
+    li:nth-of-type(n+3){
+      opacity: 0.65;
+    }
+    li:nth-of-type(n+5){
+      opacity: 0.3;
+    }
+    li:nth-of-type(n+7){
+      display: none;
+    }
   }
-  li:nth-of-type(n+7){
-    opacity: 0.3;
+
+  ${min[2]}{
+    li {
+      width: calc((100% / 3) - 40px);
+      max-width: 320px;
+      margin: 30px 20px;
+    }
+    li:nth-of-type(3n-2){
+      margin-left: 0;
+    }
+    li:nth-of-type(3n){
+      margin-right: 0;
+    }
+    li:nth-of-type(n+4){
+      opacity: 0.65;
+    }
+    li:nth-of-type(n+7){
+      opacity: 0.3;
+    }
   }
 `;
 
 // Section3
 const Section3 = styled.section`
   color: ${Colors.black};
-  margin-top: 245px;
+  margin-top: 115px;
+  height: 500px;
+  overflow: hidden;
+
+  ${min[1]}{
+    margin-top: 245px;
+    height: auto;
+  }
 `;
 const SliderWrap = styled.div`
-  margin-top: 145px;
+  margin-top: 40px;
   width: 100%;
-  overflow: hidden;
+  
+  ${min[1]}{
+    margin-top: 145px;
+  }
 `;
 
 // Section4
-const Section4 = styled.section`
+const ReviewSection = styled.section`
   color: ${Colors.black};
-  margin-top: 245px;
+  margin-top: 80px;
 
   .img_pc {
     display: none;
   }
   ${min[1]}{
+    margin-top: 245px;
+
     .img_pc {
       display: block;
     }
@@ -313,12 +398,6 @@ const SectionTitle = styled.h3`
   font-weight: 700;
   line-height: 125%;
 
-  ${max[1]} {
-    .hightlight_mo {
-      color: ${Colors.secondary};
-    }
-  }
-
   ${min[1]} {
     font-size: 2.25rem;
   }
@@ -326,7 +405,7 @@ const SectionTitle = styled.h3`
 const SectionDesc = styled.p`
   width: 100%;
   color: ${Colors.gray1};
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   line-height: 150%;
   margin-top: 12px;
   word-break: keep-all;
@@ -341,10 +420,14 @@ const SectionDesc = styled.p`
   }
 `;
 
-// Section5
-const Section5 = styled.section`
+// ProgramSection
+const ProgramSection = styled.section`
   color: ${Colors.black};
-  margin-top: 205px;
+  margin-top: 0;
+
+  ${min[1]}{
+    margin-top: 205px;
+  }
 `;
 const ProductListWrap = styled.div`
   display: flex;
@@ -353,10 +436,12 @@ const ProductListWrap = styled.div`
 
   .allProductLink {
     display: block;
-    margin-bottom: 32px;
+    width: 100%;
+    text-align: right;
 
     ${min[1]} {
       width: calc(50% - 16px);
+      margin-bottom: 32px;
     }
     ${min[2]} {
       max-width: 412px;

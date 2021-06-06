@@ -53,17 +53,15 @@ export const ProductCard: React.FC<IProductCardProps> = ({ id, label, title, lik
       </DesktopCard>
 
       <MobileCard>
-        <div className="card">
-          <a href={`/detail/${id}`}>
+        <a href={`/detail/${id}`}>
+          <div className="card">
             <Thumbnail url={img}/>
-          </a>
-          <TitleAndPrice>
-            <a href={`/detail/${id}`}>
+            <TitleAndPrice>
               <Title>{title}</Title>
-            </a>
-            <Price discountPrice={discountPrice} price={price} />
-          </TitleAndPrice>
-        </div>
+              <Price discountPrice={discountPrice} price={price} />
+            </TitleAndPrice>
+          </div>
+        </a>
         <TagAndLike>
           <Tags data={tag} gray />
           <Likes>
@@ -164,13 +162,20 @@ const Likes = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: -8px;
+
+  img {
+    width: 14px;
+    height: 14px;
+  }
 `;
 const LikesCount = styled.span`
   color: ${Colors.primary};
   font-size: 0.75rem;
+  order: 2;
+  margin-left: -8px;
 
-  ${min[1]} {
-    order: 2;
+  ${min[1]}{
+    margin-left: 0;
     font-size: 0.875rem;
   }
 `;
@@ -193,11 +198,6 @@ const MobileCard = styled.div`
     overflow: hidden;
     box-shadow: 0px 8px 16px rgba(17, 17, 17, 0.06);
     margin-bottom: 0.5em;
-
-    > a {
-      min-width: 164px;
-      max-width: 164px;
-    }
   }
 `;
 

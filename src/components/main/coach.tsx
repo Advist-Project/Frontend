@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Colors, Tags } from "components/ui";
+import { min, Colors, Tags } from "components/ui";
 
 interface ICoachProps {
   company: string;
@@ -33,33 +33,52 @@ export const Coach: React.FC<ICoachProps> = ({company, team, desc, tag}) => {
 }
 
 const Box = styled.div`
-  padding: 40px 100px 60px;
+  max-width: 256px;
+  height: 332px;
+  padding: 32px 20px 18px;
   background: #FCFCFC;
   box-shadow: 0px 20px 24px rgba(17, 17, 17, 0.06);
-  border-radius: 20px;
-  max-width: 600px;
-  height: 480px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 35px;
-  margin-left: 40px;
-  margin-right: 40px;
+  margin-left: 20px;
+  margin-right: 20px;
+
+  ${min[1]} {
+    max-width: 600px;
+    height: 480px;
+    padding: 40px 100px 60px;
+    border-radius: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
+  }
 `;
 
 const Title = styled.h4`
-  font-size: 20px;
+  font-size: 0.875rem;
   line-height: 150%;
   text-align: center;
 
   &::after {
     content: '';
     display: block;
-    width: 100px;
-    height: 2px;
+    width: 40px;
+    height: 1px;
     background: ${Colors.gray3};
-    margin: 44px auto 36px;
+    margin: 20px auto 28px;
+  }
+
+  ${min[1]}{
+    font-size: 1.25rem;
+
+    &::after {
+      width: 100px;
+      height: 2px;
+      margin: 44px auto 36px;
+    }
   }
 `;
 
@@ -70,13 +89,22 @@ const Company = styled.span`
 const Desc = styled.p`
   max-width: 400px;
   margin: 0 auto;
-  font-size: 14px;
+  font-size: 0.625rem;
   line-height: 171%;
   text-align: justify;
+
+  ${min[1]}{
+    font-size: 0.875rem;
+  }
 `;
 
 const TagWrap = styled.div`
   width: 100%;
   max-width: 400px;
   text-align: left;
+  font-size: 0.625rem;
+
+  ${min[1]}{
+    font-size: 1rem;
+  }
 `;

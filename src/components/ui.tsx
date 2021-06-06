@@ -26,7 +26,7 @@ export const Gradient = _colors.Gradient;
 
 
 // Media Query Breakpoints
-const breakpoints = [576, 769, 992, 1100]
+export const breakpoints = [576, 769, 992, 1100]
 export const min = breakpoints.map(
   bp => `@media (min-width: ${bp}px)`
 );

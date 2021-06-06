@@ -92,6 +92,9 @@ const Message = styled.div`
     br {
       display: none;
     }
+    p {
+      color: ${Colors.gray1}
+    }
   }
   ${min[1]} {
     max-width: 100%;
@@ -103,10 +106,6 @@ const Message = styled.div`
     flex-direction: column;
     justify-content: space-around;
     text-align: left;
-
-    p {
-      color: ${Colors.gray1}
-    }
   }
 `;
 
@@ -115,7 +114,7 @@ const Strong = styled.p`
     margin-top: 32px;
     font-size: 1.1em;
     font-weight: 500;
-    color: ${Colors.black}
+    color: ${Colors.black} !important;
   }
   ${min[1]}{
     br {display: none}
