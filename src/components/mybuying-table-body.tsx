@@ -79,7 +79,7 @@ export function MybuyingTableBody(props : any){
                         </PCStatusBox>
                         <td style={{verticalAlign : 'middle'}}>
                             <ButtonBox>
-                                {Data[num].status === "결제 완료"? (<Button style = {{marginBottom : '16px'}} onClick = {() => onReviewListener(num)}>후기 작성</Button>) : (<></>)}
+                                {Data[num].status === "결제 완료"? (<ReviewButton onClick = {() => onReviewListener(num)}>후기 작성</ReviewButton>) : (<></>)}
                                 <Button onClick = {() => onDetailListener(num)}>주문 상세보기</Button>
                             </ButtonBox>
                         </td>
@@ -199,6 +199,37 @@ const Status = styled.div`
     }    
 `;
 
+const ReviewButton = styled.button`
+    cursor : pointer;
+    
+    height: 32px;
+    width: 99px;
+
+    border-radius: 8px;
+    padding: 4px, 8px, 4px, 8px;
+
+    font-family: Spoqa Han Sans Neo;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0px;
+    text-align: center;
+
+    color : ${Colors.gray1};
+    background : ${Colors.white};
+    ${max[1]}{     
+        margin-right : calc(100% - 29.57vh);   
+        width : 136px;
+        height : 20px;
+        font-size: 10px;   
+        border-width : 1px;
+        border-radius: 4px;
+    } 
+    ${min[1]}{
+        margin-bottom : 16px;
+    } 
+`;
+
 const Button = styled.button`
     cursor : pointer;
 
@@ -230,7 +261,7 @@ const ButtonBox = styled.div`
     height : 80px;
     display : flex;
     flex-direction : column;
-    justify-content : center;    
+    justify-content : center;      
     ${max[1]}{
         height : 20px;
         margin-top : 11px;        
