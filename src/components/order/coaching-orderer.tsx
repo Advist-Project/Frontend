@@ -105,22 +105,14 @@ const UserInfo = styled.div`
     }
   }
 
-  div:last-of-type > div input {
-    margin-bottom: 0;
-  }
-
   input + p {
     font-size: 12px;
     margin-top: -24px;
     margin-bottom: 2px;
   }
-  div:last-of-type > div input + p {
-    margin-top: 8px;
-    margin-bottom: 0;
-  }
 
   ${min[1]}{
-    padding: 36px 0 26px;
+    padding: 36px 0 4px;
 
     label {
       font-size: 16px;

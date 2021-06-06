@@ -60,6 +60,7 @@ export const Msg = styled.p`
   margin-top: 8px;
   font-size: 14px;
   line-height: 22px;
+  height: 22px;
   color: ${Colors.primary};
   text-align: right;
 
