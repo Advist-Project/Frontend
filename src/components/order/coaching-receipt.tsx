@@ -177,10 +177,10 @@ export function PaymentSectionMethod({method, setMethod, pg, setPg}: any){
         <Methods>
           <ToggleBtn className={method === 'card' ? 'active' : ''}
                     onClick={()=>{setPg('danal');setMethod('card');}}>카드결제</ToggleBtn>
-          <ToggleBtn className={pg === 'kakao' ? 'active' : ''}
+          {/* <ToggleBtn className={pg === 'kakao' ? 'active' : ''}
                     onClick={()=>{setPg('kakao');setMethod('easy');}}>카카오페이</ToggleBtn>
           <ToggleBtn className={pg === 'npay' ? 'active' : ''}
-                    onClick={()=>{setPg('npay');setMethod('');}}>네이버페이</ToggleBtn>
+                    onClick={()=>{setPg('npay');setMethod('');}}>네이버페이</ToggleBtn> */}
         </Methods>
       </Section>
     )
