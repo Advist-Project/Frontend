@@ -16,7 +16,7 @@ export const Layout: React.FC<ILayoutProps> = ({ children, title, noFooter, whit
         <title>
         { title ?
           `${title} | ${APP_NAME}`
-          : APP_NAME
+          : `업계 일잘러 선배들의 1:1 코칭, ${APP_NAME}`
         }  
         </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
