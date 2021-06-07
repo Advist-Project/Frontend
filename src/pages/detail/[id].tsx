@@ -221,8 +221,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
                         discountPrice={item.discountPrice}
                         desc={item.desc}
                         optionId={item.optionId}
-                        itemId={itemId}
-                        fn={routeToOrder}
+                        fn={onClickListener}
                 />
               ))
             }
