@@ -4,28 +4,12 @@ import { min, max, Heading, Colors } from "components/ui";
 import Image from 'next/image';
 import React, { useState, useEffect } from "react";
 import { AgreePage } from "components/agree";
-import axios from 'axios';
 
 export default function LoginPage(){
     const [AgreeModal, setAgreeModal] = useState<boolean>(false);
     useEffect(() => {
         const referrer = document.referrer; // 이전 경로 저장
-        console.log(referrer);
-        if(referrer !== ""){
-            axios.post(process.env.NEXT_PUBLIC_API_URL as string +`/user/login`, {
-                backUrl: referrer
-            })
-            .then(function (res : any) {
-                // response  
-                console.log(res.data);
-            }).catch(function (err : any) {
-                // 오류발생시 실행
-                console.log(err);
-            }).then(function() {
-                // 항상 실행
-                //window.location.href = referrer;
-            });
-        }        
+        console.log(referrer);     
     }, [])
 
     function onClickListener(){

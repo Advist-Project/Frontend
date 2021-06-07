@@ -59,8 +59,8 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
 
   function onClickListener(optionId: number){
     // 비로그인 || 로그인 api 받기 전에 클릭할 경우 경고
-  //  userObject? routeToOrder(userObject.userId, itemId, 1, options[0].type) : alert('로그인이 필요합니다.\n (로그인 상태라면 버튼을 다시 클릭해주세요.)');
-  userObject? routeToOrder(userObject.userId, itemId, optionId, options[optionId-1].type) : routeToOrder(1, itemId, optionId, options[optionId-1].type)
+    userObject? routeToOrder(userObject.userId, itemId, optionId, options[optionId-1].type) : alert('로그인이 필요합니다.\n (로그인 상태라면 버튼을 다시 클릭해주세요.)');
+  //userObject? routeToOrder(userObject.userId, itemId, optionId, options[optionId-1].type) : routeToOrder(1, itemId, optionId, options[optionId-1].type)
   }
   
   useEffect(() => {
