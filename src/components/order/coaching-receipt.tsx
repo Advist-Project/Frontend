@@ -135,7 +135,7 @@ const PriceInfo = styled.dl`
   }
 `;
 
-export function PaymentSectionMethod({method, setMethod, pg, setPg}: any){
+export function PaymentSectionMethod({method, setMethod, setPg}: any){
   const Section = styled.section`
     padding: 16px 0;
 
