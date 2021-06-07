@@ -4,28 +4,12 @@ import { min, max, Heading, Colors } from "components/ui";
 import Image from 'next/image';
 import React, { useState, useEffect } from "react";
 import { AgreePage } from "components/agree";
-import axios from 'axios';
 
 export default function LoginPage(){
     const [AgreeModal, setAgreeModal] = useState<boolean>(false);
     useEffect(() => {
         const referrer = document.referrer; // 이전 경로 저장
-        console.log(referrer);
-        if(referrer !== ""){
-            axios.post(process.env.NEXT_PUBLIC_API_URL as string +`/user/login`, {
-                backUrl: referrer
-            })
-            .then(function (res : any) {
-                // response  
-                console.log(res.data);
-            }).catch(function (err : any) {
-                // 오류발생시 실행
-                console.log(err);
-            }).then(function() {
-                // 항상 실행
-                //window.location.href = referrer;
-            });
-        }        
+        console.log(referrer);     
     }, [])
 
     function onClickListener(){
@@ -40,7 +24,7 @@ export default function LoginPage(){
             <div className="wrap">
                 <div className="contentArea">
             {/* 1번 콘텐츠 */}
-                    <MobileHeading>지금 가입하시면 5만원 상당의<br/>자료를 무료로 드려요</MobileHeading>
+                    <MobileHeading>SNS로 간편하게 시작하세요</MobileHeading>
                     <PCImages>
                         <Image
                             src="/mainGraphic_section1_human.png"
@@ -62,7 +46,7 @@ export default function LoginPage(){
                 </div>
                 <Container>
                     <HeadingBox>
-                        <Heading level={5} bold>지금 가입하시면 5만원 상당의 자료를 무료로 드려요</Heading>
+                        <Heading level={5} bold>SNS로 간편하게 시작하세요</Heading>
                     </HeadingBox>
                     <MarginBox/>
                     <LoginButton onClick = {() => location.href = process.env.NEXT_PUBLIC_LOGIN_NAVER as string} style={{marginTop : '13px'}}>
@@ -163,6 +147,7 @@ const MobileHeading = styled.div`
 `;
 
 const HeadingBox = styled.div`
+    text-align : center;
     ${max[1]}{
         display : none;
     }
