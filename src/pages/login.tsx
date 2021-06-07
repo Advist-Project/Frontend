@@ -40,7 +40,7 @@ export default function LoginPage(){
             <div className="wrap">
                 <div className="contentArea">
             {/* 1번 콘텐츠 */}
-                    <MobileHeading>지금 가입하시면 5만원 상당의<br/>자료를 무료로 드려요</MobileHeading>
+                    <MobileHeading>SNS로 간편하게 시작하세요</MobileHeading>
                     <PCImages>
                         <Image
                             src="/mainGraphic_section1_human.png"
@@ -62,7 +62,7 @@ export default function LoginPage(){
                 </div>
                 <Container>
                     <HeadingBox>
-                        <Heading level={5} bold>지금 가입하시면 5만원 상당의 자료를 무료로 드려요</Heading>
+                        <Heading level={5} bold>SNS로 간편하게 시작하세요</Heading>
                     </HeadingBox>
                     <MarginBox/>
                     <LoginButton onClick = {() => location.href = process.env.NEXT_PUBLIC_LOGIN_NAVER as string} style={{marginTop : '13px'}}>
@@ -163,6 +163,7 @@ const MobileHeading = styled.div`
 `;
 
 const HeadingBox = styled.div`
+    text-align : center;
     ${max[1]}{
         display : none;
     }

@@ -33,6 +33,7 @@ export default function OnboardingPage(){
         .then(function () {
              // response  
             // console.log(res.data.result);
+            router.push('/');
         }).catch(function (err : any) {
             // 오류발생시 실행
             console.log(err);
