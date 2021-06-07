@@ -37,11 +37,9 @@ export const Header = (props: any) => {
         <MobileMenu className={open ? 'open' : ''}>
           <a href="/"><img src="/logo.png" height="22" /></a>
           <ul>
-            {/* <li>
-              {userObject ? "로그아웃" : <a href="/login">로그인</a>}
-            </li> */}
+            {userObject ? null : <li><a href="/login">로그인</a></li>}
             <li>
-              <a href="/all">코칭 프로그렘</a>
+              <a href="/all">코칭 프로그램</a>
             </li>
           </ul>
         </MobileMenu>
