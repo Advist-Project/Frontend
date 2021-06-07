@@ -115,33 +115,33 @@ export function ReviewDetail(props : any){
     `;
 
     const MobileButton3 = styled.button`
-    min-width : 12px;
-    width : 47%;
-    border: 1px solid;
-    border-color : ${Icon[1] == 1?  Colors.primary : Colors.gray3};
-    background : ${Colors.white};
-    box-sizing: border-box;
-    border-radius: 4px; 
+        min-width : 12px;
+        width : 47%;
+        border: 1px solid;
+        border-color : ${Icon[1] == 1?  Colors.primary : Colors.gray3};
+        background : ${Colors.white};
+        box-sizing: border-box;
+        border-radius: 4px; 
     `;
 
     const MobileButton5 = styled.button`
-    min-width : 12px;
-    width : 47%;
-    border: 1px solid;
-    border-color : ${Icon[2] == 1?  Colors.primary : Colors.gray3};
-    background : ${Colors.white};
-    box-sizing: border-box;
-    border-radius: 4px; 
+        min-width : 12px;
+        width : 47%;
+        border: 1px solid;
+        border-color : ${Icon[2] == 1?  Colors.primary : Colors.gray3};
+        background : ${Colors.white};
+        box-sizing: border-box;
+        border-radius: 4px; 
     `;
 
     const MobileButton7 = styled.button`
-    min-width : 12px;
-    width : 47%;
-    border: 1px solid;
-    border-color : ${Icon[3] == 1?  Colors.primary : Colors.gray3};
-    background : ${Colors.white};
-    box-sizing: border-box;
-    border-radius: 4px; 
+        min-width : 12px;
+        width : 47%;
+        border: 1px solid;
+        border-color : ${Icon[3] == 1?  Colors.primary : Colors.gray3};
+        background : ${Colors.white};
+        box-sizing: border-box;
+        border-radius: 4px; 
     `;
 
     const MobileButton2 = styled.button`
