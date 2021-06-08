@@ -10,6 +10,7 @@ export function JobInput(props : any){
     function OnClickListener(i : number){
         setJobText(jobLists[i]);
         props.setJob(jobLists[i]);
+        setIsOpen(!isOpen);
     }
 const InputJob = styled.button`
     height: 52px;

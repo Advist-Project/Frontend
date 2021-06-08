@@ -10,6 +10,7 @@ export function YearsInput(props : any){
     function OnClickListener(i : number){
         setYearText(yearLists[i]);
         props.setYears(yearLists[i]);
+        setIsOpen(!isOpen);
     }
 
     const InputJob = styled.button`
