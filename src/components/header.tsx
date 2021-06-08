@@ -4,11 +4,22 @@ import { min, max, Button, Colors } from "components/ui";
 import { myContext } from "../context";
 import { User } from '../types/logintypes';
 import { LogoutButtons } from 'components/logout-buttons';
+import axios, { AxiosResponse } from 'axios';
 
 export const Header = (props: any) => {
   const userObject = useContext(myContext) as User;
   const [open, setOpen] = useState<boolean>(false);
   
+  function logoutListener(){
+    axios.get("https://advist.herokuapp.com/user/auth/logout", {
+      withCredentials: true
+    }).then((res: AxiosResponse) => {
+        if (res.data === "done") {
+          window.location.href = "/"
+        }
+    })    
+  }
+
   function toggleMenu(){
     setOpen(!open);
     if(!open){
@@ -26,7 +37,6 @@ export const Header = (props: any) => {
         <RightElements>
           <a href="/all">코칭 프로그램</a>
           {userObject ? <LogoutButtons white={props.white ? true : false} /> : <Button onClick = {() =>  window.location.href = "/login"} type={props.white ? 'loginWhite' : 'login'}>로그인</Button>}
-          {/*<Button url={userObject? undefined : "/login"} type="login">{userObject? "로그아웃" : "로그인"}</Button> */}
         </RightElements>
       </Desktop>
       {/* Mobile */}
@@ -37,7 +47,7 @@ export const Header = (props: any) => {
         <MobileMenu className={open ? 'open' : ''}>
           <a href="/"><img src="/logo.png" height="22" /></a>
           <ul>
-            {userObject ? null : <li><a href="/login">로그인</a></li>}
+            {userObject ? (<><li><a onClick = {logoutListener}>로그아웃</a></li> <li><a href="/mypage">마이페이지</a></li> </>) : <li><a href="/login">로그인</a></li>}
             <li>
               <a href="/all">코칭 프로그램</a>
             </li>
