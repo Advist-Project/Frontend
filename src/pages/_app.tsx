@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app";
 import { Global } from "@emotion/react";
+import '../styles/SpoqaHanSansNeo.css';
 import { reset } from "../styles/reset";
 import '../styles/resposiveLayout.css';
 import Context from "../context";

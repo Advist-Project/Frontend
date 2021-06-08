@@ -25,7 +25,8 @@
     font-family: 'Spoqa Han Sans Neo';
     font-weight: 700;
     src: local('Spoqa Han Sans Neo Bold'),
-    url('/SpoqaHanSansNeo/SpoqaHanSansNeo-Bold.woff2') format('woff2');
+    url('/SpoqaHanSansNeo/SpoqaHanSansNeo-Bold.woff2') format('woff2'),
+    url('/SpoqaHanSansNeo/SpoqaHanSansNeo-Bold.ttf') format('truetype');
 }
 
 
@@ -33,12 +34,14 @@
     font-family: 'Spoqa Han Sans Neo';
     font-weight: 500;
     src: local('Spoqa Han Sans Neo Medium'),
-    url('/SpoqaHanSansNeo/SpoqaHanSansNeo-Medium.woff2') format('woff2');
+    url('/SpoqaHanSansNeo/SpoqaHanSansNeo-Medium.woff2') format('woff2'),
+    url('/SpoqaHanSansNeo/SpoqaHanSansNeo-Medium.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Spoqa Han Sans Neo';
     font-weight: 400;
     src: local('Spoqa Han Sans Neo Regular'),
-    url('/SpoqaHanSansNeo/SpoqaHanSansNeo-Regular.woff2') format('woff2');
+    url('/SpoqaHanSansNeo/SpoqaHanSansNeo-Regular.woff2') format('woff2'),
+    url('/SpoqaHanSansNeo/SpoqaHanSansNeo-Regular.ttf') format('truetype');
 }
