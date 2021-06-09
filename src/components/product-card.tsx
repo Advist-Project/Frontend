@@ -23,6 +23,13 @@ export const ProductCard: React.FC<IProductCardProps> = ({ id, label, title, lik
   const [likesCount, setLikesCount] = useState<number>(likes);
   const [userLikeState, setUserLikeState] = useState<boolean>(false);
   const userObject = useContext(myContext) as User;
+  const [RunOnce, setRunOnce] = useState<boolean>(true);
+
+  if(userObject !== undefined && RunOnce){ // api로딩 후 처음 한 번만 실행
+    // 자신이 좋아요 클릭했었던 경우 체크된 아이콘 표시
+    setUserLikeState(userObject.likeItemIds.indexOf(id) === -1? false : true);
+    setRunOnce(false);
+  }
 
   const chageUserLikeState = () => {
     if(userLikeState){ // 좋아요 취소

@@ -40,8 +40,9 @@ export function MypageList(props : any){
         axios.get(process.env.NEXT_PUBLIC_API_URL as string + `/mypage/uncheckedall/${userObject.userId}`, { withCredentials: true }).then((res: AxiosResponse) => {
             if (res.data){
                 //console.log(res.data);
+                window.location.reload();
             }
-        })  
+        })
     }
 
     return(
