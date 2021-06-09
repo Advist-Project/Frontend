@@ -6,4 +6,5 @@ export interface User{
     userId : number;
     __v: number;
     _id: string;
+    likeItemIds : Array<number>;
 }

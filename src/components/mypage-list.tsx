@@ -28,25 +28,66 @@ export function MypageList(props : any){
             }) 
             setRunOnce(false);
         }
- 
 
     return(
         <>     
         {userObject? ( // 로그인 시
         <>
         <div className="wrap">
-            {Isbought ? ( // 내역 있을 경우
-                (props.activeTab === 'mybuying'? ( // 구매내역
-                <>
-                    <PCHeading>
-                        <Heading bold level = {2} style={{color : Colors.gray1, marginTop : '99px'}}>
-                            {userObject.username + '님이 '} {<span style={{color : Colors.primary}}>구매하신 내역</span>}{'입니다.'}
-                        </Heading>
-                    </PCHeading>
-                    <MobileHeading>{userObject.username + '님이 '} {<span style={{color : Colors.primary}}>구매하신 내역</span>}{'입니다.'}</MobileHeading>
-                    <MybuyingList data = {Data}/>
-                </>) : 
-                ( // 찜한 내역
+            {props.activeTab === 'mybuying' ? ( // 구매내역
+                (Isbought?
+                    ( // 내역 있을 경우
+                    <>
+                        <PCHeading>
+                            <Heading bold level = {2} style={{color : Colors.gray1, marginTop : '99px'}}>
+                                {userObject.username + '님이 '} {<span style={{color : Colors.primary}}>구매하신 내역</span>}{'입니다.'}
+                            </Heading>
+                        </PCHeading>
+                        <MobileHeading>{userObject.username + '님이 '} {<span style={{color : Colors.primary}}>구매하신 내역</span>}{'입니다.'}</MobileHeading>
+                        <MybuyingList data = {Data}/>                        
+                    </>
+                    ) :  
+                    ( // 내역 없을 경우
+                    <>
+                        <MobileBox>
+                        <PCMessage>
+                            <Heading bold level = {2} style={{color : Colors.black}}>
+                                {userObject.username + '님의'} {<span style={{color : Colors.primary}}>구매 내역</span>}{'이 없어요 :('}
+                            </Heading>
+                            <Text size='20px'>입력하신 정보에 따라 적합한 워크북과 코칭 프로그램을 추천해드려요.</Text>
+                        </PCMessage>
+                        <MobileMessage>
+                            <MobileHeading>
+                                {userObject.username + '님의'} {<span style={{color : Colors.primary}}>구매 내역</span>}{'이 없어요 :('}
+                            </MobileHeading>
+                            <MobileText>입력하신 정보에 따라 적합한 워크북과 코칭 프로그램을<br/>추천해드려요.</MobileText>            
+                        </MobileMessage>
+                        <PCImages>
+                            <Image
+                                src="/mainGraphic_section1_human.png"
+                                alt=""
+                                width={348}
+                                height={231.56}
+                                priority
+                            />
+                        </PCImages>       
+                        <MobileImages>
+                            <Image
+                                src="/mainGraphic_section1_human.png"
+                                alt=""
+                                width={149}
+                                height={99}
+                                priority
+                            />                    
+                        </MobileImages>                 
+                        </MobileBox>                        
+                    </>
+                    ) 
+                )
+            ) : 
+            ( // 찜한내역
+            (userObject.likeItemIds.length > 0?
+                ( // 찜한내역 있을 경우
                 <>  
                     <EraseAll>
                         <Text size='20px'>모두 지우기</Text>
@@ -56,43 +97,52 @@ export function MypageList(props : any){
                         <MypageCardList data={[]} /> {/* 데이터 넣어야 함 */}
                         {/* 페이지 생성되면 url 변경 */}
                     </ProductListWrap>                    
-                </>))
-            ) : ( // 내역 없을 경우
-            <MobileBox>
-            <PCMessage>
-                <Heading bold level = {2} style={{color : Colors.black}}>
-                    {userObject.username + '님의'} {<span style={{color : Colors.primary}}>{props.activeTab === 'mybuying'? '구매 내역' : '찜한 내역'}</span>}{'이 없어요 :('}
-                </Heading>
-                <Text size='20px'>입력하신 정보에 따라 적합한 워크북과 코칭 프로그램을 추천해드려요.</Text>
-            </PCMessage>
-            <MobileMessage>
-                <MobileHeading>
-                    {userObject.username + '님의'} {<span style={{color : Colors.primary}}>{props.activeTab === 'mybuying'? '구매 내역' : '찜한 내역'}</span>}{'이 없어요 :('}
-                </MobileHeading>
-                <MobileText>입력하신 정보에 따라 적합한 워크북과 코칭 프로그램을<br/>추천해드려요.</MobileText>            
-            </MobileMessage>
-            <PCImages>
-                <Image
-                    src="/mainGraphic_section1_human.png"
-                    alt=""
-                    width={348}
-                    height={231.56}
-                    priority
-                />
-            </PCImages>       
-            <MobileImages>
-                <Image
-                    src="/mainGraphic_section1_human.png"
-                    alt=""
-                    width={149}
-                    height={99}
-                    priority
-                />                    
-            </MobileImages>                 
-            </MobileBox>)}
+                </>
+                ) 
+                : 
+                ( // 찜한내역 없는 경우
+                <>
+                    <MobileBox>
+                        <PCMessage>
+                            <Heading bold level = {2} style={{color : Colors.black}}>
+                                {userObject.username + '님의'} {<span style={{color : Colors.primary}}>찜한 내역</span>}{'이 없어요 :('}
+                            </Heading>
+                            <Text size='20px'>입력하신 정보에 따라 적합한 워크북과 코칭 프로그램을 추천해드려요.</Text>
+                        </PCMessage>
+                        <MobileMessage>
+                            <MobileHeading>
+                                {userObject.username + '님의'} {<span style={{color : Colors.primary}}>찜한 내역</span>}{'이 없어요 :('}
+                            </MobileHeading>
+                            <MobileText>입력하신 정보에 따라 적합한 워크북과 코칭 프로그램을<br/>추천해드려요.</MobileText>            
+                        </MobileMessage>
+                        <PCImages>
+                            <Image
+                                src="/mainGraphic_section1_human.png"
+                                alt=""
+                                width={348}
+                                height={231.56}
+                                priority
+                            />
+                        </PCImages>       
+                        <MobileImages>
+                            <Image
+                                src="/mainGraphic_section1_human.png"
+                                alt=""
+                                width={149}
+                                height={99}
+                                priority
+                            />                    
+                        </MobileImages>                 
+                    </MobileBox>
+                </>
+                )
+            )
+            )
+            }
         </div>
         </>
-        ) :
+        )
+        :
         // 비로그인시, 로딩 전
         (<div/>
         )
