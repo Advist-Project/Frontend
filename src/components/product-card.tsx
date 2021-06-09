@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "@emotion/styled";
 import { min, Tags, Colors } from "./ui";
 import { LikeBtn } from "./like-button";
 import { Price } from "./price";
 import Thumbnail from "./product-card-thumb";
+import axios, { AxiosResponse } from 'axios';
+import { myContext } from "context";
+import { User } from 'types/logintypes';
 
 // Heading
 interface IProductCardProps {
-  id: number;
+  id: number; // itemId
   label: string | undefined;
   title: string;
   likes: number;
@@ -19,14 +22,40 @@ interface IProductCardProps {
 export const ProductCard: React.FC<IProductCardProps> = ({ id, label, title, likes, img, tag, price, discountPrice }) => {
   const [likesCount, setLikesCount] = useState<number>(likes);
   const [userLikeState, setUserLikeState] = useState<boolean>(false);
+  const userObject = useContext(myContext) as User;
+  const [RunOnce, setRunOnce] = useState<boolean>(true);
+
+  if(userObject !== undefined && RunOnce){ // api로딩 후 처음 한 번만 실행
+    // 자신이 좋아요 클릭했었던 경우 체크된 아이콘 표시
+    setUserLikeState(userObject.likeItemIds.indexOf(id) === -1? false : true);
+    setRunOnce(false);
+  }
 
   const chageUserLikeState = () => {
-    if(userLikeState){
-      setLikesCount(likesCount - 1);
-      setUserLikeState(false);
-    } else {
-      setLikesCount(likesCount + 1);
-      setUserLikeState(true);
+    if(userLikeState){ // 좋아요 취소
+      if(userObject){
+        setLikesCount(likesCount - 1);
+        setUserLikeState(false);
+        axios.get(process.env.NEXT_PUBLIC_API_URL as string + `/item/cancelheart/${userObject.userId}` + `?itemId=${id}`, { withCredentials: true }).then((res: AxiosResponse) => {
+          if (res.data){
+            //console.log(res);
+          }
+        }) 
+      } else{
+        alert('로그인이 필요합니다.');
+      }      
+    } else { // 좋아요
+      if(userObject){
+        setLikesCount(likesCount + 1);
+        setUserLikeState(true);
+        axios.get(process.env.NEXT_PUBLIC_API_URL as string + `/item/heart/${userObject.userId}` + `?itemId=${id}`, { withCredentials: true }).then((res: AxiosResponse) => {
+          if (res.data){
+            //console.log(res);
+          }
+        })  
+      } else{
+        alert('로그인이 필요합니다.');
+      }
     }
   }
 
