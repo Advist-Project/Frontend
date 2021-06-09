@@ -11,6 +11,8 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.1.min.js" type="application/javascript"></script>
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-MDTQ5709C8"></script>
+          <script src="common/analy.js" type="application/javascript"></script>
         </Head>
         <body>
           <Main />
