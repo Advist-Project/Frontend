@@ -4,21 +4,12 @@ import { min, max, Button, Colors } from "components/ui";
 import { myContext } from "../context";
 import { User } from '../types/logintypes';
 import { LogoutButtons } from 'components/logout-buttons';
-import axios, { AxiosResponse } from 'axios';
+import { MobileMembersMenu } from 'components/members-menu';
 
 export const Header = (props: any) => {
   const userObject = useContext(myContext) as User;
   const [open, setOpen] = useState<boolean>(false);
-  
-  function logoutListener(){
-    axios.get("https://advist.herokuapp.com/user/auth/logout", {
-      withCredentials: true
-    }).then((res: AxiosResponse) => {
-        if (res.data === "done") {
-          window.location.href = "/"
-        }
-    })    
-  }
+
 
   function toggleMenu(){
     setOpen(!open);
@@ -35,6 +26,7 @@ export const Header = (props: any) => {
       <Desktop className="desktop wrap">
         <a href="/"><img src={props.white ? '/logo_white.svg' : '/logo.png'} height="44" /></a>
         <RightElements>
+          <a onClick={()=>alert('준비 중입니다.')}>서비스 소개</a>
           <a href="/all">코칭 프로그램</a>
           {userObject ? <LogoutButtons white={props.white ? true : false} /> : <Button onClick = {() =>  window.location.href = "/login"} type={props.white ? 'loginWhite' : 'login'}>로그인</Button>}
         </RightElements>
@@ -47,7 +39,10 @@ export const Header = (props: any) => {
         <MobileMenu className={open ? 'open' : ''}>
           <a href="/"><img src="/logo.png" height="22" /></a>
           <ul>
-            {userObject ? (<><li><a onClick = {logoutListener}>로그아웃</a></li> <li><a href="/mypage">마이페이지</a></li> </>) : <li><a href="/login">로그인</a></li>}
+            {userObject ? <MobileMembersMenu username={userObject.username} /> : <li><a href="/login">로그인</a></li>}
+            <li>
+              <a onClick={()=>alert('준비 중입니다.')}>서비스 소개</a>
+            </li>
             <li>
               <a href="/all">코칭 프로그램</a>
             </li>
@@ -92,6 +87,7 @@ const RightElements = styled.div`
     display: inline-block;
     text-align: center;
     margin-right: 68px;
+    cursor: pointer;
   
     font-weight: 500;
     font-size: 16px;
@@ -134,12 +130,16 @@ const MobileMenuBtn = styled.button`
 const MobileMenu = styled.div`
   display: none;
   text-align: left;
-  width: calc(100vw - 80px);
+  width: 75%;
   height: 100vh;
   background: ${Colors.white};
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   padding: 18px 20px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 167%;
+  color: ${Colors.gray1};
 
   &.open {
     display: block;
@@ -150,15 +150,14 @@ const MobileMenu = styled.div`
   }
 
   a {
-    font-weight: 500;
-    font-size: 16px;
-    color: ${Colors.gray1};
+    color: inherit;
+    cursor: pointer;
   }
 
-  ul {
+  > ul {
     margin-top: 44px;
   }
-  li {
+  > ul > li {
     margin-bottom: 22px;
   }
 `;
