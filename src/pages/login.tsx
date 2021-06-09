@@ -9,7 +9,7 @@ export default function LoginPage(){
     const [AgreeModal, setAgreeModal] = useState<boolean>(false);
     useEffect(() => {
         const referrer = document.referrer; // 이전 경로 저장
-        console.log(referrer);     
+        localStorage.setItem("prev", referrer); // 로컬스토리지에 저장
     }, [])
 
     function onClickListener(){
