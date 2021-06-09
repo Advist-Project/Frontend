@@ -31,7 +31,7 @@ export const min = breakpoints.map(
   bp => `@media (min-width: ${bp}px)`
 );
 export const max = breakpoints.map(
-  bp => `@media (max-width: ${bp}px)`
+  bp => `@media (max-width: ${bp-1}px)`
 );
 
 // Styles

@@ -14,9 +14,9 @@ export const Header = (props: any) => {
   function toggleMenu(){
     setOpen(!open);
     if(!open){
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('dimmed_mo');
     } else {
-      document.body.removeAttribute('style');
+      document.body.classList.remove('dimmed_mo');
     }
   }
 
@@ -49,9 +49,6 @@ export const Header = (props: any) => {
           </ul>
         </MobileMenu>
       </Mobile>
-      {
-        open? <Dimmed/> : null 
-      }
     </Container>
   )
 }
@@ -160,14 +157,4 @@ const MobileMenu = styled.div`
   > ul > li {
     margin-bottom: 22px;
   }
-`;
-
-const Dimmed = styled.div`
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 1000vw;
-  height: 1000vh;
-  background: rgba(20, 20, 42, 0.5);
-  z-index: 2;
 `;
