@@ -4,7 +4,6 @@ export function OauthPage(){
     useEffect(() => {
         const prev : string = localStorage.getItem("prev") || '/';
         window.location.href = prev;
-        localStorage.removeItem("prev");
     }, [])
 
     return(

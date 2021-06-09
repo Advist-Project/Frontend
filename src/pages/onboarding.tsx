@@ -33,7 +33,9 @@ export default function OnboardingPage(){
         .then(function () {
              // response  
             // console.log(res.data.result);
-            router.push('/');
+            const prev : string = localStorage.getItem("prev") || '/';
+            router.push(prev);
+            localStorage.removeItem("prev");
         }).catch(function (err : any) {
             // 오류발생시 실행
             console.log(err);
