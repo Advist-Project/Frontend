@@ -27,7 +27,7 @@ export function MobileMembersMenu({username}: any){
   }
 
   function toggleMenu(isOpen: any){
-    setuserClassName(isOpen ? 'opened' : 'closed')
+    setuserClassName(isOpen ? 'closed' : 'opened')
     setIsOpen(!isOpen);
 
   }
