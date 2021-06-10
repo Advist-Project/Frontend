@@ -19,7 +19,7 @@ export const Layout: React.FC<ILayoutProps> = ({ children, title, noFooter, whit
           : `업계 일잘러 선배들의 1:1 코칭, ${APP_NAME}`
         }  
         </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
       </Head>
       <Header white={whiteHeader}/>
       <>{children}</>
