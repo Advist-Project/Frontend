@@ -216,8 +216,8 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
           </ul>
         </OptionPanel>
         <div className="btnWrap">
-          <LikeBtn state={userLikeState} small border />
-          <MobileBuyBtn onClick={() => {onClickListenerMobileBuyBtn;chageUserLikeState;}}>{buttonText}</MobileBuyBtn>
+          <LikeBtn state={userLikeState} onClick = {chageUserLikeState} small border />
+          <MobileBuyBtn onClick={onClickListenerMobileBuyBtn}>{buttonText}</MobileBuyBtn>
         </div>
       </MobileFloatingBtn>
       <CoachProfile className="wrap">
