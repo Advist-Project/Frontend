@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { myContext } from "context";
 import { User } from 'types/logintypes';
 import Loader from "react-loader-spinner";
+import axios, { AxiosResponse } from 'axios';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const itemId = context.query.id;
@@ -31,6 +32,43 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 export default function Details({itemData}: InferGetServerSidePropsType<typeof getServerSideProps>){
   const { itemId, title, tag, options } = itemData;
   const router = useRouter();
+
+  const userObject = useContext(myContext) as User;
+
+  const [userLikeState, setUserLikeState] = useState<boolean>(false); // 좋아요 상태
+  const [RunOnce, setRunOnce] = useState<boolean>(true);
+
+  if(userObject !== undefined && RunOnce){ // api로딩 후 처음 한 번만 실행
+    // 자신이 좋아요 클릭했었던 경우 체크된 아이콘 표시
+    setUserLikeState(userObject.likeItemIds.indexOf(itemId) === -1? false : true);
+    setRunOnce(false);
+  }
+
+  const chageUserLikeState = () => {
+    if(userLikeState){ // 좋아요 취소
+      if(userObject){
+        setUserLikeState(false);
+        axios.get(process.env.NEXT_PUBLIC_API_URL as string + `/item/cancelheart/${userObject.userId}` + `?itemId=${itemId}`, { withCredentials: true }).then((res: AxiosResponse) => {
+          if (res.data){
+            //console.log(res);
+          }
+        }) 
+      } else{
+        alert('로그인이 필요합니다.');
+      }      
+    } else { // 좋아요
+      if(userObject){
+        setUserLikeState(true);
+        axios.get(process.env.NEXT_PUBLIC_API_URL as string + `/item/heart/${userObject.userId}` + `?itemId=${itemId}`, { withCredentials: true }).then((res: AxiosResponse) => {
+          if (res.data){
+            //console.log(res);
+          }
+        })  
+      } else{
+        alert('로그인이 필요합니다.');
+      }
+    }
+  }  
 
   function routeToOrder(userId: any, itemId: any, optionId: any, type: string){
     if(type === 'workbook'){
@@ -55,7 +93,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
   const askSectionRef = useRef<HTMLDivElement>(null);
   const tabHeight:number = 161; //109 + 52
 
-  const userObject = useContext(myContext) as User;
+  
 
   function onClickListener(optionId: number){
     // 비로그인 || 로그인 api 받기 전에 클릭할 경우 경고
@@ -143,7 +181,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
           </DefaultInfo>
           <FunctionsAndPriceInfo>
             <div className="likeBtn">{/* 로그인 안된 상태에서 찜하기 버튼 눌렀을 때 케이스 */}
-              <LikeBtn state={false} />
+              <LikeBtn state={userLikeState} onClick={chageUserLikeState} />
             </div>
             <div className="rightArea">
               <Price discountPrice={options[0].discountPrice} price={options[0].price} />
@@ -178,8 +216,8 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
           </ul>
         </OptionPanel>
         <div className="btnWrap">
-          <LikeBtn state={false} small border />
-          <MobileBuyBtn onClick={onClickListenerMobileBuyBtn}>{buttonText}</MobileBuyBtn>
+          <LikeBtn state={userLikeState} small border />
+          <MobileBuyBtn onClick={() => {onClickListenerMobileBuyBtn;chageUserLikeState;}}>{buttonText}</MobileBuyBtn>
         </div>
       </MobileFloatingBtn>
       <CoachProfile className="wrap">
