@@ -2,7 +2,7 @@ import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import { min, max, Heading, Colors, Text } from "components/ui";
 import Image from 'next/image';
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { myContext } from "context";
 import { User } from 'types/logintypes';
 import { Button } from "components/_design/buttons"
@@ -16,7 +16,14 @@ export default function OnboardingPage(){
     const [CompanyName, setCompanyName] = useState("");
     const [Job, setJob] = useState("");
     const [Years, setYears] = useState("");
+    const [Prev, setPrev] = useState('/');
     const router = useRouter();
+
+    useEffect(() => {
+        const prev = localStorage.getItem("prev") || '/';
+        setPrev(prev);
+        //console.log(prev);
+    }, [])
 
     const onNameHandler = (event : any) => {
         setCompanyName(event.currentTarget.value);
@@ -33,8 +40,8 @@ export default function OnboardingPage(){
         .then(function () {
              // response  
             // console.log(res.data.result);
-            const prev : string = localStorage.getItem("prev") || '/';
-            router.push(prev);
+            
+            router.push(Prev);
             localStorage.removeItem("prev");
         }).catch(function (err : any) {
             // 오류발생시 실행
@@ -95,11 +102,11 @@ export default function OnboardingPage(){
                         <YearsInput setYears = {setYears}/>
                     </InputBox>
                     <PCButtonBox>
-                        <Button onClick = {() => router.push('/')} style = {{width : '236px', height : '52px'}}>다음에 하기</Button>
+                        <Button onClick = {() => router.push(Prev)} style = {{width : '236px', height : '52px'}}>다음에 하기</Button>
                         <Button onClick = {onClickListener} style = {{width : '236px', height : '52px'}} type = "start" disabled = {CompanyName === '' ||Job === '' || Years === ''? true : false}>완료</Button>
                     </PCButtonBox>
                     <MobileButtonBox>
-                        <Button onClick = {() => router.push('/')} style = {{width : '136px', height : '28px', fontSize : '12px', borderWidth : '0.4px', borderRadius : '10px'}}>다음에 하기</Button>
+                        <Button onClick = {() => router.push(Prev)} style = {{width : '136px', height : '28px', fontSize : '12px', borderWidth : '0.4px', borderRadius : '10px'}}>다음에 하기</Button>
                         <Button onClick = {onClickListener} style = {{width : '136px', height : '28px', fontSize : '12px', borderWidth : '0.4px', borderRadius : '10px'}} type = "start" disabled = {CompanyName === '' ||Job === '' || Years === ''? true : false}>완료</Button>
                     </MobileButtonBox>                    
                 </Container>
