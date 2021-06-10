@@ -95,11 +95,11 @@ export default function OnboardingPage(){
                         <YearsInput setYears = {setYears}/>
                     </InputBox>
                     <PCButtonBox>
-                        <Button onClick = {() => router.back()} style = {{width : '236px', height : '52px'}}>다음에 하기</Button>
+                        <Button onClick = {() => router.push('/')} style = {{width : '236px', height : '52px'}}>다음에 하기</Button>
                         <Button onClick = {onClickListener} style = {{width : '236px', height : '52px'}} type = "start" disabled = {CompanyName === '' ||Job === '' || Years === ''? true : false}>완료</Button>
                     </PCButtonBox>
                     <MobileButtonBox>
-                        <Button onClick = {() => router.back()} style = {{width : '136px', height : '28px', fontSize : '12px', borderWidth : '0.4px', borderRadius : '10px'}}>다음에 하기</Button>
+                        <Button onClick = {() => router.push('/')} style = {{width : '136px', height : '28px', fontSize : '12px', borderWidth : '0.4px', borderRadius : '10px'}}>다음에 하기</Button>
                         <Button onClick = {onClickListener} style = {{width : '136px', height : '28px', fontSize : '12px', borderWidth : '0.4px', borderRadius : '10px'}} type = "start" disabled = {CompanyName === '' ||Job === '' || Years === ''? true : false}>완료</Button>
                     </MobileButtonBox>                    
                 </Container>
