@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useState, useEffect } from 'react'
-import { min, max, Colors, Button } from "components/ui";
+import { min, max, Colors, Button, Dimmed } from "components/ui";
 import axios from 'axios';
 import { useRouter } from 'next/router'
 
@@ -188,7 +188,7 @@ export function ReviewDetail(props : any){
         <>
         <Container>
             <OnContainer>
-                <OutButton onClick = {() => onCloseListener()}><img src="/out.png"/></OutButton>
+                <OutButton onClick={onCloseListener}><img src="/out.png"/></OutButton>
                 <Box>
                     <BoxHeader>후기 작성</BoxHeader>
                     <Line/>
@@ -254,7 +254,8 @@ export function ReviewDetail(props : any){
                     </ReviewBox>
                 </Box>
             </OnContainer>
-        </Container>      
+        </Container>
+        <Dimmed onClick={onCloseListener}/>    
         </>
     )
 
@@ -276,17 +277,6 @@ const Container = styled.div`
     border-radius: 20px;
     z-index: 11;
 
-    &::after {
-    content: '';
-    display: block;
-    position: fixed;
-    top: -100%;
-    left: -100%;
-    width: 1000vw;
-    height: 1000vh;
-    background: rgba(20, 20, 42, 0.5);
-    z-index: -1; 
-    }
     ${max[1]}{
         width: calc(100% - 40px);
         transform: translateX(-50%) translateY(-50%);

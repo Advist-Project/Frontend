@@ -8,6 +8,7 @@ import { Box as _box } from './_design/box';
 import { Input as _input } from './_design/textInputs';
 import { Tags as _tags } from './_design/tags';
 import { Spacing as _spacing } from './_design/spacing';
+import * as _dimmed from './_design/dimmed';
 
 // Components
 export const Heading = _heading;
@@ -37,6 +38,8 @@ export const max = breakpoints.map(
 // Styles
 export const ToggleBtn = _toggleBtn;
 export const BtnCss = _btnCss;
+export const Dimmed = _dimmed.Dimmed;
+export const DimmedOnlyMobile = _dimmed.DimmedOnlyMobile;
 
 // Method
 export const Spacing = _spacing;

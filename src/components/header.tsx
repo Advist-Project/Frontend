@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import styled from "@emotion/styled";
-import { min, max, Button, Colors } from "components/ui";
+import { min, max, Button, Colors, DimmedOnlyMobile } from "components/ui";
 import { myContext } from "../context";
 import { User } from '../types/logintypes';
 import { LogoutButtons } from 'components/logout-buttons';
@@ -49,6 +49,11 @@ export const Header = (props: any) => {
           </ul>
         </MobileMenu>
       </Mobile>
+      {
+        open
+        ? <DimmedOnlyMobile onClick={toggleMenu}/>
+        : null
+      }
     </Container>
   )
 }
@@ -120,7 +125,7 @@ const MobileMenuBtn = styled.button`
   &.close {
     background-image: url(/icon/close_56px.svg);
     position: relative;
-    z-index: 3;
+    z-index: 11;
   }
 `;
 
