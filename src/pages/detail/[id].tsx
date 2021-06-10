@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { Layout } from "components/layout";
 import styled from "@emotion/styled";
 import Image from 'next/image';
-import { min, max, BtnCss, Tags, Button, Colors, Text, Buying } from "components/ui";
+import { min, max, BtnCss, Tags, Button, Colors, Text, Buying, DimmedOnlyMobile } from "components/ui";
 import { LikeBtn } from "components/like-button";
 import { Price } from "components/price";
 import AnchorTab from 'components/tab';
@@ -111,7 +111,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
   function onClickListenerMobileBuyBtn(){
     if(!optionPanel){
       setOptionPanel(true);
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('dimmed_mo');
     }
     else if(selectedOption > 0){
       setButtonText(loader);
@@ -120,11 +120,11 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
   }
   function closeOptionPanel(){
     setOptionPanel(false);
-    document.body.style.overflow = 'auto';
+    document.body.classList.remove('dimmed_mo');
   }
 
   return (
-    <MobilePadding className={optionPanel ? 'dimmed' : ''}>
+    <MobilePadding>
     <Layout title={title}>
       <ProductInfo className="wrap">
         <div className="leftArea">
@@ -155,7 +155,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
       </ProductInfo>
       <MobileFloatingBtn>
         <OptionPanel className={optionPanel ? 'visible' : ''}>
-          <h5 onClick={closeOptionPanel}>상품 옵션</h5>
+          <h5>상품 옵션</h5>
           <ul>
           {
             options.map((item: any) => (
@@ -229,6 +229,11 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
         </DetailInfoContainer>
       </DetailInfo>
     </Layout>
+    {
+      optionPanel
+      ? <DimmedOnlyMobile onClick={closeOptionPanel} style={{zIndex: 8}}/>
+      : null
+    }
     </MobilePadding>
   )
 }
@@ -236,18 +241,6 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
 const MobilePadding = styled.div`
   ${max[1]}{
     padding-bottom: 72px;
-  }
-
-  &.dimmed::before {
-    content: '';
-    display: block;
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 1000vw;
-    height: 1000vh;
-    background: rgba(20, 20, 42, 0.5);
-    z-index: 2;
   }
 `;
 

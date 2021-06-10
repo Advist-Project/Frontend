@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { max, Colors } from "components/ui";
+import { max, Colors, Dimmed } from "components/ui";
 import { AgreeTab } from 'components/tab';
 import { TermsText, UserinfoText, RefundText } from "components/agreeText"
 
@@ -37,16 +37,6 @@ export function AgreePage(props : any) {
     )
 }
 
-const Dimmed = styled.div`
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 1000vw;
-  height: 1000vh;
-  background: rgba(20, 20, 42, 0.5);
-  cursor: pointer;
-  z-index: 10;
-`;
 const Container = styled.div`
     position: fixed;
     width: calc(100% - 40px);

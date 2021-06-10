@@ -144,34 +144,10 @@ export const reset = css`
   }
   body.dimmed {
     overflow: hidden;
-    
-    &:after {
-      content: '';
-      display: block;
-      position: fixed;
-      top: -50%;
-      left: -50%;
-      width: 1000vw;
-      height: 1000vh;
-      background: rgba(20, 20, 42, 0.5);
-      z-index: 2;
-    }
   }
   body.dimmed_mo {
     @media (max-width: 768px) {
       overflow: hidden;
-    
-      &:after {
-        content: '';
-        display: block;
-        position: fixed;
-        top: -50%;
-        left: -50%;
-        width: 1000vw;
-        height: 1000vh;
-        background: rgba(20, 20, 42, 0.5);
-        z-index: 2;
-      }
     }
   }
 `;
