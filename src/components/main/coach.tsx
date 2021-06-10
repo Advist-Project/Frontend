@@ -19,8 +19,8 @@ export const Coach: React.FC<ICoachProps> = ({company, team, desc, tag}) => {
         </Title>
         <Desc>
         {
-          desc.split('\\n').map( line => {
-            return (<span>{line}<br/></span>)
+          desc.split('\\n').map(( line, idx ) => {
+            return (<span key={idx}>{line}<br/></span>)
           })
         }
         </Desc>

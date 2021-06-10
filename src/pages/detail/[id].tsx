@@ -220,10 +220,12 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
           <MobileBuyBtn onClick={onClickListenerMobileBuyBtn}>{buttonText}</MobileBuyBtn>
         </div>
       </MobileFloatingBtn>
-      <CoachProfile className="wrap">
+      <div className="wrap">
+        <CoachProfile>
           <img src={`/detail/${itemId}/coach.png`} className="img_pc"/>
           <img src={`/detail/${itemId}/coach_mobile.png`} className="img_mo"/>
-      </CoachProfile>
+        </CoachProfile>
+      </div>
       <AnchorTab create={{
                           //  workbook: { sectionRef: 'workbook' },
                            coaching: { sectionRef: 'coaching' },
@@ -284,7 +286,8 @@ const MobilePadding = styled.div`
 
 const ProductInfo = styled.div`
   margin-top: 12px;
-  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 4px ${Colors.gray4} solid;
 
   .leftArea {
     margin-bottom: 28px;
@@ -304,6 +307,8 @@ const ProductInfo = styled.div`
     align-items: flex-start;
     margin-top: 56px;
     margin-bottom: 93px;
+    padding-bottom: 0;
+    border-bottom : 0;
 
     .leftArea {
       flex-basis: 645px;
@@ -383,6 +388,7 @@ const MobileBuyBtn = styled.button`
   flex-grow: 1;
   height: 36px;
   margin-left: 4px;
+  font-size: 0.875rem;
 `;
 
 const OptionPanel = styled.div`
@@ -476,7 +482,6 @@ const OptionDesc = styled.p`
 
 
 const CoachProfile = styled.div`
-  border-top: 4px ${Colors.gray4} solid;
   padding-top: 16px;
 
   img {
