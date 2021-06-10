@@ -4,7 +4,7 @@ interface IProductListProps {
   data: any[];
 }
 export const ProductList: React.FC<IProductListProps> = ({ data }) => { 
-  console.log(data);
+  //console.log(data);
 
   return (
     <>

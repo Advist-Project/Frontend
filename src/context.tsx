@@ -6,7 +6,7 @@ export default function Context(props: any) {
     useEffect(() => {
         axios.get(process.env.NEXT_PUBLIC_GET_USER as string, { withCredentials: true }).then((res: AxiosResponse) => {
             if (res.data) {
-                console.log(res.data);
+                //console.log(res.data);
                 setUserObject(res.data);
             }
         })
