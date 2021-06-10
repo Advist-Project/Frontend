@@ -108,7 +108,7 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
                 <ScheduleSection scheduleList={schedule} setScheduleList={setSchedule}/>
               </Container>
               <Buttons>
-                <Button type="secondary" onClick={()=>window.history.back()}>이전</Button>
+                <Button type="secondary" onClick={()=>router.push(`/detail/${data.itemInfo.itemId}`)}>이전</Button>
                 <Button type="start" disabled={schedule.length > 0 ? false : true} onClick={postCoachingDate}>다음</Button>
               </Buttons>
             </>
@@ -214,6 +214,11 @@ const Buttons = styled.div`
       border-radius: 10px;
       height: 28px;
       margin: 0 4px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 `;
