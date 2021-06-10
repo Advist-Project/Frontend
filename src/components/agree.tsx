@@ -16,8 +16,9 @@ export function AgreePage(props : any) {
       document.body.removeAttribute('style');
     }
     return(
+      <>
         <Container>
-            <OutButton onClick = {() => onCloseListener()}><img src="/out.png"/></OutButton>
+            <OutButton onClick={onCloseListener}><img src="/out.png"/></OutButton>
             <AgreeTab create={{ terms: { sectionRef: 'terms' },
                           userinfo: { sectionRef: 'userinfo' },
                           refund: { sectionRef: 'refund' }
@@ -31,14 +32,21 @@ export function AgreePage(props : any) {
               </DetailInfoContainer>
             </DetailInfo>              
         </Container>
+        <Dimmed onClick={onCloseListener}/>
+      </>
     )
 }
-// width: 1300px;
-// width: 67%;
-// height: 82%;
-// left: 310px;
-// left: 16.3%;
-// top: 14.9%;
+
+const Dimmed = styled.div`
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 1000vw;
+  height: 1000vh;
+  background: rgba(20, 20, 42, 0.5);
+  cursor: pointer;
+  z-index: 10;
+`;
 const Container = styled.div`
     position: fixed;
     width: calc(100% - 40px);
@@ -50,18 +58,6 @@ const Container = styled.div`
     background: ${Colors.gray1};
     border-radius: 20px;
     z-index: 11;
-
-    &::after {
-      content: '';
-      display: block;
-      position: fixed;
-      top: -50%;
-      left: -50%;
-      width: 1000vw;
-      height: 1000vh;
-      background: rgba(20, 20, 42, 0.5);
-      z-index: -1;
-    }
 `;
 const OutButton = styled.div`
   position: absolute;

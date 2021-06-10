@@ -369,7 +369,7 @@ const MobileFloatingBtn = styled.div`
   position: fixed;
   left: 0;
   bottom: 0;
-  z-index: 20;
+  z-index: 9;
   width: 100%;
 
   .btnWrap {
