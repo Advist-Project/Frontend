@@ -6,6 +6,8 @@ import { myContext } from "context";
 import { User } from 'types/logintypes';
 import { MypageCardList } from "components/mypage-card-list";
 import { MybuyingList } from 'components/mybuying-table-list'
+import { EraseModal } from 'components/erasemodal'
+
 import axios, { AxiosResponse } from 'axios';
 
 export function MypageList(props : any){
@@ -14,6 +16,7 @@ export function MypageList(props : any){
     const [PaymentData, setPaymentData] = useState<Object>();
     const [LikeData, setLikeData] = useState<Object>();
     const [RunOnce, setRunOnce] = useState<boolean>(true);
+    const [ShowEraseModal, setShowEraseModal] = useState<boolean>(false);
     
         if(userObject !== undefined && RunOnce){ // api로딩 후 처음 한 번만 실행
             axios.get(process.env.NEXT_PUBLIC_API_URL as string + `/mypage/payment/${userObject.userId}`, { withCredentials: true }).then((res: AxiosResponse) => {
@@ -36,13 +39,9 @@ export function MypageList(props : any){
             setRunOnce(false);
         }
 
-    function eraseListener(){
-        axios.get(process.env.NEXT_PUBLIC_API_URL as string + `/mypage/uncheckedall/${userObject.userId}`, { withCredentials: true }).then((res: AxiosResponse) => {
-            if (res.data){
-                //console.log(res.data);
-                window.location.reload();
-            }
-        })
+    function onEraseListener(){
+        setShowEraseModal(true);
+        document.body.style.overflow = 'hidden';
     }
 
     return(
@@ -106,12 +105,10 @@ export function MypageList(props : any){
                 ( // 찜한내역 있을 경우
                 <>  
                     <EraseAll>
-                        <Erase onClick = {eraseListener}>모두 지우기</Erase>
-                        {/*모두 지우기 기능 구현 필요(api연동 후) */}
+                        <Erase onClick = {onEraseListener}>모두 지우기</Erase>
                     </EraseAll>
                     <ProductListWrap>
-                        <MypageCardList data={[LikeData]} /> {/* 데이터 넣어야 함 */}
-                        {/* 페이지 생성되면 url 변경 */}
+                        <MypageCardList data={[LikeData]} />
                     </ProductListWrap>                    
                 </>
                 ) 
@@ -155,6 +152,9 @@ export function MypageList(props : any){
             )
             )
             }
+        {           
+            userObject? (ShowEraseModal? <EraseModal userId = {userObject.userId} closeEraseModal={setShowEraseModal}/> : null) : (<div/>)
+        }
         </div>
         </>
         )
@@ -281,10 +281,13 @@ const ProductListWrap = styled.div`
 
 const Erase = styled.span`
     font-size: 20px;
-    font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: 30px;
     letter-spacing: 0px;
-    text-align: left;    
+    text-align: left;   
+    ${max[1]}{
+        margin-left : 20px;
+        font-size: 15px;
+    } 
 `;
