@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useState, useEffect } from 'react'
-import { max, Colors } from "components/ui";
+import { max, Colors, Dimmed } from "components/ui";
 import axios, { AxiosResponse } from 'axios';
 
 export function OrderDetail(props : any){ 
@@ -26,7 +26,7 @@ export function OrderDetail(props : any){
             <>
         <Container>
             <OnContainer>
-                <OutButton onClick = {() => onCloseListener()}><img src="/out.png"/></OutButton>
+                <OutButton onClick={onCloseListener}><img src="/out.png"/></OutButton>
                 <Box>
                     <BoxHeader>구매 내역</BoxHeader>
                     <Line/>
@@ -44,6 +44,7 @@ export function OrderDetail(props : any){
                 </Box>
             </OnContainer>
         </Container>
+        <Dimmed onClick={onCloseListener} />
         </>
         }
         </>
@@ -65,17 +66,6 @@ const Container = styled.div`
     border-radius: 20px;
     z-index: 11;
 
-    &::after {
-    content: '';
-    display: block;
-    position: fixed;
-    top: -100%;
-    left: -100%;
-    width: 1000vw;
-    height: 1000vh;
-    background: rgba(20, 20, 42, 0.5);
-    z-index: -1; 
-    }
     ${max[1]}{
         width: calc(100% - 20px);
         transform: translateX(-50%) translateY(-50%);
