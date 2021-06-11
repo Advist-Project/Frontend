@@ -4,8 +4,6 @@ interface IBuyingListProps {
   data: any[];
 }
 export const BuyingList: React.FC<IBuyingListProps> = ({ data }) => {
-  console.log(data);
-
   return (
     <>
       {data.map((option) => (

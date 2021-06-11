@@ -2,7 +2,6 @@ import axios from 'axios';
 import Router from "next/router";
 
 export function bootpay(data, extra){
-  console.log(data.userEmail);
   const itemId = data.itemInfo.itemId;
   BootPay.request({
     price: data.itemInfo.option.discountPrice, //할인 후 가격

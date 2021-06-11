@@ -45,7 +45,7 @@ function OrderComplete({data}: InferGetServerSidePropsType<typeof getServerSideP
   // 결제최종완료 처리 API
   axios.get(process.env.NEXT_PUBLIC_API_URL as string +`/pay/aftercomplete/${orderId}`)
         .then((res: AxiosResponse) => {
-          console.log(res);
+          // console.log(res);
         })
         .catch((err : any) => {
           console.log(err);

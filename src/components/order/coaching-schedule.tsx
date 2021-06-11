@@ -273,7 +273,6 @@ export default function ScheduleSection({scheduleList, setScheduleList}: any){
         for(const time in schedule[key].time){
           if(e.target.checked){
             if(!schedule[key].time[time].active){
-              console.log('추가', time);
               //추가
               newObj[key].time[time] = {
                 ...schedule[key].time[time],
@@ -287,7 +286,6 @@ export default function ScheduleSection({scheduleList, setScheduleList}: any){
             }
           } else {
             //삭제
-            console.log('삭제', time);
             newObj[key].time[time] = {
               ...schedule[key].time[time],
               active: false

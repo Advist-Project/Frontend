@@ -57,11 +57,10 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
   //코칭 일정 데이터베이스에 보내기
   async function postCoachingDate() {
     try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pay/coachingdate`, {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pay/coachingdate`, {
         orderId: data.orderId,
         dates: schedule.map((item:any)=>item.label)
       });
-      console.log('save coachingDate: ', res);
       changeStep(2);
     } catch (error) {
       console.error(error);
@@ -71,18 +70,16 @@ function OrderCoaching({data}: InferGetServerSidePropsType<typeof getServerSideP
   //코치에게 할 말 데이터베이스에 보내기
   async function postCocachingUserData() {
     try {
-      const res1 = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pay/coachingcontent`, {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pay/coachingcontent`, {
         orderId: data.orderId,
         content: userMessage
       });
-      const res2 = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pay/userinfo`, {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pay/userinfo`, {
         orderId: data.orderId,
         userId: data.userId,
         userName: userName,
         userPhone: userPhone
       });
-      console.log('save coachingComment: ', res1);
-      console.log('save userinfo: ', res2);
       changeStep(3);
     } catch (error) {
       console.error(error);

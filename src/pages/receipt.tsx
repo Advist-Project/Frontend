@@ -61,13 +61,12 @@ function Order({data}: InferGetServerSidePropsType<typeof getServerSideProps>){
   //구매하기 버튼 클릭 시, 유저 정보 넘기고 부트페이 실행
   async function tryPay() {
     try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pay/userinfo`, {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pay/userinfo`, {
         orderId: data.orderId,
         userId: data.userId,
         userName: userName,
         userPhone: userPhone
       });
-      console.log('save userinfo: ', res);
       bootpay(data, {method: method, pg: pg, userName: userName, userPhone: userPhone});
     } catch (error) {
       console.error(error);

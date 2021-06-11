@@ -27,7 +27,6 @@ export const Input: React.FC<IInputProps> = ({ isDisable }) => {
             setShowMsg(false);
             setTextMsg("올바른 전화번호를 입력해주세요!");
         }
-        console.log(PhoneNumber.length);
     }, [PhoneNumber]);    
 
     function onBlurListener() {
@@ -41,7 +40,6 @@ export const Input: React.FC<IInputProps> = ({ isDisable }) => {
         if(regex.test(event.target.value)){
             setPhoneNumber(event.target.value);
         }
-        console.log(PhoneNumber);
     }
 
     const Label = styled.div`

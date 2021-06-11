@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios, { AxiosResponse } from 'axios';
 import styled from "@emotion/styled";
 import { Colors } from 'components/ui';
+import router from "next/router";
 
 export function MobileMembersMenu({username}: any){
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +21,7 @@ export function MobileMembersMenu({username}: any){
   const MemberMenu = () => {
     return (
       <MemberMenuContainer>
-        <li><a href="/mypage">마이페이지</a></li>
+        <li><a onClick={()=>router.push('/maypage')}>마이페이지</a></li>
         <li><a onClick={logoutListener}>로그아웃</a></li>
       </MemberMenuContainer>
     )
