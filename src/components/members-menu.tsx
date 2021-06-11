@@ -21,7 +21,7 @@ export function MobileMembersMenu({username}: any){
   const MemberMenu = () => {
     return (
       <MemberMenuContainer>
-        <li><a onClick={()=>router.push('/maypage')}>마이페이지</a></li>
+        <li><a onClick={()=>router.push('/mypage')}>마이페이지</a></li>
         <li><a onClick={logoutListener}>로그아웃</a></li>
       </MemberMenuContainer>
     )
