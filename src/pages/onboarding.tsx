@@ -40,7 +40,6 @@ export default function OnboardingPage(){
         .then(function () {
              // response  
             // console.log(res.data.result);
-            
             router.push(Prev);
             localStorage.removeItem("prev");
         }).catch(function (err : any) {

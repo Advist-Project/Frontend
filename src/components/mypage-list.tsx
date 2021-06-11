@@ -160,7 +160,7 @@ export function MypageList(props : any){
         )
         :
         // 비로그인시, 로딩 전
-        (<div/>
+        (<></>
         )
         }
 
