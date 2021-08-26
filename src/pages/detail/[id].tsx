@@ -167,7 +167,7 @@ export default function Details({itemData}: InferGetServerSidePropsType<typeof g
       <ProductInfo className="wrap">
         <div className="leftArea">
           <Image
-            src={`/detail/${itemId}/thumb.png`}
+            src={`${process.env.NEXT_PUBLIC_S3_URL}/item/${itemId}/thumbnail.png`}
             alt=""
             width={645}
             height={363}
