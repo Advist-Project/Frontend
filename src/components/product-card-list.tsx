@@ -21,7 +21,7 @@ export const ProductList: React.FC<IProductListProps> = ({ data }) => {
                       title={data[0][num].title}
                       likes={data[0][num].likes}
                       // img={data[0][num].img}
-                      img={`/detail/${data[0][num].itemId}/thumb.png`}
+                      img={`${process.env.NEXT_PUBLIC_S3_URL}/item/${data[0][num].itemId}/thumbnail.png`}
                       tag={data[0][num].tag}
                       price={data[0][num].price}
                       discountPrice={data[0][num].discountPrice} />
